@@ -4,7 +4,10 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import ch.darklions888.SpellStorm.enums.MagicSource;
+import ch.darklions888.SpellStorm.enums.ManaPower;
 import ch.darklions888.SpellStorm.interfaces.ManaAmount;
+import ch.darklions888.SpellStorm.interfaces.SourceOrigin;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.BlockItem;
@@ -16,27 +19,23 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
-public class BaseBlockItem extends BlockItem implements ManaAmount
+public class BaseBlockItem extends BlockItem implements ManaAmount, SourceOrigin
 {
+	
 	protected boolean effect = false;
-	protected String displayName = null;
-	protected final int mana;
+	protected MagicSource source;
+	protected ManaPower manapower;
 	protected TextFormatting format;
 	
-	public BaseBlockItem(
-			int mana,
-			@Nullable String displayName, 
-			@Nullable TextFormatting format,
-			@Nullable boolean hasEffect,
-			Block block,
-			Item.Properties properties)
+	public BaseBlockItem(MagicSource source, ManaPower mana, @Nullable TextFormatting format, @Nullable boolean hasEffect, Block block, Item.Properties properties)
 	{
 		super(block, properties);
 		this.effect = hasEffect;
-		this.displayName = displayName;
-		this.mana = mana;
+		this.source = source;
+		this.manapower = mana;
 		this.format = format;
 	}
+
 	
 	@Override
 	public boolean hasEffect(ItemStack stack) 
@@ -47,27 +46,64 @@ public class BaseBlockItem extends BlockItem implements ManaAmount
 	@Override
 	public ITextComponent getDisplayName(ItemStack stack) 
 	{
-		if(displayName == null)
+		if(format == null)
 		{
 			return new TranslationTextComponent(this.getTranslationKey(stack));
 		}
 		else
 		{
-			return new StringTextComponent( format + displayName);
+			TranslationTextComponent translationText = new TranslationTextComponent(this.getTranslationKey(stack));
+			return new TranslationTextComponent(format + translationText.getString());
 		}
 	}
 
 	@Override
-	public int Mana() 
+	public ManaPower Mana() 
 	{
-		return mana;
+		return manapower;
 	}
 	
-
+	@Override
+	public MagicSource Source()
+	{
+		return source;
+	}
+	
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) 
 	{
-		tooltip.add(new StringTextComponent("\u00A7l" + "\u00A7d" + String.valueOf(mana) + "\u00A7r" +  " Mana power"));
+		tooltip.add(new StringTextComponent("\u00A7l" + "\u00A7d" + String.valueOf(manapower.mana) + "\u00A7r" +  " Mana power"));
+		tooltip.add(new StringTextComponent(GetSourceColor(source) + GetFontFormat(source) + source.sourceName + "\u00A7r" + " Magical Source"));
 		super.addInformation(stack, worldIn, tooltip, flagIn);
+	}
+	
+	private String GetSourceColor(MagicSource sourceColor)
+	{
+		switch(sourceColor)
+		{
+		case LIGHTMAGIC:
+			return "\u00A7e";
+		
+		case DARKMAGIC:
+			return "\u00A74";
+			
+		case UNKNOWNMAGIC:
+			return "\u00A70";
+		
+		default:
+			return "\u00A7f";
+		}
+	}
+	
+	private String GetFontFormat(MagicSource source)
+	{
+		switch(source) 
+		{
+		case UNKNOWNMAGIC:
+			return "\u00A7k";
+			
+			default:
+				return "\u00A7l";
+		}
 	}
 }
