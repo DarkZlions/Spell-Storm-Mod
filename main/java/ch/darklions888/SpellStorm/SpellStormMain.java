@@ -4,6 +4,7 @@ package ch.darklions888.SpellStorm;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import ch.darklions888.SpellStorm.init.ItemInit;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -29,6 +30,8 @@ public class SpellStormMain
 		
 		Bus.addListener(this::CommonSetup);
 		Bus.addListener(this::ClientSetup);
+		
+		ItemInit.REGISTERITEMS.register(Bus);
 		
 		SpellStormMain.INSTANCE = this;
 		MinecraftForge.EVENT_BUS.register(this);
