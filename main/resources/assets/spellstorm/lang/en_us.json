@@ -1,3 +1,12 @@
 {
-	"item.spellstorm.crystal": "Crystal Shard"
+	//Item
+	"item.spellstorm.crystal": "Crystal Shard",
+	"item.spellstorm.crystal_ore": "Crystal Ore",
+	"item.spellstorm.page_of_the_wither_skull": "The Page Of The Wither Skull",
+	
+	//Block
+	"block.spellstorm.crystal_ore": "Crystal Ore",
+	
+	//ItemGroup
+	"itemGroup.spellstormtab": "Spell Storm"
 }

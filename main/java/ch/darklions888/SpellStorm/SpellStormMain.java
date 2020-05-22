@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 
 import ch.darklions888.SpellStorm.init.BlockInit;
 import ch.darklions888.SpellStorm.init.ItemInit;
+import ch.darklions888.SpellStorm.world.gen.OreGeneration;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -42,7 +43,7 @@ public class SpellStormMain
 	@SubscribeEvent
 	public void CommonSetup(FMLCommonSetupEvent event)
 	{
-		
+		OreGeneration.GenerationSetup();
 	}
 	
 	@SubscribeEvent
@@ -54,7 +55,7 @@ public class SpellStormMain
 	@SubscribeEvent
 	public void LoadCompleteEvent(FMLLoadCompleteEvent event)
 	{
-		
+		OreGeneration.GenerationSetup();
 	}
 	
 	public static ResourceLocation location(String key)
