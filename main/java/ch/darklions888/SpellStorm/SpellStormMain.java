@@ -1,4 +1,4 @@
-package ch.minecraftmod.SpellStorm;
+package ch.darklions888.SpellStorm;
 
 
 import org.apache.logging.log4j.LogManager;
