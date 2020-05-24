@@ -20,7 +20,7 @@ public class OreGeneration
 		for(Biome biome : ForgeRegistries.BIOMES)
 		{
 			biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.ORE.withConfiguration
-					(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, BlockInit.crystal_ore.getDefaultState(), CrystalOreSize)).withPlacement(CrystalOre));
+					(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, BlockInit.CRYSTAL_ORE.get().getDefaultState(), CrystalOreSize)).withPlacement(CrystalOre));
 		}
 	}
 }
