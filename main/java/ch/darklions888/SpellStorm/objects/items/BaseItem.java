@@ -5,9 +5,9 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import ch.darklions888.SpellStorm.enums.MagicSource;
+import ch.darklions888.SpellStorm.enums.ManaContainerSize;
 import ch.darklions888.SpellStorm.enums.ManaPower;
-import ch.darklions888.SpellStorm.interfaces.ManaAmount;
-import ch.darklions888.SpellStorm.interfaces.SourceOrigin;
+import ch.darklions888.SpellStorm.interfaces.IMagicalItem;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,7 +17,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
-public class BaseItem extends Item implements ManaAmount, SourceOrigin
+public class BaseItem extends Item implements IMagicalItem
 {
 	protected boolean effect = false;
 	protected ManaPower manapower;
@@ -57,18 +57,6 @@ public class BaseItem extends Item implements ManaAmount, SourceOrigin
 			return new TranslationTextComponent(format + translationText.getString());
 		}
 	}
-
-	@Override
-	public ManaPower Mana() 
-	{
-		return manapower;
-	}
-	
-	@Override
-	public MagicSource Source()
-	{
-		return source;
-	}
 	
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) 
@@ -106,5 +94,23 @@ public class BaseItem extends Item implements ManaAmount, SourceOrigin
 			default:
 				return "\u00A7l";
 		}
+	}
+
+	@Override
+	public MagicSource magicSource() 
+	{
+		return source;
+	}
+
+	@Override
+	public ManaContainerSize manaContainer() 
+	{
+		return null;
+	}
+
+	@Override
+	public ManaPower manaPower() 
+	{
+		return manapower;
 	}
 }

@@ -5,9 +5,9 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import ch.darklions888.SpellStorm.enums.MagicSource;
+import ch.darklions888.SpellStorm.enums.ManaContainerSize;
 import ch.darklions888.SpellStorm.enums.ManaPower;
-import ch.darklions888.SpellStorm.interfaces.ManaAmount;
-import ch.darklions888.SpellStorm.interfaces.SourceOrigin;
+import ch.darklions888.SpellStorm.interfaces.IMagicalItem;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.BlockItem;
@@ -18,8 +18,10 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class BaseBlockItem extends BlockItem implements ManaAmount, SourceOrigin
+public class BaseBlockItem extends BlockItem implements IMagicalItem
 {
 	
 	protected boolean effect = false;
@@ -43,6 +45,7 @@ public class BaseBlockItem extends BlockItem implements ManaAmount, SourceOrigin
 		return effect;
 	}
 	
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public ITextComponent getDisplayName(ItemStack stack) 
 	{
@@ -57,18 +60,7 @@ public class BaseBlockItem extends BlockItem implements ManaAmount, SourceOrigin
 		}
 	}
 
-	@Override
-	public ManaPower Mana() 
-	{
-		return manapower;
-	}
-	
-	@Override
-	public MagicSource Source()
-	{
-		return source;
-	}
-	
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) 
 	{
@@ -105,5 +97,26 @@ public class BaseBlockItem extends BlockItem implements ManaAmount, SourceOrigin
 			default:
 				return "\u00A7l";
 		}
+	}
+
+
+	@Override
+	public MagicSource magicSource() 
+	{
+		return source;
+	}
+
+
+	@Override
+	public ManaContainerSize manaContainer() 
+	{
+		return null;
+	}
+
+
+	@Override
+	public ManaPower manaPower() 
+	{
+		return manapower;
 	}
 }
