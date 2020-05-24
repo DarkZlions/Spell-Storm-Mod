@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import ch.darklions888.SpellStorm.init.BlockInit;
+import ch.darklions888.SpellStorm.init.ContainerTypesInit;
 import ch.darklions888.SpellStorm.init.ItemInit;
 import ch.darklions888.SpellStorm.world.gen.OreGeneration;
 import net.minecraft.util.ResourceLocation;
@@ -35,6 +36,7 @@ public class SpellStormMain
 		
 		ItemInit.REGISTERITEMS.register(Bus);
 		BlockInit.BLOCKSREGISTER.register(Bus);
+		ContainerTypesInit.CONTAINER_TYPES.register(Bus);
 		
 		SpellStormMain.INSTANCE = this;
 		MinecraftForge.EVENT_BUS.register(this);
