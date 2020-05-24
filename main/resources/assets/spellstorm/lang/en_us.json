@@ -2,10 +2,15 @@
 	//Item
 	"item.spellstorm.crystal": "Crystal Shard",
 	"item.spellstorm.crystal_ore": "Crystal Ore",
+	"item.spellstorm.crystal_pieces": "Crystal Pieces",
 	"item.spellstorm.page_of_the_wither_skull": "The Page Of The Wither Skull",
 	
 	//Block
 	"block.spellstorm.crystal_ore": "Crystal Ore",
+	"block.spellstorm.manainfuser": "Mana Infuser",
+	
+	//Container
+	"container.mana_infuser": "ManaInfuser",
 	
 	//ItemGroup
 	"itemGroup.spellstormtab": "Spell Storm"
