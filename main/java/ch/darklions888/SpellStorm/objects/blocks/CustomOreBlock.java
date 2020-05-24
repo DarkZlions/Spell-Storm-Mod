@@ -22,7 +22,7 @@ public class CustomOreBlock extends Block
 	
 	protected int getExperience(Random rand) 
 	{
-		if(this == BlockInit.crystal_ore)
+		if(this == BlockInit.CRYSTAL_ORE.get())
 			return MathHelper.nextInt(rand, 3, 4);
 		else
 			return 0;
