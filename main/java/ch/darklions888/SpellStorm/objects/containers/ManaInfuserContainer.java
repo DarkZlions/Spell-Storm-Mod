@@ -1,18 +1,9 @@
 package ch.darklions888.SpellStorm.objects.containers;
 
-import java.util.Objects;
-
-import org.apache.logging.log4j.Logger;
-
-import ch.darklions888.SpellStorm.SpellStormMain;
-import ch.darklions888.SpellStorm.enums.MagicSource;
-import ch.darklions888.SpellStorm.enums.ManaPower;
 import ch.darklions888.SpellStorm.init.BlockInit;
 import ch.darklions888.SpellStorm.init.ContainerTypesInit;
-import ch.darklions888.SpellStorm.init.ItemInit;
 import ch.darklions888.SpellStorm.objects.items.BaseItem;
 import ch.darklions888.SpellStorm.objects.items.BasePageItem;
-import ch.darklions888.SpellStorm.objects.items.PageOfTheWithers;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftResultInventory;
@@ -22,12 +13,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.IWorldPosCallable;
-import net.minecraft.util.IntReferenceHolder;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class ManaInfuserContainer extends Container
 {
@@ -42,24 +28,29 @@ public class ManaInfuserContainer extends Container
 	};
 	
 	private final IWorldPosCallable worldPosCallable;
-	private final IntReferenceHolder maximumCost = IntReferenceHolder.single();
 	public int manaCost;
-	private final PlayerEntity player;
 	
 	public ManaInfuserContainer(ContainerType<?> type, int id, PlayerInventory inventoryIn, final IWorldPosCallable worldPosCallableIn)
 	{
 		super(type, id);
 		
 		this.worldPosCallable = worldPosCallableIn;
-		this.player = inventoryIn.player;
-		
 		this.addSlot(new Slot(this.inputSlots, 0, 58, 51)
 		{
 			public boolean isItemValid(ItemStack stack)
 			{
 				if(stack.getItem() instanceof BasePageItem)
 				{
-					return true;
+					BasePageItem page = (BasePageItem) stack.getItem();
+					
+					if(page.getMana(stack) < page.getMaxContainerSize(stack))
+					{
+						return true;
+					}
+					else
+					{
+						return false;
+					}
 				}
 				else
 				{
@@ -111,12 +102,13 @@ public class ManaInfuserContainer extends Container
 					ItemStack input = ManaInfuserContainer.this.inputSlots.getStackInSlot(1);
 					int slotCount = input.getCount();
 					
-					input.setCount(slotCount - 1);
+					input.setCount(slotCount - manaCost);
 					ManaInfuserContainer.this.inputSlots.setInventorySlotContents(1, input);
 					
 					ManaInfuserContainer.this.inputSlots.setInventorySlotContents(0, ItemStack.EMPTY);
 				}
 				
+				manaCost = 0;
 				return stack;
 			}
 		});
@@ -153,6 +145,7 @@ public class ManaInfuserContainer extends Container
 
 	public void updateOutPut()
 	{
+		try {
 		ItemStack itemstack1 = this.inputSlots.getStackInSlot(0);
 		ItemStack itemstack2 = this.inputSlots.getStackInSlot(1);
 		
@@ -166,14 +159,36 @@ public class ManaInfuserContainer extends Container
 			
 			if(page.canReceiveManaFromtItem(itemstack1, itemstack2))
 			{
-				page.addMana(stack1, base.manaPower().mana);	
-				this.outputSlots.setInventorySlotContents(2, stack1);
-				this.detectAndSendChanges();
+				int manaIn = page.getMana(itemstack1);
+				int containerSize = page.getMaxContainerSize(itemstack1);
+				int fillSize = containerSize - manaIn;
+				int cost = fillSize / base.manaPower().mana;
+				
+				if(cost <= itemstack2.getCount())
+				{
+					this.manaCost = cost;
+					page.addMana(stack1, base.manaPower().mana * cost);	
+					this.outputSlots.setInventorySlotContents(2, stack1);
+					this.detectAndSendChanges();
+				}
+				else
+				{
+					this.manaCost = itemstack2.getCount();
+					page.addMana(stack1, base.manaPower().mana * itemstack2.getCount());
+					this.outputSlots.setInventorySlotContents(2, stack1);
+					this.detectAndSendChanges();
+				}
 			}
 		}
 		else
 		{
 			this.outputSlots.setInventorySlotContents(2, ItemStack.EMPTY);
+		}
+		
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
 		}
 	}
 	
@@ -230,6 +245,6 @@ public class ManaInfuserContainer extends Container
 	   }
    
    public static ManaInfuserContainer create(int windowId, PlayerInventory playerInventory) {
-	    return new ManaInfuserContainer((ContainerType)ContainerTypesInit.MANA_INFUSER.get(), windowId, playerInventory);
+	    return new ManaInfuserContainer((ContainerType<?>)ContainerTypesInit.MANA_INFUSER.get(), windowId, playerInventory);
 	  }
 }
