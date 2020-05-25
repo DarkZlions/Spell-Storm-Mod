@@ -8,10 +8,14 @@ import ch.darklions888.SpellStorm.enums.ManaPower;
 import ch.darklions888.SpellStorm.interfaces.IMagicalPageItem;
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 public class BasePageItem extends BaseItem implements IMagicalPageItem
@@ -71,5 +75,32 @@ public class BasePageItem extends BaseItem implements IMagicalPageItem
 	public MagicSource magicSource() 
 	{
 		return this.source;
+	}
+	
+	@Override
+	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stackIn) 
+	{
+		return null;
+	}
+	
+	
+	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) 
+	{
+		tooltip.add(new StringTextComponent(String.valueOf(this.getMana(stack)) + "/" + this.size + " Mana left"));
+		super.addInformation(stack, worldIn, tooltip, flagIn);
+	}
+	
+	@Override
+	public ITextComponent getDisplayName(ItemStack stack) 
+	{
+		if(format == null)
+		{
+			return new TranslationTextComponent(this.getTranslationKey(stack));
+		}
+		else
+		{
+			TranslationTextComponent translationText = new TranslationTextComponent(this.getTranslationKey(stack));
+			return new TranslationTextComponent(format + translationText.getString() + "  [" + String.valueOf(this.getMana(stack)) + "/" + this.size + "]");
+		}
 	}
 }
