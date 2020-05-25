@@ -3,7 +3,7 @@
 	"texture_size": [64, 32],
 	"textures": {
 		"0": "spellstorm:blocks/manainfuser",
-		"particle": "spellstorm:blocks/manainfuser"
+		"particle": "block/obsidian"
 	},
 	"elements": [
 		{

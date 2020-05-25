@@ -4,7 +4,6 @@ import ch.darklions888.SpellStorm.SpellStormMain;
 import ch.darklions888.SpellStorm.objects.blocks.CrystalOreBlock;
 import ch.darklions888.SpellStorm.objects.blocks.ManaInfuserBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.OreBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.DyeColor;

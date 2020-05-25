@@ -9,8 +9,8 @@ import ch.darklions888.SpellStorm.objects.items.BaseBlockItem;
 import ch.darklions888.SpellStorm.objects.items.BaseItem;
 import ch.darklions888.SpellStorm.objects.items.CrytalShardItem;
 import ch.darklions888.SpellStorm.objects.items.PageOfTheWithers;
+import ch.darklions888.SpellStorm.objects.items.PageOfThunder;
 import net.minecraft.item.Item;
-import net.minecraft.item.Item.Properties;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.RegistryObject;
@@ -26,10 +26,11 @@ public class ItemInit
 	//item
 	public static final RegistryObject<Item> CRYSTAL = REGISTERITEMS.register("crystal", () -> new CrytalShardItem(MagicSource.NEUTRALMAGIC, ManaPower.LOW, null, true, new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> UNKNOWN_ITEM = REGISTERITEMS.register("unknown", () -> new BaseItem(MagicSource.DARKMAGIC, ManaPower.VERYHIGH, null, true, new Item.Properties().group(TAB)));
-	public static final RegistryObject<Item> CRYTSAL_PIECES = REGISTERITEMS.register("crystal_pieces", () -> new BaseItem(MagicSource.NEUTRALMAGIC, ManaPower.VERYLOW, null, true, new Item.Properties().group(TAB)));
+	public static final RegistryObject<Item> CRYTSAL_PIECES = REGISTERITEMS.register("crystal_pieces", () -> new BaseItem(MagicSource.LIGHTMAGIC, ManaPower.VERYLOW, null, true, new Item.Properties().group(TAB)));
 	
 	//Pages
 	public static final RegistryObject<Item> PAGE_OF_THE_WITHER_SKULL = REGISTERITEMS.register("page_of_the_wither_skull", ()  -> new PageOfTheWithers(ManaContainerSize.OCEAN, MagicSource.DARKMAGIC, ManaPower.DARKPOWER, TextFormatting.DARK_RED, true, new Item.Properties().group(TAB).maxStackSize(1)));
+	public static final RegistryObject<Item> PAGE_OF_THUNDER = REGISTERITEMS.register("page_of_thunder", () -> new PageOfThunder(ManaContainerSize.SMALL, MagicSource.LIGHTMAGIC, ManaPower.LIGHTPOWER, TextFormatting.YELLOW, true, new Item.Properties().group(TAB).maxStackSize(1)));
 	
 	//BlockItem
 	public static final RegistryObject<Item> CRYSTAL_ORE_BLOCK = REGISTERITEMS.register("crystal_ore", () -> new BaseBlockItem(MagicSource.NEUTRALMAGIC, ManaPower.MEDIUM, TextFormatting.LIGHT_PURPLE, false, BlockInit.CRYSTAL_ORE.get(), new Item.Properties().group(TAB)));

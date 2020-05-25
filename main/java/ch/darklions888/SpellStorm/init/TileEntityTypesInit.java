@@ -1,9 +1,7 @@
 package ch.darklions888.SpellStorm.init;
 
 import ch.darklions888.SpellStorm.SpellStormMain;
-import ch.darklions888.SpellStorm.objects.tileentities.ManaInfuser_TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
