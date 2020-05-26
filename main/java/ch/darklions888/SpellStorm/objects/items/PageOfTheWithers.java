@@ -24,19 +24,8 @@ public class PageOfTheWithers extends BasePageItem
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) 
 	{
 		ItemStack stack = playerIn.getHeldItem(handIn);
-		if(worldIn.isRemote)
-		{
-			if(this.getMana(stack) > 0)
-			{
-				worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_WITHER_SHOOT, SoundCategory.PLAYERS, 1.0f, 0.1f);
-			}
-			
-			return ActionResult.resultPass(stack);
-		}
-		else
-		{
-			return this.getAbilities(worldIn, playerIn, handIn, stack);
-		}
+		
+		return this.getAbilities(worldIn, playerIn, handIn, stack);
 	}
 	
 	@Override
@@ -44,6 +33,8 @@ public class PageOfTheWithers extends BasePageItem
 	{
 		if(this.getMana(stack) > 0)
 		{
+			worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_WITHER_SHOOT, SoundCategory.PLAYERS, 1, 1);
+			
 			double speed = 1.2d;
 			
 			double xD = playerIn.getLookVec().getX() * speed;
