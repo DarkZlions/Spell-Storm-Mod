@@ -6,9 +6,7 @@ public enum ManaPower
 	LOW(10),
 	MEDIUM(20),
 	HIGH(30),
-	VERYHIGH(40),
-	LIGHTPOWER(50),
-	DARKPOWER(80);
+	VERYHIGH(40);
 	
 	public int mana;
 	
