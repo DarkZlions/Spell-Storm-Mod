@@ -4,13 +4,14 @@ import ch.darklions888.SpellStorm.SpellStormMain;
 import ch.darklions888.SpellStorm.enums.MagicSource;
 import ch.darklions888.SpellStorm.enums.ManaContainerSize;
 import ch.darklions888.SpellStorm.enums.ManaPower;
-import ch.darklions888.SpellStorm.objects.CustomItemGroup.SpellStormItemGroup;
+import ch.darklions888.SpellStorm.objects.ItemGroup.SpellStormItemGroup;
 import ch.darklions888.SpellStorm.objects.items.BaseBlockItem;
 import ch.darklions888.SpellStorm.objects.items.BaseItem;
 import ch.darklions888.SpellStorm.objects.items.CrytalShardItem;
 import ch.darklions888.SpellStorm.objects.items.PageOfAggression;
 import ch.darklions888.SpellStorm.objects.items.PageOfTheWithers;
 import ch.darklions888.SpellStorm.objects.items.PageOfThunder;
+import ch.darklions888.SpellStorm.objects.items.TestItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.text.TextFormatting;
@@ -39,4 +40,7 @@ public class ItemInit
 	public static final RegistryObject<Item> CRYSTAL_ORE_BLOCK = REGISTERITEMS.register("crystal_ore", () -> new BaseBlockItem(MagicSource.NEUTRALMAGIC, ManaPower.MEDIUM, TextFormatting.LIGHT_PURPLE, false, BlockInit.CRYSTAL_ORE.get(), new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> MANAINFUSER = REGISTERITEMS.register("manainfuser", () -> new BaseBlockItem(MagicSource.UNKNOWNMAGIC, ManaPower.HIGH, null, false, BlockInit.MANAINFUSER.get(), new Item.Properties().group(TAB)));
 	
+	
+	//TestItem
+	public static final RegistryObject<Item> TEST_ITEM = REGISTERITEMS.register("testitem", () -> new TestItem(new Item.Properties().group(TAB)));
 }
