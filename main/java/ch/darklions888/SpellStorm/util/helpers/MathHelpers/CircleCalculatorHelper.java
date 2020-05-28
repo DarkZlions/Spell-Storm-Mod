@@ -44,7 +44,3 @@ public class CircleCalculatorHelper
 		return coordinates;
 	}
 }
-
-//(x + (r * Math.sin(a)),
-//vertical ? y + (r * Math.cos(b)) : y,
-//!vertical ? z + (r * Math.cos(b)) : z);
