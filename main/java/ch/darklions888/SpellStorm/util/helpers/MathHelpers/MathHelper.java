@@ -1,6 +1,8 @@
-package ch.darklions888.SpellStorm.util.helpers;
+package ch.darklions888.SpellStorm.util.helpers.MathHelpers;
 
-public class CalcHelpers 
+import java.util.List;
+
+public class MathHelper 
 {
 	public float[] CalcBiggerNumber(float f1, float f2)
 	{
@@ -21,7 +23,7 @@ public class CalcHelpers
 		return new float[] {b, s};
 	}
 	
-	public boolean IfMinusNumber(float f1, float f2)
+	public static boolean IfMinusNumber(float f1, float f2)
 	{
 		if(f1 - f2 < 0)
 		{
@@ -45,5 +47,15 @@ public class CalcHelpers
 			return max;
 		else
 			return dIn;
+	}
+	
+	public static List<Vec3> getCircleCoordinates(double radius, Vec3 position, int precision, boolean vertical, boolean flip)
+	{
+		return CircleCalculatorHelper.getCircleCoordinates(radius, position, precision, vertical, flip);
+	}
+	
+	public static List<Vec3> getSphereCoordinates(double radius, Vec3 position, int precision)
+	{
+		return SphereCalculatorHelper.getSphereCoordinates(radius, position, precision);
 	}
 }
