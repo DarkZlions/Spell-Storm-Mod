@@ -1,6 +1,6 @@
 package ch.darklions888.SpellStorm.objects.ItemGroup;
 
-import net.minecraft.block.Blocks;
+import ch.darklions888.SpellStorm.init.BlockInit;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
@@ -16,7 +16,7 @@ public class SpellStormItemGroup extends ItemGroup
 
 	@Override
 	public ItemStack createIcon() {
-		return new ItemStack(Blocks.ENCHANTING_TABLE);
+		return new ItemStack(BlockInit.MANAINFUSER.get());
 	}
 
 }

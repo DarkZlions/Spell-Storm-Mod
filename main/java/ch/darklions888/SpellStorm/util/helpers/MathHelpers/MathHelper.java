@@ -6,8 +6,8 @@ public class MathHelper
 {
 	public float[] CalcBiggerNumber(float f1, float f2)
 	{
-		float b = new Float(0);	//big
-		float s = new Float(0);	//smöll
+		float b = 0;	//big
+		float s = 0;	//smöll
 		
 		if(f1 >= f2)
 		{
