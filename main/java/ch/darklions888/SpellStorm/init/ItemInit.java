@@ -9,6 +9,7 @@ import ch.darklions888.SpellStorm.objects.items.BaseBlockItem;
 import ch.darklions888.SpellStorm.objects.items.BaseItem;
 import ch.darklions888.SpellStorm.objects.items.CrytalShardItem;
 import ch.darklions888.SpellStorm.objects.items.PageOfAggression;
+import ch.darklions888.SpellStorm.objects.items.PageOfFallingRocks;
 import ch.darklions888.SpellStorm.objects.items.PageOfTheWithers;
 import ch.darklions888.SpellStorm.objects.items.PageOfThunder;
 import ch.darklions888.SpellStorm.objects.items.TestItem;
@@ -35,6 +36,7 @@ public class ItemInit
 	public static final RegistryObject<Item> PAGE_OF_THE_WITHER_SKULL = REGISTERITEMS.register("page_of_the_wither_skull", ()  -> new PageOfTheWithers(ManaContainerSize.OCEAN, MagicSource.DARKMAGIC, ManaPower.VERYHIGH, TextFormatting.DARK_RED, true, new Item.Properties().group(TAB).maxStackSize(1)));
 	public static final RegistryObject<Item> PAGE_OF_AGGRESSION = REGISTERITEMS.register("page_of_aggression", () -> new PageOfAggression(ManaContainerSize.MEDIUM, MagicSource.DARKMAGIC, ManaPower.MEDIUM, TextFormatting.DARK_RED, true, new Item.Properties().group(TAB).maxStackSize(1)));
 	public static final RegistryObject<Item> PAGE_OF_THUNDER = REGISTERITEMS.register("page_of_thunder", () -> new PageOfThunder(ManaContainerSize.SMALL, MagicSource.LIGHTMAGIC, ManaPower.HIGH, TextFormatting.YELLOW, true, new Item.Properties().group(TAB).maxStackSize(1)));
+	public static final RegistryObject<Item> PAGE_OF_FALLING_ROCK = REGISTERITEMS.register("page_of_falling_rock", () -> new PageOfFallingRocks(ManaContainerSize.SMALL, MagicSource.UNKNOWNMAGIC, ManaPower.VERYHIGH, TextFormatting.BLACK, true, new Item.Properties().group(TAB).maxStackSize(1)));
 	
 	//BlockItem
 	public static final RegistryObject<Item> CRYSTAL_ORE_BLOCK = REGISTERITEMS.register("crystal_ore", () -> new BaseBlockItem(MagicSource.NEUTRALMAGIC, ManaPower.MEDIUM, TextFormatting.LIGHT_PURPLE, false, BlockInit.CRYSTAL_ORE.get(), new Item.Properties().group(TAB)));
