@@ -1,4 +1,4 @@
-package ch.darklions888.SpellStorm.util.helpers.MathHelpers;
+package ch.darklions888.SpellStorm.util.helpers.mathhelpers;
 
 /*
  * 

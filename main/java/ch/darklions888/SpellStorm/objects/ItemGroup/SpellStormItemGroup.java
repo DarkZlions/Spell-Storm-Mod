@@ -1,4 +1,4 @@
-package ch.darklions888.SpellStorm.objects.ItemGroup;
+package ch.darklions888.SpellStorm.objects.itemgroup;
 
 import ch.darklions888.SpellStorm.init.BlockInit;
 import net.minecraft.item.ItemGroup;

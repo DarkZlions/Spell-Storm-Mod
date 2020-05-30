@@ -2,8 +2,8 @@ package ch.darklions888.SpellStorm.objects.items;
 
 import java.util.List;
 
-import ch.darklions888.SpellStorm.util.helpers.MathHelpers.MathHelper;
-import ch.darklions888.SpellStorm.util.helpers.MathHelpers.Vec3;
+import ch.darklions888.SpellStorm.util.helpers.mathhelpers.MathHelper;
+import ch.darklions888.SpellStorm.util.helpers.mathhelpers.Vec3;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;

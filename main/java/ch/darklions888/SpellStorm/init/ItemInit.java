@@ -4,7 +4,7 @@ import ch.darklions888.SpellStorm.SpellStormMain;
 import ch.darklions888.SpellStorm.enums.MagicSource;
 import ch.darklions888.SpellStorm.enums.ManaContainerSize;
 import ch.darklions888.SpellStorm.enums.ManaPower;
-import ch.darklions888.SpellStorm.objects.ItemGroup.SpellStormItemGroup;
+import ch.darklions888.SpellStorm.objects.itemgroup.SpellStormItemGroup;
 import ch.darklions888.SpellStorm.objects.items.BaseBlockItem;
 import ch.darklions888.SpellStorm.objects.items.BaseItem;
 import ch.darklions888.SpellStorm.objects.items.CrytalShardItem;
