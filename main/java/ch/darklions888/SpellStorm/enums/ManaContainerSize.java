@@ -2,6 +2,7 @@ package ch.darklions888.SpellStorm.enums;
 
 public enum ManaContainerSize 
 {
+	VERYSMALL(60),
 	SMALL(120),
 	MEDIUM(180),
 	BIG(240),
