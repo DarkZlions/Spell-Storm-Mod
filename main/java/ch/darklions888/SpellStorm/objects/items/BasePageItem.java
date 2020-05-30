@@ -5,6 +5,7 @@ import java.util.List;
 import ch.darklions888.SpellStorm.enums.MagicSource;
 import ch.darklions888.SpellStorm.enums.ManaContainerSize;
 import ch.darklions888.SpellStorm.enums.ManaPower;
+import ch.darklions888.SpellStorm.interfaces.IMagicalItem;
 import ch.darklions888.SpellStorm.interfaces.IMagicalPageItem;
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
 import net.minecraft.client.util.ITooltipFlag;
@@ -52,10 +53,10 @@ public class BasePageItem extends BaseItem implements IMagicalPageItem
 	@Override
 	public boolean canReceiveManaFromtItem(ItemStack stack1, ItemStack stack2) 
 	{
-		if(stack1.getItem() instanceof BasePageItem && stack2.getItem() instanceof BaseItem)
+		if(stack1.getItem() instanceof IMagicalPageItem && stack2.getItem() instanceof IMagicalItem)
 		{
-			BasePageItem page = (BasePageItem) stack1.getItem();
-			BaseItem base = (BaseItem) stack2.getItem();
+			IMagicalPageItem page = (IMagicalPageItem) stack1.getItem();
+			IMagicalItem base = (IMagicalItem) stack2.getItem();
 			
 			return page.magicSource() == base.magicSource();
 		}
@@ -78,7 +79,7 @@ public class BasePageItem extends BaseItem implements IMagicalPageItem
 	}
 	
 	@Override
-	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stackIn) 
+	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn) 
 	{
 		return null;
 	}

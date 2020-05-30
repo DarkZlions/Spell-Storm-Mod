@@ -23,14 +23,14 @@ public class PageOfTheWithers extends BasePageItem
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) 
 	{
-		ItemStack stack = playerIn.getHeldItem(handIn);
-		
-		return this.getAbilities(worldIn, playerIn, handIn, stack);
+		return this.getAbilities(worldIn, playerIn, handIn);
 	}
 	
 	@Override
-	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stack) 
+	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn) 
 	{
+		ItemStack stack = playerIn.getHeldItem(handIn);
+		
 		if(this.getMana(stack) > 0)
 		{
 			worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_WITHER_SHOOT, SoundCategory.PLAYERS, 1, 1);

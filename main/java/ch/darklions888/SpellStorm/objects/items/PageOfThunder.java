@@ -36,14 +36,16 @@ public class PageOfThunder extends BasePageItem
 		}
 		else
 		{
-			return this.getAbilities(worldIn, playerIn, handIn, stack);
+			return this.getAbilities(worldIn, playerIn, handIn);
 		}
 
 	}
 	
 	@Override
-	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stack) 
+	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn) 
 	{
+		ItemStack stack = playerIn.getHeldItem(handIn);
+		
 		if(this.getMana(stack) > 0)
 		{
 			List<LivingEntity> entityList = worldIn.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(playerIn.getPosX() - 10, playerIn.getPosY() - 10, playerIn.getPosZ() - 10, playerIn.getPosX() + 10, playerIn.getPosY() + 10, playerIn.getPosZ() + 10));

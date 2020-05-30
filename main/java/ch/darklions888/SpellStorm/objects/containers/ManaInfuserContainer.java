@@ -2,8 +2,8 @@ package ch.darklions888.SpellStorm.objects.containers;
 
 import ch.darklions888.SpellStorm.init.BlockInit;
 import ch.darklions888.SpellStorm.init.ContainerTypesInit;
-import ch.darklions888.SpellStorm.objects.items.BaseItem;
-import ch.darklions888.SpellStorm.objects.items.BasePageItem;
+import ch.darklions888.SpellStorm.interfaces.IMagicalItem;
+import ch.darklions888.SpellStorm.interfaces.IMagicalPageItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftResultInventory;
@@ -39,9 +39,9 @@ public class ManaInfuserContainer extends Container
 		{
 			public boolean isItemValid(ItemStack stack)
 			{
-				if(stack.getItem() instanceof BasePageItem)
+				if(stack.getItem() instanceof IMagicalPageItem)
 				{
-					BasePageItem page = (BasePageItem) stack.getItem();
+					IMagicalPageItem page = (IMagicalPageItem) stack.getItem();
 					
 					if(page.getMana(stack) < page.getMaxContainerSize(stack))
 					{
@@ -63,7 +63,7 @@ public class ManaInfuserContainer extends Container
 		{
 			public boolean isItemValid(ItemStack stack)
 			{
-				if(stack.getItem() instanceof BaseItem)
+				if(stack.getItem() instanceof IMagicalItem)
 				{
 					return true;
 				}
@@ -149,13 +149,13 @@ public class ManaInfuserContainer extends Container
 		ItemStack itemstack1 = this.inputSlots.getStackInSlot(0);
 		ItemStack itemstack2 = this.inputSlots.getStackInSlot(1);
 		
-		if(itemstack1.getItem() instanceof BasePageItem && itemstack2.getItem() instanceof BaseItem)
+		if(itemstack1.getItem() instanceof IMagicalPageItem && itemstack2.getItem() instanceof IMagicalItem)
 		{
 
 			ItemStack stack1 = itemstack1.copy();
 			
-			BasePageItem page = (BasePageItem) itemstack1.getItem();
-			BaseItem base = (BaseItem) itemstack2.getItem();
+			IMagicalPageItem page = (IMagicalPageItem) itemstack1.getItem();
+			IMagicalItem base = (IMagicalItem) itemstack2.getItem();
 			
 			if(page.canReceiveManaFromtItem(itemstack1, itemstack2))
 			{
