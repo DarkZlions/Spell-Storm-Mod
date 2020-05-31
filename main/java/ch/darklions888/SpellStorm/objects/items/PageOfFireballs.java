@@ -33,6 +33,11 @@ public class PageOfFireballs extends BasePageItem
 	{
 		ItemStack stack = playerIn.getHeldItem(handIn);
 		
+		if(playerIn.isCreative())
+		{
+			this.setMana(stack, this.getMaxContainerSize(stack));
+		}
+		
 		if(worldIn.isRemote)
 		{
 			if(this.getMana(stack) > 0)
@@ -40,7 +45,7 @@ public class PageOfFireballs extends BasePageItem
 				worldIn.playSound(playerIn,playerIn.getPosition(), SoundEvents.ITEM_FIRECHARGE_USE,  SoundCategory.PLAYERS, 1.0f, .1f);
 				for(int i = 0; i < 10; i++)
 				{
-					worldIn.addParticle(ParticleTypes.LAVA, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), playerIn.getLookVec().x + playerIn.getRNG().nextDouble(), playerIn.getLookVec().y + playerIn.getRNG().nextDouble(), playerIn.getLookVec().z + playerIn.getRNG().nextDouble());
+					worldIn.addParticle(ParticleTypes.LAVA, playerIn.getPosXRandom(.6d), playerIn.getPosYRandom(), playerIn.getPosZRandom(.6d), playerIn.getLookVec().getX(), playerIn.getLookVec().getY(), playerIn.getLookVec().getZ());
 				}
 				
 				return ActionResult.resultSuccess(stack);				
