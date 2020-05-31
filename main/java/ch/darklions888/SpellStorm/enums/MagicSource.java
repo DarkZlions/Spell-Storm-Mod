@@ -7,10 +7,10 @@ public enum MagicSource
 	NEUTRALMAGIC("Neutral"),
 	UNKNOWNMAGIC("UNKNOWN");
 	
-	public String sourceName;
+	public String sourceId;
 	
 	MagicSource(String sourceName)
 	{
-		this.sourceName = sourceName;
+		this.sourceId = sourceName;
 	}
 }
