@@ -7,7 +7,8 @@ public enum ManaContainerSize
 	MEDIUM(180),
 	BIG(240),
 	GIANT(300),
-	OCEAN(400);
+	OCEAN(400),
+	REALLYBIG(800);
 	
 	public int size;
 	
