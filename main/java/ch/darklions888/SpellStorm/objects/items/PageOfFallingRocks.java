@@ -9,7 +9,6 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FireballEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
@@ -48,11 +47,6 @@ public class PageOfFallingRocks extends BasePageItem
 			if(this.getMana(stack) > 0)
 			{
 				worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.PLAYERS, 1.0f, 0.1f);
-				
-				for(int i = 0; i < 10; i++)
-				{
-					worldIn.addParticle(ParticleTypes.LAVA, true, playerIn.getPosX() + playerIn.getRNG().nextDouble(), playerIn.getPosY() + playerIn.getRNG().nextDouble() + .1d, playerIn.getPosZ() + playerIn.getRNG().nextDouble(), 0, 0, 0);
-				}
 				
 				return ActionResult.resultSuccess(stack);
 			}
