@@ -65,7 +65,7 @@ public class BaseBlockItem extends BlockItem implements IMagicalItem
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) 
 	{
 		tooltip.add(new StringTextComponent("\u00A7l" + "\u00A7d" + String.valueOf(manapower.mana) + "\u00A7r" +  " Mana power"));
-		tooltip.add(new StringTextComponent(GetSourceColor(source) + GetFontFormat(source) + source.sourceName + "\u00A7r" + " Magical Source"));
+		tooltip.add(new StringTextComponent(GetSourceColor(source) + GetFontFormat(source) + source.sourceId + "\u00A7r" + " Magical Source"));
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 	}
 	
