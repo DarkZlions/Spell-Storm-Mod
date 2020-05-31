@@ -5,6 +5,7 @@ import java.util.List;
 import ch.darklions888.SpellStorm.enums.MagicSource;
 import ch.darklions888.SpellStorm.enums.ManaContainerSize;
 import ch.darklions888.SpellStorm.enums.ManaPower;
+import ch.darklions888.SpellStorm.interfaces.IMagicalContainer;
 import ch.darklions888.SpellStorm.interfaces.IMagicalItem;
 import ch.darklions888.SpellStorm.interfaces.IMagicalPageItem;
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
@@ -59,6 +60,13 @@ public class BasePageItem extends BaseItem implements IMagicalPageItem
 			IMagicalItem base = (IMagicalItem) stack2.getItem();
 			
 			return page.magicSource() == base.magicSource();
+		}
+		else if(stack1.getItem() instanceof IMagicalPageItem && stack2.getItem() instanceof IMagicalContainer )
+		{
+			IMagicalPageItem page = (IMagicalPageItem) stack1.getItem();
+			IMagicalContainer container = (IMagicalContainer) stack2.getItem();
+			
+			return container.hasMagicSource(page.magicSource());
 		}
 		else
 		{
