@@ -7,6 +7,7 @@ import ch.darklions888.SpellStorm.enums.ManaPower;
 import ch.darklions888.SpellStorm.objects.itemgroup.SpellStormItemGroup;
 import ch.darklions888.SpellStorm.objects.items.BaseBlockItem;
 import ch.darklions888.SpellStorm.objects.items.BaseItem;
+import ch.darklions888.SpellStorm.objects.items.BookOfMana;
 import ch.darklions888.SpellStorm.objects.items.CrytalShardItem;
 import ch.darklions888.SpellStorm.objects.items.PageOfAggression;
 import ch.darklions888.SpellStorm.objects.items.PageOfFallingRocks;
@@ -43,6 +44,7 @@ public class ItemInit
 	
 	//Other magic items
 	public static final RegistryObject<Item> SOUL_CATCHER = REGISTERITEMS.register("soul_catcher", () -> new SoulCatcherItem(MagicSource.DARKMAGIC, ManaPower.MEDIUM, null, false, new Item.Properties().group(TAB).maxStackSize(1)));
+	public static final RegistryObject<Item> BOOK_OF_MANA = REGISTERITEMS.register("book_of_mana", () -> new BookOfMana(new MagicSource[] { MagicSource.LIGHTMAGIC, MagicSource.DARKMAGIC, MagicSource.NEUTRALMAGIC, MagicSource.UNKNOWNMAGIC }, ManaContainerSize.REALLYBIG, new Item.Properties().group(TAB).maxStackSize(1))); 
 	
 	//BlockItem
 	public static final RegistryObject<Item> CRYSTAL_ORE_BLOCK = REGISTERITEMS.register("crystal_ore", () -> new BaseBlockItem(MagicSource.NEUTRALMAGIC, ManaPower.MEDIUM, TextFormatting.LIGHT_PURPLE, false, BlockInit.CRYSTAL_ORE.get(), new Item.Properties().group(TAB)));
@@ -51,4 +53,5 @@ public class ItemInit
 	
 	//TestItem
 	public static final RegistryObject<Item> TEST_ITEM = REGISTERITEMS.register("testitem", () -> new TestItem(new Item.Properties().group(TAB)));
+
 }
