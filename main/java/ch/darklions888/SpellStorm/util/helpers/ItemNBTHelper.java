@@ -21,6 +21,16 @@ public class ItemNBTHelper
 		stack.getOrCreateTag().putFloat(tag, f);
 	}
 	
+	public static void setBoolean(ItemStack stack, String tag, boolean b)
+	{
+		stack.getOrCreateTag().putBoolean(tag, b);
+	}
+	
+	public static void setString(ItemStack stack, String tag, String s)
+	{
+		stack.getOrCreateTag().putString(tag, s);
+	}
+	
 	public static void setCompound(ItemStack stack, String tag, CompoundNBT cNBT)
 	{
 		if(!tag.equalsIgnoreCase("ench"))
@@ -42,6 +52,16 @@ public class ItemNBTHelper
 	public static int getInt(ItemStack stack, String tag, int i)
 	{
 		return ifExist(stack, tag) ? stack.getOrCreateTag().getInt(tag) : i;
+	}
+	
+	public static boolean getBoolean(ItemStack stack, String tag, boolean b)
+	{
+		return ifExist(stack, tag) ? stack.getOrCreateTag().getBoolean(tag) : b;
+	}
+	
+	public static String getString(ItemStack stack, String tag, String s)
+	{
+		return ifExist(stack, tag) ? stack.getOrCreateTag().getString(tag) : s;
 	}
 	
 	public static CompoundNBT getCompound(ItemStack stack, String tag, boolean b)

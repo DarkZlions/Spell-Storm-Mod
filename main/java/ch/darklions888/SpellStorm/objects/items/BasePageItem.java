@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 
 public class BasePageItem extends BaseItem implements IMagicalPageItem
 {
-	protected static final String MANA_TAG = "mana";
+	protected static final String MANA_TAG = "mana_pageitem";
 	private MagicSource source;
 	protected int size = 0;
 	

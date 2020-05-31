@@ -2,7 +2,7 @@ package ch.darklions888.SpellStorm.objects.items;
 
 import java.util.List;
 
-import ch.darklions888.SpellStorm.util.helpers.mathhelpers.MathHelper;
+import ch.darklions888.SpellStorm.util.helpers.mathhelpers.MathHelpers;
 import ch.darklions888.SpellStorm.util.helpers.mathhelpers.Vec3;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -34,7 +34,7 @@ public class TestItem extends Item
 		int y = (int) playerIn.getPosY();
 		int z = (int) playerIn.getPosZ();
 		
-		List<Vec3> coords = MathHelper.getSphereCoordinates(16, new Vec3(x, y, z), 64);
+		List<Vec3> coords = MathHelpers.getSphereCoordinates(16, new Vec3(x, y, z), 64);
 		
 		for(Vec3 coord : coords)
 		{
@@ -54,9 +54,9 @@ public class TestItem extends Item
 		double y = entityIn.getPosY();
 		double z = entityIn.getPosZ();
 		
-		List<Vec3> coords = MathHelper.getCircleCoordinates(3, new Vec3(x, y + .2, z), 16, false, false);
-		List<Vec3> coords2 = MathHelper.getCircleCoordinates(3, new Vec3(x, y + .2, z), 16, true, false);
-		List<Vec3> coords3 = MathHelper.getCircleCoordinates(3, new Vec3(x, y + .2, z), 16, true, true);
+		List<Vec3> coords = MathHelpers.getCircleCoordinates(3, new Vec3(x, y + .2, z), 16, false, false);
+		List<Vec3> coords2 = MathHelpers.getCircleCoordinates(3, new Vec3(x, y + .2, z), 16, true, false);
+		List<Vec3> coords3 = MathHelpers.getCircleCoordinates(3, new Vec3(x, y + .2, z), 16, true, true);
 		
 		for(Vec3 coord : coords)
 		{

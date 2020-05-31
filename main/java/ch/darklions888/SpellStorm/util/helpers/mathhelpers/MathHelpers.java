@@ -2,7 +2,7 @@ package ch.darklions888.SpellStorm.util.helpers.mathhelpers;
 
 import java.util.List;
 
-public class MathHelper 
+public class MathHelpers 
 {
 	public float[] CalcBiggerNumber(float f1, float f2)
 	{

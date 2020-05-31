@@ -43,31 +43,42 @@ public class PageOfFallingRocks extends BasePageItem
 			this.setMana(stack, this.getMaxContainerSize(stack));
 		}
 		
-		double x = playerIn.getPosX();
-		double y = 260.0d;
-		double z = playerIn.getPosZ();
-
-		if(this.getMana(stack) == this.getMaxContainerSize(stack))
+		if(worldIn.isRemote)
 		{
-			worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.PLAYERS, 1.0f, 0.1f);
-			
-			for(int i = 0; i < 10; i++)
+			if(this.getMana(stack) > 0)
 			{
-				worldIn.addParticle(ParticleTypes.LAVA, true, playerIn.getPosX() + playerIn.getRNG().nextDouble(), playerIn.getPosY() + playerIn.getRNG().nextDouble() + .1d, playerIn.getPosZ() + playerIn.getRNG().nextDouble(), 0, 0, 0);
+				worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.PLAYERS, 1.0f, 0.1f);
+				
+				for(int i = 0; i < 10; i++)
+				{
+					worldIn.addParticle(ParticleTypes.LAVA, true, playerIn.getPosX() + playerIn.getRNG().nextDouble(), playerIn.getPosY() + playerIn.getRNG().nextDouble() + .1d, playerIn.getPosZ() + playerIn.getRNG().nextDouble(), 0, 0, 0);
+				}
+				
+				return ActionResult.resultSuccess(stack);
 			}
-			
-			FireballEntity entity = new FireballEntity(worldIn, x, y, z, 0.0d, -2.5d, 0.0d);
-			entity.explosionPower = 14;
-	
-			worldIn.addEntity(entity);
-		
-			this.setMana(stack, 0);
-			
-			return ActionResult.resultSuccess(stack);
+			return ActionResult.resultPass(stack);
 		}
 		else
 		{
-			return ActionResult.resultPass(stack);
+			double x = playerIn.getPosX();
+			double y = 260.0d;
+			double z = playerIn.getPosZ();
+
+			if(this.getMana(stack) == this.getMaxContainerSize(stack))
+			{		
+				FireballEntity entity = new FireballEntity(worldIn, x, y, z, 0.0d, -2.5d, 0.0d);
+				entity.explosionPower = 14;
+		
+				worldIn.addEntity(entity);
+			
+				this.setMana(stack, 0);
+				
+				return ActionResult.resultSuccess(stack);
+			}
+			else
+			{
+				return ActionResult.resultPass(stack);
+			}
 		}
 	}
 

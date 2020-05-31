@@ -30,25 +30,40 @@ public class PageOfTheWithers extends BasePageItem
 	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn) 
 	{
 		ItemStack stack = playerIn.getHeldItem(handIn);
-		
-		if(this.getMana(stack) > 0)
+		if(worldIn.isRemote)
 		{
-			worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_WITHER_SHOOT, SoundCategory.PLAYERS, 1, 1);
-			
-			double speed = 1.2d;
-			
-			double xD = playerIn.getLookVec().getX() * speed;
-			double yD = playerIn.getLookVec().getY() * speed;
-			double zD = playerIn.getLookVec().getZ() * speed;
-			
-			WitherSkullEntity skull = new WitherSkullEntity(worldIn, playerIn.getPosX() + xD, playerIn.getPosY() + 1.5, playerIn.getPosZ() + zD, xD, yD, zD);
-			
-			this.addMana(stack, -1);
-			
-			worldIn.addEntity(skull);
-			
+			if(this.getMana(stack) > 0)
+			{
+				worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_WITHER_SHOOT, SoundCategory.PLAYERS, 1, 1);
+				return ActionResult.resultSuccess(stack);
+			}
+			else
+			{
+				return ActionResult.resultPass(stack);				
+			}
+
 		}
-		
-		return ActionResult.resultSuccess(stack);
+		else
+		{
+			if(this.getMana(stack) > 0)
+			{
+				worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_WITHER_SHOOT, SoundCategory.PLAYERS, 1, 1);
+				
+				double speed = 1.2d;
+				
+				double xD = playerIn.getLookVec().getX() * speed;
+				double yD = playerIn.getLookVec().getY() * speed;
+				double zD = playerIn.getLookVec().getZ() * speed;
+				
+				WitherSkullEntity skull = new WitherSkullEntity(worldIn, playerIn.getPosX() + xD, playerIn.getPosY() + 1.5, playerIn.getPosZ() + zD, xD, yD, zD);
+				
+				this.addMana(stack, -1);
+				
+				worldIn.addEntity(skull);
+				
+			}
+			
+			return ActionResult.resultSuccess(stack);
+		}
 	}
 }

@@ -28,17 +28,7 @@ public class PageOfThunder extends BasePageItem
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) 
 	{
-		ItemStack stack = playerIn.getHeldItem(handIn);
-		
-		if(worldIn.isRemote)
-		{
-			return ActionResult.resultPass(stack);
-		}
-		else
-		{
-			return this.getAbilities(worldIn, playerIn, handIn);
-		}
-
+		return getAbilities(worldIn, playerIn, handIn);
 	}
 	
 	@Override
@@ -46,35 +36,42 @@ public class PageOfThunder extends BasePageItem
 	{
 		ItemStack stack = playerIn.getHeldItem(handIn);
 		
-		if(this.getMana(stack) > 0)
-		{
-			List<LivingEntity> entityList = worldIn.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(playerIn.getPosX() - 10, playerIn.getPosY() - 10, playerIn.getPosZ() - 10, playerIn.getPosX() + 10, playerIn.getPosY() + 10, playerIn.getPosZ() + 10));
 		
-			if(entityList.size() > 1)
-			{
-				for(Entity entity : entityList)
-				{
-					if(entity != playerIn && entity instanceof LivingEntity)
-					{
-						LightningBoltEntity lighting = new LightningBoltEntity(worldIn, entity.getPosX(), entity.getPosY(), entity.getPosZ(), false);
-				
-						ServerWorld serverworld = (ServerWorld) worldIn;
-						serverworld.addLightningBolt(lighting);
-					}
-				}
-				
-				this.addMana(stack, -1);
-				return ActionResult.resultSuccess(stack);
-			}
-			else 
-			{
-				return ActionResult.resultFail(stack);
-			}
+		if(worldIn.isRemote)
+		{
+			return ActionResult.resultPass(stack);
 		}
 		else
 		{
-			return ActionResult.resultFail(stack);
-		}
-		
+			if(this.getMana(stack) > 0)
+			{
+				List<LivingEntity> entityList = worldIn.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(playerIn.getPosX() - 10, playerIn.getPosY() - 10, playerIn.getPosZ() - 10, playerIn.getPosX() + 10, playerIn.getPosY() + 10, playerIn.getPosZ() + 10));
+			
+				if(entityList.size() > 1)
+				{
+					for(Entity entity : entityList)
+					{
+						if(entity != playerIn && entity instanceof LivingEntity)
+						{
+							LightningBoltEntity lighting = new LightningBoltEntity(worldIn, entity.getPosX(), entity.getPosY(), entity.getPosZ(), false);
+					
+							ServerWorld serverworld = (ServerWorld) worldIn;
+							serverworld.addLightningBolt(lighting);
+						}
+					}
+					
+					this.addMana(stack, -1);
+					return ActionResult.resultSuccess(stack);
+				}
+				else 
+				{
+					return ActionResult.resultFail(stack);
+				}
+			}
+			else
+			{
+				return ActionResult.resultFail(stack);
+			}
+		}	
 	}
 }
