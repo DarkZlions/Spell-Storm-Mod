@@ -8,6 +8,7 @@ import ch.darklions888.SpellStorm.enums.MagicSource;
 import ch.darklions888.SpellStorm.enums.ManaContainerSize;
 import ch.darklions888.SpellStorm.enums.ManaPower;
 import ch.darklions888.SpellStorm.interfaces.IMagicalItem;
+import ch.darklions888.SpellStorm.util.helpers.formatting.FormattingHelper;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -62,38 +63,8 @@ public class BaseItem extends Item implements IMagicalItem
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) 
 	{
 		tooltip.add(new StringTextComponent("\u00A7l" + "\u00A7d" + String.valueOf(manapower.mana) + "\u00A7r" +  " Mana power"));
-		tooltip.add(new StringTextComponent(GetSourceColor(source) + GetFontFormat(source) + source.sourceName + "\u00A7r" + " Magical Source"));
+		tooltip.add(new StringTextComponent(FormattingHelper.GetSourceColor(source) + FormattingHelper.GetFontFormat(source) + source.sourceId + "\u00A7r" + " Magical Source"));
 		super.addInformation(stack, worldIn, tooltip, flagIn);
-	}
-	
-	private String GetSourceColor(MagicSource sourceColor)
-	{
-		switch(sourceColor)
-		{
-		case LIGHTMAGIC:
-			return "\u00A7e";
-		
-		case DARKMAGIC:
-			return "\u00A74";
-			
-		case UNKNOWNMAGIC:
-			return "\u00A70";
-		
-		default:
-			return "\u00A7f";
-		}
-	}
-	
-	private String GetFontFormat(MagicSource source)
-	{
-		switch(source) 
-		{
-		case UNKNOWNMAGIC:
-			return "\u00A7k";
-			
-			default:
-				return "\u00A7l";
-		}
 	}
 
 	@Override
