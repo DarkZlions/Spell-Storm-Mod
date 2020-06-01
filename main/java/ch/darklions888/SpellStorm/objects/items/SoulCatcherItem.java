@@ -4,6 +4,7 @@ import java.util.List;
 
 import ch.darklions888.SpellStorm.enums.MagicSource;
 import ch.darklions888.SpellStorm.enums.ManaPower;
+import ch.darklions888.SpellStorm.init.ParticlesInit;
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityType;
@@ -11,7 +12,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particles.ParticleTypes;
+import net.minecraft.particles.IParticleData;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -34,7 +35,8 @@ public class SoulCatcherItem extends BaseItem
 	@Override
 	public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) 
 	{
-		try {
+		try 
+		{
 			if(target instanceof MobEntity && getEntity(stack) == null)
 			{
 				World world = playerIn.getEntityWorld();
@@ -44,7 +46,7 @@ public class SoulCatcherItem extends BaseItem
 					for(int i = 0; i < 15; i++)
 					{
 						world.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_VEX_AMBIENT, SoundCategory.PLAYERS, 1.0f, .1f);
-						world.addParticle(ParticleTypes.WITCH, target.getPosXRandom(.3d), target.getPosYRandom(), target.getPosZRandom(.3d), 0.0, .5, 0.0);
+						world.addParticle((IParticleData) ParticlesInit.SOULS_PARTICLE.get(), target.getPosXRandom(.5d), target.getPosYRandom(), target.getPosZRandom(.5d), 0.0, .5, 0.0);
 					}
 				}
 				storeEntity(playerIn.getHeldItem(hand), target.getType());

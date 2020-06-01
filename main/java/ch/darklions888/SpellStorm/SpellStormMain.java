@@ -7,6 +7,8 @@ import org.apache.logging.log4j.Logger;
 import ch.darklions888.SpellStorm.init.BlockInit;
 import ch.darklions888.SpellStorm.init.ContainerTypesInit;
 import ch.darklions888.SpellStorm.init.ItemInit;
+import ch.darklions888.SpellStorm.init.ParticlesInit;
+import ch.darklions888.SpellStorm.world.gen.FeatureGeneration;
 import ch.darklions888.SpellStorm.world.gen.OreGeneration;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -37,6 +39,7 @@ public class SpellStormMain
 		ItemInit.REGISTERITEMS.register(Bus);
 		BlockInit.BLOCKSREGISTER.register(Bus);
 		ContainerTypesInit.CONTAINER_TYPES.register(Bus);
+		ParticlesInit.PARTICLE_REGISTER.register(Bus);
 		
 		SpellStormMain.INSTANCE = this;
 		MinecraftForge.EVENT_BUS.register(this);
@@ -46,6 +49,7 @@ public class SpellStormMain
 	public void CommonSetup(FMLCommonSetupEvent event)
 	{
 		OreGeneration.GenerationSetup();
+		FeatureGeneration.genFeatures();
 	}
 	
 	@SubscribeEvent
@@ -58,6 +62,7 @@ public class SpellStormMain
 	public void LoadCompleteEvent(FMLLoadCompleteEvent event)
 	{
 		OreGeneration.GenerationSetup();
+		FeatureGeneration.genFeatures();
 	}
 	
 	public static ResourceLocation location(String key)
