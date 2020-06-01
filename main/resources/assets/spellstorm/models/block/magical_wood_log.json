@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_column",
+    "textures": {
+        "end": "spellstorm:blocks/magical_wood_log_top",
+        "side": "spellstorm:blocks/magical_wood_log"
+    }
+}

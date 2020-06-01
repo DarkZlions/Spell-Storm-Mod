@@ -2,8 +2,11 @@ package ch.darklions888.SpellStorm.util.helpers;
 
 import ch.darklions888.SpellStorm.SpellStormMain;
 import ch.darklions888.SpellStorm.client.gui.ManaInfuserScreen;
+import ch.darklions888.SpellStorm.init.BlockInit;
 import ch.darklions888.SpellStorm.init.ContainerTypesInit;
 import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -19,5 +22,7 @@ public class ClientEventBusSubscriber
 		//ScreenManager.registerFactory(ContainerTypesInit.MANA_INFUSER.get(), ManaInfuserScreen::new);
 		
 		ContainerTypesInit.MANA_INFUSER.ifPresent(container -> ScreenManager.registerFactory(container, ManaInfuserScreen::new));
+		
+		RenderTypeLookup.setRenderLayer(BlockInit.MAGICAL_TREE_SAPLING.get(), RenderType.getCutout());
 	}
 }

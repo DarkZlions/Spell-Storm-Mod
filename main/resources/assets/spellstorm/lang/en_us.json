@@ -14,7 +14,11 @@
 	
 	//Block
 	"block.spellstorm.crystal_ore": "Crystal Ore",
+	"block.spellstorm.magical_wood_log": "Magical Log",
+	"block.spellstorm.magical_wood_plank": "Magical Planks",
+	"block.spellstorm.magical_leaves": "Magical Leaves",
 	"block.spellstorm.manainfuser": "Mana Infuser",
+	"block.spellstorm.magical_tree_sapling" : "Magical Sapling",
 	
 	//Container
 	"container.mana_infuser": "ManaInfuser",
