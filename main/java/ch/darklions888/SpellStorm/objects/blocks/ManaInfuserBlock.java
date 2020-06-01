@@ -1,8 +1,10 @@
 package ch.darklions888.SpellStorm.objects.blocks;
 
+import java.util.Random;
 import java.util.stream.Stream;
 
 import ch.darklions888.SpellStorm.init.ContainerTypesInit;
+import ch.darklions888.SpellStorm.init.ParticlesInit;
 import ch.darklions888.SpellStorm.objects.containers.ManaInfuserContainer;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -28,6 +30,8 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ManaInfuserBlock extends BaseBlock
 {
@@ -127,5 +131,22 @@ public class ManaInfuserBlock extends BaseBlock
 			return new ManaInfuserContainer(ContainerTypesInit.MANA_INFUSER.get(), p_220272_2_, p_220272_3_, IWorldPosCallable.of(worldIn, pos));
 		}, text);
 	}
-
+	
+	@OnlyIn(Dist.CLIENT)
+	@Override
+	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) 
+	{
+	      for(int i = 0; i < 3; ++i) 
+	      {
+	          int j = rand.nextInt(2) * 2 - 1;
+	          int k = rand.nextInt(2) * 2 - 1;
+	          double d0 = (double)pos.getX() + 0.5D + 0.25D * (double)j;
+	          double d1 = (double)((float)pos.getY() + rand.nextFloat());
+	          double d2 = (double)pos.getZ() + 0.5D + 0.25D * (double)k;
+	          double d3 = (double)(rand.nextFloat() * (float)j);
+	          double d4 = ((double)rand.nextFloat() - 0.5D) * 0.125D;
+	          double d5 = (double)(rand.nextFloat() * (float)k);
+	          worldIn.addParticle(ParticlesInit.RUNE_PARTICLE.get(), d0, d1, d2, d3, d4, d5);
+	      }
+	}
 }

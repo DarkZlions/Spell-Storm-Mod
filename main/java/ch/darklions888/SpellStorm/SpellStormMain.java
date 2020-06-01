@@ -36,10 +36,10 @@ public class SpellStormMain
 		Bus.addListener(this::CommonSetup);
 		Bus.addListener(this::ClientSetup);
 		
-		ItemInit.REGISTERITEMS.register(Bus);
-		BlockInit.BLOCKSREGISTER.register(Bus);
-		ContainerTypesInit.CONTAINER_TYPES.register(Bus);
-		ParticlesInit.PARTICLE_REGISTER.register(Bus);
+		ItemInit.REGISTER_ITEMS.register(Bus);
+		BlockInit.REGISTER_BLOCKS.register(Bus);
+		ContainerTypesInit.REGISTER_CONTAINERS.register(Bus);
+		ParticlesInit.REGISTER_PARTICLES.register(Bus);
 		
 		SpellStormMain.INSTANCE = this;
 		MinecraftForge.EVENT_BUS.register(this);

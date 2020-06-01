@@ -21,13 +21,13 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class BlockInit 
 {
-	public static final DeferredRegister<Block> BLOCKSREGISTER = new DeferredRegister<>(ForgeRegistries.BLOCKS, SpellStormMain.MODID);
+	public static final DeferredRegister<Block> REGISTER_BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, SpellStormMain.MODID);
 
-	public static final RegistryObject<Block> CRYSTAL_ORE = BLOCKSREGISTER.register("crystal_ore", () -> new CrystalOreBlock(Block.Properties.create(Material.ROCK, DyeColor.PURPLE).hardnessAndResistance(3.0f, 6.0f).harvestLevel(3).harvestTool(ToolType.PICKAXE).sound(SoundType.STONE)));
-	public static final RegistryObject<Block> MANAINFUSER = BLOCKSREGISTER.register("manainfuser", () -> new ManaInfuserBlock(Block.Properties.create(Material.IRON, DyeColor.BLACK).hardnessAndResistance(2.5f).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
-	public static final RegistryObject<Block> MAGICAL_WOOD_PLANK = BLOCKSREGISTER.register("magical_wood_plank", () -> new MagicalWoodPlanksBlock(Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
-	public static final RegistryObject<Block> MAGICAL_WOOD_LOG = BLOCKSREGISTER.register("magical_wood_log", () -> new MagicalWoodLogBlock(MaterialColor.MAGENTA ,Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(2.0F).sound(SoundType.WOOD)));
-	public static final RegistryObject<Block> MAGICAL_LEAVES = BLOCKSREGISTER.register("magical_leaves", () -> new MagicalLeavesBlock(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).tickRandomly().sound(SoundType.PLANT).notSolid()));
-	public static final RegistryObject<Block> MAGICAL_TREE_SAPLING = BLOCKSREGISTER.register("magical_tree_sapling", () -> new MagicalTreeSaplingBlock(() -> new MagicalTree(), Block.Properties.from(Blocks.OAK_SAPLING)));
+	public static final RegistryObject<Block> CRYSTAL_ORE = REGISTER_BLOCKS.register("crystal_ore", () -> new CrystalOreBlock(Block.Properties.create(Material.ROCK, DyeColor.PURPLE).hardnessAndResistance(3.0f, 6.0f).harvestLevel(3).harvestTool(ToolType.PICKAXE).sound(SoundType.STONE)));
+	public static final RegistryObject<Block> MANAINFUSER = REGISTER_BLOCKS.register("manainfuser", () -> new ManaInfuserBlock(Block.Properties.create(Material.IRON, DyeColor.BLACK).hardnessAndResistance(2.5f).harvestLevel(2).harvestTool(ToolType.PICKAXE)));
+	public static final RegistryObject<Block> MAGICAL_WOOD_PLANK = REGISTER_BLOCKS.register("magical_wood_plank", () -> new MagicalWoodPlanksBlock(Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
+	public static final RegistryObject<Block> MAGICAL_WOOD_LOG = REGISTER_BLOCKS.register("magical_wood_log", () -> new MagicalWoodLogBlock(MaterialColor.MAGENTA ,Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(2.0F).sound(SoundType.WOOD)));
+	public static final RegistryObject<Block> MAGICAL_LEAVES = REGISTER_BLOCKS.register("magical_leaves", () -> new MagicalLeavesBlock(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).tickRandomly().sound(SoundType.PLANT).notSolid()));
+	public static final RegistryObject<Block> MAGICAL_TREE_SAPLING = REGISTER_BLOCKS.register("magical_tree_sapling", () -> new MagicalTreeSaplingBlock(() -> new MagicalTree(), Block.Properties.from(Blocks.OAK_SAPLING)));
 	
 }

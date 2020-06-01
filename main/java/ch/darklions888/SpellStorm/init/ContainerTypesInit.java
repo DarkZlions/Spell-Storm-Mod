@@ -10,7 +10,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class ContainerTypesInit 
 {
-	public static final DeferredRegister<ContainerType<?>> CONTAINER_TYPES = new DeferredRegister<>(ForgeRegistries.CONTAINERS, SpellStormMain.MODID);
+	public static final DeferredRegister<ContainerType<?>> REGISTER_CONTAINERS = new DeferredRegister<>(ForgeRegistries.CONTAINERS, SpellStormMain.MODID);
 	
-	public static final RegistryObject<ContainerType<ManaInfuserContainer>> MANA_INFUSER = CONTAINER_TYPES.register("mana_infuser", () -> new ContainerType<>((IFactory<ManaInfuserContainer>)ManaInfuserContainer::create));
+	public static final RegistryObject<ContainerType<ManaInfuserContainer>> MANA_INFUSER = REGISTER_CONTAINERS.register("mana_infuser", () -> new ContainerType<>((IFactory<ManaInfuserContainer>)ManaInfuserContainer::create));
 }
