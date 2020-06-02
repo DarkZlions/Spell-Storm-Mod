@@ -36,7 +36,7 @@ public class SoulParticles extends SpriteTexturedParticle {
 		this.particleGreen = 0.9F * f;
 		this.particleBlue = f;
 		this.canCollide = false;
-		this.maxAge = (int) (Math.random() * 10.0D) + 30;
+		this.maxAge = (int) (Math.random() * 10.0D) + 20;
 	}
 
 	public IParticleRenderType getRenderType() {
