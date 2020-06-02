@@ -116,7 +116,6 @@ public class ManaInfuserContainer extends Container
 				
 				itemCost = 0;
 				manaCost = 0;
-				System.out.println(manaCost);
 				return stack;
 			}
 		});

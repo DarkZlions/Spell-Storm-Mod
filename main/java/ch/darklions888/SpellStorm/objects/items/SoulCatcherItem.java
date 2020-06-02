@@ -2,39 +2,39 @@ package ch.darklions888.SpellStorm.objects.items;
 
 import java.util.List;
 
-import ch.darklions888.SpellStorm.enums.MagicSource;
-import ch.darklions888.SpellStorm.enums.ManaPower;
 import ch.darklions888.SpellStorm.init.ParticlesInit;
+import ch.darklions888.SpellStorm.init.SoundInit;
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
-public class SoulCatcherItem extends BaseItem
+public class SoulCatcherItem extends Item
 {
 
 	private static final String TAG = "catchedmob_soulcatcher";
 	private static final String EMPTY = "empty";
+	private static final String ID = "soulcathcer_id";
 	
-	public SoulCatcherItem(MagicSource source, ManaPower mana, TextFormatting format, boolean hasEffect, Properties properties) 
+	public SoulCatcherItem(Properties properties) 
 	{
-		super(source, mana, format, hasEffect, properties);
+		super(properties);
 	}
 	
 	@Override
 	public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) 
 	{
+		
 		try 
 		{
 			if(target instanceof MobEntity && getEntity(stack) == null)
@@ -45,10 +45,11 @@ public class SoulCatcherItem extends BaseItem
 				{
 					for(int i = 0; i < 15; i++)
 					{
-						world.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_VEX_AMBIENT, SoundCategory.PLAYERS, 1.0f, .1f);
+						world.playSound(playerIn, playerIn.getPosition(), SoundInit.ETERNAL_SCREAMING.get(), SoundCategory.PLAYERS, .4f, .1f);
 						world.addParticle((IParticleData) ParticlesInit.SOULS_PARTICLE.get(), target.getPosXRandom(.5d), target.getPosYRandom(), target.getPosZRandom(.5d), 0.0, .5, 0.0);
 					}
 				}
+				setEntityId(stack, target.getEntityId());
 				storeEntity(playerIn.getHeldItem(hand), target.getType());
 				
 				target.remove();
@@ -82,7 +83,22 @@ public class SoulCatcherItem extends BaseItem
 		ItemNBTHelper.setString(stack, TAG, EntityType.getKey(entity).toString());
 	}
 	
-	private EntityType<?> getEntity(ItemStack stack)
+	private void setEntityId(ItemStack stack, int id)
+	{
+		ItemNBTHelper.setInt(stack, ID, id);
+	}
+	
+	public int getEntityId(ItemStack stack)
+	{
+		return ItemNBTHelper.getInt(stack, ID, 0);
+	}
+	
+	public void clearEntity(ItemStack stackIn)
+	{
+		ItemNBTHelper.setString(stackIn, TAG, EMPTY);
+	}
+	
+	public EntityType<?> getEntity(ItemStack stack)
 	{
 		String key = ItemNBTHelper.getString(stack, TAG, EMPTY);
 		

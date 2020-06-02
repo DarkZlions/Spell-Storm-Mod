@@ -19,9 +19,11 @@
 	"block.spellstorm.magical_leaves": "Magical Leaves",
 	"block.spellstorm.manainfuser": "Mana Infuser",
 	"block.spellstorm.magical_tree_sapling" : "Magical Sapling",
+	"block.spellstorm.soul_extractor": "Soul Extractor",
 	
 	//Container
 	"container.mana_infuser": "ManaInfuser",
+	"container.soul_extractor": "Soul Extractor",
 	
 	//ItemGroup
 	"itemGroup.spellstormtab": "Spell Storm"

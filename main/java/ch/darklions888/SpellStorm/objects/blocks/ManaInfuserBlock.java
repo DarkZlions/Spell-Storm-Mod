@@ -10,6 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.item.BlockItemUseContext;
@@ -32,6 +33,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 public class ManaInfuserBlock extends BaseBlock
 {
@@ -116,9 +118,8 @@ public class ManaInfuserBlock extends BaseBlock
 		}
 		else
 		{
-		    player.openContainer(state.getContainer(worldIn, pos));
-
-
+			NetworkHooks.openGui((ServerPlayerEntity) player, getContainer(state, worldIn, pos));
+			
 			return ActionResultType.SUCCESS;
 		}
 	}

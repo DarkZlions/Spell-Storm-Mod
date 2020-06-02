@@ -8,6 +8,7 @@ import ch.darklions888.SpellStorm.init.BlockInit;
 import ch.darklions888.SpellStorm.init.ContainerTypesInit;
 import ch.darklions888.SpellStorm.init.ItemInit;
 import ch.darklions888.SpellStorm.init.ParticlesInit;
+import ch.darklions888.SpellStorm.init.SoundInit;
 import ch.darklions888.SpellStorm.world.gen.FeatureGeneration;
 import ch.darklions888.SpellStorm.world.gen.OreGeneration;
 import net.minecraft.util.ResourceLocation;
@@ -36,6 +37,7 @@ public class SpellStormMain
 		Bus.addListener(this::CommonSetup);
 		Bus.addListener(this::ClientSetup);
 		
+		SoundInit.REGISTER_SOUNDS.register(Bus);
 		ItemInit.REGISTER_ITEMS.register(Bus);
 		BlockInit.REGISTER_BLOCKS.register(Bus);
 		ContainerTypesInit.REGISTER_CONTAINERS.register(Bus);
