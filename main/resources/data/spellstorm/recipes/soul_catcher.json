@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PCP",
+    "C#C",
+    "PCP"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:iron_bars"
+    },
+    "P": {
+      "item": "minecraft:obsidian"
+    },
+	"C":{
+		"item": "spellstorm:crystal"
+	}
+  },
+  "result": {
+    "item": "spellstorm:soul_catcher"
+  }
+}

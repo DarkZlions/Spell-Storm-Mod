@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " B ",
+    "C#C",
+    "PPP"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:enchanting_table"
+    },
+    "P": {
+      "item": "minecraft:obsidian"
+    },
+	"B":{
+		"item": "spellstorm:book_of_mana"
+	},
+	"C":{
+		"item": "spellstorm:crystal_pieces"
+	}
+  },
+  "result": {
+    "item": "spellstorm:manainfuser"
+  }
+}

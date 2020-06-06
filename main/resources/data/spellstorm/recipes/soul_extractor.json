@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    "PPP",
+    "BGB"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:stone_bricks"
+    },
+    "P": {
+      "item": "minecraft:soul_sand"
+    },
+	"G":{
+	"item": "minecraft:gold_ingot"
+	},
+	"C":{
+	"item": "spellstorm:soul_catcher"
+	}
+  },
+  "result": {
+    "item": "spellstorm:soul_extractor"
+  }
+}
