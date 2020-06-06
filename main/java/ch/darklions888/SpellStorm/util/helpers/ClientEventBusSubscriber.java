@@ -1,6 +1,7 @@
 package ch.darklions888.SpellStorm.util.helpers;
 
 import ch.darklions888.SpellStorm.SpellStormMain;
+import ch.darklions888.SpellStorm.client.gui.BookOfSpellsScreen;
 import ch.darklions888.SpellStorm.client.gui.ManaInfuserScreen;
 import ch.darklions888.SpellStorm.client.gui.SoulExtractorScreen;
 import ch.darklions888.SpellStorm.init.BlockInit;
@@ -24,6 +25,7 @@ public class ClientEventBusSubscriber
 		
 		ContainerTypesInit.MANA_INFUSER.ifPresent(container -> ScreenManager.registerFactory(container, ManaInfuserScreen::new));
 		ContainerTypesInit.SOUL_EXTRACTOR.ifPresent(container -> ScreenManager.registerFactory(container, SoulExtractorScreen::new));
+		ContainerTypesInit.BOOK_OF_SPELLS.ifPresent(container -> ScreenManager.registerFactory(container, BookOfSpellsScreen::new));
 		
 		RenderTypeLookup.setRenderLayer(BlockInit.MAGICAL_TREE_SAPLING.get(), RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(BlockInit.SOUL_EXTRACTOR.get(), RenderType.getTranslucent());

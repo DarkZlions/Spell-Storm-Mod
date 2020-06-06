@@ -5,16 +5,7 @@ import ch.darklions888.SpellStorm.enums.MagicSource;
 import ch.darklions888.SpellStorm.enums.ManaContainerSize;
 import ch.darklions888.SpellStorm.enums.ManaPower;
 import ch.darklions888.SpellStorm.objects.itemgroup.SpellStormItemGroup;
-import ch.darklions888.SpellStorm.objects.items.BaseBlockItem;
-import ch.darklions888.SpellStorm.objects.items.BaseItem;
-import ch.darklions888.SpellStorm.objects.items.BookOfMana;
-import ch.darklions888.SpellStorm.objects.items.CrytalShardItem;
-import ch.darklions888.SpellStorm.objects.items.PageOfAggression;
-import ch.darklions888.SpellStorm.objects.items.PageOfFallingRocks;
-import ch.darklions888.SpellStorm.objects.items.PageOfFireballs;
-import ch.darklions888.SpellStorm.objects.items.PageOfTheWithers;
-import ch.darklions888.SpellStorm.objects.items.PageOfThunder;
-import ch.darklions888.SpellStorm.objects.items.SoulCatcherItem;
+import ch.darklions888.SpellStorm.objects.items.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.text.TextFormatting;
@@ -39,10 +30,11 @@ public class ItemInit
 	public static final RegistryObject<Item> PAGE_OF_THUNDER = REGISTER_ITEMS.register("page_of_thunder", () -> new PageOfThunder(ManaContainerSize.SMALL, MagicSource.LIGHTMAGIC, ManaPower.HIGH, TextFormatting.YELLOW, true, new Item.Properties().group(TAB).maxStackSize(1)));
 	public static final RegistryObject<Item> PAGE_OF_FALLING_ROCK = REGISTER_ITEMS.register("page_of_falling_rock", () -> new PageOfFallingRocks(ManaContainerSize.SMALL, MagicSource.UNKNOWNMAGIC, ManaPower.VERYHIGH, TextFormatting.BLACK, true, new Item.Properties().group(TAB).maxStackSize(1)));
 	public static final RegistryObject<Item> PAGE_OF_FIREBALLS = REGISTER_ITEMS.register("page_of_fireballs", () -> new PageOfFireballs(ManaContainerSize.MEDIUM, MagicSource.NEUTRALMAGIC, ManaPower.LOW, TextFormatting.YELLOW, true, new Item.Properties().group(TAB).maxStackSize(1)));
-	
+
 	//Other magic items
 	public static final RegistryObject<Item> SOUL_CATCHER = REGISTER_ITEMS.register("soul_catcher", () -> new SoulCatcherItem(new Item.Properties().group(TAB).maxStackSize(1)));
 	public static final RegistryObject<Item> BOOK_OF_MANA = REGISTER_ITEMS.register("book_of_mana", () -> new BookOfMana(new MagicSource[] { MagicSource.LIGHTMAGIC, MagicSource.DARKMAGIC, MagicSource.NEUTRALMAGIC, MagicSource.UNKNOWNMAGIC }, ManaContainerSize.REALLYBIG, new Item.Properties().group(TAB).maxStackSize(1))); 
+	//public static final RegistryObject<Item> BOOK_OF_SPELLS = REGISTER_ITEMS.register("book_of_spells", () -> new BookOfSpellsItem(new Item.Properties().group(TAB)));
 	
 	//BlockItem
 	public static final RegistryObject<Item> CRYSTAL_ORE_BLOCK = REGISTER_ITEMS.register("crystal_ore", () -> new BaseBlockItem(MagicSource.NEUTRALMAGIC, ManaPower.MEDIUM, TextFormatting.LIGHT_PURPLE, false, BlockInit.CRYSTAL_ORE.get(), new Item.Properties().group(TAB)));
