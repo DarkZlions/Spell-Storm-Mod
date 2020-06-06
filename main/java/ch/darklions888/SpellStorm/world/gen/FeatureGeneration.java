@@ -16,7 +16,7 @@ public class FeatureGeneration
 		{
 			biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
 					Feature.NORMAL_TREE.withConfiguration(MagicalTree.MAGICAL_TREE_CONFIG).withPlacement(
-							Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 1))));
+							Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(0, 0.05F, 1))));
 		}
 	}
 }
