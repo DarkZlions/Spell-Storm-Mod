@@ -28,15 +28,13 @@ public class PageOfThunder extends BasePageItem
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) 
 	{
-		return getAbilities(worldIn, playerIn, handIn);
+		return getAbilities(worldIn, playerIn, handIn, playerIn.getHeldItem(handIn));
 	}
 	
 	@Override
-	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn) 
+	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stack) 
 	{
-		ItemStack stack = playerIn.getHeldItem(handIn);
-		
-		
+
 		if(worldIn.isRemote)
 		{
 			return ActionResult.resultPass(stack);

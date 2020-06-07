@@ -21,5 +21,5 @@ public interface IMagicalPageItem
 	
 	MagicSource magicSource();
 	
-	ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn);
+	ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stackIn);
 }

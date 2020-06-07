@@ -87,7 +87,7 @@ public class BasePageItem extends BaseItem implements IMagicalPageItem
 	}
 	
 	@Override
-	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn) 
+	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stackIn) 
 	{
 		return null;
 	}

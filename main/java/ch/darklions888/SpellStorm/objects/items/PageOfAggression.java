@@ -33,14 +33,12 @@ public class PageOfAggression extends BasePageItem
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) 
 	{
-		return this.getAbilities(worldIn, playerIn, handIn);
+		return this.getAbilities(worldIn, playerIn, handIn, playerIn.getHeldItem(handIn));
 	}
 	
 	@Override
-	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn) 
+	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stackIn) 
 	{
-
-		ItemStack stackIn = playerIn.getHeldItem(handIn);
 		if(this.getMana(stackIn) > 0)
 		{
 			List<MobEntity> entityList;
