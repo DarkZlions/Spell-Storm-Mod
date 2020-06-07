@@ -3,12 +3,10 @@ package ch.darklions888.SpellStorm.objects.containers;
 import ch.darklions888.SpellStorm.init.ContainerTypesInit;
 import ch.darklions888.SpellStorm.interfaces.IMagicalPageItem;
 import ch.darklions888.SpellStorm.objects.items.BookOfSpellsItem;
-import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
@@ -18,8 +16,7 @@ import net.minecraft.util.NonNullList;
 public class BookOfSpellsContainer extends Container {
 
 	private final PlayerInventory playerInventory;
-	private final IInventory inputSlots = new Inventory(6);
-	private ItemStack stack;
+	private final IInventory inventory;
 	private NonNullList<ItemStack> items = NonNullList.withSize(6, ItemStack.EMPTY);
 
 	private final Slot[] slots = new Slot[6];
@@ -30,27 +27,18 @@ public class BookOfSpellsContainer extends Container {
 			{ 27, 27, 49, 71, 71, 49 } };
 
 	protected BookOfSpellsContainer(ContainerType<?> containerIn, int id, PlayerInventory playerInventory,
-			PlayerEntity playerIn) {
+			PlayerEntity playerIn, IInventory inventory) {
 
 		super(containerIn, id);
 
 		this.playerInventory = playerInventory;
+		this.inventory = inventory;
 
 		playerInventory.openInventory(playerIn);
-		
-		if(stack != null) {
-			ItemStackHelper.loadAllItems(ItemNBTHelper.getCompound(stack, BookOfSpellsItem.COMPOUND_TAG, false), items);
-			
-			ItemStack[] stackArray = (ItemStack[]) items.toArray();
-			
-			for(int i = 0; i < stackArray.length; i++) {
-				inputSlots.setInventorySlotContents(i, stackArray[i]);
-			}
-		}
 
 		for (int i = 0; i < slots.length; i++) {
 
-			slots[i] = this.addSlot(new Slot(this.inputSlots, i, slotsCoordinates[0][i], slotsCoordinates[1][i]) {
+			slots[i] = this.addSlot(new Slot(this.inventory, i, slotsCoordinates[0][i], slotsCoordinates[1][i]) {
 
 				public boolean isItemValid(ItemStack stack) {
 
@@ -85,9 +73,9 @@ public class BookOfSpellsContainer extends Container {
 		
 		items.clear();
 		
-		for(int i = 0; i < inputSlots.getSizeInventory(); i++)
+		for(int i = 0; i < inventory.getSizeInventory(); i++)
 		{
-			items.add(inputSlots.getStackInSlot(i));
+			items.add(inventory.getStackInSlot(i));
 		}
 	}
 
@@ -97,12 +85,12 @@ public class BookOfSpellsContainer extends Container {
 		if (slot != null && slot.getHasStack()) {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
-			if (index < this.inputSlots.getSizeInventory()) {
-				if (!this.mergeItemStack(itemstack1, this.inputSlots.getSizeInventory(), this.inventorySlots.size(),
+			if (index < this.inventory.getSizeInventory()) {
+				if (!this.mergeItemStack(itemstack1, this.inventory.getSizeInventory(), this.inventorySlots.size(),
 						true)) {
 					return ItemStack.EMPTY;
 				}
-			} else if (!this.mergeItemStack(itemstack1, 0, this.inputSlots.getSizeInventory(), false)) {
+			} else if (!this.mergeItemStack(itemstack1, 0, this.inventory.getSizeInventory(), false)) {
 				return ItemStack.EMPTY;
 			}
 
@@ -122,32 +110,29 @@ public class BookOfSpellsContainer extends Container {
 		return true;
 
 	}
+	
+	@Override
+	public void detectAndSendChanges() {
+		super.detectAndSendChanges();
+		
+		if(inventory instanceof BaseInventory) {
+			((BaseInventory) inventory).writeItemStack();
+		}
+	}
 
 	@Override
 	public void onContainerClosed(PlayerEntity playerIn) {
 		super.onContainerClosed(playerIn);
-		
-		System.out.println(stack == null);
-		
-		if(this.stack != null)
-			ItemStackHelper.saveAllItems(ItemNBTHelper.getCompound(this.stack, BookOfSpellsItem.COMPOUND_TAG, false), items);
-		
+
 		this.playerInventory.closeInventory(playerIn);
 	}
-
-	public BookOfSpellsContainer(ContainerType<?> type, int windowId, PlayerInventory playerInventory, ItemStack stack) {
-		this(type, windowId, playerInventory, playerInventory.player);
-		
-		this.stack = stack;
-	}
 	
-	public BookOfSpellsContainer(ContainerType<?> type, int windowId, PlayerInventory playerInventory) {
-		this(type, windowId, playerInventory, playerInventory.player);
+	public BookOfSpellsContainer(ContainerType<?> type, int windowId, PlayerInventory playerInventory, IInventory inventory) {
+		this(type, windowId, playerInventory, playerInventory.player, inventory);
 	}
 
 	public static BookOfSpellsContainer create(int windowId, PlayerInventory playerInventory) {
 		return new BookOfSpellsContainer((ContainerType<?>) ContainerTypesInit.BOOK_OF_SPELLS.get(), windowId,
-				playerInventory);
+				playerInventory, new Inventory(BookOfSpellsItem.getSizeInventory()));
 	}
-
 }
