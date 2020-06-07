@@ -11,6 +11,8 @@
 	"item.spellstorm.soul_catcher": "Soul Catcher",
 	"item.spellstorm.book_of_mana": "Book Of Mana",
 	"item.spellstorm.testitem": "Test Item",
+	"item.spellstorm.book_of_spells": "Book Of Spells",
+	"item.spellstorm.magical_paper": "Magical Paper",
 	
 	//Block
 	"block.spellstorm.crystal_ore": "Crystal Ore",
@@ -24,6 +26,7 @@
 	//Container
 	"container.mana_infuser": "ManaInfuser",
 	"container.soul_extractor": "Soul Extractor",
+	"container.book_of_spells": "Book Of Spells",
 	
 	//ItemGroup
 	"itemGroup.spellstormtab": "Spell Storm"

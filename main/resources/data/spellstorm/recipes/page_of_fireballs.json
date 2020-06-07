@@ -1,17 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "PPP",
-    "P#P",
-    "PPP"
+    "PCP",
+    "C#C",
+    "PCP"
   ],
   "key": {
     "#": {
       "item": "minecraft:fire_charge"
     },
     "P": {
-      "item": "minecraft:paper"
-    }
+      "item": "spellstorm:magical_paper"
+    },
+	"C":{
+		"item": "spellstorm:crystal"
+	}
   },
   "result": {
     "item": "spellstorm:page_of_fireballs"

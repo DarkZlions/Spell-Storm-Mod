@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " P ",
+    "MPM",
     "P#P",
-    " P "
+    "MPM"
   ],
   "key": {
     "#": {
@@ -11,7 +11,10 @@
     },
     "P": {
       "item": "spellstorm:magical_wood_log"
-    }
+    },
+	"M":{
+	"item": "spellstorm:magical_paper"
+	}
   },
   "result": {
     "item": "spellstorm:book_of_mana"
