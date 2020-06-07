@@ -11,9 +11,8 @@ public enum ManaContainerSize
 	REALLYBIG(800);
 	
 	public int size;
-	
-	private ManaContainerSize(int size)
-	{
+
+	private ManaContainerSize(int size) {
 		this.size = size;
 	}
 }

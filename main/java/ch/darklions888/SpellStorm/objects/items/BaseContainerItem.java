@@ -14,74 +14,64 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
-public class BaseContainerItem extends Item implements IMagicalContainer
-{
+public class BaseContainerItem extends Item implements IMagicalContainer {
 	protected MagicSource[] sources;
 	protected ManaContainerSize size;
-	
-	public BaseContainerItem(MagicSource[]	sources, ManaContainerSize size, Properties properties) 
-	{
+
+	public BaseContainerItem(MagicSource[] sources, ManaContainerSize size, Properties properties) {
 		super(properties);
-		
+
 		this.sources = sources;
 		this.size = size;
 	}
-	
+
 	@Override
-	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) 
-	{
-		
+	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+
 		tooltip.add(new StringTextComponent("This magical item can store mana."));
-		
-		for(MagicSource source : sources)
-		{
-			tooltip.add(new StringTextComponent(FormattingHelper.GetSourceColor(source) + FormattingHelper.GetFontFormat(source) + source.sourceId + "\u00A7r" + " Mana: " + String.valueOf(getManaValue(stack, source.sourceId) + "/" + String.valueOf(getContainerSize()))));
+
+		for (MagicSource source : sources) {
+			tooltip.add(new StringTextComponent(FormattingHelper.GetSourceColor(source)
+					+ FormattingHelper.GetFontFormat(source) + source.sourceId + "\u00A7r" + " Mana: "
+					+ String.valueOf(getManaValue(stack, source.sourceId) + "/" + String.valueOf(getContainerSize()))));
 		}
-		
+
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 	}
-	
+
 	@Override
-	public int getManaValue(ItemStack stack, String key)
-	{
+	public int getManaValue(ItemStack stack, String key) {
 		return ItemNBTHelper.getInt(stack, key, 0);
 	}
-	
+
 	@Override
-	public void setManaValue(ItemStack stack, String key, int manaAmount)
-	{
+	public void setManaValue(ItemStack stack, String key, int manaAmount) {
 		ItemNBTHelper.setInt(stack, key, manaAmount);
 	}
-	
+
 	@Override
-	public void addManaValue(ItemStack stack, String key, int manaAmount)
-	{
+	public void addManaValue(ItemStack stack, String key, int manaAmount) {
 		setManaValue(stack, key, Math.min(getManaValue(stack, key) + manaAmount, size.size));
 	}
-	
+
 	@Override
-	public int getContainerSize()
-	{
+	public int getContainerSize() {
 		return size.size;
 	}
-	
+
 	@Override
-	public MagicSource[] getMagigSource()
-	{
+	public MagicSource[] getMagigSource() {
 		return sources;
 	}
-	
+
 	@Override
-	public boolean hasMagicSource(MagicSource sourceIn)
-	{
-		for(MagicSource source : sources)
-		{
-			if(source == sourceIn)
-			{
+	public boolean hasMagicSource(MagicSource sourceIn) {
+		for (MagicSource source : sources) {
+			if (source == sourceIn) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 

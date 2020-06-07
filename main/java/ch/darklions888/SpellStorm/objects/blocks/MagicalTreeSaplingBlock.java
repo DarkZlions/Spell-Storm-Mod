@@ -19,77 +19,64 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.ForgeEventFactory;
 
-public class MagicalTreeSaplingBlock extends BushBlock implements IGrowable
-{
+public class MagicalTreeSaplingBlock extends BushBlock implements IGrowable {
 	public static final IntegerProperty STAGE = BlockStateProperties.STAGE_0_1;
 	protected static final VoxelShape SHAPE = Block.makeCuboidShape(2.0d, 0.0d, 2.0d, 14.0d, 12.0d, 14.0d);
 	private final Supplier<Tree> tree;
-	
-	public MagicalTreeSaplingBlock(Supplier<Tree> treeIn, Properties properties) 
-	{
+
+	public MagicalTreeSaplingBlock(Supplier<Tree> treeIn, Properties properties) {
 		super(properties);
-		
+
 		this.tree = treeIn;
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) 
-	{
+	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
 		return SHAPE;
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@Override
-	public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) 
-	{
+	public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
 		super.tick(state, worldIn, pos, rand);
-		
-		if(!worldIn.isAreaLoaded(pos, 1))
-		{
+
+		if (!worldIn.isAreaLoaded(pos, 1)) {
 			return;
 		}
-		if(worldIn.getLight(pos.up()) >= 9 && rand.nextInt(7) == 0)
-		{
+		if (worldIn.getLight(pos.up()) >= 9 && rand.nextInt(7) == 0) {
 			this.grow(worldIn, pos, state, rand);
 		}
 	}
-	
-	public void grow(ServerWorld worldIn, BlockPos pos, BlockState state, Random rand) 
-	{
-		if(state.get(STAGE) == 0)
-		{
-			worldIn.setBlockState(pos,  state.cycle(STAGE), 4);
-		}
-		else
-		{
-			if(!ForgeEventFactory.saplingGrowTree(worldIn, rand, pos)) return;
-			
+
+	public void grow(ServerWorld worldIn, BlockPos pos, BlockState state, Random rand) {
+		if (state.get(STAGE) == 0) {
+			worldIn.setBlockState(pos, state.cycle(STAGE), 4);
+		} else {
+			if (!ForgeEventFactory.saplingGrowTree(worldIn, rand, pos))
+					return;
+
 			this.tree.get().place(worldIn, worldIn.getChunkProvider().getChunkGenerator(), pos, state, rand);
 
 		}
 	}
-	
+
 	@Override
-	public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) 
-	{
+	public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
 		this.grow(worldIn, pos, state, rand);
 	}
-	
+
 	@Override
-	public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) 
-	{
+	public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
 		return true;
 	}
-	
+
 	@Override
-	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) 
-	{
+	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) {
 		return (double) worldIn.rand.nextFloat() < 0.45D;
 	}
-	
+
 	@Override
-	protected void fillStateContainer(Builder<Block, BlockState> builder) 
-	{
+	protected void fillStateContainer(Builder<Block, BlockState> builder) {
 		builder.add(STAGE);
 	}
 

@@ -59,95 +59,83 @@ public class ManaInfuserBlock extends BaseBlock
 			Block.makeCuboidShape(12, 11, 12, 13, 13, 13),
 			Block.makeCuboidShape(3, 11, 12, 4, 13, 13)
 			).reduce((v1, v2) -> {return VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get();
-	private static final TranslationTextComponent text = new TranslationTextComponent("container.mana_infuser");
 	
-	public ManaInfuserBlock(Properties properties) 
-	{
+	private static final TranslationTextComponent text = new TranslationTextComponent("container.mana_infuser");
+
+	public ManaInfuserBlock(Properties properties) {
 		super(properties);
 		this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
 	}
-	
+
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) 
-	{
-		switch(state.get(FACING))
-		{
-			case NORTH:
-				return SHAPE_N;
-			case SOUTH:
-				return SHAPE_N;
-			case EAST:
-				return SHAPE_N;
-			case WEST:
-				return SHAPE_N;
-			default:
-				return SHAPE_N;
+	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+		switch (state.get(FACING)) {
+		case NORTH:
+			return SHAPE_N;
+		case SOUTH:
+			return SHAPE_N;
+		case EAST:
+			return SHAPE_N;
+		case WEST:
+			return SHAPE_N;
+		default:
+			return SHAPE_N;
 		}
 	}
-	
+
 	@Override
-	public BlockState getStateForPlacement(BlockItemUseContext context) 
-	{
+	public BlockState getStateForPlacement(BlockItemUseContext context) {
 		return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
 	}
-	
+
 	@Override
-	public BlockState rotate(BlockState state, Rotation rot) 
-	{
+	public BlockState rotate(BlockState state, Rotation rot) {
 		return state.with(FACING, rot.rotate(state.get(FACING)));
 	}
-	
+
 	@Override
-	public BlockState mirror(BlockState state, Mirror mirrorIn) 
-	{
+	public BlockState mirror(BlockState state, Mirror mirrorIn) {
 		return state.rotate(mirrorIn.toRotation(state.get(FACING)));
 	}
-	
+
 	@Override
-	protected void fillStateContainer(Builder<Block, BlockState> builder) 
-	{
+	protected void fillStateContainer(Builder<Block, BlockState> builder) {
 		builder.add(FACING);
 	}
-	
+
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) 
-	{
-		if(worldIn.isRemote)
-		{
+	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
+			Hand handIn, BlockRayTraceResult hit) {
+		if (worldIn.isRemote) {
 			return ActionResultType.SUCCESS;
-		}
-		else
-		{
+		} else {
 			NetworkHooks.openGui((ServerPlayerEntity) player, getContainer(state, worldIn, pos));
-			
+
 			return ActionResultType.SUCCESS;
 		}
 	}
-	
+
 	@Override
-	public INamedContainerProvider getContainer(BlockState state, World worldIn, BlockPos pos) 
-	{
-		return new SimpleNamedContainerProvider((p_220272_2_, p_220272_3_, p_220272_4_) ->
-		{
-			return new ManaInfuserContainer(ContainerTypesInit.MANA_INFUSER.get(), p_220272_2_, p_220272_3_, IWorldPosCallable.of(worldIn, pos));
+	public INamedContainerProvider getContainer(BlockState state, World worldIn, BlockPos pos) {
+		return new SimpleNamedContainerProvider((p_220272_2_, p_220272_3_, p_220272_4_) -> {
+			return new ManaInfuserContainer(ContainerTypesInit.MANA_INFUSER.get(), p_220272_2_, p_220272_3_,
+					IWorldPosCallable.of(worldIn, pos));
 		}, text);
 	}
-	
+
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) 
-	{
-	      for(int i = 0; i < 3; ++i) 
-	      {
-	          int j = rand.nextInt(2) * 2 - 1;
-	          int k = rand.nextInt(2) * 2 - 1;
-	          double d0 = (double)pos.getX() + 0.5D + 0.25D * (double)j;
-	          double d1 = (double)((float)pos.getY() + rand.nextFloat());
-	          double d2 = (double)pos.getZ() + 0.5D + 0.25D * (double)k;
-	          double d3 = (double)(rand.nextFloat() * (float)j);
-	          double d4 = ((double)rand.nextFloat() - 0.5D) * 0.125D;
-	          double d5 = (double)(rand.nextFloat() * (float)k);
-	          worldIn.addParticle(ParticlesInit.RUNE_PARTICLE.get(), d0, d1, d2, d3, d4, d5);
-	      }
+	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+		for (int i = 0; i < 3; ++i) {
+			int j = rand.nextInt(2) * 2 - 1;
+			int k = rand.nextInt(2) * 2 - 1;
+			double d0 = (double) pos.getX() + 0.5D + 0.25D * (double) j;
+			double d1 = (double) ((float) pos.getY() + rand.nextFloat());
+			double d2 = (double) pos.getZ() + 0.5D + 0.25D * (double) k;
+			double d3 = (double) (rand.nextFloat() * (float) j);
+			double d4 = ((double) rand.nextFloat() - 0.5D) * 0.125D;
+			double d5 = (double) (rand.nextFloat() * (float) k);
+			worldIn.addParticle(ParticlesInit.RUNE_PARTICLE.get(), d0, d1, d2, d3, d4, d5);
+		}
 	}
 }

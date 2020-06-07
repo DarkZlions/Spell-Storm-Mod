@@ -11,34 +11,27 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
-public class CustomOreBlock extends Block
-{
+public class CustomOreBlock extends Block {
 
-	public CustomOreBlock(Properties properties) 
-	{
+	public CustomOreBlock(Properties properties) {
 		super(properties);
 	}
-	
-	
-	protected int getExperience(Random rand) 
-	{
-		if(this == BlockInit.CRYSTAL_ORE.get())
+
+	protected int getExperience(Random rand) {
+		if (this == BlockInit.CRYSTAL_ORE.get())
 			return MathHelper.nextInt(rand, 3, 4);
 		else
 			return 0;
 	}
-	
+
 	@SuppressWarnings("deprecation")
-	public void spawnAdditionalDrops(BlockState state, World worldIn, BlockPos pos, ItemStack stack) 
-	{
+	public void spawnAdditionalDrops(BlockState state, World worldIn, BlockPos pos, ItemStack stack) {
 		super.spawnAdditionalDrops(state, worldIn, pos, stack);
 	}
-	
+
 	@Override
-	public int getExpDrop(BlockState state, IWorldReader reader, BlockPos pos, int fortune, int silktouch) 
-	{
+	public int getExpDrop(BlockState state, IWorldReader reader, BlockPos pos, int fortune, int silktouch) {
 		return silktouch == 0 ? this.getExperience(RANDOM) : fortune > 0 ? this.getExperience(RANDOM) + fortune : 0;
 	}
-	
 
 }

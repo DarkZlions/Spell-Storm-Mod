@@ -66,15 +66,14 @@ public class BookOfSpellsContainer extends Container {
 		}
 
 	}
-	
+
 	@Override
 	public void onCraftMatrixChanged(IInventory inventoryIn) {
 		super.onCraftMatrixChanged(inventoryIn);
-		
+
 		items.clear();
-		
-		for(int i = 0; i < inventory.getSizeInventory(); i++)
-		{
+
+		for (int i = 0; i < inventory.getSizeInventory(); i++) {
 			items.add(inventory.getStackInSlot(i));
 		}
 	}
@@ -110,12 +109,12 @@ public class BookOfSpellsContainer extends Container {
 		return true;
 
 	}
-	
+
 	@Override
 	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
-		
-		if(inventory instanceof BaseInventory) {
+
+		if (inventory instanceof BaseInventory) {
 			((BaseInventory) inventory).writeItemStack();
 		}
 	}
@@ -126,8 +125,9 @@ public class BookOfSpellsContainer extends Container {
 
 		this.playerInventory.closeInventory(playerIn);
 	}
-	
-	public BookOfSpellsContainer(ContainerType<?> type, int windowId, PlayerInventory playerInventory, IInventory inventory) {
+
+	public BookOfSpellsContainer(ContainerType<?> type, int windowId, PlayerInventory playerInventory,
+			IInventory inventory) {
 		this(type, windowId, playerInventory, playerInventory.player, inventory);
 	}
 

@@ -59,93 +59,82 @@ public class SoulExtractorBlock extends BaseBlock
 			Block.makeCuboidShape(3, 13, 3, 13, 14, 13),
 			Block.makeCuboidShape(1, 12, 1, 15, 13, 15)
 			).reduce((v1, v2) -> {return VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get();
-	
-	public SoulExtractorBlock(Properties properties) 
-	{
+
+	public SoulExtractorBlock(Properties properties) {
 		super(properties);
 		this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
 	}
-	
+
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) 
-	{
+	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
 		return SHAPE;
 	}
-	
+
 	@Override
-	public BlockState getStateForPlacement(BlockItemUseContext context) 
-	{
+	public BlockState getStateForPlacement(BlockItemUseContext context) {
 		return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
 	}
-	
+
 	@Override
-	public BlockState rotate(BlockState state, Rotation rot) 
-	{
+	public BlockState rotate(BlockState state, Rotation rot) {
 		return state.with(FACING, rot.rotate(state.get(FACING)));
 	}
-	
+
 	@Override
-	public BlockState mirror(BlockState state, Mirror mirrorIn) 
-	{
+	public BlockState mirror(BlockState state, Mirror mirrorIn) {
 		return state.rotate(mirrorIn.toRotation(state.get(FACING)));
 	}
-	
+
 	@Override
-	protected void fillStateContainer(Builder<Block, BlockState> builder) 
-	{
+	protected void fillStateContainer(Builder<Block, BlockState> builder) {
 		builder.add(FACING);
 	}
-	
+
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) 
-	{
-		if(worldIn.isRemote)
-		{
+	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
+			Hand handIn, BlockRayTraceResult hit) {
+		if (worldIn.isRemote) {
 			return ActionResultType.SUCCESS;
-		}
-		else
-		{
+		} else {
 			NetworkHooks.openGui((ServerPlayerEntity) player, getContainer(state, worldIn, pos));
-			
+
 			world = worldIn;
-			
+
 			return ActionResultType.SUCCESS;
 		}
 	}
-	
-	//I'm sure this isn't the best solution to get the world for the container class
-	public static World getWorld()
-	{
+
+	// I'm sure this isn't the best solution to get the world for the container
+	// class
+	public static World getWorld() {
 		return world;
 	}
-	
+
 	@Override
-	public INamedContainerProvider getContainer(BlockState state, World worldIn, BlockPos pos) 
-	{
-		return new SimpleNamedContainerProvider((p_220272_2_, p_220272_3_, p_220272_4_) ->
-		{
-			return new SoulExtractorContainer(ContainerTypesInit.SOUL_EXTRACTOR.get(), p_220272_2_, p_220272_3_, IWorldPosCallable.of(worldIn, pos));
+	public INamedContainerProvider getContainer(BlockState state, World worldIn, BlockPos pos) {
+		return new SimpleNamedContainerProvider((p_220272_2_, p_220272_3_, p_220272_4_) -> {
+			return new SoulExtractorContainer(ContainerTypesInit.SOUL_EXTRACTOR.get(), p_220272_2_, p_220272_3_,
+					IWorldPosCallable.of(worldIn, pos));
 		}, text);
 	}
-	
+
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) 
-	{
-	      if (rand.nextInt(100) == 0) {
-	          worldIn.playSound((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, SoundInit.HAUNTED_SOULS.get(), SoundCategory.BLOCKS, 1.5F, rand.nextFloat() * 0.4F + 0.8F, false);
-	       }
-	      for(int i = 0; i < 2; ++i) 
-	      {
-	          int j = rand.nextInt(2) * 2 - 1;
-	          int k = rand.nextInt(2) * 2 - 1;
-	          double d0 = (double)pos.getX() + 0.5D + 0.25D * (double)j;
-	          double d1 = (double)((float)pos.getY() + rand.nextFloat()) + .5d;
-	          double d2 = (double)pos.getZ() + 0.5D + 0.25D * (double)k;
-	          double d3 = (double)(rand.nextFloat() * (float)j);
-	          double d4 = ((double)rand.nextFloat() - 0.5D) * 0.140D;
-	          double d5 = (double)(rand.nextFloat() * (float)k);
-	          worldIn.addParticle(ParticlesInit.SOULS_PARTICLE.get(), d0, d1, d2, d3, d4, d5);
-	      }
+	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+		if (rand.nextInt(100) == 0) {
+			worldIn.playSound((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D,
+					SoundInit.HAUNTED_SOULS.get(), SoundCategory.BLOCKS, 1.5F, rand.nextFloat() * 0.4F + 0.8F, false);
+		}
+		for (int i = 0; i < 2; ++i) {
+			int j = rand.nextInt(2) * 2 - 1;
+			int k = rand.nextInt(2) * 2 - 1;
+			double d0 = (double) pos.getX() + 0.5D + 0.25D * (double) j;
+			double d1 = (double) ((float) pos.getY() + rand.nextFloat()) + .5d;
+			double d2 = (double) pos.getZ() + 0.5D + 0.25D * (double) k;
+			double d3 = (double) (rand.nextFloat() * (float) j);
+			double d4 = ((double) rand.nextFloat() - 0.5D) * 0.140D;
+			double d5 = (double) (rand.nextFloat() * (float) k);
+			worldIn.addParticle(ParticlesInit.SOULS_PARTICLE.get(), d0, d1, d2, d3, d4, d5);
+		}
 	}
 }

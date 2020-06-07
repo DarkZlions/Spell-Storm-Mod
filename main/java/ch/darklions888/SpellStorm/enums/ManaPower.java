@@ -9,9 +9,8 @@ public enum ManaPower
 	VERYHIGH(40);
 	
 	public int mana;
-	
-	private ManaPower(int mana)
-	{
+
+	private ManaPower(int mana) {
 		this.mana = mana;
 	}
 }

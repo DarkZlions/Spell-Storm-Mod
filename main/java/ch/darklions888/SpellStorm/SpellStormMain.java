@@ -1,6 +1,5 @@
 package ch.darklions888.SpellStorm;
 
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,51 +23,46 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(SpellStormMain.MODID)
 @Mod.EventBusSubscriber(modid = SpellStormMain.MODID, bus = Bus.MOD)
-public class SpellStormMain 
-{
-	public static final String MODID = "spellstorm";
-	public static final Logger LOGGER  = LogManager.getLogger();
-	public static SpellStormMain INSTANCE;
+public class SpellStormMain {
 	
-	public SpellStormMain()
-	{
+	public static final String MODID = "spellstorm";
+	public static final Logger LOGGER = LogManager.getLogger();
+	public static SpellStormMain INSTANCE;
+
+	public SpellStormMain() {
 		final IEventBus Bus = FMLJavaModLoadingContext.get().getModEventBus();
-		
+
 		Bus.addListener(this::CommonSetup);
 		Bus.addListener(this::ClientSetup);
-		
+
 		SoundInit.REGISTER_SOUNDS.register(Bus);
 		ItemInit.REGISTER_ITEMS.register(Bus);
 		BlockInit.REGISTER_BLOCKS.register(Bus);
 		ContainerTypesInit.REGISTER_CONTAINERS.register(Bus);
 		ParticlesInit.REGISTER_PARTICLES.register(Bus);
-		
+
 		SpellStormMain.INSTANCE = this;
 		MinecraftForge.EVENT_BUS.register(this);
 	}
-	
+
 	@SubscribeEvent
-	public void CommonSetup(FMLCommonSetupEvent event)
-	{
+	public void CommonSetup(FMLCommonSetupEvent event) {
 		OreGeneration.GenerationSetup();
 		FeatureGeneration.genFeatures();
 	}
-	
+
 	@SubscribeEvent
-	public void ClientSetup(FMLClientSetupEvent event)
-	{
-		
+	public void ClientSetup(FMLClientSetupEvent event) {
+
 	}
-	
+
 	@SubscribeEvent
-	public void LoadCompleteEvent(FMLLoadCompleteEvent event)
-	{
+	public void LoadCompleteEvent(FMLLoadCompleteEvent event) {
 		OreGeneration.GenerationSetup();
 		FeatureGeneration.genFeatures();
 	}
-	
-	public static ResourceLocation location(String key)
-	{
+
+	public static ResourceLocation location(String key) {
 		return new ResourceLocation(SpellStormMain.MODID, key);
 	}
 }

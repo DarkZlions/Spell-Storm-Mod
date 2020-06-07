@@ -9,18 +9,17 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class CrystalOreBlock extends CustomOreBlock
-{
+public class CrystalOreBlock extends CustomOreBlock {
 
-	public CrystalOreBlock(Properties properties)
-	{
+	public CrystalOreBlock(Properties properties) {
 		super(properties);
 	}
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) 
-	{
-	      worldIn.addParticle(ParticleTypes.PORTAL, (double)pos.getX() + (double)rand.nextFloat(), (double)pos.getY() - .3 +  (double)rand.nextFloat(), (double)pos.getZ() + (double)rand.nextFloat(), 0.0D, 0.0D, 0.0D);
+	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+		worldIn.addParticle(ParticleTypes.PORTAL, (double) pos.getX() + (double) rand.nextFloat(),
+				(double) pos.getY() - .3 + (double) rand.nextFloat(), (double) pos.getZ() + (double) rand.nextFloat(),
+				0.0D, 0.0D, 0.0D);
 	}
 }
