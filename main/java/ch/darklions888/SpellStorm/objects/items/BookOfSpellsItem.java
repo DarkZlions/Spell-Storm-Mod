@@ -20,6 +20,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -43,12 +44,14 @@ public class BookOfSpellsItem extends Item {
 		ItemStack stack = playerIn.getHeldItem(handIn);
 
 		if (worldIn.isRemote) {
-
+			
 			return ActionResult.resultPass(stack);
 
 		} else {
 
-			if (KeyBoardHelper.IsHoldingShift()) {
+			ServerPlayerEntity serverPlayer = (ServerPlayerEntity) playerIn;
+			
+			if  (serverPlayer.isCrouching()){
 
 				NetworkHooks.openGui((ServerPlayerEntity) playerIn, getContainer(stack));
 
@@ -75,7 +78,7 @@ public class BookOfSpellsItem extends Item {
 	@Override
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 
-		if (KeyBoardHelper.IsHoldingControl() && isSelected && !ItemNBTHelper.getBoolean(stack, "is_used", false)) {
+		if (KeyBoardHelper.IsHoldingControl() && !ItemNBTHelper.getBoolean(stack, "is_used", false)) {
 			int index = getSelectedSlot(stack);
 
 			index = (index++) < getSizeInventory() - 1 ? index++ : 0;
@@ -108,6 +111,14 @@ public class BookOfSpellsItem extends Item {
 			tooltip.add(new StringTextComponent(" "));
 			tooltip.add(new StringTextComponent("Push Control to switch through the slots."));
 		}
+	}
+	
+	@Override
+	public ITextComponent getDisplayName(ItemStack stack) {
+		TranslationTextComponent translationText = new TranslationTextComponent(this.getTranslationKey(stack));
+		
+		return new TranslationTextComponent(
+				translationText.getString() + " [" + String.valueOf(this.getSelectedSlot(stack)) + "]");
 	}
 
 	public BaseInventory getInventory(ItemStack stackIn) {
