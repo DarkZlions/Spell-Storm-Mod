@@ -3,11 +3,13 @@ package ch.darklions888.SpellStorm;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import ch.darklions888.SpellStorm.client.KeyBindings;
 import ch.darklions888.SpellStorm.init.BlockInit;
 import ch.darklions888.SpellStorm.init.ContainerTypesInit;
 import ch.darklions888.SpellStorm.init.ItemInit;
 import ch.darklions888.SpellStorm.init.ParticlesInit;
 import ch.darklions888.SpellStorm.init.SoundInit;
+import ch.darklions888.SpellStorm.network.NetworkHandler;
 import ch.darklions888.SpellStorm.world.gen.FeatureGeneration;
 import ch.darklions888.SpellStorm.world.gen.OreGeneration;
 import net.minecraft.util.ResourceLocation;
@@ -49,11 +51,12 @@ public class SpellStormMain {
 	public void CommonSetup(FMLCommonSetupEvent event) {
 		OreGeneration.GenerationSetup();
 		FeatureGeneration.genFeatures();
+		NetworkHandler.registerMessages();
 	}
 
 	@SubscribeEvent
 	public void ClientSetup(FMLClientSetupEvent event) {
-
+		KeyBindings.init();
 	}
 
 	@SubscribeEvent

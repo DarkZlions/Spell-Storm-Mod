@@ -18,6 +18,12 @@ public class KeyBoardHelper
 				InputMappings.isKeyDown(WINDOW, GLFW.GLFW_KEY_RIGHT_SHIFT);
 	}
 	
+	public static boolean IsHoldingShifts()
+	{
+		return InputMappings.isKeyDown(WINDOW, GLFW.GLFW_KEY_LEFT_SHIFT) || 
+				InputMappings.isKeyDown(WINDOW, GLFW.GLFW_KEY_RIGHT_SHIFT);
+	}
+	
 	@OnlyIn(Dist.CLIENT)
 	public static boolean IsHoldingControl() {
 		return InputMappings.isKeyDown(WINDOW, GLFW.GLFW_KEY_LEFT_CONTROL) || 
