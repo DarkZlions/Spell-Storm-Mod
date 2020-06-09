@@ -51,7 +51,7 @@ public class SoulExtractorContainer extends Container {
 		this.addSlot(new Slot(this.inputslots, 1, 48, 13) {
 
 			public boolean isItemValid(ItemStack stackIn) {
-				return stackIn.getItem() instanceof IMagicalContainer;
+				return stackIn.getItem() instanceof IMagicalContainer || stackIn.getItem() instanceof IMagicalPageItem;
 			}
 		});
 
@@ -131,8 +131,7 @@ public class SoulExtractorContainer extends Container {
 				} else {
 					this.outputslots.setInventorySlotContents(2, ItemStack.EMPTY);
 				}
-			} else if (catchStack.getItem() instanceof SoulCatcherItem
-					&& containerStack.getItem() instanceof IMagicalPageItem) {
+			} else if (catchStack.getItem() instanceof SoulCatcherItem && containerStack.getItem() instanceof IMagicalPageItem) {
 				ItemStack containerCopy = containerStack.copy();
 
 				SoulCatcherItem soulCatcher = (SoulCatcherItem) catchStack.getItem();
