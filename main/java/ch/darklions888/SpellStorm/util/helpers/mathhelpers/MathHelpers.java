@@ -37,7 +37,7 @@ public class MathHelpers
 			return false;
 	}
 	
-	public double Clamp(double dIn, double min, double max)
+	public static double Clamp(double dIn, double min, double max)
 	{
 		if(dIn >= min && dIn <= max)
 			return dIn;
@@ -47,6 +47,16 @@ public class MathHelpers
 			return max;
 		else
 			return dIn;
+	}
+	
+	public static double CycleNumberLine(double value, double min, double max) {
+		if (value <= max && value >= min) return value;
+		
+		if (value > max) return min;
+		
+		if (value < min) return max;
+		
+		return 0;
 	}
 	
 	public static List<Vec3> getCircleCoordinates(double radius, Vec3 position, int precision, boolean vertical, boolean flip)

@@ -1,8 +1,9 @@
-package ch.darklions888.SpellStorm.objects.items;
+package ch.darklions888.SpellStorm.objects.items.pages;
 
 import ch.darklions888.SpellStorm.enums.MagicSource;
 import ch.darklions888.SpellStorm.enums.ManaContainerSize;
 import ch.darklions888.SpellStorm.enums.ManaPower;
+import ch.darklions888.SpellStorm.objects.items.BasePageItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.DragonFireballEntity;
 import net.minecraft.item.ItemStack;
@@ -50,9 +51,7 @@ public class PageOfDragonBall extends BasePageItem{
 				
 				DragonFireballEntity ball = new DragonFireballEntity(
 						serverWorld,
-						x + lx,
-						(y + 1.2d) + ly,
-						z + lz,
+						playerIn,
 						lx * speed,
 						ly * speed,
 						lz * speed);

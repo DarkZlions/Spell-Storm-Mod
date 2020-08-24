@@ -1,4 +1,4 @@
-package ch.darklions888.SpellStorm.interfaces;
+package ch.darklions888.SpellStorm.objects.items;
 
 import ch.darklions888.SpellStorm.enums.MagicSource;
 import net.minecraft.item.ItemStack;

@@ -1,8 +1,7 @@
 package ch.darklions888.SpellStorm.objects.containers;
 
 import ch.darklions888.SpellStorm.init.ContainerTypesInit;
-import ch.darklions888.SpellStorm.interfaces.IMagicalPageItem;
-import ch.darklions888.SpellStorm.objects.items.BookOfSpellsItem;
+import ch.darklions888.SpellStorm.objects.items.IMagicalPageItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
@@ -107,7 +106,6 @@ public class BookOfSpellsContainer extends Container {
 	public boolean canInteractWith(PlayerEntity playerIn) {
 
 		return true;
-
 	}
 
 	@Override
@@ -133,6 +131,6 @@ public class BookOfSpellsContainer extends Container {
 
 	public static BookOfSpellsContainer create(int windowId, PlayerInventory playerInventory) {
 		return new BookOfSpellsContainer((ContainerType<?>) ContainerTypesInit.BOOK_OF_SPELLS.get(), windowId,
-				playerInventory, new Inventory(BookOfSpellsItem.getSizeInventory()));
+				playerInventory, new Inventory(6));
 	}
 }

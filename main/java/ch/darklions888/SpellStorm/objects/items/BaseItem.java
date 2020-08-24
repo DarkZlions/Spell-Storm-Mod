@@ -7,7 +7,6 @@ import javax.annotation.Nullable;
 import ch.darklions888.SpellStorm.enums.MagicSource;
 import ch.darklions888.SpellStorm.enums.ManaContainerSize;
 import ch.darklions888.SpellStorm.enums.ManaPower;
-import ch.darklions888.SpellStorm.interfaces.IMagicalItem;
 import ch.darklions888.SpellStorm.util.helpers.formatting.FormattingHelper;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;

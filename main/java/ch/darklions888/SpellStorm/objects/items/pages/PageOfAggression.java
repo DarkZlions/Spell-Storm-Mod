@@ -1,10 +1,11 @@
-package ch.darklions888.SpellStorm.objects.items;
+package ch.darklions888.SpellStorm.objects.items.pages;
 
 import java.util.List;
 
 import ch.darklions888.SpellStorm.enums.MagicSource;
 import ch.darklions888.SpellStorm.enums.ManaContainerSize;
 import ch.darklions888.SpellStorm.enums.ManaPower;
+import ch.darklions888.SpellStorm.objects.items.BasePageItem;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SharedMonsterAttributes;

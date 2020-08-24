@@ -5,10 +5,21 @@ import ch.darklions888.SpellStorm.enums.MagicSource;
 import ch.darklions888.SpellStorm.enums.ManaContainerSize;
 import ch.darklions888.SpellStorm.enums.ManaPower;
 import ch.darklions888.SpellStorm.objects.itemgroup.SpellStormItemGroup;
-import ch.darklions888.SpellStorm.objects.items.*;
+import ch.darklions888.SpellStorm.objects.items.BaseBlockItem;
+import ch.darklions888.SpellStorm.objects.items.BaseItem;
+import ch.darklions888.SpellStorm.objects.items.BookOfMana;
+import ch.darklions888.SpellStorm.objects.items.BookOfSpellsItem;
+import ch.darklions888.SpellStorm.objects.items.CrytalShardItem;
+import ch.darklions888.SpellStorm.objects.items.SoulCatcherItem;
+import ch.darklions888.SpellStorm.objects.items.pages.PageOfAggression;
+import ch.darklions888.SpellStorm.objects.items.pages.PageOfDragonBall;
+import ch.darklions888.SpellStorm.objects.items.pages.PageOfFallingRocks;
+import ch.darklions888.SpellStorm.objects.items.pages.PageOfFireballs;
+import ch.darklions888.SpellStorm.objects.items.pages.PageOfMining;
+import ch.darklions888.SpellStorm.objects.items.pages.PageOfTheWithers;
+import ch.darklions888.SpellStorm.objects.items.pages.PageOfThunder;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.item.Item.Properties;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -33,7 +44,7 @@ public class ItemInit
 	public static final RegistryObject<Item> PAGE_OF_FALLING_ROCK = REGISTER_ITEMS.register("page_of_falling_rock", () -> new PageOfFallingRocks(ManaContainerSize.SMALL, MagicSource.UNKNOWNMAGIC, ManaPower.VERYHIGH, TextFormatting.BLACK, true, new Item.Properties().group(TAB).maxStackSize(1)));
 	public static final RegistryObject<Item> PAGE_OF_FIREBALLS = REGISTER_ITEMS.register("page_of_fireballs", () -> new PageOfFireballs(ManaContainerSize.MEDIUM, MagicSource.NEUTRALMAGIC, ManaPower.LOW, TextFormatting.YELLOW, true, new Item.Properties().group(TAB).maxStackSize(1)));
 	public static final RegistryObject<Item> PAGE_OF_DRAGONBALL = REGISTER_ITEMS.register("page_of_dragonball", () -> new PageOfDragonBall(ManaContainerSize.SMALL, MagicSource.UNKNOWNMAGIC, ManaPower.VERYHIGH, TextFormatting.DARK_PURPLE, true, new Item.Properties().group(TAB).maxStackSize(1)));
-	public static final RegistryObject<Item> PAGE_OF_MINING = REGISTER_ITEMS.register("page_of_mining", () -> new PageOfMining(ManaContainerSize.REALLYBIG, MagicSource.NEUTRALMAGIC, ManaPower.MEDIUM, TextFormatting.GRAY, true, new Item.Properties().group(TAB).maxStackSize(1)));
+	public static final RegistryObject<Item> PAGE_OF_MINING = REGISTER_ITEMS.register("page_of_mining", () -> new PageOfMining(ManaContainerSize.BIGGER, MagicSource.NEUTRALMAGIC, ManaPower.MEDIUM, TextFormatting.GRAY, true, new Item.Properties().group(TAB).maxStackSize(1)));
 	
 	//Other magic items
 	public static final RegistryObject<Item> SOUL_CATCHER = REGISTER_ITEMS.register("soul_catcher", () -> new SoulCatcherItem(new Item.Properties().group(TAB).maxStackSize(1)));

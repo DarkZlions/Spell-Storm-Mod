@@ -1,4 +1,4 @@
-package ch.darklions888.SpellStorm.util.helpers;
+package ch.darklions888.SpellStorm.util.input;
 
 import org.lwjgl.glfw.GLFW;
 
@@ -18,6 +18,7 @@ public class KeyBoardHelper
 				InputMappings.isKeyDown(WINDOW, GLFW.GLFW_KEY_RIGHT_SHIFT);
 	}
 	
+	@OnlyIn(Dist.CLIENT)
 	public static boolean IsHoldingShifts()
 	{
 		return InputMappings.isKeyDown(WINDOW, GLFW.GLFW_KEY_LEFT_SHIFT) || 
@@ -31,36 +32,7 @@ public class KeyBoardHelper
 	}
 	
 	@OnlyIn(Dist.CLIENT)
-	public static boolean IsHoldingNum_0() {
-		return InputMappings.isKeyDown(WINDOW, GLFW.GLFW_KEY_0);
-	}
-	
-	@OnlyIn(Dist.CLIENT)
-	public static boolean IsHoldingNum_1() {
-		return InputMappings.isKeyDown(WINDOW, GLFW.GLFW_KEY_1);
-	}
-	
-	@OnlyIn(Dist.CLIENT)
-	public static boolean IsHoldingNum_2() {
-		return InputMappings.isKeyDown(WINDOW, GLFW.GLFW_KEY_2);
-	}
-	
-	@OnlyIn(Dist.CLIENT)
-	public static boolean IsHoldingNum_3() {
-		return InputMappings.isKeyDown(WINDOW, GLFW.GLFW_KEY_3);
-	}
-	@OnlyIn(Dist.CLIENT)
-	public static boolean IsHoldingNum_4() {
-		return InputMappings.isKeyDown(WINDOW, GLFW.GLFW_KEY_4);
-	}
-	
-	@OnlyIn(Dist.CLIENT)
-	public static boolean IsHoldingNum_5() {
-		return InputMappings.isKeyDown(WINDOW, GLFW.GLFW_KEY_5);
-	}
-	
-	@OnlyIn(Dist.CLIENT)
-	public static boolean IsHoldingNum_6() {
-		return InputMappings.isKeyDown(WINDOW, GLFW.GLFW_KEY_6);
+	public static boolean isHoldingButton(int button) {
+		return InputMappings.isKeyDown(WINDOW, button);
 	}
 }

@@ -1,8 +1,9 @@
-package ch.darklions888.SpellStorm.objects.items;
+package ch.darklions888.SpellStorm.objects.items.pages;
 
 import ch.darklions888.SpellStorm.enums.MagicSource;
 import ch.darklions888.SpellStorm.enums.ManaContainerSize;
 import ch.darklions888.SpellStorm.enums.ManaPower;
+import ch.darklions888.SpellStorm.objects.items.BasePageItem;
 import ch.darklions888.SpellStorm.util.helpers.mathhelpers.RayTraceHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -42,14 +43,14 @@ public class PageOfMining extends BasePageItem {
 				
 				RayTraceResult result = RayTraceHelper.CustomrayTrace(worldIn, playerIn, FluidMode.SOURCE_ONLY, 10d);
 
-				double lx = playerIn.getLookVec().getX();
-				double ly = playerIn.getLookVec().getY();
-				double lz = playerIn.getLookVec().getZ();
+				int lx = (int)Math.floor(playerIn.getLookVec().getX());
+				int ly = (int)Math.floor(playerIn.getLookVec().getY());
+				int lz = (int)Math.floor(playerIn.getLookVec().getZ());
 				
 				BlockPos pos = new BlockPos(
-						result.getHitVec().getX() + (lx/2),
-						result.getHitVec().getY() + (ly/2),
-						result.getHitVec().getZ() + (lz/2)
+						result.getHitVec().getX() + (lx),
+						result.getHitVec().getY() + (ly),
+						result.getHitVec().getZ() + (lz)
 						);
 				
 				BlockState state = serverWorld.getBlockState(pos);

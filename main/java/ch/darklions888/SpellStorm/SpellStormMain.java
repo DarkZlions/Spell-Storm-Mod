@@ -6,10 +6,11 @@ import org.apache.logging.log4j.Logger;
 import ch.darklions888.SpellStorm.client.KeyBindings;
 import ch.darklions888.SpellStorm.init.BlockInit;
 import ch.darklions888.SpellStorm.init.ContainerTypesInit;
+import ch.darklions888.SpellStorm.init.EntityInit;
 import ch.darklions888.SpellStorm.init.ItemInit;
 import ch.darklions888.SpellStorm.init.ParticlesInit;
 import ch.darklions888.SpellStorm.init.SoundInit;
-import ch.darklions888.SpellStorm.network.NetworkHandler;
+import ch.darklions888.SpellStorm.network.PacketHandler;
 import ch.darklions888.SpellStorm.world.gen.FeatureGeneration;
 import ch.darklions888.SpellStorm.world.gen.OreGeneration;
 import net.minecraft.util.ResourceLocation;
@@ -42,6 +43,7 @@ public class SpellStormMain {
 		BlockInit.REGISTER_BLOCKS.register(Bus);
 		ContainerTypesInit.REGISTER_CONTAINERS.register(Bus);
 		ParticlesInit.REGISTER_PARTICLES.register(Bus);
+		EntityInit.REGISTER_ENTITY.register(Bus);
 
 		SpellStormMain.INSTANCE = this;
 		MinecraftForge.EVENT_BUS.register(this);
@@ -51,7 +53,8 @@ public class SpellStormMain {
 	public void CommonSetup(FMLCommonSetupEvent event) {
 		OreGeneration.GenerationSetup();
 		FeatureGeneration.genFeatures();
-		NetworkHandler.registerMessages();
+		
+		PacketHandler.init();
 	}
 
 	@SubscribeEvent
