@@ -3,15 +3,14 @@ package ch.darklions888.SpellStorm.objects.items;
 import java.util.List;
 
 import ch.darklions888.SpellStorm.init.ContainerTypesInit;
-import ch.darklions888.SpellStorm.interfaces.IMagicalPageItem;
-import ch.darklions888.SpellStorm.objects.containers.BaseInventory;
 import ch.darklions888.SpellStorm.objects.containers.BookOfSpellsContainer;
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
-import ch.darklions888.SpellStorm.util.helpers.KeyBoardHelper;
+import ch.darklions888.SpellStorm.util.helpers.mathhelpers.MathHelpers;
+import ch.darklions888.SpellStorm.util.input.KeyBoardHelper;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.item.Item;
@@ -24,18 +23,13 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.network.NetworkHooks;
 
-public class BookOfSpellsItem extends Item {
-
-	private static final ITextComponent text = new StringTextComponent("Book Of Spells");
+public class BookOfSpellsItem extends BaseContainerItem {
 
 	private static final String SLOT_TAG = "book_of_spells_slot_number_tag";
 
 	public BookOfSpellsItem(Item.Properties properties) {
-
-		super(properties);
-
+		super(properties, 6);
 	}
 
 	@Override
@@ -44,19 +38,14 @@ public class BookOfSpellsItem extends Item {
 		ItemStack stack = playerIn.getHeldItem(handIn);
 
 		if (worldIn.isRemote) {
-			
+
 			return ActionResult.resultPass(stack);
 
 		} else {
-
-			ServerPlayerEntity serverPlayer = (ServerPlayerEntity) playerIn;
-			
-			if  (serverPlayer.isCrouching()){
-
-				NetworkHooks.openGui((ServerPlayerEntity) playerIn, getContainer(stack));
+			if (playerIn.isSneaking()) {
+				openGui(playerIn, handIn == Hand.MAIN_HAND ? EquipmentSlotType.MAINHAND : EquipmentSlotType.OFFHAND);
 
 			} else {
-
 				ItemStack stackFromSlot = getInventory(stack).getStackInSlot(getSelectedSlot(stack));
 
 				if (stackFromSlot != ItemStack.EMPTY || stackFromSlot != null) {
@@ -69,26 +58,17 @@ public class BookOfSpellsItem extends Item {
 				}
 
 			}
-			return ActionResult.resultSuccess(stack);
-
 		}
+		return ActionResult.resultSuccess(stack);
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-
-		if (KeyBoardHelper.IsHoldingControl() && !ItemNBTHelper.getBoolean(stack, "is_used", false)) {
-			int index = getSelectedSlot(stack);
-
-			index = (index++) < getSizeInventory() - 1 ? index++ : 0;
-
-			setSelectedSlot(stack, index);
-
-			ItemNBTHelper.setBoolean(stack, "is_used", true);
-		} else {
-			ItemNBTHelper.setBoolean(stack, "is_used", false);
-		}
+	}
+	
+	public void nextSlot(ItemStack stackIn) {
+		int slot = getSelectedSlot(stackIn);
+		setSelectedSlot(stackIn, (int)MathHelpers.CycleNumberLine(slot++, 0, 5));
 	}
 
 	private void setSelectedSlot(ItemStack stackIn, int i) {
@@ -110,32 +90,26 @@ public class BookOfSpellsItem extends Item {
 			tooltip.add(new StringTextComponent("Shift & Right-click to open the book."));
 			tooltip.add(new StringTextComponent(" "));
 			tooltip.add(new StringTextComponent("Push Control to switch through the slots."));
+
+			tooltip.add(new StringTextComponent(
+					getInventory(stack).getStackInSlot(getSelectedSlot(stack)).getDisplayName().getString()
+							+ " is selected."));
 		}
 	}
-	
+
 	@Override
 	public ITextComponent getDisplayName(ItemStack stack) {
 		TranslationTextComponent translationText = new TranslationTextComponent(this.getTranslationKey(stack));
-		
+
 		return new TranslationTextComponent(
 				translationText.getString() + " [" + String.valueOf(this.getSelectedSlot(stack)) + "]");
 	}
 
-	public BaseInventory getInventory(ItemStack stackIn) {
-		BaseInventory inv = new BaseInventory(stackIn, getSizeInventory());
-		return inv;
-	}
-
-	public static int getSizeInventory() {
-		return 6;
-	}
-
-	private static INamedContainerProvider getContainer(ItemStack stackIn) {
-
+	@Override
+	protected INamedContainerProvider getContainer(ItemStack stackIn) {
 		return new SimpleNamedContainerProvider((id, inventory, player) -> {
 			return new BookOfSpellsContainer(ContainerTypesInit.BOOK_OF_SPELLS.get(), id, inventory,
-					new BaseInventory(stackIn, 6));
-		}, text);
-
+					getInventory(stackIn));
+		}, new TranslationTextComponent("container.book_of_spells"));
 	}
 }
