@@ -3,6 +3,8 @@ package ch.darklions888.SpellStorm.objects.items;
 import java.util.List;
 
 import ch.darklions888.SpellStorm.init.ContainerTypesInit;
+import ch.darklions888.SpellStorm.network.PacketHandler;
+import ch.darklions888.SpellStorm.network.PacketRotateBookSlot;
 import ch.darklions888.SpellStorm.objects.containers.BookOfSpellsContainer;
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
 import ch.darklions888.SpellStorm.util.helpers.mathhelpers.MathHelpers;
@@ -15,6 +17,7 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
@@ -23,6 +26,8 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public class BookOfSpellsItem extends BaseContainerItem {
 
@@ -30,6 +35,11 @@ public class BookOfSpellsItem extends BaseContainerItem {
 
 	public BookOfSpellsItem(Item.Properties properties) {
 		super(properties, 6);
+		MinecraftForge.EVENT_BUS.addListener(this::onLeftClick);
+	}
+
+	private void onLeftClick(PlayerInteractEvent.LeftClickEmpty event) {
+		PacketHandler.sendToServer(new PacketRotateBookSlot(true));
 	}
 
 	@Override
@@ -38,7 +48,6 @@ public class BookOfSpellsItem extends BaseContainerItem {
 		ItemStack stack = playerIn.getHeldItem(handIn);
 
 		if (worldIn.isRemote) {
-
 			return ActionResult.resultPass(stack);
 
 		} else {
@@ -65,17 +74,26 @@ public class BookOfSpellsItem extends BaseContainerItem {
 	@Override
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 	}
-	
-	public void nextSlot(ItemStack stackIn) {
+
+	public static void nextSlot(ItemStack stackIn) {
 		int slot = getSelectedSlot(stackIn);
-		setSelectedSlot(stackIn, (int)MathHelpers.CycleNumberLine(slot++, 0, 5));
+		slot++;
+		slot = (int) MathHelpers.CycleNumberLine(slot, 0, 5);
+		setSelectedSlot(stackIn, slot);
 	}
 
-	private void setSelectedSlot(ItemStack stackIn, int i) {
-		ItemNBTHelper.setInt(stackIn, SLOT_TAG, i);
+	public static void previousSlot(ItemStack stackIn) {
+		int slot = getSelectedSlot(stackIn);
+		slot--;
+		slot = (int) MathHelpers.CycleNumberLine(slot, 0, 5);
+		setSelectedSlot(stackIn, slot);
 	}
 
-	private int getSelectedSlot(ItemStack stackIn) {
+	public static void setSelectedSlot(ItemStack stackIn, int slot) {
+		ItemNBTHelper.setInt(stackIn, SLOT_TAG, slot);
+	}
+
+	public static int getSelectedSlot(ItemStack stackIn) {
 		return ItemNBTHelper.getInt(stackIn, SLOT_TAG, 0);
 	}
 
@@ -85,15 +103,20 @@ public class BookOfSpellsItem extends BaseContainerItem {
 
 		if (!KeyBoardHelper.IsHoldingShift()) {
 			tooltip.add(new StringTextComponent("Hold " + "\u00A7l" + "Shift " + "\u00A7r" + "for more Information."));
-			tooltip.add(new StringTextComponent("Slot: " + String.valueOf(getSelectedSlot(stack) + " is selected.")));
+			tooltip.add(new StringTextComponent("Slot: " + String.valueOf(getSelectedSlot(stack) + 1 + " is selected.")));
 		} else {
+			ItemStack stackInSlot = getInventory(stack).getStackInSlot(getSelectedSlot(stack));
+			if (stackInSlot == ItemStack.EMPTY) {
+				tooltip.add(new StringTextComponent("Selected Slot is empty"));
+			} else {
+				tooltip.add(new StringTextComponent(
+						getInventory(stack).getStackInSlot(getSelectedSlot(stack)).getDisplayName().getString()
+								+ " is selected."));
+			}
+			
 			tooltip.add(new StringTextComponent("Shift & Right-click to open the book."));
 			tooltip.add(new StringTextComponent(" "));
-			tooltip.add(new StringTextComponent("Push Control to switch through the slots."));
-
-			tooltip.add(new StringTextComponent(
-					getInventory(stack).getStackInSlot(getSelectedSlot(stack)).getDisplayName().getString()
-							+ " is selected."));
+			tooltip.add(new StringTextComponent("Left Click to cycle through the slot."));
 		}
 	}
 
@@ -102,7 +125,7 @@ public class BookOfSpellsItem extends BaseContainerItem {
 		TranslationTextComponent translationText = new TranslationTextComponent(this.getTranslationKey(stack));
 
 		return new TranslationTextComponent(
-				translationText.getString() + " [" + String.valueOf(this.getSelectedSlot(stack)) + "]");
+				translationText.getString() + " [" + String.valueOf(this.getSelectedSlot(stack) + 1) + "]");
 	}
 
 	@Override

@@ -23,7 +23,8 @@ public class PacketHandler {
 	
 	public static void init() {
 		int id = 0;
-		//HANDLER.registerMessage(id++, PacketLeftClick.class, PacketLeftClick::encode, PacketLeftClick::decode, PacketLeftClick::handle);
+		HANDLER.registerMessage(id++, PacketRotateBookSlot.class, PacketRotateBookSlot::encode, PacketRotateBookSlot::new, PacketRotateBookSlot::handle);
+
 	}
 	
 	// Send a message to all within 64 blocks that have this chunk loaded
