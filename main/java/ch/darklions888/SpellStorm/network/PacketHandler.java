@@ -28,6 +28,7 @@ public class PacketHandler {
 	}
 	
 	// Send a message to all within 64 blocks that have this chunk loaded
+	@SuppressWarnings("resource")
 	public static void sendToNearby(World world, BlockPos pos, Object toSend) {
 		if (world instanceof ServerWorld) {
 			ServerWorld ws = (ServerWorld) world;
