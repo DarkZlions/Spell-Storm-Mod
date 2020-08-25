@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext.FluidMode;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
@@ -37,33 +38,22 @@ public class PageOfMining extends BasePageItem {
 			return ActionResult.resultPass(stackIn);
 		}else {
 			
-			if(this.getMana(stackIn) > 0) {
+			if(playerIn.isCreative() || this.getMana(stackIn) > 0) {
 				
 				ServerWorld serverWorld = (ServerWorld) worldIn;
 				
-				RayTraceResult result = RayTraceHelper.CustomrayTrace(worldIn, playerIn, FluidMode.SOURCE_ONLY, 10d);
-
-				int lx = (int)Math.floor(playerIn.getLookVec().getX());
-				int ly = (int)Math.floor(playerIn.getLookVec().getY());
-				int lz = (int)Math.floor(playerIn.getLookVec().getZ());
+				@SuppressWarnings("resource")
+				BlockRayTraceResult  result = (BlockRayTraceResult)RayTraceHelper.CustomrayTrace(worldIn, playerIn, FluidMode.NONE, 10d);
 				
-				BlockPos pos = new BlockPos(
-						result.getHitVec().getX() + (lx),
-						result.getHitVec().getY() + (ly),
-						result.getHitVec().getZ() + (lz)
-						);
-				
-				BlockState state = serverWorld.getBlockState(pos);
-				
-				if(state != null && !state.isAir(serverWorld, pos) && state.getBlockHardness(worldIn, pos) >= 0.0001d) {
-					
+				if (result != null && result.getType() == RayTraceResult.Type.BLOCK) {
+					BlockPos pos = result.getPos();
+					BlockState state = serverWorld.getBlockState(pos);
 					IFluidState ifluidstate = serverWorld.getFluidState(pos);
 					Block.spawnDrops(state.getBlockState(), worldIn, pos);
 					serverWorld.setBlockState(pos, ifluidstate.getBlockState(), 3);
 					
 					this.addMana(stackIn, -1);
 				}
-	
 				return ActionResult.resultSuccess(stackIn);
 			}else {
 				return ActionResult.resultPass(stackIn);

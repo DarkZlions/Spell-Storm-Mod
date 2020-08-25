@@ -31,11 +31,8 @@ public class PageOfDragonBall extends BasePageItem {
 	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stackIn) {
 
 		if (worldIn.isRemote) {
-			if (this.getMana(stackIn) > 0) {
-				return ActionResult.resultSuccess(stackIn);
-			} else {
-				return ActionResult.resultPass(stackIn);
-			}
+			return ActionResult.resultPass(stackIn);
+			
 		} else {
 
 			if (playerIn.isCreative() || this.getMana(stackIn) > 0) {
@@ -49,9 +46,10 @@ public class PageOfDragonBall extends BasePageItem {
 				double xD = playerIn.getLookVec().getX();
 				double yD = playerIn.getLookVec().getY();
 				double zD = playerIn.getLookVec().getZ();
-				
-				serverWorld.playSound(x, y, z, SoundEvents.ENTITY_ENDER_DRAGON_SHOOT, SoundCategory.PLAYERS, 1.0f, 1.0f, true);
-				
+
+				serverWorld.playSound(null, x, y, z, SoundEvents.ENTITY_ENDER_DRAGON_SHOOT, SoundCategory.PLAYERS, 1.0f,
+						1.0f);
+
 				DragonFireballEntity ball = new DragonFireballEntity(worldIn, playerIn, 0, 0, 0);
 
 				if (!playerIn.isCreative())
@@ -62,6 +60,7 @@ public class PageOfDragonBall extends BasePageItem {
 				ball.accelerationZ = zD * .1;
 				serverWorld.addEntity(ball);
 
+				this.addMana(stackIn, -2);
 				return ActionResult.resultSuccess(stackIn);
 			} else {
 				return ActionResult.resultPass(stackIn);

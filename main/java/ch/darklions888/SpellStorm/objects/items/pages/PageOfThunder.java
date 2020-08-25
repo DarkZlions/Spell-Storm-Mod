@@ -13,6 +13,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -33,44 +35,39 @@ public class PageOfThunder extends BasePageItem
 	}
 	
 	@Override
-	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stack) 
-	{
+	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stack) {
 
-		if(worldIn.isRemote)
-		{
+		if (worldIn.isRemote) {
 			return ActionResult.resultPass(stack);
-		}
-		else
-		{
-			if(this.getMana(stack) > 0)
-			{
-				List<LivingEntity> entityList = worldIn.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(playerIn.getPosX() - 10, playerIn.getPosY() - 10, playerIn.getPosZ() - 10, playerIn.getPosX() + 10, playerIn.getPosY() + 10, playerIn.getPosZ() + 10));
 			
-				if(entityList.size() > 1)
-				{
-					for(Entity entity : entityList)
-					{
-						if(entity != playerIn && entity instanceof LivingEntity)
-						{
-							LightningBoltEntity lighting = new LightningBoltEntity(worldIn, entity.getPosX(), entity.getPosY(), entity.getPosZ(), false);
-					
-							ServerWorld serverworld = (ServerWorld) worldIn;
+		} else {
+			
+			if (playerIn.isCreative() || this.getMana(stack) > 0) {
+				List<LivingEntity> entityList = worldIn.getEntitiesWithinAABB(LivingEntity.class,
+						new AxisAlignedBB(playerIn.getPosX() - 10, playerIn.getPosY() - 10, playerIn.getPosZ() - 10,
+								playerIn.getPosX() + 10, playerIn.getPosY() + 10, playerIn.getPosZ() + 10));
+
+				ServerWorld serverworld = (ServerWorld) worldIn;
+				serverworld.playSound(null, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.PLAYERS, 1.0f, 1.0f);
+				
+				if (entityList.size() > 1) {
+					for (Entity entity : entityList) {
+						if (entity != playerIn && entity instanceof LivingEntity) {
+							LightningBoltEntity lighting = new LightningBoltEntity(worldIn, entity.getPosX(),
+									entity.getPosY(), entity.getPosZ(), false);
+
 							serverworld.addLightningBolt(lighting);
 						}
 					}
-					
+
 					this.addMana(stack, -1);
 					return ActionResult.resultSuccess(stack);
-				}
-				else 
-				{
+				} else {
 					return ActionResult.resultFail(stack);
 				}
-			}
-			else
-			{
+			} else {
 				return ActionResult.resultFail(stack);
 			}
-		}	
+		}
 	}
 }

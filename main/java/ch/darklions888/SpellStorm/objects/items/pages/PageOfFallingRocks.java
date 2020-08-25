@@ -18,68 +18,53 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
-public class PageOfFallingRocks extends BasePageItem
-{
+public class PageOfFallingRocks extends BasePageItem {
 
-	public PageOfFallingRocks(ManaContainerSize size, MagicSource source, ManaPower mana, TextFormatting format, boolean hasEffect, Properties properties) 
-	{
+	public PageOfFallingRocks(ManaContainerSize size, MagicSource source, ManaPower mana, TextFormatting format,
+			boolean hasEffect, Properties properties) {
 		super(size, source, mana, format, hasEffect, properties);
 	}
-	
+
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) 
-	{
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
 		return getAbilities(worldIn, playerIn, handIn, playerIn.getHeldItem(handIn));
 	}
-	
+
 	@Override
-	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stack) 
-	{
-		
-		if(playerIn.isCreative())
-		{
-			this.setMana(stack, this.getMaxContainerSize(stack));
-		}
-		
-		if(worldIn.isRemote)
-		{
-			if(this.getMana(stack) > 0)
-			{
-				worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.PLAYERS, 1.0f, 0.1f);
-				
-				return ActionResult.resultSuccess(stack);
-			}
+	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stack) {
+		if (worldIn.isRemote) {
 			return ActionResult.resultPass(stack);
-		}
-		else
-		{
+		} else {
 			double x = playerIn.getPosX();
 			double y = 260.0d;
 			double z = playerIn.getPosZ();
 
-			if(this.getMana(stack) == this.getMaxContainerSize(stack))
-			{		
-				FireballEntity entity = new FireballEntity(worldIn, x, y, z, 0.0d, -2.5d, 0.0d);
-				entity.explosionPower = 14;
-		
-				worldIn.addEntity(entity);
-			
-				this.setMana(stack, 0);
+			if (playerIn.isCreative() || this.getMana(stack) >= (this.getMaxContainerSize(stack) / 2)) {
 				
+				((ServerWorld)worldIn).playSound(null, x, playerIn.getPosY(), z, SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.PLAYERS, 1.0f, 1.0f);
+				
+				FireballEntity entity = new FireballEntity(worldIn, playerIn, 0.0d, -2.5d, 0.0d);
+				entity.setPosition(x, y, z);
+				entity.accelerationX = 0;
+				entity.accelerationY = -0.15d;
+				entity.accelerationZ = 0;
+				entity.explosionPower = 16;
+
+				worldIn.addEntity(entity);
+
+				this.setMana(stack, 0);
+
 				return ActionResult.resultSuccess(stack);
-			}
-			else
-			{
+			} else {
 				return ActionResult.resultPass(stack);
 			}
 		}
 	}
 
-	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) 
-	{
+	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 		tooltip.add(new StringTextComponent("This page need full mana to use."));
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 	}
-
 }
