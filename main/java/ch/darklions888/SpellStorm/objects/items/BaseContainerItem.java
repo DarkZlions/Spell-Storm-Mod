@@ -11,7 +11,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 public abstract class BaseContainerItem extends Item {
 	protected final int inventorySize;
-	
+
 	public BaseContainerItem(Properties properties, int inventorySize) {
 		super(properties);
 		this.inventorySize = inventorySize;
@@ -22,7 +22,6 @@ public abstract class BaseContainerItem extends Item {
 		NetworkHooks.openGui((ServerPlayerEntity) player, getContainer(stack),
 				buffer -> buffer.writeInt(slot.ordinal()));
 	}
-	
 
 	protected BaseInventory getInventory(ItemStack stackIn) {
 		BaseInventory inv = new BaseInventory(stackIn, getSizeInventory());
@@ -32,6 +31,6 @@ public abstract class BaseContainerItem extends Item {
 	public int getSizeInventory() {
 		return this.inventorySize;
 	}
-	
+
 	protected abstract INamedContainerProvider getContainer(ItemStack stackIn);
 }

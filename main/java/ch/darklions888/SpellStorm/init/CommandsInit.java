@@ -8,6 +8,7 @@ import ch.darklions888.SpellStorm.commands.CommandTest;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 
+@SuppressWarnings("unused")
 public class CommandsInit {
 	public static void register(CommandDispatcher<CommandSource> dispatcher) {
 		//LiteralCommandNode<CommandSource> cmd = dispatcher.register(Commands.literal(SpellStormMain.MODID).then(CommandTest.register(dispatcher)));

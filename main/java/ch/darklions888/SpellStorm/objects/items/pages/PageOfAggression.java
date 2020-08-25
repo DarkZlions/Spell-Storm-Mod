@@ -81,7 +81,6 @@ public class PageOfAggression extends BasePageItem
 										false));
 							}
 						} catch (Exception e) {
-							System.out.println(e);
 						}
 					}
 

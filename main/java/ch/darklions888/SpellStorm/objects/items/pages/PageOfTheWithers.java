@@ -38,8 +38,13 @@ public class PageOfTheWithers extends BasePageItem {
 
 		} else {
 			if (this.getMana(stack) > 0) {
-				worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_WITHER_SHOOT,
-						SoundCategory.PLAYERS, 1, 1);
+				ServerWorld serverWorld = (ServerWorld) worldIn;
+				
+				double x = playerIn.getPosX();
+				double y = playerIn.getPosY();
+				double z = playerIn.getPosZ();
+				
+				serverWorld.playSound(x, y, z, SoundEvents.ENTITY_ENDER_DRAGON_SHOOT, SoundCategory.PLAYERS, 1.0f, 1.0f, true);
 
 				double speed = 1.2d;
 
@@ -54,7 +59,7 @@ public class PageOfTheWithers extends BasePageItem {
 				skull.accelerationX = xD * .1;
 				skull.accelerationY = yD * .1;
 				skull.accelerationZ = zD * .1;
-				((ServerWorld)worldIn).addEntity(skull);
+				serverWorld.addEntity(skull);
 			}
 
 			return ActionResult.resultSuccess(stack);

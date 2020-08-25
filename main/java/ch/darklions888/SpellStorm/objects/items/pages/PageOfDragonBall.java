@@ -9,6 +9,8 @@ import net.minecraft.entity.projectile.DragonFireballEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -47,7 +49,9 @@ public class PageOfDragonBall extends BasePageItem {
 				double xD = playerIn.getLookVec().getX();
 				double yD = playerIn.getLookVec().getY();
 				double zD = playerIn.getLookVec().getZ();
-
+				
+				serverWorld.playSound(x, y, z, SoundEvents.ENTITY_ENDER_DRAGON_SHOOT, SoundCategory.PLAYERS, 1.0f, 1.0f, true);
+				
 				DragonFireballEntity ball = new DragonFireballEntity(worldIn, playerIn, 0, 0, 0);
 
 				if (!playerIn.isCreative())

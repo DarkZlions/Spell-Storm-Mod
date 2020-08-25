@@ -17,15 +17,12 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
@@ -125,7 +122,7 @@ public class BookOfSpellsItem extends BaseContainerItem {
 		TranslationTextComponent translationText = new TranslationTextComponent(this.getTranslationKey(stack));
 
 		return new TranslationTextComponent(
-				translationText.getString() + " [" + String.valueOf(this.getSelectedSlot(stack) + 1) + "]");
+				translationText.getString() + " [" + String.valueOf(getSelectedSlot(stack) + 1) + "]");
 	}
 
 	@Override
