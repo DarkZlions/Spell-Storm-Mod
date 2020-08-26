@@ -1,6 +1,6 @@
 package ch.darklions888.SpellStorm.util.helpers.formatting;
 
-import ch.darklions888.SpellStorm.enums.MagicSource;
+import ch.darklions888.SpellStorm.lib.MagicSource;
 
 public class FormattingHelper 
 {

@@ -2,8 +2,8 @@ package ch.darklions888.SpellStorm.objects.items;
 
 import java.util.List;
 
-import ch.darklions888.SpellStorm.enums.MagicSource;
-import ch.darklions888.SpellStorm.enums.ManaContainerSize;
+import ch.darklions888.SpellStorm.lib.MagicSource;
+import ch.darklions888.SpellStorm.lib.ManaContainerSize;
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
 import ch.darklions888.SpellStorm.util.helpers.formatting.FormattingHelper;
 import net.minecraft.client.util.ITooltipFlag;

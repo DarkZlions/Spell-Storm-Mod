@@ -1,6 +1,6 @@
 package ch.darklions888.SpellStorm.objects.items;
 
-import ch.darklions888.SpellStorm.enums.MagicSource;
+import ch.darklions888.SpellStorm.lib.MagicSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;

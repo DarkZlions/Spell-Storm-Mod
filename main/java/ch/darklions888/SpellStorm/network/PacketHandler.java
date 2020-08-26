@@ -1,6 +1,6 @@
 package ch.darklions888.SpellStorm.network;
 
-import ch.darklions888.SpellStorm.SpellStormMain;
+import ch.darklions888.SpellStorm.lib.Lib;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -16,7 +16,7 @@ public class PacketHandler {
 	private static final String PROTOCOL = "6";
 	
 	public static final SimpleChannel HANDLER = NetworkRegistry.newSimpleChannel(
-			SpellStormMain.location("channel"),
+			Lib.location("channel"),
 			() -> PROTOCOL,
 			PROTOCOL::equals,
 			PROTOCOL::equals);

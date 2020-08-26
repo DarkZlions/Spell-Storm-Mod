@@ -1,4 +1,4 @@
-package ch.darklions888.SpellStorm.enums;
+package ch.darklions888.SpellStorm.lib;
 
 public enum ManaContainerSize 
 {

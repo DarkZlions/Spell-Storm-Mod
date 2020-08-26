@@ -2,8 +2,8 @@ package ch.darklions888.SpellStorm.objects.items;
 
 import javax.annotation.Nullable;
 
-import ch.darklions888.SpellStorm.enums.MagicSource;
-import ch.darklions888.SpellStorm.enums.ManaPower;
+import ch.darklions888.SpellStorm.lib.MagicSource;
+import ch.darklions888.SpellStorm.lib.ManaPower;
 import net.minecraft.util.text.TextFormatting;
 
 public class CrytalShardItem extends BaseItem

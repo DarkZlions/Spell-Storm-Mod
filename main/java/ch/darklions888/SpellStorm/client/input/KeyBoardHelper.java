@@ -1,4 +1,11 @@
-package ch.darklions888.SpellStorm.util.input;
+/*
+ * 
+ * This keyboardhelper is only client side
+ * won't work on a server.
+ * Just believe me.
+ * 
+ */
+package ch.darklions888.SpellStorm.client.input;
 
 import org.lwjgl.glfw.GLFW;
 

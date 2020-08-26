@@ -3,7 +3,7 @@ package ch.darklions888.SpellStorm;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import ch.darklions888.SpellStorm.client.KeyBindings;
+import ch.darklions888.SpellStorm.client.input.KeyBindings;
 import ch.darklions888.SpellStorm.init.BlockInit;
 import ch.darklions888.SpellStorm.init.ContainerTypesInit;
 import ch.darklions888.SpellStorm.init.EntityInit;
@@ -13,7 +13,6 @@ import ch.darklions888.SpellStorm.init.SoundInit;
 import ch.darklions888.SpellStorm.network.PacketHandler;
 import ch.darklions888.SpellStorm.world.gen.FeatureGeneration;
 import ch.darklions888.SpellStorm.world.gen.OreGeneration;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -66,9 +65,5 @@ public class SpellStormMain {
 	public void LoadCompleteEvent(FMLLoadCompleteEvent event) {
 		OreGeneration.GenerationSetup();
 		FeatureGeneration.genFeatures();
-	}
-
-	public static ResourceLocation location(String key) {
-		return new ResourceLocation(SpellStormMain.MODID, key);
 	}
 }

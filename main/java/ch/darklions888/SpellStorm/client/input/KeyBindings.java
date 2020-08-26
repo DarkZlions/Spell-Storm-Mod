@@ -1,4 +1,4 @@
-package ch.darklions888.SpellStorm.client;
+package ch.darklions888.SpellStorm.client.input;
 
 import org.lwjgl.glfw.GLFW;
 

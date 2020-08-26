@@ -1,4 +1,4 @@
-package ch.darklions888.SpellStorm.client;
+package ch.darklions888.SpellStorm.client.input;
 
 import static ch.darklions888.SpellStorm.SpellStormMain.MODID;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_R;

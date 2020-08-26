@@ -4,9 +4,9 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import ch.darklions888.SpellStorm.enums.MagicSource;
-import ch.darklions888.SpellStorm.enums.ManaContainerSize;
-import ch.darklions888.SpellStorm.enums.ManaPower;
+import ch.darklions888.SpellStorm.lib.MagicSource;
+import ch.darklions888.SpellStorm.lib.ManaContainerSize;
+import ch.darklions888.SpellStorm.lib.ManaPower;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.BlockItem;

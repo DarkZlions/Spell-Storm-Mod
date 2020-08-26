@@ -2,13 +2,13 @@ package ch.darklions888.SpellStorm.objects.items;
 
 import java.util.List;
 
+import ch.darklions888.SpellStorm.client.input.KeyBoardHelper;
 import ch.darklions888.SpellStorm.init.ContainerTypesInit;
 import ch.darklions888.SpellStorm.network.PacketHandler;
 import ch.darklions888.SpellStorm.network.PacketRotateBookSlot;
 import ch.darklions888.SpellStorm.objects.containers.BookOfSpellsContainer;
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
 import ch.darklions888.SpellStorm.util.helpers.mathhelpers.MathHelpers;
-import ch.darklions888.SpellStorm.util.input.KeyBoardHelper;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;

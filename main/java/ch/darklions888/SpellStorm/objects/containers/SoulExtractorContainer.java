@@ -1,8 +1,8 @@
 package ch.darklions888.SpellStorm.objects.containers;
 
-import ch.darklions888.SpellStorm.enums.MagicSource;
 import ch.darklions888.SpellStorm.init.BlockInit;
 import ch.darklions888.SpellStorm.init.ContainerTypesInit;
+import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.objects.blocks.SoulExtractorBlock;
 import ch.darklions888.SpellStorm.objects.items.IMagicalContainer;
 import ch.darklions888.SpellStorm.objects.items.IMagicalPageItem;

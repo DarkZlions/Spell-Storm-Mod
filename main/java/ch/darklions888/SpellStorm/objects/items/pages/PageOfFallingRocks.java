@@ -2,9 +2,9 @@ package ch.darklions888.SpellStorm.objects.items.pages;
 
 import java.util.List;
 
-import ch.darklions888.SpellStorm.enums.MagicSource;
-import ch.darklions888.SpellStorm.enums.ManaContainerSize;
-import ch.darklions888.SpellStorm.enums.ManaPower;
+import ch.darklions888.SpellStorm.lib.MagicSource;
+import ch.darklions888.SpellStorm.lib.ManaContainerSize;
+import ch.darklions888.SpellStorm.lib.ManaPower;
 import ch.darklions888.SpellStorm.objects.items.BasePageItem;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
