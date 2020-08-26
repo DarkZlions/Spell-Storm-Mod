@@ -17,7 +17,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
-public class BasePageItem extends BaseItem implements IMagicalPageItem
+public abstract class BasePageItem extends BaseItem implements IMagicalPageItem
 {
 	protected static final String MANA_TAG = "mana_pageitem";
 	private MagicSource source;
@@ -84,10 +84,7 @@ public class BasePageItem extends BaseItem implements IMagicalPageItem
 	}
 	
 	@Override
-	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stackIn) 
-	{
-		return null;
-	}
+	public abstract ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stackIn);
 	
 	
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) 
