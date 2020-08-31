@@ -32,7 +32,7 @@ public class PageOfDragonBall extends BasePageItem {
 
 		if (worldIn.isRemote) {
 			return ActionResult.resultPass(stackIn);
-			
+
 		} else {
 
 			if (playerIn.isCreative() || this.getMana(stackIn) > 0) {
@@ -60,7 +60,8 @@ public class PageOfDragonBall extends BasePageItem {
 				ball.accelerationZ = zD * .1;
 				serverWorld.addEntity(ball);
 
-				this.addMana(stackIn, -2);
+				if (!playerIn.isCreative())
+					this.addMana(stackIn, -2);
 				return ActionResult.resultSuccess(stackIn);
 			} else {
 				return ActionResult.resultPass(stackIn);

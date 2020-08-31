@@ -1,6 +1,6 @@
 package ch.darklions888.SpellStorm.init;
 
-import ch.darklions888.SpellStorm.SpellStormMain;
+import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerSize;
 import ch.darklions888.SpellStorm.lib.ManaPower;
@@ -29,7 +29,7 @@ public class ItemInit
 {
 	private static final ItemGroup TAB = SpellStormItemGroup.INSTANCE;
 	
-	public static final DeferredRegister<Item> REGISTER_ITEMS = new DeferredRegister<Item>(ForgeRegistries.ITEMS, SpellStormMain.MODID);
+	public static final DeferredRegister<Item> REGISTER_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Lib.MOD_ID);
 	
 	
 	//item

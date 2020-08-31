@@ -5,8 +5,8 @@ import net.minecraft.client.particle.IParticleFactory;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.SpriteTexturedParticle;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particles.BasicParticleType;
-import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -16,7 +16,7 @@ public class SoulParticles extends SpriteTexturedParticle {
 	private final double coordY;
 	private final double coordZ;
 
-	private SoulParticles(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
+	private SoulParticles(ClientWorld worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn);
 		this.motionX = xSpeedIn;
 		this.motionY = ySpeedIn;
@@ -90,7 +90,7 @@ public class SoulParticles extends SpriteTexturedParticle {
 	         this.spriteSet = sprite;
 	      }
 
-	      public Particle makeParticle(BasicParticleType typeIn, World worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+	      public Particle makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
 	         SoulParticles soulparticles = new SoulParticles(worldIn, x, y, z, xSpeed, ySpeed, zSpeed);
 	         soulparticles.selectSpriteRandomly(this.spriteSet);
 	         return soulparticles;

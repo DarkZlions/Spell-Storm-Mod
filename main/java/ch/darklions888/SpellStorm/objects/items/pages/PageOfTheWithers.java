@@ -60,7 +60,8 @@ public class PageOfTheWithers extends BasePageItem {
 				skull.accelerationZ = zD * .1;
 				serverWorld.addEntity(skull);
 				
-				this.addMana(stack, -1);
+				if (!playerIn.isCreative())
+					this.addMana(stack, -1);
 			}
 
 			return ActionResult.resultSuccess(stack);

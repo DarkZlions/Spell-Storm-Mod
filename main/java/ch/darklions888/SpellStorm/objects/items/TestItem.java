@@ -39,7 +39,7 @@ public class TestItem extends Item
 		for(Vec3 coord : coords)
 		{
 			worldIn.setBlockState(new BlockPos(coord.X(), coord.Y(), coord.Z()), Blocks.COBBLESTONE.getDefaultState());
-			playerIn.sendMessage(new StringTextComponent(new BlockPos(coord.X(), coord.Y(), coord.Z()).toString()));
+			playerIn.sendMessage(new StringTextComponent(new BlockPos(coord.X(), coord.Y(), coord.Z()).toString()), playerIn.getUniqueID());
 		}
 		
 		return ActionResult.resultSuccess(stack);

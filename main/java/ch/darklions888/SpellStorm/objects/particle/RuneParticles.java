@@ -5,6 +5,7 @@ import net.minecraft.client.particle.IParticleFactory;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.SpriteTexturedParticle;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -18,7 +19,7 @@ public class RuneParticles extends SpriteTexturedParticle {
 
 	private RuneParticles(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn,
 			double ySpeedIn, double zSpeedIn) {
-		super(worldIn, xCoordIn, yCoordIn, zCoordIn);
+		super((ClientWorld) worldIn, xCoordIn, yCoordIn, zCoordIn);
 		this.motionX = xSpeedIn;
 		this.motionY = ySpeedIn;
 		this.motionZ = zSpeedIn;
@@ -94,7 +95,7 @@ public class RuneParticles extends SpriteTexturedParticle {
 			this.spriteSet = sprite;
 		}
 
-		public Particle makeParticle(BasicParticleType typeIn, World worldIn, double x, double y, double z,
+		public Particle makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z,
 				double xSpeed, double ySpeed, double zSpeed) {
 			RuneParticles runeparticles = new RuneParticles(worldIn, x, y, z, xSpeed, ySpeed, zSpeed);
 			runeparticles.selectSpriteRandomly(this.spriteSet);

@@ -58,8 +58,8 @@ public class PageOfFireballs extends BasePageItem {
 
 					worldIn.addEntity(entity);
 				}
-
-				this.addMana(stack, -1);
+				if (!playerIn.isCreative())
+					this.addMana(stack, -1);
 
 				return ActionResult.resultSuccess(stack);
 			} else {

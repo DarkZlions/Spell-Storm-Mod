@@ -16,7 +16,7 @@ public class PacketHandler {
 	private static final String PROTOCOL = "6";
 	
 	public static final SimpleChannel HANDLER = NetworkRegistry.newSimpleChannel(
-			Lib.location("channel"),
+			Lib.ResourceLocations.NETWORK_CHANNEL,
 			() -> PROTOCOL,
 			PROTOCOL::equals,
 			PROTOCOL::equals);
@@ -40,7 +40,7 @@ public class PacketHandler {
 	}
 	
 	public static void sendToNearby(World world, Entity entityIn, Object toSend) {
-		sendToNearby(world, new BlockPos(entityIn), toSend);
+		sendToNearby(world, new BlockPos(entityIn.getPositionVec()), toSend);
 	}
 	
 	public static void sendTo(ServerPlayerEntity sPlayer, Object toSend) {
