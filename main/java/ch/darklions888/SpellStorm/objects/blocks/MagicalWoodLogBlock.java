@@ -1,10 +1,10 @@
 package ch.darklions888.SpellStorm.objects.blocks;
 
-import net.minecraft.block.RotatedPillarBlock;
+import net.minecraft.block.LogBlock;
 import net.minecraft.block.material.MaterialColor;
 
-public class MagicalWoodLogBlock extends RotatedPillarBlock {
+public class MagicalWoodLogBlock extends LogBlock {
 	public MagicalWoodLogBlock(MaterialColor verticalColor, Properties properties) {
-		super(properties);
+		super(verticalColor, properties);
 	}
 }

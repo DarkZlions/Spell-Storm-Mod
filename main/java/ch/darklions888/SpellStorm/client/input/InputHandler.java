@@ -1,19 +1,19 @@
 package ch.darklions888.SpellStorm.client.input;
 
+import static ch.darklions888.SpellStorm.SpellStormMain.MODID;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_R;
 
-import ch.darklions888.SpellStorm.lib.Lib;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = Lib.MOD_ID, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = MODID, value = Dist.CLIENT)
 public class InputHandler {
-	private static final String CATEGORY = "key.categories." + Lib.MOD_ID;
+	private static final String CATEGORY = "key.categories." + MODID;
 	
-	public static final KeyBinding openBookOfSpellsContainer = new KeyBinding(Lib.MOD_ID + ".key.openBookOfSpellsContainer", GLFW_KEY_R, CATEGORY);
+	public static final KeyBinding openBookOfSpellsContainer = new KeyBinding(MODID + ".key.openBookOfSpellsContainer", GLFW_KEY_R, CATEGORY);
 	
 	static {
 		//ClientRegistry.registerKeyBinding(openBookOfSpellsContainer);

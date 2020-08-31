@@ -4,6 +4,7 @@ import java.util.Random;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.LogBlock;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.util.Direction;
@@ -36,21 +37,22 @@ public class MagicalLeavesBlock extends LeavesBlock {
 
 	private static BlockState updateDistance(BlockState state, IWorld worldIn, BlockPos pos) {
 		int i = 7;
-		BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
-		
-		for (Direction direction : Direction.values()) {
-			blockpos$mutable.func_239622_a_(pos, direction);
-			i = Math.min(i, getDistance(worldIn.getBlockState(blockpos$mutable)) + 1);
-			if (i == 1) {
-				break;
+
+		try (BlockPos.PooledMutable blockpos$pooledmutable = BlockPos.PooledMutable.retain()) {
+			for (Direction direction : Direction.values()) {
+				blockpos$pooledmutable.setPos(pos).move(direction);
+				i = Math.min(i, getDistance(worldIn.getBlockState(blockpos$pooledmutable)) + 1);
+				if (i == 1) {
+					break;
+				}
 			}
 		}
-		
+
 		return state.with(DISTANCE, Integer.valueOf(i));
 	}
 
 	private static int getDistance(BlockState neighbor) {
-		if (neighbor.getBlock() instanceof MagicalWoodLogBlock) {
+		if (neighbor.getBlock() instanceof LogBlock) {
 			return 0;
 		} else {
 			return neighbor.getBlock() instanceof LeavesBlock ? neighbor.get(DISTANCE) : 10;

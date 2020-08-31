@@ -1,6 +1,6 @@
 package ch.darklions888.SpellStorm.init;
 
-import ch.darklions888.SpellStorm.lib.Lib;
+import ch.darklions888.SpellStorm.SpellStormMain;
 import ch.darklions888.SpellStorm.objects.blocks.CrystalOreBlock;
 import ch.darklions888.SpellStorm.objects.blocks.MagicalLeavesBlock;
 import ch.darklions888.SpellStorm.objects.blocks.MagicalTreeSaplingBlock;
@@ -22,7 +22,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class BlockInit 
 {
-	public static final DeferredRegister<Block> REGISTER_BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Lib.MOD_ID);
+	public static final DeferredRegister<Block> REGISTER_BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, SpellStormMain.MODID);
 
 	public static final RegistryObject<Block> CRYSTAL_ORE = REGISTER_BLOCKS.register("crystal_ore", () -> new CrystalOreBlock(Block.Properties.create(Material.ROCK, DyeColor.PURPLE).hardnessAndResistance(3.0f, 6.0f).harvestLevel(3).harvestTool(ToolType.PICKAXE).sound(SoundType.STONE)));
 	public static final RegistryObject<Block> MANAINFUSER = REGISTER_BLOCKS.register("manainfuser", () -> new ManaInfuserBlock(Block.Properties.create(Material.IRON, DyeColor.BLACK).hardnessAndResistance(2.5f).harvestLevel(2).harvestTool(ToolType.PICKAXE)));

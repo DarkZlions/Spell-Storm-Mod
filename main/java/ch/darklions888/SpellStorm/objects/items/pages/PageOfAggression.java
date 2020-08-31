@@ -6,8 +6,10 @@ import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerSize;
 import ch.darklions888.SpellStorm.lib.ManaPower;
 import ch.darklions888.SpellStorm.objects.items.BasePageItem;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -67,16 +69,21 @@ public class PageOfAggression extends BasePageItem {
 						e.targetSelector.addGoal(-1,
 								new NearestAttackableTargetGoal<>(e, MobEntity.class, false, true));
 						e.addTag(MOB_TAG);
-						if (e.getAttribute(Attributes.ATTACK_DAMAGE) == null
+						if (e.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE) == null
 								|| !(e instanceof SlimeEntity)) {
 							try {
-								e.getAttribute(Attributes.ATTACK_DAMAGE)
+								e.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE)
 										.setBaseValue(e.getMaxHealth() / 3);
+
+								if (e instanceof CreatureEntity) {
+									e.targetSelector.addGoal(-1, new MeleeAttackGoal((CreatureEntity) e,
+											e.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getBaseValue() * 5,
+											false));
+								}
 							} catch (Exception exception) {
 							}
 						}
-						if (!playerIn.isCreative())
-							this.addMana(stackIn, -1);
+						this.addMana(stackIn, -1);
 					}
 				}
 				serverWorld.playSound(null, x, y, z, SoundEvents.ENTITY_ENDER_EYE_DEATH, SoundCategory.PLAYERS, 1.0f, 1.0f);

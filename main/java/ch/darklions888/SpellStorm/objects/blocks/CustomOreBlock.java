@@ -10,7 +10,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 
 public class CustomOreBlock extends Block {
 
@@ -27,7 +26,7 @@ public class CustomOreBlock extends Block {
 
 	@SuppressWarnings("deprecation")
 	public void spawnAdditionalDrops(BlockState state, World worldIn, BlockPos pos, ItemStack stack) {
-		super.spawnAdditionalDrops(state, (ServerWorld) worldIn, pos, stack);
+		super.spawnAdditionalDrops(state, worldIn, pos, stack);
 	}
 
 	@Override

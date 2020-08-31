@@ -8,7 +8,7 @@ import ch.darklions888.SpellStorm.util.helpers.mathhelpers.RayTraceHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -42,17 +42,17 @@ public class PageOfMining extends BasePageItem {
 				
 				ServerWorld serverWorld = (ServerWorld) worldIn;
 				
+				@SuppressWarnings("resource")
 				BlockRayTraceResult  result = (BlockRayTraceResult)RayTraceHelper.CustomrayTrace(worldIn, playerIn, FluidMode.NONE, 10d);
 				
 				if (result != null && result.getType() == RayTraceResult.Type.BLOCK) {
 					BlockPos pos = result.getPos();
 					BlockState state = serverWorld.getBlockState(pos);
-					FluidState ifluidstate = serverWorld.getFluidState(pos);
+					IFluidState ifluidstate = serverWorld.getFluidState(pos);
 					Block.spawnDrops(state.getBlockState(), worldIn, pos);
 					serverWorld.setBlockState(pos, ifluidstate.getBlockState(), 3);
 					
-					if (!playerIn.isCreative())
-						this.addMana(stackIn, -1);
+					this.addMana(stackIn, -1);
 				}
 				return ActionResult.resultSuccess(stackIn);
 			}else {

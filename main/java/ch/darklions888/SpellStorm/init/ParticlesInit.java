@@ -1,6 +1,6 @@
 package ch.darklions888.SpellStorm.init;
 
-import ch.darklions888.SpellStorm.lib.Lib;
+import ch.darklions888.SpellStorm.SpellStormMain;
 import ch.darklions888.SpellStorm.objects.particle.RuneParticles;
 import ch.darklions888.SpellStorm.objects.particle.SoulParticles;
 import net.minecraft.client.Minecraft;
@@ -15,13 +15,13 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ParticlesInit {
-	public static final DeferredRegister<ParticleType<?>> REGISTER_PARTICLES = DeferredRegister.create(
-			ForgeRegistries.PARTICLE_TYPES, Lib.MOD_ID);
+	public static final DeferredRegister<ParticleType<?>> REGISTER_PARTICLES = new DeferredRegister<ParticleType<?>>(
+			ForgeRegistries.PARTICLE_TYPES, SpellStormMain.MODID);
 
 	public static final RegistryObject<BasicParticleType> SOULS_PARTICLE = REGISTER_PARTICLES.register("soul", () -> new BasicParticleType(false));
 	public static final RegistryObject<BasicParticleType> RUNE_PARTICLE = REGISTER_PARTICLES.register("rune", () -> new BasicParticleType(false));
 
-	@EventBusSubscriber(modid = Lib.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+	@EventBusSubscriber(modid = SpellStormMain.MODID, bus = EventBusSubscriber.Bus.MOD)
 	public static class RegisterParticleFactories {
 
 		@SuppressWarnings("resource")

@@ -10,7 +10,6 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FireballEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
@@ -42,10 +41,9 @@ public class PageOfFallingRocks extends BasePageItem {
 			double y = 260.0d;
 			double z = playerIn.getPosZ();
 
-			if (playerIn.isCreative() || this.getMana(stack) >= 60) {
+			if (playerIn.isCreative() || this.getMana(stack) >= (this.getMaxContainerSize(stack) / 2)) {
 				
 				((ServerWorld)worldIn).playSound(null, x, playerIn.getPosY(), z, SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.PLAYERS, 1.0f, 1.0f);
-				((ServerWorld)worldIn).spawnParticle(ParticleTypes.ASH, x, playerIn.getPosY(), y, 9, 0, 0, 0, .5f);
 				
 				FireballEntity entity = new FireballEntity(worldIn, playerIn, 0.0d, -2.5d, 0.0d);
 				entity.setPosition(x, y, z);
@@ -56,8 +54,7 @@ public class PageOfFallingRocks extends BasePageItem {
 
 				worldIn.addEntity(entity);
 
-				if (!playerIn.isCreative())
-					this.setMana(stack, -60);
+				this.setMana(stack, 0);
 
 				return ActionResult.resultSuccess(stack);
 			} else {
