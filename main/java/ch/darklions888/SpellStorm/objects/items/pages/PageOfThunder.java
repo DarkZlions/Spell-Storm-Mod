@@ -7,6 +7,7 @@ import ch.darklions888.SpellStorm.lib.ManaContainerSize;
 import ch.darklions888.SpellStorm.lib.ManaPower;
 import ch.darklions888.SpellStorm.objects.items.BasePageItem;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -53,14 +54,14 @@ public class PageOfThunder extends BasePageItem
 				if (entityList.size() > 1) {
 					for (Entity entity : entityList) {
 						if (entity != playerIn && entity instanceof LivingEntity) {
-							LightningBoltEntity lighting = new LightningBoltEntity(worldIn, entity.getPosX(),
-									entity.getPosY(), entity.getPosZ(), false);
-
-							serverworld.addLightningBolt(lighting);
+							LightningBoltEntity lighting = new LightningBoltEntity(EntityType.LIGHTNING_BOLT, worldIn);
+							lighting.setPosition(entity.getPosX(), entity.getPosY(), entity.getPosZ());
+							serverworld.addEntity(lighting);
 						}
 					}
-
-					this.addMana(stack, -1);
+					
+					if (!playerIn.isCreative())
+						this.addMana(stack, -1);
 					return ActionResult.resultSuccess(stack);
 				} else {
 					return ActionResult.resultFail(stack);

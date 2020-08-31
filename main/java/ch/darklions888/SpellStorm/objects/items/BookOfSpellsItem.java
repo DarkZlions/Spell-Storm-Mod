@@ -122,7 +122,7 @@ public class BookOfSpellsItem extends BaseContainerItem {
 		TranslationTextComponent translationText = new TranslationTextComponent(this.getTranslationKey(stack));
 
 		return new TranslationTextComponent(
-				translationText.getString() + " [" + getInventory(stack).getStackInSlot(getSelectedSlot(stack)).getDisplayName().getFormattedText() + "]");
+				translationText.getString() + " [" + getInventory(stack).getStackInSlot(getSelectedSlot(stack)).getDisplayName().getString() + "]");
 	}
 
 	@Override

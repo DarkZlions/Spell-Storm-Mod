@@ -13,8 +13,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.IParticleData;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
@@ -30,7 +32,7 @@ public class SoulCatcherItem extends Item {
 	}
 
 	@Override
-	public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
+	public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
 
 		try {
 			if (target instanceof MobEntity && getEntity(stack) == null) {
@@ -39,7 +41,7 @@ public class SoulCatcherItem extends Item {
 				if (world.isRemote) {
 					for (int i = 0; i < 15; i++) {
 						
-						world.playSound(playerIn, playerIn.getPosition(), SoundInit.ETERNAL_SCREAMING.get(),
+						world.playSound(playerIn, new BlockPos(playerIn.getPositionVec()), SoundInit.ETERNAL_SCREAMING.get(),
 								SoundCategory.PLAYERS, .4f, .1f);
 						world.addParticle((IParticleData) ParticlesInit.SOULS_PARTICLE.get(), target.getPosXRandom(.5d),
 								target.getPosYRandom(), target.getPosZRandom(.5d), 0.0, .5, 0.0);
@@ -51,12 +53,12 @@ public class SoulCatcherItem extends Item {
 
 				target.remove();
 
-				return true;
+				return ActionResultType.SUCCESS;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return false;
+		return ActionResultType.FAIL;
 	}
 
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
