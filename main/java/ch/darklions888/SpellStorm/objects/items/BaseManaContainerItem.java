@@ -32,7 +32,7 @@ public class BaseManaContainerItem extends Item implements IMagicalContainer {
 
 		for (MagicSource source : sources) {
 			tooltip.add(new StringTextComponent(FormattingHelper.GetSourceColor(source)
-					+ FormattingHelper.GetFontFormat(source) + source.sourceId + "\u00A7r" + " Mana: "
+					+ FormattingHelper.GetFontFormat(source) + Lib.TextComponents.getSourceName(source).getString() + "\u00A7r" + " Mana: "
 					+ String.valueOf(getManaValue(stack, source.sourceId) + "/" + String.valueOf(getContainerSize()))));
 		}
 
