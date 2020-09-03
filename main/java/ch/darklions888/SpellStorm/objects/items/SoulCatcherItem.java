@@ -55,10 +55,8 @@ public class SoulCatcherItem extends Item {
 					
 					setEntityId(stack, target.getEntityId());
 					storeEntity(playerIn.getHeldItem(hand), target.getType());
+					serverWorld.removeEntity(target);
 				}
-
-
-				target.remove();
 
 				return ActionResultType.SUCCESS;
 			}
