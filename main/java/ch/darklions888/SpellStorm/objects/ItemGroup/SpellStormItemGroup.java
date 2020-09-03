@@ -1,6 +1,6 @@
 package ch.darklions888.SpellStorm.objects.itemgroup;
 
-import ch.darklions888.SpellStorm.init.BlockInit;
+import ch.darklions888.SpellStorm.init.ItemInit;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -17,7 +17,7 @@ public class SpellStormItemGroup extends ItemGroup {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public ItemStack createIcon() {
-		return new ItemStack(BlockInit.SOUL_EXTRACTOR.get());
+		return new ItemStack(ItemInit.CRYSTAL.get());
 	}
 
 }
