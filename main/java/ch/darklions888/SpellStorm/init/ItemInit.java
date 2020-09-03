@@ -9,7 +9,8 @@ import ch.darklions888.SpellStorm.objects.items.BaseBlockItem;
 import ch.darklions888.SpellStorm.objects.items.BaseItem;
 import ch.darklions888.SpellStorm.objects.items.BookOfMana;
 import ch.darklions888.SpellStorm.objects.items.BookOfSpellsItem;
-import ch.darklions888.SpellStorm.objects.items.CrytalShardItem;
+import ch.darklions888.SpellStorm.objects.items.CorruptedCrystalShardItem;
+import ch.darklions888.SpellStorm.objects.items.CrystalShardItem;
 import ch.darklions888.SpellStorm.objects.items.SoulCatcherItem;
 import ch.darklions888.SpellStorm.objects.items.pages.PageOfAggression;
 import ch.darklions888.SpellStorm.objects.items.pages.PageOfDragonBall;
@@ -33,9 +34,10 @@ public class ItemInit
 	
 	
 	//item
-	public static final RegistryObject<Item> CRYSTAL = REGISTER_ITEMS.register("crystal", () -> new CrytalShardItem(MagicSource.NEUTRALMAGIC, ManaPower.LOW, null, true, new Item.Properties().group(TAB)));
+	public static final RegistryObject<Item> CRYSTAL = REGISTER_ITEMS.register("crystal", () -> new CrystalShardItem(MagicSource.NEUTRALMAGIC, ManaPower.LOW, null, true, new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> CRYTSAL_PIECES = REGISTER_ITEMS.register("crystal_pieces", () -> new BaseItem(MagicSource.NEUTRALMAGIC, ManaPower.VERYLOW, null, true, new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> MAGICAL_PAPER = REGISTER_ITEMS.register("magical_paper", () -> new BaseItem(MagicSource.NEUTRALMAGIC, ManaPower.MEDIUM, null, true, new Item.Properties().group(TAB)));
+	public static final RegistryObject<Item> CORRUPTED_CRYSTAL = REGISTER_ITEMS.register("corrupted_crystal", () -> new CorruptedCrystalShardItem(MagicSource.UNKNOWNMAGIC,  ManaPower.HIGH,  null,  true,  new Item.Properties().group(TAB)));
 	
 	//Pages
 	public static final RegistryObject<Item> PAGE_OF_THE_WITHER_SKULL = REGISTER_ITEMS.register("page_of_the_wither_skull", ()  -> new PageOfTheWithers(ManaContainerSize.OCEAN, MagicSource.DARKMAGIC, ManaPower.VERYHIGH, TextFormatting.DARK_RED, true, new Item.Properties().group(TAB).maxStackSize(1)));
@@ -56,7 +58,7 @@ public class ItemInit
 	public static final RegistryObject<Item> MANAINFUSER = REGISTER_ITEMS.register("manainfuser", () -> new BaseBlockItem(MagicSource.UNKNOWNMAGIC, ManaPower.HIGH, null, false, BlockInit.MANAINFUSER.get(), new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> SOUL_EXTRACTOR = REGISTER_ITEMS.register("soul_extractor", () -> new BaseBlockItem(MagicSource.NEUTRALMAGIC, ManaPower.VERYHIGH, null, false, BlockInit.SOUL_EXTRACTOR.get(), new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> MAGICAL_WOOD_LOG = REGISTER_ITEMS.register("magical_wood_log", () -> new BaseBlockItem(MagicSource.NEUTRALMAGIC, ManaPower.LOW, null, false, BlockInit.MAGICAL_WOOD_LOG.get(), new Item.Properties().group(TAB)));
-	public static final RegistryObject<Item> MAGICAL_WOOD_PLANK = REGISTER_ITEMS.register("magical_wood_plank", () -> new BaseBlockItem(MagicSource.NEUTRALMAGIC, ManaPower.LOW, null, false, BlockInit.MAGICAL_WOOD_PLANK.get(), new Item.Properties().group(TAB)));
+	public static final RegistryObject<Item> MAGICAL_WOOD_PLANK = REGISTER_ITEMS.register("magical_planks", () -> new BaseBlockItem(MagicSource.NEUTRALMAGIC, ManaPower.LOW, null, false, BlockInit.MAGICAL_WOOD_PLANK.get(), new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> MAGICAL_LEAVES = REGISTER_ITEMS.register("magical_leaves", () -> new BaseBlockItem(MagicSource.NEUTRALMAGIC, ManaPower.LOW, null, false, BlockInit.MAGICAL_LEAVES.get(), new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> MAGICAL_TREE_SAPLING = REGISTER_ITEMS.register("magical_tree_sapling", () -> new BaseBlockItem(MagicSource.NEUTRALMAGIC, ManaPower.VERYLOW, null, false, BlockInit.MAGICAL_TREE_SAPLING.get(), new Item.Properties().group(TAB)));
 	
