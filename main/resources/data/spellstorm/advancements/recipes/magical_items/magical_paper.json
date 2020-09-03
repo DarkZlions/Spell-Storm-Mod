@@ -1,0 +1,43 @@
+{
+	"parent": "spellstorm:recipes/root",
+	"rewards": {
+		"recipes": [
+			"spellstorm:magical_paper"
+		]
+	},
+	"criteria": {
+		"has_crystal": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "spellstorm:crystal"
+					}
+				]
+			}
+		},
+		"has_paper": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "minecraft:paper"
+					}
+				]
+			}
+		},
+		"has_the_recipe": {
+			"trigger": "minecraft:recipe_unlocked",
+			"conditions": {
+				"recipe": "spellstorm:magical_paper"
+			}
+		}
+	},
+	"requirements": [
+		[
+			"has_crystal",
+			"has_paper",
+			"has_the_recipe"
+		]
+	]
+}

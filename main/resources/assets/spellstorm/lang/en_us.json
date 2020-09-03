@@ -1,5 +1,6 @@
 {
 	"item.spellstorm.crystal": "Crystal Shard",
+	"item.spellstorm.corrupted_crystal": "Corrupted Crystal Shard",
 	"item.spellstorm.crystal_ore": "Crystal Ore",
 	"item.spellstorm.crystal_pieces": "Crystal Pieces",
 	"item.spellstorm.page_of_the_wither_skull": "The Page Of The Wither Skull",
@@ -17,7 +18,7 @@
 
 	"block.spellstorm.crystal_ore": "Crystal Ore",
 	"block.spellstorm.magical_wood_log": "Magical Log",
-	"block.spellstorm.magical_wood_plank": "Magical Planks",
+	"block.spellstorm.magical_planks": "Magical Planks",
 	"block.spellstorm.magical_leaves": "Magical Leaves",
 	"block.spellstorm.manainfuser": "Mana Infuser",
 	"block.spellstorm.magical_tree_sapling" : "Magical Sapling",
@@ -29,7 +30,7 @@
 
 	"itemGroup.spellstormtab": "Spell Storm",
 
-	"advancement.spellstorm:root.title": "Following the crystal guide",
+	"advancement.spellstorm:root.title": "The Crystal Guides",
 	"advancement.spellstorm:root.description": "Is this a beginning from a journey?",
 
 	"spellstormmisc.mana": "Mana",

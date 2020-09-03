@@ -1,0 +1,32 @@
+{
+	"parent": "spellstorm:recipes/root",
+	"rewards": {
+		"recipes": [
+			"spellstorm:page_of_mining"
+		]
+	},
+	"criteria": {
+		"has_ingot": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "minecraft:netherite_ingot"
+					}
+				]
+			}
+		},
+		"has_the_recipe": {
+			"trigger": "minecraft:recipe_unlocked",
+			"conditions": {
+				"recipe": "spellstorm:page_of_mining"
+			}
+		}
+	},
+	"requirements": [
+		[
+			"has_ingot",
+			"has_the_recipe"
+		]
+	]
+}

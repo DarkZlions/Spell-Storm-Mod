@@ -47,12 +47,16 @@ public class PageOfMining extends BasePageItem {
 				if (result != null && result.getType() == RayTraceResult.Type.BLOCK) {
 					BlockPos pos = result.getPos();
 					BlockState state = serverWorld.getBlockState(pos);
-					FluidState ifluidstate = serverWorld.getFluidState(pos);
-					Block.spawnDrops(state.getBlockState(), worldIn, pos);
-					serverWorld.setBlockState(pos, ifluidstate.getBlockState(), 3);
 					
-					if (!playerIn.isCreative())
-						this.addMana(stackIn, -1);
+					if (state.getBlockHardness(serverWorld, pos)  > Float.MIN_VALUE) {
+						FluidState ifluidstate = serverWorld.getFluidState(pos);
+						Block.spawnDrops(state.getBlockState(), worldIn, pos);
+						serverWorld.setBlockState(pos, ifluidstate.getBlockState(), 3);
+						if (!playerIn.isCreative())
+							this.addMana(stackIn, -1);
+					} else {
+						return ActionResult.resultPass(stackIn);
+					}
 				}
 				return ActionResult.resultSuccess(stackIn);
 			}else {

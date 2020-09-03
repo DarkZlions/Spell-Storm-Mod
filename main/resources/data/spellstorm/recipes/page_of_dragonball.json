@@ -7,16 +7,16 @@
   ],
   "key": {
     "#": {
-      "item": "minecraft:iron_bars"
+      "item": "minecraft:dragon_breath"
     },
     "P": {
-      "item": "minecraft:obsidian"
+      "item": "spellstorm:magical_paper"
     },
 	"C":{
-		"item": "spellstorm:corrupted_crystal"
+		"item": "spellstorm:crystal"
 	}
   },
   "result": {
-    "item": "spellstorm:soul_catcher"
+    "item": "spellstorm:page_of_dragonball"
   }
 }

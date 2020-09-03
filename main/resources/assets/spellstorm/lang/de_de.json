@@ -1,5 +1,6 @@
 {
-	"item.spellstorm.crystal": "Kristall Scherben",
+	"item.spellstorm.crystal": "Kristallscherben",
+		"item.spellstorm.corrupted_crystal": "Korrupierte Kristallscherben",
 	"item.spellstorm.crystal_ore": "Kristall Erz",
 	"item.spellstorm.crystal_pieces": "Kristall Stücke",
 	"item.spellstorm.page_of_the_wither_skull": "Die Seite des Wither Kopfes",
