@@ -7,8 +7,10 @@ import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 
+@SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = Lib.MOD_ID, value = Dist.CLIENT)
 public class InputHandler {
 	private static final String CATEGORY = "key.categories." + Lib.MOD_ID;
@@ -21,6 +23,7 @@ public class InputHandler {
 	
 	@SubscribeEvent
 	public static void OnClientTickEvent(final ClientTickEvent event) {
+		//if (openBookOfSpellsContainer.isPressed()) {
 		
 	}
 }

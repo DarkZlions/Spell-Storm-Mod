@@ -2,6 +2,7 @@ package ch.darklions888.SpellStorm.objects.items;
 
 import java.util.List;
 
+import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerSize;
 import ch.darklions888.SpellStorm.lib.ManaPower;
@@ -89,7 +90,7 @@ public abstract class BasePageItem extends BaseItem implements IMagicalPageItem
 	
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) 
 	{
-		tooltip.add(new StringTextComponent(String.valueOf(this.getMana(stack)) + "/" + this.size + " Mana left"));
+		tooltip.add(new StringTextComponent(String.valueOf(this.getMana(stack)) + "/" + this.size + " ").append(Lib.TextComponents.MANA_LEFT));
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 	}
 	

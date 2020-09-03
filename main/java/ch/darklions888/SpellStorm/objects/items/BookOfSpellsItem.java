@@ -4,6 +4,7 @@ import java.util.List;
 
 import ch.darklions888.SpellStorm.client.input.KeyBoardHelper;
 import ch.darklions888.SpellStorm.init.ContainerTypesInit;
+import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.network.PacketHandler;
 import ch.darklions888.SpellStorm.network.PacketRotateBookSlot;
 import ch.darklions888.SpellStorm.objects.containers.BookOfSpellsContainer;
@@ -99,21 +100,21 @@ public class BookOfSpellsItem extends BaseContainerItem {
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 
 		if (!KeyBoardHelper.IsHoldingShift()) {
-			tooltip.add(new StringTextComponent("Hold " + "\u00A7l" + "Shift " + "\u00A7r" + "for more Information."));
-			tooltip.add(new StringTextComponent("Slot: " + String.valueOf(getSelectedSlot(stack) + 1 + " is selected.")));
+			tooltip.add(new StringTextComponent(Lib.TextComponents.DESC_HOLD.getString() + " " + "\u00A7l" + Lib.TextComponents.DESC_KEY_SHIFT.getString() + " " + "\u00A7r" + Lib.TextComponents.DESC_BOOK_OF_SPELLS_5.getString()));
+			tooltip.add(new StringTextComponent(Lib.TextComponents.DESC_SLOT.getString() + ": " + String.valueOf((getSelectedSlot(stack) + 1) + " " + Lib.TextComponents.DESC_BOOK_OF_SPELLS_6.getString())));
 		} else {
 			ItemStack stackInSlot = getInventory(stack).getStackInSlot(getSelectedSlot(stack));
 			if (stackInSlot == ItemStack.EMPTY) {
-				tooltip.add(new StringTextComponent("Selected Slot is empty"));
+				tooltip.add(Lib.TextComponents.DESC_BOOK_OF_SPELLS_3);
 			} else {
 				tooltip.add(new StringTextComponent(
 						getInventory(stack).getStackInSlot(getSelectedSlot(stack)).getDisplayName().getString()
-								+ " is selected."));
+								+ " " + Lib.TextComponents.DESC_BOOK_OF_SPELLS_4.getString()));
 			}
 			
-			tooltip.add(new StringTextComponent("Shift & Right-click to open the book."));
-			tooltip.add(new StringTextComponent(" "));
-			tooltip.add(new StringTextComponent("Left Click to cycle through the slot."));
+			for (int i = 0; i < 3; i++) {
+				tooltip.add(Lib.TextComponents.prefix("description_book_of_spells_" + i));
+			}
 		}
 	}
 

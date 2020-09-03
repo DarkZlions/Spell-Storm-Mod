@@ -19,7 +19,7 @@ import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
 
-import static ch.darklions888.SpellStorm.lib.Lib.ResourceLocations.MAGICAL_TREE_REGISTRY_NAME;
+import static ch.darklions888.SpellStorm.lib.Lib.RegistryNames.MAGICAL_TREE_REGISTRY_NAME;
 
 public class MagicalTree extends Tree {
 

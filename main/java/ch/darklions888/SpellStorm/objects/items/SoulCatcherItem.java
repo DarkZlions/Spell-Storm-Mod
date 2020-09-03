@@ -4,6 +4,7 @@ import java.util.List;
 
 import ch.darklions888.SpellStorm.init.ParticlesInit;
 import ch.darklions888.SpellStorm.init.SoundInit;
+import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityType;
@@ -12,14 +13,14 @@ import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particles.IParticleData;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 public class SoulCatcherItem extends Item {
 
@@ -38,18 +39,24 @@ public class SoulCatcherItem extends Item {
 			if (target instanceof MobEntity && getEntity(stack) == null) {
 				World world = playerIn.getEntityWorld();
 
-				if (world.isRemote) {
+				if (!world.isRemote) {
+					ServerWorld serverWorld = (ServerWorld) world;
+					double x = playerIn.getPosX();
+					double y = playerIn.getPosY();
+					double z = playerIn.getPosZ();
+					
+					serverWorld.playSound(null, x, y, z, SoundInit.ETERNAL_SCREAMING.get(), SoundCategory.PLAYERS,
+							0.2f, 1.0f);
+					
 					for (int i = 0; i < 15; i++) {
-						
-						world.playSound(playerIn, new BlockPos(playerIn.getPositionVec()), SoundInit.ETERNAL_SCREAMING.get(),
-								SoundCategory.PLAYERS, .4f, .1f);
-						world.addParticle((IParticleData) ParticlesInit.SOULS_PARTICLE.get(), target.getPosXRandom(.5d),
-								target.getPosYRandom(), target.getPosZRandom(.5d), 0.0, .5, 0.0);
-						
-					}
+						serverWorld.spawnParticle(ParticlesInit.SOULS_PARTICLE.get(), target.getPosXRandom(.5d),
+								target.getPosYRandom(), target.getPosZRandom(.5d), 2, 0.0d, .5d, 0.0d, 1.0d);
+					}			
+					
+					setEntityId(stack, target.getEntityId());
+					storeEntity(playerIn.getHeldItem(hand), target.getType());
 				}
-				setEntityId(stack, target.getEntityId());
-				storeEntity(playerIn.getHeldItem(hand), target.getType());
+
 
 				target.remove();
 
@@ -63,13 +70,28 @@ public class SoulCatcherItem extends Item {
 
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 		EntityType<?> entity = getEntity(stack);
-
+		
 		if (entity != null) {
-			tooltip.add(new StringTextComponent(
-					"The Soulcatcher contain: " + "\u00A7l" + getEntity(stack).getName().getString()));
+			StringTextComponent text = new StringTextComponent(String.valueOf(Lib.TextComponents.SOULCATCHER_CONTAINS.getString()));
+
+			tooltip.add(text.append(new StringTextComponent(
+					": " + "\u00A7l" + getEntity(stack).getName().getString())));
 		} else {
-			tooltip.add(new StringTextComponent("The Soulcatcher is: " + "\u00A7l" + "EMPTY"));
+			TranslationTextComponent text = Lib.TextComponents.SOULCATCHER_IS_EMPTY;
+			tooltip.add(text);
+		}		
+	}
+	
+	@Override
+	public ITextComponent getDisplayName(ItemStack stack) {
+		TranslationTextComponent name = new TranslationTextComponent(this.getTranslationKey(stack));
+		EntityType<?> entity = this.getEntity(stack);
+		if (entity != null) {
+			return new TranslationTextComponent(name.getString() + "[" + this.getEntity(stack).getName().getString() + "]");	
+		} else {
+			return name;
 		}
+	
 	}
 
 	private void storeEntity(ItemStack stack, EntityType<?> entity) {

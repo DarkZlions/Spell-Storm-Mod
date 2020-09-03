@@ -1,10 +1,10 @@
 package ch.darklions888.SpellStorm.lib;
 
 public enum MagicSource {
-	DARKMAGIC("Dark"),
-	LIGHTMAGIC("Light"),
-	NEUTRALMAGIC("Neutral"),
-	UNKNOWNMAGIC("UNKNOWN");
+	DARKMAGIC("dark"),
+	LIGHTMAGIC("light"),
+	NEUTRALMAGIC("neutral"),
+	UNKNOWNMAGIC("unknown");
 
 	public String sourceId;
 

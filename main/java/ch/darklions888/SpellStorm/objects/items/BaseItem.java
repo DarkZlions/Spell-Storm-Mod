@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerSize;
 import ch.darklions888.SpellStorm.lib.ManaPower;
@@ -16,6 +17,8 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class BaseItem extends Item implements IMagicalItem
 {
@@ -44,6 +47,7 @@ public class BaseItem extends Item implements IMagicalItem
 		return effect;
 	}
 	
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public ITextComponent getDisplayName(ItemStack stack) 
 	{
@@ -58,11 +62,13 @@ public class BaseItem extends Item implements IMagicalItem
 		}
 	}
 	
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) 
 	{
-		tooltip.add(new StringTextComponent("\u00A7l" + "\u00A7d" + String.valueOf(manapower.mana) + "\u00A7r" +  " Mana power"));
-		tooltip.add(new StringTextComponent(FormattingHelper.GetSourceColor(source) + FormattingHelper.GetFontFormat(source) + source.sourceId + "\u00A7r" + " Magical Source"));
+		tooltip.add(new StringTextComponent("\u00A7l" + "\u00A7d" + String.valueOf(manapower.mana) + "\u00A7r" +  " ").append(Lib.TextComponents.MANA_POWER));
+		String sourceName = Lib.TextComponents.getSourceName(source).getString();
+		tooltip.add(new StringTextComponent(FormattingHelper.GetSourceColor(source) + FormattingHelper.GetFontFormat(source) + sourceName + "\u00A7r" + " ").append(Lib.TextComponents.MANA_SOURCE));
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 	}
 

@@ -2,6 +2,7 @@ package ch.darklions888.SpellStorm.objects.items;
 
 import java.util.List;
 
+import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerSize;
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
@@ -27,7 +28,7 @@ public class BaseManaContainerItem extends Item implements IMagicalContainer {
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 
-		tooltip.add(new StringTextComponent("This magical item can store mana."));
+		tooltip.add(Lib.TextComponents.DESC_MANA_CONTAINER_ITEM);
 
 		for (MagicSource source : sources) {
 			tooltip.add(new StringTextComponent(FormattingHelper.GetSourceColor(source)

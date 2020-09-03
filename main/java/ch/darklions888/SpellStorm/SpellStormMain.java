@@ -3,7 +3,6 @@ package ch.darklions888.SpellStorm;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import ch.darklions888.SpellStorm.client.input.KeyBindings;
 import ch.darklions888.SpellStorm.init.BlockInit;
 import ch.darklions888.SpellStorm.init.ContainerTypesInit;
 import ch.darklions888.SpellStorm.init.EntityInit;
@@ -58,7 +57,6 @@ public class SpellStormMain {
 
 	@SubscribeEvent
 	public void ClientSetup(FMLClientSetupEvent event) {
-		KeyBindings.init();
 	}
 
 	@SubscribeEvent

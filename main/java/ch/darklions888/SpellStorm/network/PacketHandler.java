@@ -16,7 +16,7 @@ public class PacketHandler {
 	private static final String PROTOCOL = "6";
 	
 	public static final SimpleChannel HANDLER = NetworkRegistry.newSimpleChannel(
-			Lib.ResourceLocations.NETWORK_CHANNEL,
+			Lib.RegistryNames.NETWORK_CHANNEL,
 			() -> PROTOCOL,
 			PROTOCOL::equals,
 			PROTOCOL::equals);

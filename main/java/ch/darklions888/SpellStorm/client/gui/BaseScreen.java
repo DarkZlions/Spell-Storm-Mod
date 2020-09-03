@@ -3,16 +3,13 @@ package ch.darklions888.SpellStorm.client.gui;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.gui.DisplayEffectsScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
-public class  BaseScreen <T extends Container> extends ContainerScreen<T>{
+public class  BaseScreen <T extends Container> extends DisplayEffectsScreen<T>{
 
 	protected final ResourceLocation BACKGROUND_TEXTURE;
 	
@@ -32,13 +29,12 @@ public class  BaseScreen <T extends Container> extends ContainerScreen<T>{
 		this.func_230459_a_(matrix, mouseX, mouseY);
 	}
 
-	/*
+	
 	@Override
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		super.drawGuiContainerForegroundLayer(0, 0);
-		this.font.drawString(this.title.getFormattedText(), 3.0f, 3.0f, 4210752);
+	protected void drawGuiContainerForegroundLayer(MatrixStack matrix, int mouseX, int mouseY) {
+		this.font.drawString(matrix, this.title.getString(), 3.0f, 3.0f, 4210752);
 	}
-	 */
+	 
 	@SuppressWarnings("deprecation")
 	@Override
 	protected final void drawGuiContainerBackgroundLayer(MatrixStack matrix, float particalTicks, int mouseX, int mouseY) {

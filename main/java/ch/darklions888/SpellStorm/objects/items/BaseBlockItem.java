@@ -4,9 +4,11 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerSize;
 import ch.darklions888.SpellStorm.lib.ManaPower;
+import ch.darklions888.SpellStorm.util.helpers.formatting.FormattingHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.BlockItem;
@@ -54,40 +56,12 @@ public class BaseBlockItem extends BlockItem implements IMagicalItem {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(new StringTextComponent(
-				"\u00A7l" + "\u00A7d" + String.valueOf(manapower.mana) + "\u00A7r" + " Mana power"));
-
-		tooltip.add(new StringTextComponent(
-				GetSourceColor(source) + GetFontFormat(source) + source.sourceId + "\u00A7r" + " Magical Source"));
-
+	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) 
+	{
+		tooltip.add(new StringTextComponent("\u00A7l" + "\u00A7d" + String.valueOf(manapower.mana) + "\u00A7r" +  " ").append(Lib.TextComponents.MANA_POWER));
+		String sourceName = Lib.TextComponents.getSourceName(source).getString();
+		tooltip.add(new StringTextComponent(FormattingHelper.GetSourceColor(source) + FormattingHelper.GetFontFormat(source) + sourceName + "\u00A7r" + " ").append(Lib.TextComponents.MANA_SOURCE));
 		super.addInformation(stack, worldIn, tooltip, flagIn);
-	}
-
-	private String GetSourceColor(MagicSource sourceColor) {
-		switch (sourceColor) {
-		case LIGHTMAGIC:
-			return "\u00A7e";
-
-		case DARKMAGIC:
-			return "\u00A74";
-
-		case UNKNOWNMAGIC:
-			return "\u00A70";
-
-		default:
-			return "\u00A7f";
-		}
-	}
-
-	private String GetFontFormat(MagicSource source) {
-		switch (source) {
-		case UNKNOWNMAGIC:
-			return "\u00A7k";
-
-		default:
-			return "\u00A7l";
-		}
 	}
 
 	@Override
