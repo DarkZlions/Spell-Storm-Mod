@@ -120,10 +120,14 @@ public class BookOfSpellsItem extends BaseContainerItem {
 
 	@Override
 	public ITextComponent getDisplayName(ItemStack stack) {
+		
 		TranslationTextComponent translationText = new TranslationTextComponent(this.getTranslationKey(stack));
-
-		return new TranslationTextComponent(
-				translationText.getString() + " [" + getInventory(stack).getStackInSlot(getSelectedSlot(stack)).getDisplayName().getString() + "]");
+		
+		if (!getInventory(stack).getStackInSlot(getSelectedSlot(stack)).isEmpty()) {
+			return new TranslationTextComponent(translationText.getString() + " [" + getInventory(stack).getStackInSlot(getSelectedSlot(stack)).getDisplayName().getString() + "]");
+		} else {
+			return translationText;
+		}
 	}
 
 	@Override
