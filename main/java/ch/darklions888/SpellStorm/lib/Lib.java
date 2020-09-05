@@ -48,6 +48,7 @@ public class Lib {
 		public static final TranslationTextComponent MANA_LEFT = prefix("mana_left");
 		public static final TranslationTextComponent SOULCATCHER_CONTAINS = prefix("soulcatcher_contains");
 		public static final TranslationTextComponent SOULCATCHER_IS_EMPTY = prefix("soulcatcher_is_empty");
+		public static final TranslationTextComponent SOULCATCHER_MOB_HAS = prefix("description_soulcatcher_has_mob");
 		public static final TranslationTextComponent DESC_MANA_CONTAINER_ITEM = prefix("description_mana_container");
 		public static final TranslationTextComponent DESC_BOOK_OF_SPELLS_0 = prefix("description_book_of_spells_0");
 		public static final TranslationTextComponent DESC_BOOK_OF_SPELLS_1 = prefix("description_book_of_spells_1");

@@ -42,6 +42,7 @@
 	"spellstormmisc.mana_left": "Mana Left",
 	"spellstormmisc.soulcatcher_contains": "The Soulcatcher contains",
 	"spellstormmisc.soulcatcher_is_empty": "The Soulcatcher is EMPTY",
+	"spellstormmisc.description_soulcatcher_has_mob": "This mob has ",
 	"spellstormmisc.description_mana_container": "This magical item can store mana.",
 	"spellstormmisc.description_book_of_spells_0": "Shift & Right-click to open the book.",
 	"spellstormmisc.description_book_of_spells_1": " ",	

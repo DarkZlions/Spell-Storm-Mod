@@ -5,11 +5,19 @@ import java.util.List;
 import ch.darklions888.SpellStorm.init.ParticlesInit;
 import ch.darklions888.SpellStorm.init.SoundInit;
 import ch.darklions888.SpellStorm.lib.Lib;
+import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
+import ch.darklions888.SpellStorm.util.helpers.formatting.FormattingHelper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.monster.EndermanEntity;
+import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.monster.SlimeEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -66,18 +74,29 @@ public class SoulCatcherItem extends Item {
 		return ActionResultType.FAIL;
 	}
 
+	@SuppressWarnings("resource")
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		EntityType<?> entity = getEntity(stack);
+		Entity entity = getEntity(stack) != null ? getEntity(stack).create(Minecraft.getInstance().world) : null;
 		
-		if (entity != null) {
+		if (entity != null && entity instanceof MobEntity) {		
+			tooltip.add(new StringTextComponent(" ")); // Create a space between tooltip and display name
+			
+			MagicSource source = getSourceFromEntity(getEntity(stack).create(Minecraft.getInstance().world));			
+			String sourceName = Lib.TextComponents.getSourceName(source).getString();
+			MobEntity mob = (MobEntity) entity;
+			
 			StringTextComponent text = new StringTextComponent(String.valueOf(Lib.TextComponents.SOULCATCHER_CONTAINS.getString()));
-
-			tooltip.add(text.append(new StringTextComponent(
-					": " + "\u00A7l" + getEntity(stack).getName().getString())));
+			StringTextComponent text1 = new StringTextComponent(String.valueOf(Lib.TextComponents.SOULCATCHER_MOB_HAS.getString()));
+			String text2 = new String(FormattingHelper.GetSourceColor(source) + FormattingHelper.GetFontFormat(source) + sourceName);
+			String value = String.valueOf((int) Math.ceil(mob.getHealth()));
+			
+			tooltip.add(text.append(new StringTextComponent(": " + "\u00A7l" + getEntity(stack).getName().getString())));
+			tooltip.add(text1.appendString(value + " " + text2).appendString(" " + Lib.TextComponents.MANA.getString()));
 		} else {
+			tooltip.add(new StringTextComponent(" "));
 			TranslationTextComponent text = Lib.TextComponents.SOULCATCHER_IS_EMPTY;
 			tooltip.add(text);
-		}		
+		}	
 	}
 	
 	@Override
@@ -90,6 +109,18 @@ public class SoulCatcherItem extends Item {
 			return name;
 		}
 	
+	}
+	
+	public MagicSource getSourceFromEntity(Entity entityIn) {
+		if (entityIn instanceof MonsterEntity && !(entityIn instanceof EndermanEntity) || entityIn instanceof SlimeEntity && !(entityIn instanceof EndermanEntity)) {
+			return MagicSource.DARKMAGIC;
+		} else if (entityIn instanceof AnimalEntity) {
+			return MagicSource.LIGHTMAGIC;
+		} else if (entityIn instanceof EndermanEntity) {
+			return MagicSource.UNKNOWNMAGIC;
+		} else {
+			return MagicSource.NEUTRALMAGIC;
+		}
 	}
 
 	private void storeEntity(ItemStack stack, EntityType<?> entity) {

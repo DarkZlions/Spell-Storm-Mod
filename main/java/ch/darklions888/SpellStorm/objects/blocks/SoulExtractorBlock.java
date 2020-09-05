@@ -42,9 +42,7 @@ public class SoulExtractorBlock extends BaseBlock
 	private static final TranslationTextComponent text = new TranslationTextComponent("container.soul_extractor");
 	
 	public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
-	
-	private static World world;
-	
+		
 	private static final VoxelShape SHAPE = Stream.of(
 			Block.makeCuboidShape(4, 14, 12, 12, 21, 13),
 			Block.makeCuboidShape(12, 14, 12, 13, 21, 13),
@@ -99,16 +97,8 @@ public class SoulExtractorBlock extends BaseBlock
 		} else {
 			NetworkHooks.openGui((ServerPlayerEntity) player, getContainer(state, worldIn, pos));
 
-			world = worldIn;
-
 			return ActionResultType.SUCCESS;
 		}
-	}
-
-	// I'm sure this isn't the best solution to get the world for the container
-	// class
-	public static World getWorld() {
-		return world;
 	}
 
 	@Override

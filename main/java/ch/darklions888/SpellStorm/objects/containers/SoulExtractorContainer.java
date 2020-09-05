@@ -3,17 +3,13 @@ package ch.darklions888.SpellStorm.objects.containers;
 import ch.darklions888.SpellStorm.init.BlockInit;
 import ch.darklions888.SpellStorm.init.ContainerTypesInit;
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.objects.blocks.SoulExtractorBlock;
 import ch.darklions888.SpellStorm.objects.items.IMagicalContainer;
 import ch.darklions888.SpellStorm.objects.items.IMagicalPageItem;
 import ch.darklions888.SpellStorm.objects.items.SoulCatcherItem;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.monster.EndermanEntity;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.SlimeEntity;
-import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftResultInventory;
@@ -100,6 +96,7 @@ public class SoulExtractorContainer extends Container {
 		super.onCraftMatrixChanged(inventoryIn);
 	}
 
+	@SuppressWarnings("resource")
 	private void updateOutput() {
 		try {
 			ItemStack catchStack = this.inputslots.getStackInSlot(0);
@@ -115,14 +112,13 @@ public class SoulExtractorContainer extends Container {
 				EntityType<?> entityType = soulCatcher.getEntity(catchStack);
 
 				if (entityType != null) {
-					Entity entity = entityType.create(SoulExtractorBlock.getWorld());
+					Entity entity = entityType.create(Minecraft.getInstance().world);
 
 					MobEntity mob = (MobEntity) entity;
 
-					MagicSource mobSource = getSourceFromEntity(mob);
+					MagicSource mobSource = soulCatcher.getSourceFromEntity(mob);
 					if (containerItem.hasMagicSource(mobSource)) {
-						containerItem.addManaValue(containerCopy, getSourceFromEntity(mob).sourceId,
-								(int) mob.getMaxHealth());
+						containerItem.addManaValue(containerCopy, soulCatcher.getSourceFromEntity(mob).sourceId, (int) Math.ceil(mob.getHealth()));
 						this.outputslots.setInventorySlotContents(2, containerCopy);
 						this.detectAndSendChanges();
 					} else {
@@ -139,13 +135,13 @@ public class SoulExtractorContainer extends Container {
 
 				EntityType<?> entityType = soulCatcher.getEntity(catchStack);
 
-				Entity entity = entityType.create(SoulExtractorBlock.getWorld());
+				Entity entity = entityType.create(Minecraft.getInstance().world);
 
 				if (entity != null && entity instanceof MobEntity) {
 					MobEntity mob = (MobEntity) entity;
 
-					if (page.magicSource() == getSourceFromEntity(mob)) {
-						page.addMana(containerCopy, (int) mob.getMaxHealth());
+					if (page.magicSource() == soulCatcher.getSourceFromEntity(mob)) {
+						page.addMana(containerCopy, (int) Math.ceil(mob.getHealth()));
 						this.outputslots.setInventorySlotContents(2, containerCopy);
 						this.detectAndSendChanges();
 					} else {
@@ -159,19 +155,6 @@ public class SoulExtractorContainer extends Container {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-	}
-
-	private MagicSource getSourceFromEntity(Entity entityIn) {
-		if (entityIn instanceof MonsterEntity && !(entityIn instanceof EndermanEntity)
-				|| entityIn instanceof SlimeEntity && !(entityIn instanceof EndermanEntity)) {
-			return MagicSource.DARKMAGIC;
-		} else if (entityIn instanceof AnimalEntity) {
-			return MagicSource.LIGHTMAGIC;
-		} else if (entityIn instanceof EndermanEntity) {
-			return MagicSource.UNKNOWNMAGIC;
-		} else {
-			return MagicSource.NEUTRALMAGIC;
 		}
 	}
 
