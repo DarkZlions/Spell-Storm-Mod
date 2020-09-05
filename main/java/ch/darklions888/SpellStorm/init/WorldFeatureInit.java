@@ -17,6 +17,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeGenerationSettings;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
@@ -66,11 +67,12 @@ public class WorldFeatureInit {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	private static void addMagicalTree() {
 		for (Map.Entry<RegistryKey<Biome>, Biome> biome : WorldGenRegistries.field_243657_i.getEntries()) {
 			if (!biome.getValue().getCategory().equals(Biome.Category.NETHER) && !biome.getValue().getCategory().equals(Biome.Category.THEEND)) {
-				
-				addFeatureToBiome(biome.getValue(), GenerationStage.Decoration.VEGETAL_DECORATION, WorldGenRegistries.field_243653_e.getOrDefault(MagicalTree.getRegistryName()));
+				ConfiguredFeature<BaseTreeFeatureConfig, ?> treeFeature = (ConfiguredFeature<BaseTreeFeatureConfig, ?>) WorldGenRegistries.field_243653_e.getOrDefault(MagicalTree.getRegistryNameWithPlacement());
+				addFeatureToBiome(biome.getValue(), GenerationStage.Decoration.VEGETAL_DECORATION, treeFeature);
 			}
 		}
 	}

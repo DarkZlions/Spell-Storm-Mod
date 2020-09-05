@@ -13,7 +13,8 @@ public class Lib {
 		}
 		
 		// ConfiguredFeature
-		public static final ResourceLocation MAGICAL_TREE_REGISTRY_NAME = location("magical_tree");
+		public static final ResourceLocation MAGICAL_TREE_REGISTRY_NAME_WP = location("magical_tree_without_placement");
+		public static final ResourceLocation MAGICAL_TREE_REGISTRY_NAME_NP = location("magical_tree_with_placement");
 		
 		// Blocks
 		

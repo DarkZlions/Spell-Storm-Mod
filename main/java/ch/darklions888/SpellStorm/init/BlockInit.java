@@ -8,12 +8,12 @@ import ch.darklions888.SpellStorm.objects.blocks.MagicalWoodLogBlock;
 import ch.darklions888.SpellStorm.objects.blocks.MagicalWoodPlanksBlock;
 import ch.darklions888.SpellStorm.objects.blocks.ManaInfuserBlock;
 import ch.darklions888.SpellStorm.objects.blocks.SoulExtractorBlock;
+import ch.darklions888.SpellStorm.world.gen.biome.trees.MagicalTree;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
-import net.minecraft.block.trees.OakTree;
 import net.minecraft.item.DyeColor;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
@@ -30,5 +30,5 @@ public class BlockInit  {
 	public static final RegistryObject<Block> MAGICAL_WOOD_PLANK = REGISTER_BLOCKS.register("magical_planks", () -> new MagicalWoodPlanksBlock(Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
 	public static final RegistryObject<Block> MAGICAL_WOOD_LOG = REGISTER_BLOCKS.register("magical_wood_log", () -> new MagicalWoodLogBlock(MaterialColor.MAGENTA ,Block.Properties.create(Material.WOOD, MaterialColor.WOOD).hardnessAndResistance(2.0F).sound(SoundType.WOOD)));
 	public static final RegistryObject<Block> MAGICAL_LEAVES = REGISTER_BLOCKS.register("magical_leaves", () -> new MagicalLeavesBlock(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).tickRandomly().sound(SoundType.PLANT).notSolid()));
-	public static final RegistryObject<Block> MAGICAL_TREE_SAPLING = REGISTER_BLOCKS.register("magical_tree_sapling", () -> new MagicalTreeSaplingBlock(() -> new OakTree(), Block.Properties.from(Blocks.OAK_SAPLING)));
+	public static final RegistryObject<Block> MAGICAL_TREE_SAPLING = REGISTER_BLOCKS.register("magical_tree_sapling", () -> new MagicalTreeSaplingBlock(() -> new MagicalTree(), Block.Properties.from(Blocks.OAK_SAPLING)));
 }
