@@ -5,8 +5,8 @@ import java.util.List;
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerSize;
 import ch.darklions888.SpellStorm.lib.ManaPower;
-import ch.darklions888.SpellStorm.objects.items.BasePageItem;
-import net.minecraft.client.util.ITooltipFlag;
+import ch.darklions888.SpellStorm.util.helpers.mathhelpers.MathHelpers;
+import ch.darklions888.SpellStorm.util.helpers.mathhelpers.Vec3;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FireballEntity;
 import net.minecraft.item.ItemStack;
@@ -15,17 +15,14 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 public class PageOfFallingRocks extends BasePageItem {
 
-	public PageOfFallingRocks(ManaContainerSize size, MagicSource source, ManaPower mana, TextFormatting format,
-			boolean hasEffect, Properties properties) {
-		super(size, source, mana, format, hasEffect, properties);
+	public PageOfFallingRocks(ManaContainerSize size, MagicSource source, ManaPower mana, int manaConsumption, TextFormatting format, boolean hasEffect, Properties properties) {
+		super(size, source, mana, manaConsumption, format, hasEffect, properties);
 	}
 
 	@Override
@@ -45,7 +42,11 @@ public class PageOfFallingRocks extends BasePageItem {
 			if (playerIn.isCreative() || this.getMana(stack) >= 60) {
 				
 				((ServerWorld)worldIn).playSound(null, x, playerIn.getPosY(), z, SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.PLAYERS, 1.0f, 1.0f);
-				((ServerWorld)worldIn).spawnParticle(ParticleTypes.ASH, x, playerIn.getPosY(), y, 9, 0, 0, 0, .5f);
+				
+				List<Vec3> coords = MathHelpers.getCircleCoordinates(1.2, new Vec3(x, playerIn.getPosY(), z), 24, false, false);
+				for (Vec3 v : coords) {
+					((ServerWorld)worldIn).spawnParticle(ParticleTypes.SMOKE, v.X(), v.Y(), v.Z(), 1, 0, 0, 0, 0.001f);
+				}
 				
 				FireballEntity entity = new FireballEntity(worldIn, playerIn, 0.0d, -2.5d, 0.0d);
 				entity.setPosition(x, y, z);
@@ -57,17 +58,12 @@ public class PageOfFallingRocks extends BasePageItem {
 				worldIn.addEntity(entity);
 
 				if (!playerIn.isCreative())
-					this.setMana(stack, -60);
+					this.setMana(stack, -this.manaConsumption);
 
 				return ActionResult.resultSuccess(stack);
 			} else {
 				return ActionResult.resultPass(stack);
 			}
 		}
-	}
-
-	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(new StringTextComponent("This page need full mana to use."));
-		super.addInformation(stack, worldIn, tooltip, flagIn);
 	}
 }

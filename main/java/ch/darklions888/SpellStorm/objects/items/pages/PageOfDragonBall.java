@@ -3,7 +3,6 @@ package ch.darklions888.SpellStorm.objects.items.pages;
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerSize;
 import ch.darklions888.SpellStorm.lib.ManaPower;
-import ch.darklions888.SpellStorm.objects.items.BasePageItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.DragonFireballEntity;
 import net.minecraft.item.ItemStack;
@@ -17,9 +16,10 @@ import net.minecraft.world.server.ServerWorld;
 
 public class PageOfDragonBall extends BasePageItem {
 
-	public PageOfDragonBall(ManaContainerSize size, MagicSource source, ManaPower mana, TextFormatting format,
-			boolean hasEffect, Properties properties) {
-		super(size, source, mana, format, hasEffect, properties);
+
+
+	public PageOfDragonBall(ManaContainerSize size, MagicSource source, ManaPower mana, int manaConsumption, TextFormatting format, boolean hasEffect, Properties properties) {
+		super(size, source, mana, manaConsumption, format, hasEffect, properties);
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class PageOfDragonBall extends BasePageItem {
 				serverWorld.addEntity(ball);
 
 				if (!playerIn.isCreative())
-					this.addMana(stackIn, -2);
+					this.addMana(stackIn, -this.manaConsumption);
 				return ActionResult.resultSuccess(stackIn);
 			} else {
 				return ActionResult.resultPass(stackIn);

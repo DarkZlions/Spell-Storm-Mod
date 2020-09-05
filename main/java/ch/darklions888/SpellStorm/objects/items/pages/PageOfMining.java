@@ -3,13 +3,15 @@ package ch.darklions888.SpellStorm.objects.items.pages;
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerSize;
 import ch.darklions888.SpellStorm.lib.ManaPower;
-import ch.darklions888.SpellStorm.objects.items.BasePageItem;
+import ch.darklions888.SpellStorm.util.helpers.mathhelpers.CalculateLineCoordinates;
 import ch.darklions888.SpellStorm.util.helpers.mathhelpers.RayTraceHelper;
+import ch.darklions888.SpellStorm.util.helpers.mathhelpers.Vec3;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -22,8 +24,9 @@ import net.minecraft.world.server.ServerWorld;
 
 public class PageOfMining extends BasePageItem {
 
-	public PageOfMining(ManaContainerSize size, MagicSource source, ManaPower mana, TextFormatting format, boolean hasEffect, Properties properties) {
-		super(size, source, mana, format, hasEffect, properties);
+
+	public PageOfMining(ManaContainerSize size, MagicSource source, ManaPower mana, int manaConsumption, TextFormatting format, boolean hasEffect, Properties properties) {
+		super(size, source, mana, manaConsumption, format, hasEffect, properties);
 	}
 
 	@Override
@@ -48,12 +51,18 @@ public class PageOfMining extends BasePageItem {
 					BlockPos pos = result.getPos();
 					BlockState state = serverWorld.getBlockState(pos);
 					
-					if (state.getBlockHardness(serverWorld, pos)  > Float.MIN_VALUE) {
+					if (state.getBlockHardness(serverWorld, pos)  >= 0) {
 						FluidState ifluidstate = serverWorld.getFluidState(pos);
 						Block.spawnDrops(state.getBlockState(), worldIn, pos);
 						serverWorld.setBlockState(pos, ifluidstate.getBlockState(), 3);
+						
+						CalculateLineCoordinates line = new CalculateLineCoordinates(new Vec3(playerIn.getPosX(), playerIn.getPosYEye(), playerIn.getPosZ()), new Vec3(pos.getX(), pos.getY(), pos.getZ()));
+						for (Vec3 v : line.CoordListVec3()) {
+							serverWorld.spawnParticle(ParticleTypes.END_ROD, v.X(), v.Y(), v.Z(), 1, 0, 0, 0, 0.5f);
+						}
+						
 						if (!playerIn.isCreative())
-							this.addMana(stackIn, -1);
+							this.addMana(stackIn, -this.manaConsumption);
 					} else {
 						return ActionResult.resultPass(stackIn);
 					}
