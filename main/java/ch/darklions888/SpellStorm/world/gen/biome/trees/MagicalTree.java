@@ -33,7 +33,7 @@ public class MagicalTree extends Tree {
 							new SimpleBlockStateProvider(BlockInit.MAGICAL_WOOD_LOG.get().getDefaultState()),
 							new SimpleBlockStateProvider(BlockInit.MAGICAL_LEAVES.get().getDefaultState()),
 							new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3),
-							new StraightTrunkPlacer(4, 2, 0), new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build())
+							new StraightTrunkPlacer(4, 2, 0), new TwoLayerFeature(1, 0, 1))).build())
 					.withPlacement(Features.Placements.field_244001_l)
 					.withPlacement(Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(0, 0.01f, 1))));
 
