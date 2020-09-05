@@ -1,4 +1,4 @@
-package ch.darklions888.SpellStorm.objects.items;
+package ch.darklions888.SpellStorm.objects.items.pages;
 
 import java.util.List;
 
@@ -6,6 +6,10 @@ import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerSize;
 import ch.darklions888.SpellStorm.lib.ManaPower;
+import ch.darklions888.SpellStorm.objects.items.BaseItem;
+import ch.darklions888.SpellStorm.objects.items.IMagicalContainer;
+import ch.darklions888.SpellStorm.objects.items.IMagicalItem;
+import ch.darklions888.SpellStorm.objects.items.IMagicalPageItem;
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,14 +25,16 @@ import net.minecraft.world.World;
 public abstract class BasePageItem extends BaseItem implements IMagicalPageItem
 {
 	protected static final String MANA_TAG = "mana_pageitem";
-	private MagicSource source;
-	protected int size = 0;
+	protected final MagicSource source;
+	protected final int containingManaSize;
+	protected final int manaConsumption;
 	
-	public BasePageItem(ManaContainerSize size, MagicSource source, ManaPower mana, TextFormatting format, boolean hasEffect, Properties properties)
+	public BasePageItem(ManaContainerSize size, MagicSource source, ManaPower mana, int manaConsumption, TextFormatting format, boolean hasEffect, Properties properties)
 	{
 		super(source, mana, format, hasEffect, properties);
-		this.size = size.size;
+		this.containingManaSize = size.size;
 		this.source = source;
+		this.manaConsumption = manaConsumption;
 	}
 
 	@Override
@@ -40,13 +46,13 @@ public abstract class BasePageItem extends BaseItem implements IMagicalPageItem
 	@Override
 	public int getMaxContainerSize(ItemStack stackIn) 
 	{
-		return this.size;
+		return this.containingManaSize;
 	}
 
 	@Override
 	public void addMana(ItemStack stackIn, int manaAmount) 
 	{
-		setMana(stackIn, Math.min(getMana(stackIn) + manaAmount, size));
+		setMana(stackIn, Math.min(getMana(stackIn) + manaAmount, containingManaSize));
 	}
 
 	@Override
@@ -90,7 +96,7 @@ public abstract class BasePageItem extends BaseItem implements IMagicalPageItem
 	
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) 
 	{
-		tooltip.add(new StringTextComponent(String.valueOf(this.getMana(stack)) + "/" + this.size + " ").append(Lib.TextComponents.MANA_LEFT));
+		tooltip.add(new StringTextComponent(String.valueOf(this.getMana(stack)) + "/" + this.containingManaSize + " ").append(Lib.TextComponents.MANA_LEFT));
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 	}
 	
@@ -104,7 +110,7 @@ public abstract class BasePageItem extends BaseItem implements IMagicalPageItem
 		else
 		{
 			TranslationTextComponent translationText = new TranslationTextComponent(this.getTranslationKey(stack));
-			return new TranslationTextComponent(format + translationText.getString() + "  [" + String.valueOf(this.getMana(stack)) + "/" + this.size + "]");
+			return new TranslationTextComponent(format + translationText.getString() + "  [" + String.valueOf(this.getMana(stack)) + "/" + this.containingManaSize + "]");
 		}
 	}
 }
