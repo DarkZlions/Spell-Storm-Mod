@@ -2,6 +2,8 @@ package ch.darklions888.SpellStorm.util.helpers.mathhelpers;
 
 import java.util.List;
 
+import net.minecraft.util.math.BlockPos;
+
 public class MathHelpers 
 {
 	public float[] CalcBiggerNumber(float f1, float f2)
@@ -62,6 +64,11 @@ public class MathHelpers
 	public static List<Vec3> getCircleCoordinates(double radius, Vec3 position, int precision, boolean vertical, boolean flip)
 	{
 		return CircleCalculatorHelper.getCircleCoordinates(radius, position, precision, vertical, flip);
+	}
+	
+	public static List<Vec3> getCircleCoordinates(double radius, BlockPos position, int precision, boolean vertical, boolean flip)
+	{
+		return CircleCalculatorHelper.getCircleCoordinates(radius, new Vec3(position.getX(), position.getY(), position.getZ()), precision, vertical, flip);
 	}
 	
 	public static List<Vec3> getSphereCoordinates(double radius, Vec3 position, int precision)
