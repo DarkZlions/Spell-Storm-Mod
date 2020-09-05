@@ -21,6 +21,9 @@ public class CustomOreBlock extends Block {
 	protected int getExperience(Random rand) {
 		if (this == BlockInit.CRYSTAL_ORE.get())
 			return MathHelper.nextInt(rand, 3, 4);
+		else if (this == BlockInit.CORRUPTED_CRYSTAL_ORE.get()) {
+			return MathHelper.nextInt(rand, 5, 8);
+		}
 		else
 			return 0;
 	}

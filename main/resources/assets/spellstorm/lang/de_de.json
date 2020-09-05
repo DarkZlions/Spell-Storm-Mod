@@ -1,7 +1,8 @@
 {
 	"item.spellstorm.crystal": "Kristallscherben",
-		"item.spellstorm.corrupted_crystal": "Korrupierte Kristallscherben",
+	"item.spellstorm.corrupted_crystal": "Korrupierte Kristallscherben",
 	"item.spellstorm.crystal_ore": "Kristall Erz",
+	"item.spellstorm.corrupted_crystal_ore": "Korrupierter Kristall Erz",
 	"item.spellstorm.crystal_pieces": "Kristall Stücke",
 	"item.spellstorm.page_of_the_wither_skull": "Die Seite des Wither Kopfes",
 	"item.spellstorm.page_of_thunder": "Die Seite des Donners",
@@ -10,6 +11,7 @@
 	"item.spellstorm.page_of_fireballs": "Die Seite des Feuerballs",
 	"item.spellstorm.soul_catcher": "Seelen Fänger",
 	"item.spellstorm.book_of_mana": "Buch des Manas",
+	"item.spellstorm.book_of_mana_creative": "Buch des Manas",
 	"item.spellstorm.testitem": "Test Objekt",
 	"item.spellstorm.book_of_spells": "Buch des Zaubers",
 	"item.spellstorm.magical_paper": "Magisches Papier",
@@ -17,6 +19,7 @@
 	"item.spellstorm.page_of_mining": "Die Seite des Grabens",
 
 	"block.spellstorm.crystal_ore": "Kristall Erz",
+	"block.spellstorm.corrupted_crystal_ore": "Korrupierter Kristall Erz",
 	"block.spellstorm.magical_wood_log": "Magischer Baumstamm",
 	"block.spellstorm.magical_wood_plank": "Magische Holzbretter",
 	"block.spellstorm.magical_leaves": "Magische Blätter",
@@ -47,6 +50,7 @@
 	"spellstormmisc.description_book_of_spells_4": "ist ausgewählt.",
 	"spellstormmisc.description_book_of_spells_5": "für mehr informationen.",
 	"spellstormmisc.description_book_of_spells_6": "ist ausgewählt.",
+	"spellstormmisc.description_book_of_mana_creative": "Dieses Book is nur im Kreativemodus verfügbar. Es verfügt über unendlich viel Mana.",
 	"spellstormmisc.description_hold": "Halte",
 	"spellstormmisc.description_slot": "Slot",
 	"spellstormmisc.description_key_shift": "Shift",

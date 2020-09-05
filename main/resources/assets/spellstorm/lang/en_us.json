@@ -2,6 +2,7 @@
 	"item.spellstorm.crystal": "Crystal Shard",
 	"item.spellstorm.corrupted_crystal": "Corrupted Crystal Shard",
 	"item.spellstorm.crystal_ore": "Crystal Ore",
+	"item.spellstorm.corrupted_crystal_ore": "Corrupted Crystal Ore",
 	"item.spellstorm.crystal_pieces": "Crystal Pieces",
 	"item.spellstorm.page_of_the_wither_skull": "The Page Of The Wither Skull",
 	"item.spellstorm.page_of_thunder": "The Page Of Thunder",
@@ -10,6 +11,7 @@
 	"item.spellstorm.page_of_fireballs": "Page Of Fireballs",
 	"item.spellstorm.soul_catcher": "Soul Catcher",
 	"item.spellstorm.book_of_mana": "Book Of Mana",
+	"item.spellstorm.book_of_mana_creative": "Book Of Mana",
 	"item.spellstorm.testitem": "Test Item",
 	"item.spellstorm.book_of_spells": "Book Of Spells",
 	"item.spellstorm.magical_paper": "Magical Paper",
@@ -17,6 +19,7 @@
 	"item.spellstorm.page_of_mining": "The Page Of Mining",
 
 	"block.spellstorm.crystal_ore": "Crystal Ore",
+	"block.spellstorm.corrupted_crystal_ore": "Corrupted Crystal Ore",
 	"block.spellstorm.magical_wood_log": "Magical Log",
 	"block.spellstorm.magical_planks": "Magical Planks",
 	"block.spellstorm.magical_leaves": "Magical Leaves",
@@ -47,6 +50,7 @@
 	"spellstormmisc.description_book_of_spells_4": "is selected.",
 	"spellstormmisc.description_book_of_spells_5": "for more information",
 	"spellstormmisc.description_book_of_spells_6": "is selected.",
+	"spellstormmisc.description_book_of_mana_creative": "This book is only in creative mode available and provides infinite mana.",
 	"spellstormmisc.description_hold": "Hold",
 	"spellstormmisc.description_slot": "Slot",
 	"spellstormmisc.description_key_shift": "Shift",
@@ -54,4 +58,5 @@
 	"spellstormmisc.magic_source_name_light": "Light",
 	"spellstormmisc.magic_source_name_dark": "Dark",
 	"spellstormmisc.magic_source_name_unknown": "UNKNOWN"
+
 }
