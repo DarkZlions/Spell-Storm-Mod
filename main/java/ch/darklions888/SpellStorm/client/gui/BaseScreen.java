@@ -3,13 +3,13 @@ package ch.darklions888.SpellStorm.client.gui;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
-import net.minecraft.client.gui.DisplayEffectsScreen;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
-public class  BaseScreen <T extends Container> extends DisplayEffectsScreen<T>{
+public class  BaseScreen <T extends Container> extends ContainerScreen<T> {
 
 	protected final ResourceLocation BACKGROUND_TEXTURE;
 	
