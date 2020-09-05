@@ -56,6 +56,7 @@ public class Lib {
 		public static final TranslationTextComponent DESC_BOOK_OF_SPELLS_4 = prefix("description_book_of_spells_4");
 		public static final TranslationTextComponent DESC_BOOK_OF_SPELLS_5 = prefix("description_book_of_spells_5");
 		public static final TranslationTextComponent DESC_BOOK_OF_SPELLS_6 = prefix("description_book_of_spells_6");
+		public static final TranslationTextComponent DESC_BOOK_MANA_CREATIVE = prefix("description_book_of_mana_creative");
 		public static final TranslationTextComponent DESC_HOLD = prefix("description_hold");
 		public static final TranslationTextComponent DESC_SLOT = prefix("description_slot");
 		public static final TranslationTextComponent MAGIC_SOURCE_NEUTRAL = prefix("magic_source_name_neutral");
@@ -63,7 +64,6 @@ public class Lib {
 		public static final TranslationTextComponent MAGIC_SOURCE_LIGHT = prefix("magic_source_name_light");
 		public static final TranslationTextComponent MAGIC_SOURCE_UNKNOWN = prefix("magic_source_name_unknown");
 		public static final TranslationTextComponent DESC_KEY_SHIFT = prefix("description_key_shift");
-		
 		
 	}
 }
