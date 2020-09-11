@@ -17,6 +17,7 @@
 	"item.spellstorm.magical_paper": "Magical Paper",
 	"item.spellstorm.page_of_dragonball": "The Page Of Dragonball",
 	"item.spellstorm.page_of_mining": "The Page Of Mining",
+	"item.spellstorm.magical_ink": "Magical Ink",
 
 	"block.spellstorm.crystal_ore": "Crystal Ore",
 	"block.spellstorm.corrupted_crystal_ore": "Corrupted Crystal Ore",
@@ -26,6 +27,7 @@
 	"block.spellstorm.manainfuser": "Mana Infuser",
 	"block.spellstorm.magical_tree_sapling" : "Magical Sapling",
 	"block.spellstorm.soul_extractor": "Soul Extractor",
+	"block.spellstorm.magical_forge": "Magical Forge",
 
 	"container.mana_infuser": "ManaInfuser",
 	"container.soul_extractor": "Soul Extractor",

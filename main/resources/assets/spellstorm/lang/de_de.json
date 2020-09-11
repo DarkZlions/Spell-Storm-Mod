@@ -17,6 +17,7 @@
 	"item.spellstorm.magical_paper": "Magisches Papier",
 	"item.spellstorm.page_of_dragonball": "Die Seite des Drachenballs",
 	"item.spellstorm.page_of_mining": "Die Seite des Grabens",
+	"item.spellstorm.magical_ink": "Magical Ink",
 
 	"block.spellstorm.crystal_ore": "Kristall Erz",
 	"block.spellstorm.corrupted_crystal_ore": "Korrupierter Kristall Erz",
@@ -26,6 +27,7 @@
 	"block.spellstorm.manainfuser": "Mana Einfliesser",
 	"block.spellstorm.magical_tree_sapling" : "Magischer Setzling",
 	"block.spellstorm.soul_extractor": "Seelen Extraktor",
+	"block.spellstorm.magical_forge": "Magische Schmiede",
 
 	"container.mana_infuser": "Mana Einfliesser",
 	"container.soul_extractor": "Seelen Extraktor",
@@ -58,4 +60,5 @@
 	"spellstormmisc.magic_source_name_light": "Helle",
 	"spellstormmisc.magic_source_name_dark": "Dunkle",
 	"spellstormmisc.magic_source_name_unknown": "UNBEKANNTE"
+
 }

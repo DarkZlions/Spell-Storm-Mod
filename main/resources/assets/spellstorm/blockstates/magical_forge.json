@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,on=false": {
+      "model": "spellstorm:block/magical_forge_without_lava",
+      "y": 90
+    },
+    "facing=east,on=true": {
+      "model": "spellstorm:block/magical_forge_with_lava",
+      "y": 90
+    },
+    "facing=north,on=false": {
+      "model": "spellstorm:block/magical_forge_without_lava"
+    },
+    "facing=north,on=true": {
+      "model": "spellstorm:block/magical_forge_with_lava"
+    },
+    "facing=south,on=false": {
+      "model": "spellstorm:block/magical_forge_without_lava",
+      "y": 180
+    },
+    "facing=south,on=true": {
+      "model": "spellstorm:block/magical_forge_with_lava",
+      "y": 180
+    },
+    "facing=west,on=false": {
+      "model": "spellstorm:block/magical_forge_without_lava",
+      "y": 270
+    },
+    "facing=west,on=true": {
+      "model": "spellstorm:block/magical_forge_with_lava",
+      "y": 270
+    }
+  }
+}
