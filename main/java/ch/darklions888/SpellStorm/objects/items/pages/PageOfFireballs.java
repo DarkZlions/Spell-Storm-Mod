@@ -15,25 +15,25 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class PageOfFireballs extends BasePageItem {
+public class PageOfFireballs extends AbstractPageItem {
 
-	public PageOfFireballs(ManaContainerSize size, MagicSource source, ManaPower mana, int manaConsumption, TextFormatting format, boolean hasEffect, Properties properties) {
-		super(size, source, mana, manaConsumption, format, hasEffect, properties);
+	public PageOfFireballs(Properties properties) {
+		super(ManaContainerSize.MEDIUM, MagicSource.NEUTRALMAGIC, ManaPower.LOW, 1, TextFormatting.GOLD, true, properties);
 	}
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-		return getAbilities(worldIn, playerIn, handIn, playerIn.getHeldItem(handIn));
+		return getAbilities(worldIn, playerIn, handIn, playerIn.getHeldItem(handIn), null);
 	}
 
 	@Override
-	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stack) {
+	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stack, ItemStack bookIn) {
 
 		if (worldIn.isRemote) {
-			return ActionResult.resultFail(stack);
+			return ActionResult.resultPass(stack);
 			
 		} else {
-			if (playerIn.isCreative() || this.getMana(stack) > 0) {
+			if (playerIn.isCreative() || this.getMana(stack) >= this.manaConsumption) {
 				
 				double x = playerIn.getPosX();
 				double y = playerIn.getPosY();
@@ -61,8 +61,13 @@ public class PageOfFireballs extends BasePageItem {
 
 				return ActionResult.resultSuccess(stack);
 			} else {
-				return ActionResult.resultFail(stack);
+				return ActionResult.resultPass(stack);
 			}
 		}
+	}
+
+	@Override
+	public int getInkColor() {
+		return 0xeeac18;
 	}
 }

@@ -21,21 +21,21 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class PageOfAggression extends BasePageItem {
+public class PageOfAggression extends AbstractPageItem {
 
 	private static final String MOB_TAG = "spellstrom_aggressive_mob_tag";
 
-	public PageOfAggression(ManaContainerSize size, MagicSource source, ManaPower mana, int manaConsumption, TextFormatting format, boolean hasEffect, Properties properties) {
-		super(size, source, mana, manaConsumption, format, hasEffect, properties);
+	public PageOfAggression(Properties properties) {
+		super(ManaContainerSize.MEDIUM, MagicSource.DARKMAGIC, ManaPower.MEDIUM, 1, TextFormatting.DARK_RED, true, properties);
 	}
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-		return this.getAbilities(worldIn, playerIn, handIn, playerIn.getHeldItem(handIn));
+		return this.getAbilities(worldIn, playerIn, handIn, playerIn.getHeldItem(handIn), null);
 	}
 
 	@Override
-	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stackIn) {
+	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stackIn, ItemStack bookIn) {
 
 		if (worldIn.isRemote) {
 
@@ -45,7 +45,7 @@ public class PageOfAggression extends BasePageItem {
 
 			ServerWorld serverWorld = (ServerWorld) worldIn;
 
-			if (playerIn.isCreative() || this.getMana(stackIn) > 0) {
+			if (playerIn.isCreative() || this.getMana(stackIn) >= this.manaConsumption) {
 				List<MobEntity> entityList;
 				double x = playerIn.getPosX();
 				double y = playerIn.getPosY();
@@ -75,11 +75,16 @@ public class PageOfAggression extends BasePageItem {
 				if (entityList.size() > 0) {
 					return ActionResult.resultSuccess(stackIn);
 				} else {
-					return ActionResult.resultFail(stackIn);
+					return ActionResult.resultPass(stackIn);
 				}
 			} else {
-				return ActionResult.resultFail(stackIn);
+				return ActionResult.resultPass(stackIn);
 			}
 		}
+	}
+
+	@Override
+	public int getInkColor() {
+		return 0x8d3535;
 	}
 }

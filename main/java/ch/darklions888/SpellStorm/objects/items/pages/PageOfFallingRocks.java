@@ -5,6 +5,7 @@ import java.util.List;
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerSize;
 import ch.darklions888.SpellStorm.lib.ManaPower;
+import ch.darklions888.SpellStorm.objects.items.BookOfSpellsItem;
 import ch.darklions888.SpellStorm.util.helpers.mathhelpers.MathHelpers;
 import ch.darklions888.SpellStorm.util.helpers.mathhelpers.Vec3;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,19 +20,19 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class PageOfFallingRocks extends BasePageItem {
+public class PageOfFallingRocks extends AbstractPageItem {
 
-	public PageOfFallingRocks(ManaContainerSize size, MagicSource source, ManaPower mana, int manaConsumption, TextFormatting format, boolean hasEffect, Properties properties) {
-		super(size, source, mana, manaConsumption, format, hasEffect, properties);
+	public PageOfFallingRocks(Properties properties) {
+		super(ManaContainerSize.SMALL, MagicSource.UNKNOWNMAGIC, ManaPower.VERYHIGH, 30, TextFormatting.BLACK, true, properties);
 	}
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-		return getAbilities(worldIn, playerIn, handIn, playerIn.getHeldItem(handIn));
+		return getAbilities(worldIn, playerIn, handIn, playerIn.getHeldItem(handIn), null);
 	}
 
 	@Override
-	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stack) {
+	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stack, ItemStack bookIn) {
 		if (worldIn.isRemote) {
 			return ActionResult.resultPass(stack);
 		} else {
@@ -39,7 +40,7 @@ public class PageOfFallingRocks extends BasePageItem {
 			double y = 260.0d;
 			double z = playerIn.getPosZ();
 
-			if (playerIn.isCreative() || this.getMana(stack) >= 60) {
+			if (playerIn.isCreative() || this.getMana(stack) >= this.manaConsumption) {
 				
 				((ServerWorld)worldIn).playSound(null, x, playerIn.getPosY(), z, SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.PLAYERS, 1.0f, 1.0f);
 				
@@ -58,12 +59,25 @@ public class PageOfFallingRocks extends BasePageItem {
 				worldIn.addEntity(entity);
 
 				if (!playerIn.isCreative())
-					this.setMana(stack, -this.manaConsumption);
+					this.addMana(stack, -this.manaConsumption);
+				
+				int cooldDownTick = 25;
+				
+				if (bookIn != null && bookIn.getItem() instanceof BookOfSpellsItem) {
+					playerIn.getCooldownTracker().setCooldown(bookIn.getItem(), cooldDownTick);
+				} else {
+					playerIn.getCooldownTracker().setCooldown(this, cooldDownTick);
+				}
 
 				return ActionResult.resultSuccess(stack);
 			} else {
 				return ActionResult.resultPass(stack);
 			}
 		}
+	}
+
+	@Override
+	public int getInkColor() {
+		return 0x1f1f1f;
 	}
 }

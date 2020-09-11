@@ -22,26 +22,26 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class PageOfMining extends BasePageItem {
+public class PageOfMining extends AbstractPageItem {
 
 
-	public PageOfMining(ManaContainerSize size, MagicSource source, ManaPower mana, int manaConsumption, TextFormatting format, boolean hasEffect, Properties properties) {
-		super(size, source, mana, manaConsumption, format, hasEffect, properties);
+	public PageOfMining(Properties properties) {
+		super(ManaContainerSize.BIGGER, MagicSource.NEUTRALMAGIC, ManaPower.MEDIUM, 1, TextFormatting.DARK_GRAY, true, properties);
 	}
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-		return getAbilities(worldIn, playerIn, handIn, playerIn.getHeldItem(handIn));
+		return getAbilities(worldIn, playerIn, handIn, playerIn.getHeldItem(handIn), null);
 	}
 	
 	@Override
-	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stackIn) {
+	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stackIn, ItemStack bookIn) {
 		
 		if(worldIn.isRemote) {
 			return ActionResult.resultPass(stackIn);
 		}else {
 			
-			if(playerIn.isCreative() || this.getMana(stackIn) > 0) {
+			if(playerIn.isCreative() || this.getMana(stackIn) >= this.manaConsumption) {
 				
 				ServerWorld serverWorld = (ServerWorld) worldIn;
 				
@@ -66,6 +66,8 @@ public class PageOfMining extends BasePageItem {
 					} else {
 						return ActionResult.resultPass(stackIn);
 					}
+				} else {
+					return ActionResult.resultPass(stackIn);
 				}
 				return ActionResult.resultSuccess(stackIn);
 			}else {
@@ -74,6 +76,11 @@ public class PageOfMining extends BasePageItem {
 
 		}
 		
+	}
+
+	@Override
+	public int getInkColor() {
+		return 0xc1c1c1;
 	}
 	
 }

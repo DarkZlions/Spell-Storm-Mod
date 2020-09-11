@@ -13,60 +13,64 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class PageOfThunder extends BasePageItem
+public class PageOfThunder extends AbstractPageItem
 {
 	
-	public PageOfThunder(ManaContainerSize size, MagicSource source, ManaPower mana, int manaConsumption, TextFormatting format, boolean hasEffect, Properties properties) {
-		super(size, source, mana, manaConsumption, format, hasEffect, properties);
+	public PageOfThunder(Properties properties) {
+		super(ManaContainerSize.SMALL, MagicSource.LIGHTMAGIC, ManaPower.HIGH, 2, TextFormatting.GOLD, true, properties);
 	}
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) 
 	{
-		return getAbilities(worldIn, playerIn, handIn, playerIn.getHeldItem(handIn));
+		return getAbilities(worldIn, playerIn, handIn, playerIn.getHeldItem(handIn), null);
 	}
 	
 	@Override
-	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stack) {
+	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stack, ItemStack bookIn) {
 
 		if (worldIn.isRemote) {
 			return ActionResult.resultPass(stack);
 			
 		} else {
 			
-			if (playerIn.isCreative() || this.getMana(stack) > 0) {
+			if (playerIn.isCreative() || this.getMana(stack) >= this.manaConsumption) {
 				List<LivingEntity> entityList = worldIn.getEntitiesWithinAABB(LivingEntity.class,
 						new AxisAlignedBB(playerIn.getPosX() - 10, playerIn.getPosY() - 10, playerIn.getPosZ() - 10,
 								playerIn.getPosX() + 10, playerIn.getPosY() + 10, playerIn.getPosZ() + 10));
 
 				ServerWorld serverworld = (ServerWorld) worldIn;
-				serverworld.playSound(null, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.PLAYERS, 1.0f, 1.0f);
 				
-				if (entityList.size() > 1) {
-					for (Entity entity : entityList) {
-						if (entity != playerIn && entity instanceof LivingEntity) {
-							LightningBoltEntity lighting = new LightningBoltEntity(EntityType.LIGHTNING_BOLT, worldIn);
-							lighting.setPosition(entity.getPosX(), entity.getPosY(), entity.getPosZ());
-							serverworld.addEntity(lighting);
+				if (entityList.size() > 0) {
+					
+					for (Entity e : entityList) {
+						if (e != null && e != playerIn && (this.getMana(stack) >= this.manaConsumption || playerIn.isCreative())) {
+							
+							LightningBoltEntity bolt = new LightningBoltEntity(EntityType.LIGHTNING_BOLT, serverworld);
+							bolt.setPosition(e.getPosX(), e.getPosY(), e.getPosZ());						
+							serverworld.addEntity(bolt);
+							
+							if (!playerIn.isCreative()) this.addMana(stack, -this.manaConsumption);
 						}
 					}
-					
-					if (!playerIn.isCreative())
-						this.addMana(stack, -this.manaConsumption);
+				
 					return ActionResult.resultSuccess(stack);
 				} else {
-					return ActionResult.resultFail(stack);
+					return ActionResult.resultPass(stack);
 				}
 			} else {
-				return ActionResult.resultFail(stack);
+				return ActionResult.resultPass(stack);
 			}
 		}
+	}
+
+	@Override
+	public int getInkColor() {
+		return 0x9accff;
 	}
 }

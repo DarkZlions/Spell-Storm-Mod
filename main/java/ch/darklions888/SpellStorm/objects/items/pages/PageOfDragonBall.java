@@ -14,28 +14,28 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class PageOfDragonBall extends BasePageItem {
+public class PageOfDragonBall extends AbstractPageItem {
 
 
 
-	public PageOfDragonBall(ManaContainerSize size, MagicSource source, ManaPower mana, int manaConsumption, TextFormatting format, boolean hasEffect, Properties properties) {
-		super(size, source, mana, manaConsumption, format, hasEffect, properties);
+	public PageOfDragonBall(Properties properties) {
+		super(ManaContainerSize.SMALL, MagicSource.UNKNOWNMAGIC, ManaPower.VERYHIGH, 2, TextFormatting.DARK_PURPLE, true, properties);
 	}
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-		return getAbilities(worldIn, playerIn, handIn, playerIn.getHeldItem(handIn));
+		return getAbilities(worldIn, playerIn, handIn, playerIn.getHeldItem(handIn), null);
 	}
 
 	@Override
-	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stackIn) {
+	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stackIn, ItemStack bookIn) {
 
 		if (worldIn.isRemote) {
 			return ActionResult.resultPass(stackIn);
 
 		} else {
 
-			if (playerIn.isCreative() || this.getMana(stackIn) > 0) {
+			if (playerIn.isCreative() || this.getMana(stackIn) >= this.manaConsumption) {
 
 				ServerWorld serverWorld = (ServerWorld) worldIn;
 
@@ -67,5 +67,10 @@ public class PageOfDragonBall extends BasePageItem {
 				return ActionResult.resultPass(stackIn);
 			}
 		}
+	}
+
+	@Override
+	public int getInkColor() {
+		return 0x9c49af;
 	}
 }

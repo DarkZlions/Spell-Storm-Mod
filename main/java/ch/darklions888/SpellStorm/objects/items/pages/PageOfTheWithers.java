@@ -14,29 +14,25 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class PageOfTheWithers extends BasePageItem {
+public class PageOfTheWithers extends AbstractPageItem {
 
-	public PageOfTheWithers(ManaContainerSize size, MagicSource source, ManaPower mana, int manaConsumption, TextFormatting format, boolean hasEffect, Properties properties) {
-		super(size, source, mana, manaConsumption, format, hasEffect, properties);
+	public PageOfTheWithers(Properties properties) {
+		super(ManaContainerSize.OCEAN, MagicSource.DARKMAGIC, ManaPower.HIGH, 1, TextFormatting.DARK_RED, true, properties);
 	}
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-		return this.getAbilities(worldIn, playerIn, handIn, playerIn.getHeldItem(handIn));
+		return this.getAbilities(worldIn, playerIn, handIn, playerIn.getHeldItem(handIn), null);
 	}
 
 	@Override
-	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stack) {
+	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stack, ItemStack bookIn) {
 
 		if (worldIn.isRemote) {
-			if (this.getMana(stack) > 0) {
-				return ActionResult.resultSuccess(stack);
-			} else {
-				return ActionResult.resultPass(stack);
-			}
+			return ActionResult.resultPass(stack);
 
 		} else {
-			if (playerIn.isCreative() || this.getMana(stack) > 0) {
+			if (playerIn.isCreative() || this.getMana(stack) >= this.manaConsumption) {
 				ServerWorld serverWorld = (ServerWorld) worldIn;
 				
 				double x = playerIn.getPosX();
@@ -61,9 +57,17 @@ public class PageOfTheWithers extends BasePageItem {
 				
 				if (!playerIn.isCreative())
 					this.addMana(stack, -this.manaConsumption);
+				
+				return ActionResult.resultSuccess(stack);
+			} else {
+				return ActionResult.resultPass(stack);
 			}
 
-			return ActionResult.resultSuccess(stack);
 		}
+	}
+
+	@Override
+	public int getInkColor() {
+		return 0x3f242b;
 	}
 }
