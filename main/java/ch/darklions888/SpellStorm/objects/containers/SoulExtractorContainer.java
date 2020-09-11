@@ -1,11 +1,11 @@
 package ch.darklions888.SpellStorm.objects.containers;
 
-import ch.darklions888.SpellStorm.init.BlockInit;
-import ch.darklions888.SpellStorm.init.ContainerTypesInit;
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.objects.items.IMagicalContainer;
 import ch.darklions888.SpellStorm.objects.items.IMagicalPageItem;
 import ch.darklions888.SpellStorm.objects.items.SoulCatcherItem;
+import ch.darklions888.SpellStorm.registries.BlockInit;
+import ch.darklions888.SpellStorm.registries.ContainerTypesInit;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

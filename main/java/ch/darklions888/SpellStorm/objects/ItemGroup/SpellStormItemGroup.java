@@ -1,6 +1,6 @@
 package ch.darklions888.SpellStorm.objects.itemgroup;
 
-import ch.darklions888.SpellStorm.init.ItemInit;
+import ch.darklions888.SpellStorm.registries.ItemInit;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;

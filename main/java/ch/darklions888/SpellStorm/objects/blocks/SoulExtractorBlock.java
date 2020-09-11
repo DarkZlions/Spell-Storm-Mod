@@ -3,10 +3,10 @@ package ch.darklions888.SpellStorm.objects.blocks;
 import java.util.Random;
 import java.util.stream.Stream;
 
-import ch.darklions888.SpellStorm.init.ContainerTypesInit;
-import ch.darklions888.SpellStorm.init.ParticlesInit;
-import ch.darklions888.SpellStorm.init.SoundInit;
 import ch.darklions888.SpellStorm.objects.containers.SoulExtractorContainer;
+import ch.darklions888.SpellStorm.registries.ContainerTypesInit;
+import ch.darklions888.SpellStorm.registries.ParticlesInit;
+import ch.darklions888.SpellStorm.registries.SoundInit;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;

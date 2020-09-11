@@ -1,10 +1,10 @@
 package ch.darklions888.SpellStorm.objects.containers;
 
-import ch.darklions888.SpellStorm.init.BlockInit;
-import ch.darklions888.SpellStorm.init.ContainerTypesInit;
+import ch.darklions888.SpellStorm.objects.items.IHasMagic;
 import ch.darklions888.SpellStorm.objects.items.IMagicalContainer;
-import ch.darklions888.SpellStorm.objects.items.IMagicalItem;
 import ch.darklions888.SpellStorm.objects.items.IMagicalPageItem;
+import ch.darklions888.SpellStorm.registries.BlockInit;
+import ch.darklions888.SpellStorm.registries.ContainerTypesInit;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftResultInventory;
@@ -46,7 +46,7 @@ public class ManaInfuserContainer extends Container {
 
 		this.addSlot(new Slot(this.inputSlots, 1, 102, 51) {
 			public boolean isItemValid(ItemStack stack) {
-				if (stack.getItem() instanceof IMagicalItem || stack.getItem() instanceof IMagicalContainer) {
+				if (stack.getItem() instanceof IHasMagic || stack.getItem() instanceof IMagicalContainer) {
 					return true;
 				} else {
 					return false;
@@ -72,7 +72,7 @@ public class ManaInfuserContainer extends Container {
 					ManaInfuserContainer.this.inputSlots.setInventorySlotContents(1, ItemStack.EMPTY);
 				} else {
 					ItemStack input = ManaInfuserContainer.this.inputSlots.getStackInSlot(1);
-					if (input.getItem() instanceof IMagicalItem) {
+					if (input.getItem() instanceof IHasMagic) {
 						int slotCount = input.getCount();
 
 						input.setCount(slotCount - itemCost);
@@ -127,27 +127,27 @@ public class ManaInfuserContainer extends Container {
 			ItemStack itemstack1 = this.inputSlots.getStackInSlot(0);
 			ItemStack itemstack2 = this.inputSlots.getStackInSlot(1);
 
-			if (itemstack1.getItem() instanceof IMagicalPageItem && itemstack2.getItem() instanceof IMagicalItem) {
+			if (itemstack1.getItem() instanceof IMagicalPageItem && itemstack2.getItem() instanceof IHasMagic) {
 
 				ItemStack stack1 = itemstack1.copy();
 
 				IMagicalPageItem page = (IMagicalPageItem) itemstack1.getItem();
-				IMagicalItem base = (IMagicalItem) itemstack2.getItem();
+				IHasMagic base = (IHasMagic) itemstack2.getItem();
 
 				if (page.canReceiveManaFromtItem(itemstack1, itemstack2)) {
 					int manaIn = page.getMana(itemstack1);
 					int containerSize = page.getMaxContainerSize(itemstack1);
 					int fillSize = containerSize - manaIn;
-					int cost = fillSize / base.manaPower().mana;
+					int cost = fillSize / base.getManaPower().mana;
 
 					if (cost <= itemstack2.getCount()) {
 						this.itemCost = cost;
-						page.addMana(stack1, base.manaPower().mana * cost);
+						page.addMana(stack1, base.getManaPower().mana * cost);
 						this.outputSlots.setInventorySlotContents(2, stack1);
 						this.detectAndSendChanges();
 					} else {
 						this.itemCost = itemstack2.getCount();
-						page.addMana(stack1, base.manaPower().mana * itemstack2.getCount());
+						page.addMana(stack1, base.getManaPower().mana * itemstack2.getCount());
 						this.outputSlots.setInventorySlotContents(2, stack1);
 						this.detectAndSendChanges();
 					}
@@ -177,27 +177,27 @@ public class ManaInfuserContainer extends Container {
 					}
 				}
 			} else if (itemstack1.getItem() instanceof IMagicalContainer
-					&& itemstack2.getItem() instanceof IMagicalItem) {
+					&& itemstack2.getItem() instanceof IHasMagic) {
 				ItemStack stack1 = itemstack1.copy();
 
 				IMagicalContainer container = (IMagicalContainer) itemstack1.getItem();
-				IMagicalItem item = (IMagicalItem) itemstack2.getItem();
+				IHasMagic item = (IHasMagic) itemstack2.getItem();
 
-				if (container.hasMagicSource(item.magicSource())) {
-					int manaIn = container.getManaValue(itemstack1, item.magicSource().sourceId);
+				if (container.hasMagicSource(item.getMagicSource())) {
+					int manaIn = container.getManaValue(itemstack1, item.getMagicSource().sourceId);
 					int containerSize = container.getContainerSize();
 					int fillSize = containerSize - manaIn;
-					int cost = fillSize / item.manaPower().mana;
+					int cost = fillSize / item.getManaPower().mana;
 
 					if (cost <= itemstack2.getCount()) {
 						this.itemCost = cost;
-						container.addManaValue(stack1, item.magicSource().sourceId, item.manaPower().mana * cost);
+						container.addManaValue(stack1, item.getMagicSource().sourceId, item.getManaPower().mana * cost);
 						this.outputSlots.setInventorySlotContents(2, stack1);
 						this.detectAndSendChanges();
 					} else {
 						this.itemCost = itemstack2.getCount();
-						container.addManaValue(stack1, item.magicSource().sourceId,
-								item.manaPower().mana * itemstack2.getCount());
+						container.addManaValue(stack1, item.getMagicSource().sourceId,
+								item.getManaPower().mana * itemstack2.getCount());
 						this.outputSlots.setInventorySlotContents(2, stack1);
 						this.detectAndSendChanges();
 					}

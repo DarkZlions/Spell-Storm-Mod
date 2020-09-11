@@ -1,7 +1,7 @@
 package ch.darklions888.SpellStorm.objects.containers;
 
-import ch.darklions888.SpellStorm.init.ContainerTypesInit;
 import ch.darklions888.SpellStorm.objects.items.IMagicalPageItem;
+import ch.darklions888.SpellStorm.registries.ContainerTypesInit;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;

@@ -3,9 +3,9 @@ package ch.darklions888.SpellStorm.objects.blocks;
 import java.util.Random;
 import java.util.stream.Stream;
 
-import ch.darklions888.SpellStorm.init.ContainerTypesInit;
-import ch.darklions888.SpellStorm.init.ParticlesInit;
 import ch.darklions888.SpellStorm.objects.containers.ManaInfuserContainer;
+import ch.darklions888.SpellStorm.registries.ContainerTypesInit;
+import ch.darklions888.SpellStorm.registries.ParticlesInit;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
@@ -14,8 +14,10 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer.Builder;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -38,6 +40,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 public class ManaInfuserBlock extends BaseBlock
 {
 	public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+	public static final BooleanProperty LIT = BlockStateProperties.LIT;
 	
 	private static final VoxelShape SHAPE_N =  Stream.of(
 			Block.makeCuboidShape(0, 0, 0, 16, 8, 16),

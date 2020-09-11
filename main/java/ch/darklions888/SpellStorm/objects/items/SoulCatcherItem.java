@@ -2,10 +2,10 @@ package ch.darklions888.SpellStorm.objects.items;
 
 import java.util.List;
 
-import ch.darklions888.SpellStorm.init.ParticlesInit;
-import ch.darklions888.SpellStorm.init.SoundInit;
 import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.lib.MagicSource;
+import ch.darklions888.SpellStorm.registries.ParticlesInit;
+import ch.darklions888.SpellStorm.registries.SoundInit;
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
 import ch.darklions888.SpellStorm.util.helpers.formatting.FormattingHelper;
 import net.minecraft.client.Minecraft;
@@ -82,7 +82,7 @@ public class SoulCatcherItem extends Item {
 			tooltip.add(new StringTextComponent(" ")); // Create a space between tooltip and display name
 			
 			MagicSource source = getSourceFromEntity(getEntity(stack).create(Minecraft.getInstance().world));			
-			String sourceName = Lib.TextComponents.getSourceName(source).getString();
+			String sourceName = source.getSourceName().getString();
 			MobEntity mob = (MobEntity) entity;
 			
 			StringTextComponent text = new StringTextComponent(String.valueOf(Lib.TextComponents.SOULCATCHER_CONTAINS.getString()));

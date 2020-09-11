@@ -3,11 +3,11 @@ package ch.darklions888.SpellStorm.objects.items;
 import java.util.List;
 
 import ch.darklions888.SpellStorm.client.input.KeyBoardHelper;
-import ch.darklions888.SpellStorm.init.ContainerTypesInit;
 import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.network.PacketHandler;
 import ch.darklions888.SpellStorm.network.PacketRotateBookSlot;
 import ch.darklions888.SpellStorm.objects.containers.BookOfSpellsContainer;
+import ch.darklions888.SpellStorm.registries.ContainerTypesInit;
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
 import ch.darklions888.SpellStorm.util.helpers.mathhelpers.MathHelpers;
 import net.minecraft.client.util.ITooltipFlag;
@@ -27,7 +27,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
-public class BookOfSpellsItem extends BaseContainerItem {
+public class BookOfSpellsItem extends AbstractContainerItem {
 
 	private static final String SLOT_TAG = "book_of_spells_slot_number_tag";
 
@@ -60,8 +60,10 @@ public class BookOfSpellsItem extends BaseContainerItem {
 					if (stackFromSlot.getItem() instanceof IMagicalPageItem) {
 						IMagicalPageItem page = (IMagicalPageItem) stackFromSlot.getItem();
 
-						page.getAbilities(worldIn, playerIn, handIn, stackFromSlot);
+						page.getAbilities(worldIn, playerIn, handIn, stackFromSlot, new ItemStack(this));
 					}
+				} else {
+					return ActionResult.resultPass(stack);
 				}
 
 			}
