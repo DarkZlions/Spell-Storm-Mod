@@ -2,7 +2,7 @@ package ch.darklions888.SpellStorm.objects.blocks;
 
 import java.util.Random;
 
-import ch.darklions888.SpellStorm.init.BlockInit;
+import ch.darklions888.SpellStorm.registries.BlockInit;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
