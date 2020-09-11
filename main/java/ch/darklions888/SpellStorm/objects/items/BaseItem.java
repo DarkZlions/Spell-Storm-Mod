@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class BaseItem extends Item implements IMagicalItem
+public class BaseItem extends Item implements IHasMagic
 {
 	protected boolean effect = false;
 	protected ManaPower manapower;
@@ -67,26 +67,24 @@ public class BaseItem extends Item implements IMagicalItem
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) 
 	{
 		tooltip.add(new StringTextComponent("\u00A7l" + "\u00A7d" + String.valueOf(manapower.mana) + "\u00A7r" +  " ").append(Lib.TextComponents.MANA_POWER));
-		String sourceName = Lib.TextComponents.getSourceName(source).getString();
+		String sourceName = source.getSourceName().getString();
 		tooltip.add(new StringTextComponent(FormattingHelper.GetSourceColor(source) + FormattingHelper.GetFontFormat(source) + sourceName + "\u00A7r" + " ").append(Lib.TextComponents.MANA_SOURCE));
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 	}
 
 	@Override
-	public MagicSource magicSource() 
-	{
-		return source;
+	public MagicSource getMagicSource() {
+		return this.source;
 	}
 
+	@Nullable
 	@Override
-	public ManaContainerSize manaContainer() 
-	{
+	public ManaContainerSize getManaContainer() {
 		return null;
 	}
 
 	@Override
-	public ManaPower manaPower() 
-	{
-		return manapower;
+	public ManaPower getManaPower() {
+		return this.manapower;
 	}
 }

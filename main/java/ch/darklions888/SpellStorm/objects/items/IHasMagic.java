@@ -4,12 +4,8 @@ import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerSize;
 import ch.darklions888.SpellStorm.lib.ManaPower;
 
-public interface IMagicalItem {
-	
-	public MagicSource magicSource();
-
-	public ManaContainerSize manaContainer();
-
-	public ManaPower manaPower();
-
+public interface IHasMagic {
+	ManaContainerSize getManaContainer();
+	MagicSource getMagicSource();
+	ManaPower getManaPower();
 }
