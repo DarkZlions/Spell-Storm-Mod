@@ -1,5 +1,7 @@
 package ch.darklions888.SpellStorm.lib;
 
+import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.IntegerProperty;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 
@@ -7,40 +9,38 @@ public class Lib {
 	
 	public static final String MOD_ID = "spellstorm";
 	
-	public static class RegistryNames {
-		public static ResourceLocation location(String key) {
+	public static final class RegistryNames {
+		public static ResourceLocation prefix(String key) {
 			return new ResourceLocation(MOD_ID, key);
 		}
 		
 		// ConfiguredFeature
-		public static final ResourceLocation MAGICAL_TREE_REGISTRY_NAME_WP = location("magical_tree_without_placement");
-		public static final ResourceLocation MAGICAL_TREE_REGISTRY_NAME_NP = location("magical_tree_with_placement");
+		public static final ResourceLocation MAGICAL_TREE_REGISTRY_NAME_WP = prefix("magical_tree_without_placement");
+		public static final ResourceLocation MAGICAL_TREE_REGISTRY_NAME_NP = prefix("magical_tree_with_placement");
 		
 		// Blocks
 		
 		// Sound
-		public static final ResourceLocation ETERNAL_SCREAMING_SOUND = location("eternal_screaming");
-		public static final ResourceLocation HAUNTED_SOULS_SOUND = location("haunted_souls");
+		public static final ResourceLocation ETERNAL_SCREAMING_SOUND = prefix("eternal_screaming");
+		public static final ResourceLocation HAUNTED_SOULS_SOUND = prefix("haunted_souls");
 		
 		// Texture for gui
-		public static final ResourceLocation BOOK_OF_SPELLS_SCREEN_BACKGROUND_TEXUTRE = location("textures/gui/container/bookofspells_container.png");
-		public static final ResourceLocation MANA_INFUSER_SCREEN_BACKGROUND_TEXTURE = location("textures/gui/container/manainfuser_container.png");
-		public static final ResourceLocation SOUL_EXTRACTOR_SCREEN_BACKGROUND_TEXTURE = location("textures/gui/container/soulextractor_container.png");
+		public static final ResourceLocation BOOK_OF_SPELLS_SCREEN_BACKGROUND_TEXUTRE = prefix("textures/gui/container/bookofspells_container.png");
+		public static final ResourceLocation MANA_INFUSER_SCREEN_BACKGROUND_TEXTURE = prefix("textures/gui/container/manainfuser_container.png");
+		public static final ResourceLocation SOUL_EXTRACTOR_SCREEN_BACKGROUND_TEXTURE = prefix("textures/gui/container/soulextractor_container.png");
+		public static final ResourceLocation MAGICAL_FORGE_SCREEN_BACKGROUND_TEXTURE = prefix("textures/gui/container/magical_forge_container.png");
 	
 		// Networking
-		public static final ResourceLocation NETWORK_CHANNEL = location("channel");
+		public static final ResourceLocation NETWORK_CHANNEL = prefix("channel");
 		
-		// Advancement
-		
+		// Recipe
+		public static final String MAGICAL_FORGE_RECIPE_ID = "magical_forge_merging";
+		public static final ResourceLocation MAGICAL_FORGE_RECIPE_RESOURCELOCATION = prefix(MAGICAL_FORGE_RECIPE_ID);
 	}
 	
-	public static class TextComponents {
+	public static final class TextComponents {
 		public static TranslationTextComponent prefix(String text) {
 			return new TranslationTextComponent(new String(Lib.MOD_ID + "misc" + "." + text));
-		}
-		
-		public static TranslationTextComponent getSourceName(MagicSource source) {
-			return prefix("magic_source_name_" + source.sourceId);
 		}
 		
 		public static final TranslationTextComponent MANA = prefix("mana");
@@ -61,11 +61,18 @@ public class Lib {
 		public static final TranslationTextComponent DESC_BOOK_MANA_CREATIVE = prefix("description_book_of_mana_creative");
 		public static final TranslationTextComponent DESC_HOLD = prefix("description_hold");
 		public static final TranslationTextComponent DESC_SLOT = prefix("description_slot");
-		public static final TranslationTextComponent MAGIC_SOURCE_NEUTRAL = prefix("magic_source_name_neutral");
-		public static final TranslationTextComponent MAGIC_SOURCE_DARK = prefix("magic_source_name_dark");
-		public static final TranslationTextComponent MAGIC_SOURCE_LIGHT = prefix("magic_source_name_light");
-		public static final TranslationTextComponent MAGIC_SOURCE_UNKNOWN = prefix("magic_source_name_unknown");
+		public static final TranslationTextComponent MAGIC_SOURCE_NEUTRAL = MagicSource.getSourceName(MagicSource.NEUTRALMAGIC);
+		public static final TranslationTextComponent MAGIC_SOURCE_DARK = MagicSource.getSourceName(MagicSource.DARKMAGIC);
+		public static final TranslationTextComponent MAGIC_SOURCE_LIGHT = MagicSource.getSourceName(MagicSource.LIGHTMAGIC);
+		public static final TranslationTextComponent MAGIC_SOURCE_UNKNOWN = MagicSource.getSourceName(MagicSource.UNKNOWNMAGIC);
 		public static final TranslationTextComponent DESC_KEY_SHIFT = prefix("description_key_shift");
+		public static final TranslationTextComponent DEFAULT_NAME_MAGICAL_FORGE = new TranslationTextComponent("block.spellstorm.magical_forge");
 		
+	}
+	
+	public static final class BlockStateProperties {
+		
+		public static final BooleanProperty ON = BooleanProperty.create("on");
+		public static final IntegerProperty LAVA_LEVEL = IntegerProperty.create("lava_level", 0, 4);
 	}
 }
