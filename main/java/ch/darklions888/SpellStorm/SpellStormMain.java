@@ -3,15 +3,17 @@ package ch.darklions888.SpellStorm;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import ch.darklions888.SpellStorm.init.BlockInit;
-import ch.darklions888.SpellStorm.init.ContainerTypesInit;
-import ch.darklions888.SpellStorm.init.EntityInit;
-import ch.darklions888.SpellStorm.init.ItemInit;
-import ch.darklions888.SpellStorm.init.ParticlesInit;
-import ch.darklions888.SpellStorm.init.SoundInit;
-import ch.darklions888.SpellStorm.init.WorldFeatureInit;
 import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.network.PacketHandler;
+import ch.darklions888.SpellStorm.registries.BlockInit;
+import ch.darklions888.SpellStorm.registries.ContainerTypesInit;
+import ch.darklions888.SpellStorm.registries.EntityInit;
+import ch.darklions888.SpellStorm.registries.ItemInit;
+import ch.darklions888.SpellStorm.registries.ParticlesInit;
+import ch.darklions888.SpellStorm.registries.RecipeSerializerInit;
+import ch.darklions888.SpellStorm.registries.SoundInit;
+import ch.darklions888.SpellStorm.registries.TileEntityTypesInit;
+import ch.darklions888.SpellStorm.registries.WorldFeatureInit;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -42,6 +44,8 @@ public class SpellStormMain {
 		ContainerTypesInit.REGISTER_CONTAINERS.register(Bus);
 		ParticlesInit.REGISTER_PARTICLES.register(Bus);
 		EntityInit.REGISTER_ENTITY.register(Bus);
+		RecipeSerializerInit.RECIPE_SERIALIZER.register(Bus);
+		TileEntityTypesInit.TILE_ENTITY_TYPES.register(Bus);
 
 		SpellStormMain.INSTANCE = this;
 		MinecraftForge.EVENT_BUS.register(this);

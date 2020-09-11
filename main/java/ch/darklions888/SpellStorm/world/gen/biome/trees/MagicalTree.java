@@ -4,7 +4,7 @@ import static ch.darklions888.SpellStorm.lib.Lib.RegistryNames.*;
 
 import java.util.Random;
 
-import ch.darklions888.SpellStorm.init.BlockInit;
+import ch.darklions888.SpellStorm.registries.BlockInit;
 import net.minecraft.block.trees.Tree;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
