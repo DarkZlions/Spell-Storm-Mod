@@ -35,9 +35,9 @@ public class  BaseScreen <T extends Container> extends ContainerScreen<T> {
 		this.font.drawString(matrix, this.title.getString(), 3.0f, 3.0f, 4210752);
 	}
 	 
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	@Override
-	protected final void drawGuiContainerBackgroundLayer(MatrixStack matrix, float particalTicks, int mouseX, int mouseY) {
+	protected void drawGuiContainerBackgroundLayer(MatrixStack matrix, float particalTicks, int mouseX, int mouseY) {
 		RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
 		this.minecraft.getTextureManager().bindTexture(BACKGROUND_TEXTURE);
 		int x = (this.width - this.xSize) / 2;
