@@ -6,12 +6,12 @@
     ]
   },
   "criteria": {
-    "has_book": {
+    "has_table": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "spellstorm:book_of_mana"
+            "item": "minecraft:enchanting_table"
           }
         ]
       }
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "has_book",
+      "has_table",
       "has_the_recipe"
     ]
   ]
