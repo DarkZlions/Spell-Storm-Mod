@@ -22,6 +22,7 @@
 	"item.spellstorm.magical_ink_unknown": "Unknown Magical Ink",
 	"item.spellstorm.magical_ink_light": "Light Magical Ink",
 	"item.spellstorm.magical_ink_neutral": "Neutral Magical Ink",
+	"item.spellstorm.blue_crystals": "Blue Crystals",
 
 	"block.spellstorm.crystal_ore": "Crystal Ore",
 	"block.spellstorm.corrupted_crystal_ore": "Corrupted Crystal Ore",
@@ -41,6 +42,8 @@
 
 	"advancement.spellstorm:root.title": "The Crystal Guides",
 	"advancement.spellstorm:root.description": "Is this a beginning from a journey?",
+	"advancement.spellstorm:hmm_crystals.title": "Yeah Science!",
+	"advancement.spellstorm:hmm_crystals.description": "Cook Blue Me- *cough* Crystals.",
 
 	"spellstormmisc.mana": "Mana",
 	"spellstormmisc.mana_power": "Mana Power",
