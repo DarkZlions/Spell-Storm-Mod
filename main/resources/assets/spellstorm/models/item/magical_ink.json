@@ -1,8 +1,0 @@
-{
-	"parent": "item/generated",
-	"textures":
-	{
-		"layer0": "spellstorm:items/magical_ink_overlay",
-		"layer1": "spellstorm:items/magical_ink"
-	}
-}

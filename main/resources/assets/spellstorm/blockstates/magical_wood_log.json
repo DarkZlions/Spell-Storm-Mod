@@ -1,7 +1,0 @@
-{
-    "variants": {
-        "axis=y": { "model": "spellstorm:block/magical_wood_log" },
-        "axis=z": { "model": "spellstorm:block/magical_wood_log", "x": 90 },
-        "axis=x": { "model": "spellstorm:block/magical_wood_log", "x": 90, "y": 90 }
-    }
-}

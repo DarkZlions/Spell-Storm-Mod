@@ -1,6 +1,0 @@
-{
-    "parent": "block/leaves",
-    "textures": {
-        "all": "spellstorm:blocks/magical_leaves"
-    }
-}
