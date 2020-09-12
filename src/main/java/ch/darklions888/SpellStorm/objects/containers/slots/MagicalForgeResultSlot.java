@@ -4,6 +4,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 public class MagicalForgeResultSlot extends Slot {
 	private final PlayerEntity player;
@@ -32,6 +36,14 @@ public class MagicalForgeResultSlot extends Slot {
 	public ItemStack onTake(PlayerEntity thePlayer, ItemStack stack) {
 		this.onCrafting(stack);
 		super.onTake(thePlayer, stack);
+		
+		World world = thePlayer.getEntityWorld();
+		if (!world.isRemote()) {
+			ServerWorld serverWorld = (ServerWorld) world;
+			
+			serverWorld.playSound(null, thePlayer.getPosXRandom(0.6d), thePlayer.getPosY(), thePlayer.getPosZRandom(0.6d), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.3f, 1.0f);
+		}
+		
 		return stack;
 	}
 
