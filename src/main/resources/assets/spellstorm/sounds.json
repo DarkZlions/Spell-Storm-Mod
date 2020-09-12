@@ -1,7 +1,7 @@
 {
 	"haunted_souls": {
 		"category": "block",
-		"subtitle": "haunted_souls",
+		"subtitle": "Haunted Souls",
 		"sounds": [
 			{
 				"name": "spellstorm:block/haunted_souls",
@@ -15,6 +15,16 @@
 		"sounds": [
 			{
 				"name": "spellstorm:player/eternal_screaming",
+				"stream": true
+			}
+		]
+	}, 
+	"magical_furnace_crackles": {
+		"category": "block",
+		"subtitle": "Magical Furnace Crackles",
+		"sounds": [
+			{
+				"name": "spellstorm:block/magical_furnace_crackles",
 				"stream": true
 			}
 		]

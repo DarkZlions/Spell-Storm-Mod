@@ -23,6 +23,7 @@ public class Lib {
 		// Sound
 		public static final ResourceLocation ETERNAL_SCREAMING_SOUND = prefix("eternal_screaming");
 		public static final ResourceLocation HAUNTED_SOULS_SOUND = prefix("haunted_souls");
+		public static final ResourceLocation MAGICAL_FURNACE_CRACKLES_SOUND = prefix("magical_furnace_crackles");
 		
 		// Texture for gui
 		public static final ResourceLocation BOOK_OF_SPELLS_SCREEN_BACKGROUND_TEXUTRE = prefix("textures/gui/container/bookofspells_container.png");

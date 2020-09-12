@@ -186,8 +186,12 @@ public class MagicalForgeTileEntity extends LockableTileEntity implements ISided
 		if (this.isWorking()) {
 			--this.workTime;
 		}		
+
 		
 		if (!this.world.isRemote()) {
+			
+			//ServerWorld serverWorld = (ServerWorld)this.getWorld();
+			
 			ItemStack fuelStack = this.items.get(2);
 			if (this.isWorking() || !fuelStack.isEmpty() && !this.items.get(0).isEmpty()) {
 				

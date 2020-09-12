@@ -1,8 +1,10 @@
 package ch.darklions888.SpellStorm.objects.blocks;
 
+import java.util.Random;
 import java.util.stream.Stream;
 
 import ch.darklions888.SpellStorm.objects.tileentities.MagicalForgeTileEntity;
+import ch.darklions888.SpellStorm.registries.SoundInit;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -12,6 +14,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer.Builder;
@@ -21,6 +24,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.IBooleanFunction;
@@ -150,6 +154,26 @@ public class MagicalForgeBlock extends ContainerBlock {
 			}
 
 			super.onReplaced(state, worldIn, pos, newState, isMoving);
+		}
+	}
+	
+	@Override
+	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+		if (stateIn.get(ON) && rand.nextInt(30) == 0) {
+			worldIn.playSound((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D,
+					SoundInit.MAGICAL_FURNACE_CRACKLES.get(), SoundCategory.BLOCKS, 1.5F, rand.nextFloat() * 0.4F + 0.4F, true);
+			
+	        Direction direction = stateIn.get(FACING);
+	        Direction.Axis direction$axis = direction.getAxis();
+	        double d0 = (double)pos.getX() + 0.5D;
+	        double d1 = (double)pos.getY();
+	        double d2 = (double)pos.getZ() + 0.5D;
+	        //double d3 = 0.52D;
+	        double d4 = rand.nextDouble() * 0.6D - 0.3D;
+	        double d5 = direction$axis == Direction.Axis.X ? (double)direction.getXOffset() * 0.52D : d4;
+	        double d6 = rand.nextDouble() * 9.0D / 16.0D;
+	        double d7 = direction$axis == Direction.Axis.Z ? (double)direction.getZOffset() * 0.52D : d4;
+	        worldIn.addParticle(ParticleTypes.LANDING_LAVA, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
 		}
 	}
 	
