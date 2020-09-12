@@ -1,0 +1,30 @@
+{
+  "textures": [
+    "spellstorm:rune_0",
+    "spellstorm:rune_1",
+    "spellstorm:rune_2",
+    "spellstorm:rune_3",
+    "spellstorm:rune_4",
+    "spellstorm:rune_5",
+    "spellstorm:rune_6",
+    "spellstorm:rune_7",
+    "spellstorm:rune_8",
+    "spellstorm:rune_9",
+    "spellstorm:rune_10",
+    "spellstorm:rune_11",
+    "spellstorm:rune_12",
+    "spellstorm:rune_13",
+    "spellstorm:rune_14",
+    "spellstorm:rune_15",
+    "spellstorm:rune_16",
+    "spellstorm:rune_17",
+    "spellstorm:rune_18",
+    "spellstorm:rune_19",
+    "spellstorm:rune_20",
+    "spellstorm:rune_21",
+    "spellstorm:rune_22",
+    "spellstorm:rune_23",
+    "spellstorm:rune_24"
+  ]
+}
+//A good tip is always look if the fucking comma is placed correctly in the json file, because this can cause to crash the entire fucking game.

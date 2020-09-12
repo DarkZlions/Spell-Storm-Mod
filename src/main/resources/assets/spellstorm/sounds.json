@@ -1,0 +1,22 @@
+{
+	"haunted_souls": {
+		"category": "block",
+		"subtitle": "haunted_souls",
+		"sounds": [
+			{
+				"name": "spellstorm:block/haunted_souls",
+				"stream": true
+			}
+		]
+	},
+	"eternal_screaming":{
+		"category": "player",
+		"subtitle": "Screaming Souls",
+		"sounds": [
+			{
+				"name": "spellstorm:player/eternal_screaming",
+				"stream": true
+			}
+		]
+	}
+}

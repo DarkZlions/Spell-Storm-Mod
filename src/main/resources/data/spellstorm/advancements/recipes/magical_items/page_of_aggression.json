@@ -1,0 +1,32 @@
+{
+  "parent": "spellstorm:recipes/root",
+  "rewards": {
+    "recipes": [
+      "spellstorm:page_of_falling_rock"
+    ]
+  },
+  "criteria": {
+    "has_paper": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "spellstorm:magical_paper"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "spellstorm:page_of_falling_rock"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_paper",
+      "has_the_recipe"
+    ]
+  ]
+}
