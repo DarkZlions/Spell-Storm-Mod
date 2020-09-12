@@ -1,0 +1,32 @@
+{
+	"parent": "spellstorm:recipes/root",
+	"rewards": {
+		"recipes": [
+			"spellstorm:magical_ink"
+		]
+	},
+	"criteria": {
+		"has_crystal": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "spellstorm:crystal_pieces"
+					}
+				]
+			}
+		},
+		"has_the_recipe": {
+			"trigger": "minecraft:recipe_unlocked",
+			"conditions": {
+				"recipe": "spellstorm:magical_ink"
+			}
+		}
+	},
+	"requirements": [
+		[
+			"has_crystal",
+			"has_the_recipe"
+		]
+	]
+}
