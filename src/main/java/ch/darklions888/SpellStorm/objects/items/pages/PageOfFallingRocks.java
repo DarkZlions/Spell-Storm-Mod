@@ -54,7 +54,7 @@ public class PageOfFallingRocks extends AbstractPageItem {
 				entity.accelerationX = 0;
 				entity.accelerationY = -0.15d;
 				entity.accelerationZ = 0;
-				entity.explosionPower = 16;
+				entity.explosionPower = 8;
 
 				worldIn.addEntity(entity);
 
