@@ -7,6 +7,7 @@ import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.network.PacketHandler;
 import ch.darklions888.SpellStorm.network.PacketRotateBookSlot;
 import ch.darklions888.SpellStorm.objects.containers.BookOfSpellsContainer;
+import ch.darklions888.SpellStorm.objects.items.pages.AbstractPageItem;
 import ch.darklions888.SpellStorm.registries.ContainerTypesInit;
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
 import ch.darklions888.SpellStorm.util.helpers.mathhelpers.MathHelpers;
@@ -71,15 +72,53 @@ public class BookOfSpellsItem extends AbstractContainerItem {
 		return ActionResult.resultSuccess(stack);
 	}
 
-	@Override
-	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-	}
-
 	public static void nextSlot(ItemStack stackIn) {
-		int slot = getSelectedSlot(stackIn);
-		slot++;
-		slot = (int) MathHelpers.CycleNumberLine(slot, 0, 5);
-		setSelectedSlot(stackIn, slot);
+		if (stackIn.getItem() instanceof BookOfSpellsItem) {
+			
+			Item book = (AbstractContainerItem)stackIn.getItem();
+			
+			int slotCount = ((AbstractContainerItem) book).getSizeInventory();
+			ItemStack[] itemsInBook = new ItemStack[slotCount];
+			
+			for (int i = 0; i < slotCount; i++) {
+				itemsInBook[i] = ((AbstractContainerItem)book).getInventory(stackIn).getStackInSlot(i);
+			}
+			
+			int emptycount = 0;
+			for (ItemStack stack : itemsInBook) {
+				if (stack.isEmpty()) {
+					emptycount++;
+				}
+			}
+			if (emptycount == slotCount) {
+				return;
+			}
+			
+			int slot = getSelectedSlot(stackIn);	
+			if (itemsInBook[getSelectedSlot(stackIn)].isEmpty() && emptycount < 2) {
+				for (int i = slot; i < slotCount*2; i++) {
+
+					slot++;
+					slot = (int) MathHelpers.CycleNumberLine(slot, 0, 5);
+
+					if (!itemsInBook[slot].isEmpty() && itemsInBook[slot].getItem() instanceof AbstractPageItem) {
+						setSelectedSlot(stackIn, slot);
+						return;
+					}
+				}
+			}
+
+
+			for (int i = slot; i < slotCount * 2; i++) {
+				slot++;
+				slot = (int) MathHelpers.CycleNumberLine(slot, 0, 5);
+				if (!itemsInBook[slot].isEmpty() && itemsInBook[slot].getItem() instanceof AbstractPageItem) {
+					setSelectedSlot(stackIn, slot);
+					return;
+				}
+			}
+			
+		}
 	}
 
 	public static void previousSlot(ItemStack stackIn) {
@@ -87,6 +126,14 @@ public class BookOfSpellsItem extends AbstractContainerItem {
 		slot--;
 		slot = (int) MathHelpers.CycleNumberLine(slot, 0, 5);
 		setSelectedSlot(stackIn, slot);
+	}
+	
+	public ItemStack getItemStackInSlot(ItemStack stackIn, int slot) {
+		return this.getInventory(stackIn).getStackInSlot(slot);
+	}
+	
+	public ItemStack getItemStackInCurrentSlot(ItemStack stackIn) {
+		return this.getInventory(stackIn).getStackInSlot(getSelectedSlot(stackIn));
 	}
 
 	public static void setSelectedSlot(ItemStack stackIn, int slot) {
