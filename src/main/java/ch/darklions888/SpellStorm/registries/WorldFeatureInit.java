@@ -51,7 +51,7 @@ public class WorldFeatureInit {
 	}
 
 	private static void addOreToGenerateOverWorld(Block ore) {
-		for (Map.Entry<RegistryKey<Biome>, Biome> biome : WorldGenRegistries.field_243657_i.getEntries()) {
+		for (Map.Entry<RegistryKey<Biome>, Biome> biome : WorldGenRegistries.field_243657_i.func_239659_c_()) {
 			
 			if (!biome.getValue().getCategory().equals(Biome.Category.NETHER) && !biome.getValue().getCategory().equals(Biome.Category.THEEND)) {
 				
@@ -61,15 +61,14 @@ public class WorldFeatureInit {
 	}
 	
 	private static void addOreToGenerateEnd(Block ore) {
-		for (Map.Entry<RegistryKey<Biome>, Biome> biome : WorldGenRegistries.field_243657_i.getEntries()) {
+		for (Map.Entry<RegistryKey<Biome>, Biome> biome : WorldGenRegistries.field_243657_i.func_239659_c_()) {
 			if (!biome.getKey().equals(Biomes.THE_END))
 				addFeatureToBiome(biome.getValue(), GenerationStage.Decoration.UNDERGROUND_ORES, WorldGenRegistries.field_243653_e.getOrDefault(ore.getRegistryName()));
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	private static void addMagicalTree() {
-		for (Map.Entry<RegistryKey<Biome>, Biome> biome : WorldGenRegistries.field_243657_i.getEntries()) {
+		for (Map.Entry<RegistryKey<Biome>, Biome> biome : WorldGenRegistries.field_243657_i.func_239659_c_()) {
 			if (!biome.getValue().getCategory().equals(Biome.Category.NETHER) && !biome.getValue().getCategory().equals(Biome.Category.THEEND)) {
 				ConfiguredFeature<BaseTreeFeatureConfig, ?> treeFeature = (ConfiguredFeature<BaseTreeFeatureConfig, ?>) WorldGenRegistries.field_243653_e.getOrDefault(MagicalTree.getRegistryNameWithPlacement());
 				addFeatureToBiome(biome.getValue(), GenerationStage.Decoration.VEGETAL_DECORATION, treeFeature);

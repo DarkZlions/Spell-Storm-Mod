@@ -66,9 +66,9 @@ public class BaseItem extends Item implements IHasMagic
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) 
 	{
-		tooltip.add(new StringTextComponent("\u00A7l" + "\u00A7d" + String.valueOf(manapower.mana) + "\u00A7r" +  " ").append(Lib.TextComponents.MANA_POWER));
+		tooltip.add(new StringTextComponent("\u00A7l" + "\u00A7d" + String.valueOf(manapower.mana) + "\u00A7r" +  " ").func_230529_a_(Lib.TextComponents.MANA_POWER));
 		String sourceName = source.getSourceName().getString();
-		tooltip.add(new StringTextComponent(FormattingHelper.GetSourceColor(source) + FormattingHelper.GetFontFormat(source) + sourceName + "\u00A7r" + " ").append(Lib.TextComponents.MANA_SOURCE));
+		tooltip.add(new StringTextComponent(FormattingHelper.GetSourceColor(source) + FormattingHelper.GetFontFormat(source) + sourceName + "\u00A7r" + " ").func_230529_a_(Lib.TextComponents.MANA_SOURCE));
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 	}
 

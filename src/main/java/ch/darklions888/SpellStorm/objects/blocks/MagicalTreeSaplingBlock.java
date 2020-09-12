@@ -55,7 +55,7 @@ public class MagicalTreeSaplingBlock extends BushBlock implements IGrowable {
 			if (!ForgeEventFactory.saplingGrowTree(worldIn, rand, pos))
 					return;
 
-			this.tree.get().attemptGrowTree(worldIn, worldIn.getChunkProvider().getChunkGenerator(), pos, state, rand);
+			this.tree.get().func_230339_a_(worldIn, worldIn.getChunkProvider().getChunkGenerator(), pos, state, rand);
 
 		}
 	}

@@ -90,8 +90,8 @@ public class SoulCatcherItem extends Item {
 			String text2 = new String(FormattingHelper.GetSourceColor(source) + FormattingHelper.GetFontFormat(source) + sourceName);
 			String value = String.valueOf((int) Math.ceil(mob.getHealth()));
 			
-			tooltip.add(text.append(new StringTextComponent(": " + "\u00A7l" + getEntity(stack).getName().getString())));
-			tooltip.add(text1.appendString(value + " " + text2).appendString(" " + Lib.TextComponents.MANA.getString()));
+			tooltip.add(text.func_230529_a_(new StringTextComponent(": " + "\u00A7l" + getEntity(stack).getName().getString())));
+			tooltip.add(text1.func_240702_b_(value + " " + text2).func_240702_b_(" " + Lib.TextComponents.MANA.getString()));
 		} else {
 			tooltip.add(new StringTextComponent(" "));
 			TranslationTextComponent text = Lib.TextComponents.SOULCATCHER_IS_EMPTY;
