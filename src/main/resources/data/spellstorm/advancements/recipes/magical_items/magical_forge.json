@@ -1,0 +1,35 @@
+{
+	"parent": "spellstorm:recipes/root",
+	"rewards": {
+		"recipes": [
+			"spellstorm:magical_forge"
+		]
+	},
+	"criteria": {
+		"has_c": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "spellstorm:crystal"
+					},
+					{
+						"item": "minecraft:obsidian"
+					}
+				]
+			}
+		},
+		"has_the_recipe": {
+			"trigger": "minecraft:recipe_unlocked",
+			"conditions": {
+				"recipe": "spellstorm:magical_forge"
+			}
+		}
+	},
+	"requirements": [
+		[
+			"has_c",
+			"has_the_recipe"
+		]
+	]
+}
