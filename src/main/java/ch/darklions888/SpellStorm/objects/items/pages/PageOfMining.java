@@ -3,9 +3,7 @@ package ch.darklions888.SpellStorm.objects.items.pages;
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerSize;
 import ch.darklions888.SpellStorm.lib.ManaPower;
-import ch.darklions888.SpellStorm.util.helpers.mathhelpers.CalculateLineCoordinates;
 import ch.darklions888.SpellStorm.util.helpers.mathhelpers.RayTraceHelper;
-import ch.darklions888.SpellStorm.util.helpers.mathhelpers.Vec3;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -34,7 +32,7 @@ public class PageOfMining extends AbstractPageItem {
 		return getAbilities(worldIn, playerIn, handIn, playerIn.getHeldItem(handIn), null);
 	}
 	
-	@Override
+	@Override	
 	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stackIn, ItemStack bookIn) {
 		
 		if(worldIn.isRemote) {
@@ -53,14 +51,16 @@ public class PageOfMining extends AbstractPageItem {
 					
 					if (state.getBlockHardness(serverWorld, pos)  >= 0) {
 						FluidState ifluidstate = serverWorld.getFluidState(pos);
-						Block.spawnDrops(state.getBlockState(), worldIn, pos);
+						
+						if (playerIn.isSneaking())
+							Block.spawnDrops(state.getBlockState(), worldIn, playerIn.getPosition());
+						else 
+							Block.spawnDrops(state.getBlockState(), worldIn, pos);
+							
 						serverWorld.setBlockState(pos, ifluidstate.getBlockState(), 3);
 						
-						CalculateLineCoordinates line = new CalculateLineCoordinates(new Vec3(playerIn.getPosX(), playerIn.getPosYEye(), playerIn.getPosZ()), new Vec3(pos.getX(), pos.getY(), pos.getZ()));
-						for (Vec3 v : line.CoordListVec3()) {
-							serverWorld.spawnParticle(ParticleTypes.END_ROD, v.X(), v.Y(), v.Z(), 1, 0, 0, 0, 0.5f);
-						}
-						
+						serverWorld.spawnParticle(ParticleTypes.DRAGON_BREATH, pos.getX(), pos.getY(), pos.getZ(), 3, 0, 0, 0, 1f);
+									
 						if (!playerIn.isCreative())
 							this.addMana(stackIn, -this.manaConsumption);
 					} else {
