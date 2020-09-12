@@ -1,0 +1,25 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"OBO",
+		"OGO",
+		"OCO"
+	],
+	"key": {
+		"O": {
+			"item": "minecraft:obsidian"
+		},
+		"B": {
+			"item": "minecraft:blaze_powder"
+		},
+		"G": {
+			"item": "minecraft:glass"
+		},
+		"C": {
+			"item": "spellstorm:crystal"
+		}
+	},
+	"result": {
+		"item": "spellstorm:magical_forge"
+	}
+}

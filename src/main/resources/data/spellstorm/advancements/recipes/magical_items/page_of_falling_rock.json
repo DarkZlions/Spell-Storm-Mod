@@ -12,7 +12,10 @@
         "items": [
           {
             "item": "spellstorm:magical_paper"
-          }
+          },
+					{
+						"item": "spellstorm:magical_ink_dark"
+					}
         ]
       }
     },

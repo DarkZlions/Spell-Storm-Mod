@@ -12,6 +12,9 @@
 				"items": [
 					{
 						"item": "minecraft:netherite_ingot"
+					},
+					{
+						"item": "spellstorm:magical_ink_neutral"
 					}
 				]
 			}

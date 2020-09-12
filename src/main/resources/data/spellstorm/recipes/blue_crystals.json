@@ -1,0 +1,17 @@
+{
+	"type": "spellstorm:magical_forge_merging",
+	"ingredient": [
+		{
+			"item": "spellstorm:crystal_pieces"
+		},
+		{
+			"item": "minecraft:sugar"
+		}
+	],
+	"result": {
+		"item": "spellstorm:blue_crystals"
+	},
+	"experience": 5.0,
+	"mergingTime": 500,
+	"group": "food"
+}

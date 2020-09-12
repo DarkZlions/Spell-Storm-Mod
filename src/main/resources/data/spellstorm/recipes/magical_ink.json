@@ -1,0 +1,21 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"ingredients":[
+		{
+			"item": "spellstorm:crystal_pieces"
+		},
+		{
+			"item": "minecraft:glass_bottle"
+		},
+		{
+			"item": "minecraft:ink_sac"
+		}, 
+		{
+			"item": "minecraft:feather"
+		}
+	],
+	"result":{
+		"item": "spellstorm:magical_ink",
+		"count": 1
+	}
+}
