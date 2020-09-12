@@ -40,8 +40,8 @@ public class PageOfFireballs extends AbstractPageItem {
 				double z = playerIn.getPosZ();				
 				((ServerWorld)worldIn).playSound(null, x, y, z, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.PLAYERS, 1.0f, 1.0f);
 				
-				for (int i = 0; i < 10; i++) {
-					((ServerWorld)worldIn).spawnParticle(ParticleTypes.LAVA, playerIn.getPosXRandom(0.6d), playerIn.getPosYRandom(), playerIn.getPosZRandom(0.6d), 1,
+				for (int i = 0; i < 2; i++) {
+					((ServerWorld)worldIn).spawnParticle(ParticleTypes.LAVA, playerIn.getPosXRandom(0.6d), playerIn.getPosYEye(), playerIn.getPosZRandom(0.6d), 1,
 							playerIn.getLookVec().x, playerIn.getLookVec().y, playerIn.getLookVec().z, 1.0d);
 				}
 
