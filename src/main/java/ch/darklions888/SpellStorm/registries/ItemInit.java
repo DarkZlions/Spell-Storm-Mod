@@ -7,10 +7,12 @@ import ch.darklions888.SpellStorm.lib.ManaPower;
 import ch.darklions888.SpellStorm.objects.itemgroup.SpellStormItemGroup;
 import ch.darklions888.SpellStorm.objects.items.BaseBlockItem;
 import ch.darklions888.SpellStorm.objects.items.BaseItem;
+import ch.darklions888.SpellStorm.objects.items.BlueCrystalItem;
 import ch.darklions888.SpellStorm.objects.items.BookOfMana;
 import ch.darklions888.SpellStorm.objects.items.BookOfSpellsItem;
 import ch.darklions888.SpellStorm.objects.items.CorruptedCrystalShardItem;
 import ch.darklions888.SpellStorm.objects.items.CrystalShardItem;
+import ch.darklions888.SpellStorm.objects.items.Foods;
 import ch.darklions888.SpellStorm.objects.items.SoulCatcherItem;
 import ch.darklions888.SpellStorm.objects.items.pages.MagicalInkItem;
 import ch.darklions888.SpellStorm.objects.items.pages.PageOfAggression;
@@ -57,10 +59,11 @@ public class ItemInit {
 	public static final RegistryObject<Item> MAGICAL_INK_DARK = REGISTER_ITEMS.register("magical_ink_dark", () -> new MagicalInkItem(MagicSource.DARKMAGIC, new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> MAGICAL_INK_LIGHT = REGISTER_ITEMS.register("magical_ink_light", () -> new MagicalInkItem(MagicSource.LIGHTMAGIC, new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> MAGICAL_INK_NEUTRAL = REGISTER_ITEMS.register("magical_ink_neutral", () -> new MagicalInkItem(MagicSource.NEUTRALMAGIC, new Item.Properties().group(TAB)));
+	public static final RegistryObject<Item> BLUE_CRYSTALS = REGISTER_ITEMS.register("blue_crystals", () -> new BlueCrystalItem(new Item.Properties().group(TAB).food(Foods.BLUE_CRYSTALS)));
 	
 	//BlockItem
 	public static final RegistryObject<Item> CRYSTAL_ORE_BLOCK = REGISTER_ITEMS.register("crystal_ore", () -> new BaseBlockItem(MagicSource.NEUTRALMAGIC, ManaPower.MEDIUM, TextFormatting.LIGHT_PURPLE, false, BlockInit.CRYSTAL_ORE.get(), new Item.Properties().group(TAB)));
-	public static final RegistryObject<Item> MANAINFUSER = REGISTER_ITEMS.register("manainfuser", () -> new BaseBlockItem(MagicSource.UNKNOWNMAGIC, ManaPower.HIGH, null, false, BlockInit.MANAINFUSER.get(), new Item.Properties().group(TAB)));
+	public static final RegistryObject<Item> MANAINFUSER = REGISTER_ITEMS.register("manainfuser", () -> new BaseBlockItem(MagicSource.NEUTRALMAGIC, ManaPower.HIGH, null, false, BlockInit.MANAINFUSER.get(), new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> SOUL_EXTRACTOR = REGISTER_ITEMS.register("soul_extractor", () -> new BaseBlockItem(MagicSource.NEUTRALMAGIC, ManaPower.VERYHIGH, null, false, BlockInit.SOUL_EXTRACTOR.get(), new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> MAGICAL_WOOD_LOG = REGISTER_ITEMS.register("magical_wood_log", () -> new BaseBlockItem(MagicSource.NEUTRALMAGIC, ManaPower.LOW, null, false, BlockInit.MAGICAL_WOOD_LOG.get(), new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> MAGICAL_WOOD_PLANK = REGISTER_ITEMS.register("magical_planks", () -> new BaseBlockItem(MagicSource.NEUTRALMAGIC, ManaPower.LOW, null, false, BlockInit.MAGICAL_WOOD_PLANK.get(), new Item.Properties().group(TAB)));
@@ -68,6 +71,5 @@ public class ItemInit {
 	public static final RegistryObject<Item> MAGICAL_TREE_SAPLING = REGISTER_ITEMS.register("magical_tree_sapling", () -> new BaseBlockItem(MagicSource.NEUTRALMAGIC, ManaPower.VERYLOW, null, false, BlockInit.MAGICAL_TREE_SAPLING.get(), new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> CORRUPTED_CRYSTAL_ORE_BLOCK = REGISTER_ITEMS.register("corrupted_crystal_ore", () -> new BaseBlockItem(MagicSource.UNKNOWNMAGIC, ManaPower.VERYHIGH, TextFormatting.BLACK, false, BlockInit.CORRUPTED_CRYSTAL_ORE.get(), new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> MAGICAL_FORGE_BLOCK = REGISTER_ITEMS.register("magical_forge", () -> new BaseBlockItem(MagicSource.DARKMAGIC, ManaPower.HIGH, null, false, BlockInit.MAGICAL_FORGE.get(), new Item.Properties().group(TAB)));
-	
-	// private static AbstractBasePage registerPage(Abstract)
+
 }
