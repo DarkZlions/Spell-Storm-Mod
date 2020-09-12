@@ -103,7 +103,7 @@ public abstract class AbstractPageItem extends BaseItem implements IMagicalPageI
 	
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) 
 	{
-		tooltip.add(new StringTextComponent(String.valueOf(this.getMana(stack)) + "/" + this.containingManaSize + " ").func_230529_a_(Lib.TextComponents.MANA_LEFT));
+		tooltip.add(new StringTextComponent(String.valueOf(this.getMana(stack)) + "/" + this.containingManaSize + " ").append(Lib.TextComponents.MANA_LEFT));
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 	}
 	

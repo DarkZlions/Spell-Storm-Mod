@@ -39,7 +39,7 @@ public class BookOfMana extends BaseManaContainerItem
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 		if (isCreative) {
 			StringTextComponent text = new StringTextComponent(Lib.TextComponents.DESC_BOOK_MANA_CREATIVE.getString());
-			tooltip.add(text.func_240699_a_(TextFormatting.BOLD));
+			tooltip.add(text.mergeStyle(TextFormatting.BOLD));
 		}
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 	}

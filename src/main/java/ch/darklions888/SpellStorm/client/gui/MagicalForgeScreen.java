@@ -16,19 +16,19 @@ public class MagicalForgeScreen extends BaseScreen<MagicalForgeContainer> {
 	
 	@Deprecated
 	@Override
-	protected void func_230450_a_(MatrixStack matrixStack, float partialTicks, int x, int y) {
+	protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y) {
 		
 		RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
-		this.field_230706_i_.getTextureManager().bindTexture(BACKGROUND_TEXTURE);
+		this.minecraft.getTextureManager().bindTexture(BACKGROUND_TEXTURE);
 		int i = this.guiLeft;
 		int j = this.guiTop;
-		this.func_238474_b_(matrixStack, i, j, 0, 0, this.xSize, this.ySize);
+		this.blit(matrixStack, i, j, 0, 0, this.xSize, this.ySize);
 		if (this.container.isBurning()) {
 			int k = this.container.getBurnLeftScaled();
-			this.func_238474_b_(matrixStack, i + 41, j + 36 + 12 - k, 176, 12 - k, 14, k + 1);
+			this.blit(matrixStack, i + 41, j + 36 + 12 - k, 176, 12 - k, 14, k + 1);
 		}
 
 		int l = this.container.getMergProgressionScaled();
-		this.func_238474_b_(matrixStack, i + 79, j + 34, 176, 14, l + 1, 16);
+		this.blit(matrixStack, i + 79, j + 34, 176, 14, l + 1, 16);
 	}
 }

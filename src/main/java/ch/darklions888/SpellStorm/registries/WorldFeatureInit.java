@@ -27,7 +27,6 @@ import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
-@SuppressWarnings("deprecation")
 public class WorldFeatureInit {
 	public static void init() {
 		registerOreConfig(1, 5, 2, 15, BlockInit.CRYSTAL_ORE.get(), OreFeatureConfig.FillerBlockType.field_241882_a);
@@ -51,9 +50,8 @@ public class WorldFeatureInit {
 		}
 	}
 
-
 	private static void addOreToGenerateOverWorld(Block ore) {
-		for (Map.Entry<RegistryKey<Biome>, Biome> biome : WorldGenRegistries.field_243657_i.func_239659_c_()) {
+		for (Map.Entry<RegistryKey<Biome>, Biome> biome : WorldGenRegistries.field_243657_i.getEntries()) {
 			
 			if (!biome.getValue().getCategory().equals(Biome.Category.NETHER) && !biome.getValue().getCategory().equals(Biome.Category.THEEND)) {
 				
@@ -63,16 +61,16 @@ public class WorldFeatureInit {
 	}
 	
 	private static void addOreToGenerateEnd(Block ore) {
-		for (Map.Entry<RegistryKey<Biome>, Biome> biome : WorldGenRegistries.field_243657_i.func_239659_c_()) {
+		for (Map.Entry<RegistryKey<Biome>, Biome> biome : WorldGenRegistries.field_243657_i.getEntries()) {
 			if (!biome.getKey().equals(Biomes.THE_END))
 				addFeatureToBiome(biome.getValue(), GenerationStage.Decoration.UNDERGROUND_ORES, WorldGenRegistries.field_243653_e.getOrDefault(ore.getRegistryName()));
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	private static void addMagicalTree() {
-		for (Map.Entry<RegistryKey<Biome>, Biome> biome : WorldGenRegistries.field_243657_i.func_239659_c_()) {
+		for (Map.Entry<RegistryKey<Biome>, Biome> biome : WorldGenRegistries.field_243657_i.getEntries()) {
 			if (!biome.getValue().getCategory().equals(Biome.Category.NETHER) && !biome.getValue().getCategory().equals(Biome.Category.THEEND)) {
-				@SuppressWarnings("unchecked")
 				ConfiguredFeature<BaseTreeFeatureConfig, ?> treeFeature = (ConfiguredFeature<BaseTreeFeatureConfig, ?>) WorldGenRegistries.field_243653_e.getOrDefault(MagicalTree.getRegistryNameWithPlacement());
 				addFeatureToBiome(biome.getValue(), GenerationStage.Decoration.VEGETAL_DECORATION, treeFeature);
 			}

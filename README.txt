@@ -1,1 +1,1 @@
-This is a magic based minecraft mod.
+A magic based Minecraft mod.

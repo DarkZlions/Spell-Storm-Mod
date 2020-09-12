@@ -145,7 +145,7 @@ public class MagicalForgeBlock extends ContainerBlock {
 			TileEntity tileentity = worldIn.getTileEntity(pos);
 			if (tileentity instanceof MagicalForgeTileEntity) {
 				InventoryHelper.dropInventoryItems(worldIn, pos, (MagicalForgeTileEntity) tileentity);
-				((MagicalForgeTileEntity) tileentity).getIRecipeList(worldIn, Vector3d.func_237489_a_(pos));
+				((MagicalForgeTileEntity) tileentity).getIRecipeList(worldIn, Vector3d.copyCentered(pos));
 				worldIn.updateComparatorOutputLevel(pos, this);
 			}
 

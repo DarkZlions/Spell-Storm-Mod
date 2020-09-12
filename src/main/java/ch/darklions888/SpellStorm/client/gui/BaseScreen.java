@@ -23,25 +23,26 @@ public class  BaseScreen <T extends Container> extends ContainerScreen<T> {
 	}
 
 	@Override
-	public void func_230430_a_(MatrixStack matrix, int mouseX, int mouseY, float partialTicks) {
-		this.func_230446_a_(matrix);
-		super.func_230430_a_(matrix, mouseX, mouseY, partialTicks);
+	public void render(MatrixStack matrix, int mouseX, int mouseY, float partialTicks) {
+		this.renderBackground(matrix);
+		super.render(matrix, mouseX, mouseY, partialTicks);
 		this.func_230459_a_(matrix, mouseX, mouseY);
 	}
 
+	
 	@Override
-	protected void func_230459_a_(MatrixStack matrix, int mouseX, int mouseY) {
-		this.field_230712_o_.func_238405_a_(matrix, this.field_230704_d_.getString(), 3.0f, 3.0f, 4210752);
+	protected void drawGuiContainerForegroundLayer(MatrixStack matrix, int mouseX, int mouseY) {
+		this.font.drawString(matrix, this.title.getString(), 3.0f, 3.0f, 4210752);
 	}
 	 
 	@Deprecated
 	@Override
-	protected void func_230450_a_(MatrixStack matrix, float particalTicks, int mouseX, int mouseY) {
+	protected void drawGuiContainerBackgroundLayer(MatrixStack matrix, float particalTicks, int mouseX, int mouseY) {
 		RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
-		this.field_230706_i_.getTextureManager().bindTexture(BACKGROUND_TEXTURE);
-		int x = (this.field_230708_k_ - this.xSize) / 2;
-		int y = (this.field_230709_l_ - this.ySize) / 2;
+		this.minecraft.getTextureManager().bindTexture(BACKGROUND_TEXTURE);
+		int x = (this.width - this.xSize) / 2;
+		int y = (this.height - this.ySize) / 2;
 
-		this.func_238474_b_(matrix, x, y, 0, 0, this.xSize, this.ySize);
+		this.blit(matrix, x, y, 0, 0, this.xSize, this.ySize);
 	}
 }

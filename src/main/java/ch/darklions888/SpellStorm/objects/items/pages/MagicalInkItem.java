@@ -36,7 +36,7 @@ public class MagicalInkItem extends Item {
 		MagicSource ms = ((MagicalInkItem)stack.getItem()).getMagicSource();
 		
 		if (ms != null && ms == MagicSource.UNKNOWNMAGIC) {
-			return new TranslationTextComponent(this.getTranslationKey()).func_240699_a_(TextFormatting.BLACK).func_240699_a_(TextFormatting.OBFUSCATED);
+			return new TranslationTextComponent(this.getTranslationKey()).mergeStyle(TextFormatting.BLACK).mergeStyle(TextFormatting.OBFUSCATED);
 		} else {
 			return super.getDisplayName(stack);
 		}
@@ -49,7 +49,7 @@ public class MagicalInkItem extends Item {
 		MagicSource ms = ((MagicalInkItem)stack.getItem()).getMagicSource();
 		StringTextComponent stc = new StringTextComponent(Lib.TextComponents.DESC_MAGICAL_INK.getString());
 		if (ms != null && ms == MagicSource.UNKNOWNMAGIC) {
-			tooltip.add(stc.func_240699_a_(TextFormatting.OBFUSCATED));
+			tooltip.add(stc.mergeStyle(TextFormatting.OBFUSCATED));
 		} else {
 			tooltip.add(stc);
 		}

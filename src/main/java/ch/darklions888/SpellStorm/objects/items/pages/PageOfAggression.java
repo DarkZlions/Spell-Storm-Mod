@@ -61,9 +61,9 @@ public class PageOfAggression extends AbstractPageItem {
 
 					e.targetSelector.addGoal(-1, new NearestAttackableTargetGoal<>(e, MobEntity.class, false, true));
 					e.addTag(MOB_TAG);
-					if (e.getAttribute(Attributes.field_233823_f_) == null || !(e instanceof SlimeEntity)) {
+					if (e.getAttribute(Attributes.ATTACK_DAMAGE) == null || !(e instanceof SlimeEntity)) {
 						try {
-							e.getAttribute(Attributes.field_233823_f_).setBaseValue(e.getMaxHealth() / 3);
+							e.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(e.getMaxHealth() / 3);
 						} catch (Exception exception) {
 						}
 					}
