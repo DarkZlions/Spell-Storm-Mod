@@ -1,9 +1,9 @@
-package ch.darklions888.SpellStorm.objects.items.pages;
+package ch.darklions888.SpellStorm.objects.items.spells;
 
 import java.util.List;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.lib.ManaContainerSize;
+import ch.darklions888.SpellStorm.lib.ManaContainerType;
 import ch.darklions888.SpellStorm.lib.ManaPower;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -23,7 +23,7 @@ public class PageOfAggression extends AbstractPageItem {
 	private static final String MOB_TAG = "spellstrom_aggressive_mob_tag";
 
 	public PageOfAggression(Properties properties) {
-		super(ManaContainerSize.MEDIUM, MagicSource.DARKMAGIC, ManaPower.MEDIUM, 1, TextFormatting.DARK_RED, true, properties);
+		super(ManaContainerType.MEDIUM, MagicSource.DARKMAGIC, ManaPower.MEDIUM, 1, TextFormatting.DARK_RED, true, properties);
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class PageOfAggression extends AbstractPageItem {
 
 			ServerWorld serverWorld = (ServerWorld) worldIn;
 
-			if (playerIn.isCreative() || this.getMana(stackIn) >= this.manaConsumption) {
+			if (playerIn.isCreative() || this.getManaValue(stackIn, this.defaultManaSource.getId()) >= this.manaConsumption) {
 				List<MobEntity> entityList;
 				double x = playerIn.getPosX();
 				double y = playerIn.getPosY();
@@ -74,7 +74,7 @@ public class PageOfAggression extends AbstractPageItem {
 						}
 						*/
 						if (!playerIn.isCreative())
-							this.addMana(stackIn, -this.manaConsumption);
+							this.addManaValue(stackIn, this.defaultManaSource.getId(), -this.manaConsumption);
 					}
 					
 					//serverWorld.playSound(null, x, y, z, SoundEvents.ENTITY_ENDER_EYE_DEATH, SoundCategory.PLAYERS, 1.0f, 1.0f);

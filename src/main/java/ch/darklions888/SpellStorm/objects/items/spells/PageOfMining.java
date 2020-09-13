@@ -1,7 +1,7 @@
-package ch.darklions888.SpellStorm.objects.items.pages;
+package ch.darklions888.SpellStorm.objects.items.spells;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.lib.ManaContainerSize;
+import ch.darklions888.SpellStorm.lib.ManaContainerType;
 import ch.darklions888.SpellStorm.lib.ManaPower;
 import ch.darklions888.SpellStorm.util.helpers.mathhelpers.RayTraceHelper;
 import net.minecraft.block.Block;
@@ -24,7 +24,7 @@ public class PageOfMining extends AbstractPageItem {
 
 
 	public PageOfMining(Properties properties) {
-		super(ManaContainerSize.BIGGER, MagicSource.NEUTRALMAGIC, ManaPower.MEDIUM, 1, TextFormatting.DARK_GRAY, true, properties);
+		super(ManaContainerType.BIGGER, MagicSource.NEUTRALMAGIC, ManaPower.MEDIUM, 1, TextFormatting.DARK_GRAY, true, properties);
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class PageOfMining extends AbstractPageItem {
 			return ActionResult.resultPass(stackIn);
 		}else {
 			
-			if(playerIn.isCreative() || this.getMana(stackIn) >= this.manaConsumption) {
+			if(playerIn.isCreative() || this.getManaValue(stackIn, this.defaultManaSource.getId()) >= this.manaConsumption) {
 				
 				ServerWorld serverWorld = (ServerWorld) worldIn;
 				
@@ -62,7 +62,7 @@ public class PageOfMining extends AbstractPageItem {
 						serverWorld.spawnParticle(ParticleTypes.DRAGON_BREATH, pos.getX(), pos.getY(), pos.getZ(), 3, 0, 0, 0, 1f);
 									
 						if (!playerIn.isCreative())
-							this.addMana(stackIn, -this.manaConsumption);
+							this.addManaValue(stackIn, this.defaultManaSource.getId(), -this.manaConsumption);
 					} else {
 						return ActionResult.resultPass(stackIn);
 					}

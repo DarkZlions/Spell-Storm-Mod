@@ -1,4 +1,4 @@
-package ch.darklions888.SpellStorm.objects.items.pages;
+package ch.darklions888.SpellStorm.objects.items;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
-package ch.darklions888.SpellStorm.objects.items.pages;
+package ch.darklions888.SpellStorm.objects.items.spells;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.lib.ManaContainerSize;
+import ch.darklions888.SpellStorm.lib.ManaContainerType;
 import ch.darklions888.SpellStorm.lib.ManaPower;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.WitherSkullEntity;
@@ -17,7 +17,7 @@ import net.minecraft.world.server.ServerWorld;
 public class PageOfTheWithers extends AbstractPageItem {
 
 	public PageOfTheWithers(Properties properties) {
-		super(ManaContainerSize.OCEAN, MagicSource.DARKMAGIC, ManaPower.HIGH, 1, TextFormatting.DARK_RED, true, properties);
+		super(ManaContainerType.OCEAN, MagicSource.DARKMAGIC, ManaPower.HIGH, 1, TextFormatting.DARK_RED, true, properties);
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class PageOfTheWithers extends AbstractPageItem {
 			return ActionResult.resultPass(stack);
 
 		} else {
-			if (playerIn.isCreative() || this.getMana(stack) >= this.manaConsumption) {
+			if (playerIn.isCreative() || this.getManaValue(stack, this.defaultManaSource.getId()) >= this.manaConsumption) {
 				ServerWorld serverWorld = (ServerWorld) worldIn;
 				
 				double x = playerIn.getPosX();
@@ -56,7 +56,7 @@ public class PageOfTheWithers extends AbstractPageItem {
 				serverWorld.addEntity(skull);
 				
 				if (!playerIn.isCreative())
-					this.addMana(stack, -this.manaConsumption);
+					this.addManaValue(stack, this.defaultManaSource.getId(), -this.manaConsumption);
 				
 				return ActionResult.resultSuccess(stack);
 			} else {

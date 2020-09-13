@@ -1,9 +1,9 @@
-package ch.darklions888.SpellStorm.objects.items.pages;
+package ch.darklions888.SpellStorm.objects.items.spells;
 
 import java.util.List;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.lib.ManaContainerSize;
+import ch.darklions888.SpellStorm.lib.ManaContainerType;
 import ch.darklions888.SpellStorm.lib.ManaPower;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -22,7 +22,7 @@ public class PageOfThunder extends AbstractPageItem
 {
 	
 	public PageOfThunder(Properties properties) {
-		super(ManaContainerSize.SMALL, MagicSource.LIGHTMAGIC, ManaPower.HIGH, 2, TextFormatting.GOLD, true, properties);
+		super(ManaContainerType.SMALL, MagicSource.LIGHTMAGIC, ManaPower.HIGH, 2, TextFormatting.GOLD, true, properties);
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class PageOfThunder extends AbstractPageItem
 			
 		} else {
 			
-			if (playerIn.isCreative() || this.getMana(stack) >= this.manaConsumption) {
+			if (playerIn.isCreative() || this.getManaValue(stack, this.defaultManaSource.getId()) >= this.manaConsumption) {
 				List<LivingEntity> entityList = worldIn.getEntitiesWithinAABB(LivingEntity.class,
 						new AxisAlignedBB(playerIn.getPosX() - 10, playerIn.getPosY() - 10, playerIn.getPosZ() - 10,
 								playerIn.getPosX() + 10, playerIn.getPosY() + 10, playerIn.getPosZ() + 10));
@@ -49,13 +49,13 @@ public class PageOfThunder extends AbstractPageItem
 				if (entityList.size() > 0) {
 					
 					for (Entity e : entityList) {
-						if (e != null && e != playerIn && (this.getMana(stack) >= this.manaConsumption || playerIn.isCreative())) {
+						if (e != null && e != playerIn && (this.getManaValue(stack, this.defaultManaSource.getId()) >= this.manaConsumption || playerIn.isCreative())) {
 							
 							LightningBoltEntity bolt = new LightningBoltEntity(EntityType.LIGHTNING_BOLT, serverworld);
 							bolt.setPosition(e.getPosX(), e.getPosY(), e.getPosZ());						
 							serverworld.addEntity(bolt);
 							
-							if (!playerIn.isCreative()) this.addMana(stack, -this.manaConsumption);
+							if (!playerIn.isCreative()) this.addManaValue(stack, this.defaultManaSource.getId(), -this.manaConsumption);
 						}
 					}
 				

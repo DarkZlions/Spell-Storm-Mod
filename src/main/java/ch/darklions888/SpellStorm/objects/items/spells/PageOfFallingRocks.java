@@ -1,9 +1,9 @@
-package ch.darklions888.SpellStorm.objects.items.pages;
+package ch.darklions888.SpellStorm.objects.items.spells;
 
 import java.util.List;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.lib.ManaContainerSize;
+import ch.darklions888.SpellStorm.lib.ManaContainerType;
 import ch.darklions888.SpellStorm.lib.ManaPower;
 import ch.darklions888.SpellStorm.objects.items.BookOfSpellsItem;
 import ch.darklions888.SpellStorm.util.helpers.mathhelpers.MathHelpers;
@@ -23,7 +23,7 @@ import net.minecraft.world.server.ServerWorld;
 public class PageOfFallingRocks extends AbstractPageItem {
 
 	public PageOfFallingRocks(Properties properties) {
-		super(ManaContainerSize.SMALL, MagicSource.UNKNOWNMAGIC, ManaPower.VERYHIGH, 30, TextFormatting.BLACK, true, properties);
+		super(ManaContainerType.SMALL, MagicSource.UNKNOWNMAGIC, ManaPower.VERYHIGH, 30, TextFormatting.BLACK, true, properties);
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class PageOfFallingRocks extends AbstractPageItem {
 			double y = 260.0d;
 			double z = playerIn.getPosZ();
 
-			if (playerIn.isCreative() || this.getMana(stack) >= this.manaConsumption) {
+			if (playerIn.isCreative() || this.getManaValue(stack, this.defaultManaSource.getId()) >= this.manaConsumption) {
 				
 				((ServerWorld)worldIn).playSound(null, x, playerIn.getPosY(), z, SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.PLAYERS, 1.0f, 1.0f);
 				
@@ -59,7 +59,7 @@ public class PageOfFallingRocks extends AbstractPageItem {
 				worldIn.addEntity(entity);
 
 				if (!playerIn.isCreative())
-					this.addMana(stack, -this.manaConsumption);
+					this.addManaValue(stack, this.defaultManaSource.getId(), -this.manaConsumption);
 				
 				int cooldDownTick = 25;
 				

@@ -1,7 +1,7 @@
-package ch.darklions888.SpellStorm.objects.items.pages;
+package ch.darklions888.SpellStorm.objects.items.spells;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.lib.ManaContainerSize;
+import ch.darklions888.SpellStorm.lib.ManaContainerType;
 import ch.darklions888.SpellStorm.lib.ManaPower;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.DragonFireballEntity;
@@ -19,7 +19,7 @@ public class PageOfDragonBall extends AbstractPageItem {
 
 
 	public PageOfDragonBall(Properties properties) {
-		super(ManaContainerSize.SMALL, MagicSource.UNKNOWNMAGIC, ManaPower.VERYHIGH, 2, TextFormatting.DARK_PURPLE, true, properties);
+		super(ManaContainerType.SMALL, MagicSource.UNKNOWNMAGIC, ManaPower.VERYHIGH, 2, TextFormatting.DARK_PURPLE, true, properties);
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class PageOfDragonBall extends AbstractPageItem {
 
 		} else {
 
-			if (playerIn.isCreative() || this.getMana(stackIn) >= this.manaConsumption) {
+			if (playerIn.isCreative() || this.getManaValue(stackIn, this.defaultManaSource.getId()) >= this.manaConsumption) {
 
 				ServerWorld serverWorld = (ServerWorld) worldIn;
 
@@ -52,8 +52,6 @@ public class PageOfDragonBall extends AbstractPageItem {
 
 				DragonFireballEntity ball = new DragonFireballEntity(worldIn, playerIn, 0, 0, 0);
 
-				if (!playerIn.isCreative())
-					this.addMana(stackIn, -2);
 				ball.setPosition(x + xD, y + 1.5, z + zD);
 				ball.accelerationX = xD * .1;
 				ball.accelerationY = yD * .1;
@@ -61,7 +59,7 @@ public class PageOfDragonBall extends AbstractPageItem {
 				serverWorld.addEntity(ball);
 
 				if (!playerIn.isCreative())
-					this.addMana(stackIn, -this.manaConsumption);
+					this.addManaValue(stackIn, this.defaultManaSource.getId(), -this.manaConsumption);
 				return ActionResult.resultSuccess(stackIn);
 			} else {
 				return ActionResult.resultPass(stackIn);

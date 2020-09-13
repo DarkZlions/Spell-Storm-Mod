@@ -1,6 +1,6 @@
 package ch.darklions888.SpellStorm.lib;
 
-public enum ManaContainerSize 
+public enum ManaContainerType 
 {
 	VERYSMALL(60),
 	SMALL(120),
@@ -13,7 +13,7 @@ public enum ManaContainerSize
 	
 	public int size;
 
-	private ManaContainerSize(int size) {
+	private ManaContainerType(int size) {
 		this.size = size;
 	}
 }
