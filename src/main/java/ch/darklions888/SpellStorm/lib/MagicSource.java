@@ -9,10 +9,14 @@ public enum MagicSource {
 	NEUTRALMAGIC("neutral"),
 	UNKNOWNMAGIC("unknown");
 
-	public String sourceId;
+	private final String sourceId;
 
 	MagicSource(String sourceName) {
 		this.sourceId = sourceName;
+	}
+	
+	public String getId() {
+		return this.sourceId;
 	}
 	
 	public TranslationTextComponent getSourceName() {
