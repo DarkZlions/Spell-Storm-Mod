@@ -7,7 +7,7 @@ import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.network.PacketHandler;
 import ch.darklions888.SpellStorm.network.PacketRotateBookSlot;
 import ch.darklions888.SpellStorm.objects.containers.BookOfSpellsContainer;
-import ch.darklions888.SpellStorm.objects.items.pages.AbstractPageItem;
+import ch.darklions888.SpellStorm.objects.items.spells.AbstractPageItem;
 import ch.darklions888.SpellStorm.registries.ContainerTypesInit;
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
 import ch.darklions888.SpellStorm.util.helpers.mathhelpers.MathHelpers;
