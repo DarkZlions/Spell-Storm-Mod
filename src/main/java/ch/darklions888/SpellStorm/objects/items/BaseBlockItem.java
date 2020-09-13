@@ -6,7 +6,6 @@ import javax.annotation.Nullable;
 
 import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.lib.ManaContainerSize;
 import ch.darklions888.SpellStorm.lib.ManaPower;
 import ch.darklions888.SpellStorm.util.helpers.formatting.FormattingHelper;
 import net.minecraft.block.Block;
@@ -67,12 +66,6 @@ public class BaseBlockItem extends BlockItem implements IHasMagic {
 	@Override
 	public MagicSource getMagicSource() {
 		return this.source;
-	}
-
-	@Nullable
-	@Override
-	public ManaContainerSize getManaContainer() {
-		return null;
 	}
 
 	@Override

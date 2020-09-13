@@ -1,8 +1,7 @@
 package ch.darklions888.SpellStorm.objects.containers;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.objects.items.IMagicalContainer;
-import ch.darklions888.SpellStorm.objects.items.IMagicalPageItem;
+import ch.darklions888.SpellStorm.objects.items.IStoreMana;
 import ch.darklions888.SpellStorm.objects.items.SoulCatcherItem;
 import ch.darklions888.SpellStorm.registries.BlockInit;
 import ch.darklions888.SpellStorm.registries.ContainerTypesInit;
@@ -47,7 +46,7 @@ public class SoulExtractorContainer extends Container {
 		this.addSlot(new Slot(this.inputslots, 1, 48, 13) {
 
 			public boolean isItemValid(ItemStack stackIn) {
-				return stackIn.getItem() instanceof IMagicalContainer || stackIn.getItem() instanceof IMagicalPageItem;
+				return stackIn.getItem() instanceof IStoreMana;
 			}
 		});
 
@@ -103,11 +102,11 @@ public class SoulExtractorContainer extends Container {
 			ItemStack containerStack = this.inputslots.getStackInSlot(1);
 
 			if (catchStack.getItem() instanceof SoulCatcherItem
-					&& containerStack.getItem() instanceof IMagicalContainer) {
+					&& containerStack.getItem() instanceof IStoreMana) {
 				ItemStack containerCopy = containerStack.copy();
 
 				SoulCatcherItem soulCatcher = (SoulCatcherItem) catchStack.getItem();
-				IMagicalContainer containerItem = (IMagicalContainer) containerStack.getItem();
+				IStoreMana containerItem = (IStoreMana) containerStack.getItem();
 
 				EntityType<?> entityType = soulCatcher.getEntity(catchStack);
 
@@ -118,30 +117,7 @@ public class SoulExtractorContainer extends Container {
 
 					MagicSource mobSource = soulCatcher.getSourceFromEntity(mob);
 					if (containerItem.hasMagicSource(mobSource)) {
-						containerItem.addManaValue(containerCopy, soulCatcher.getSourceFromEntity(mob).sourceId, (int) Math.ceil(mob.getHealth()));
-						this.outputslots.setInventorySlotContents(2, containerCopy);
-						this.detectAndSendChanges();
-					} else {
-						this.outputslots.setInventorySlotContents(2, ItemStack.EMPTY);
-					}
-				} else {
-					this.outputslots.setInventorySlotContents(2, ItemStack.EMPTY);
-				}
-			} else if (catchStack.getItem() instanceof SoulCatcherItem && containerStack.getItem() instanceof IMagicalPageItem) {
-				ItemStack containerCopy = containerStack.copy();
-
-				SoulCatcherItem soulCatcher = (SoulCatcherItem) catchStack.getItem();
-				IMagicalPageItem page = (IMagicalPageItem) containerStack.getItem();
-
-				EntityType<?> entityType = soulCatcher.getEntity(catchStack);
-
-				Entity entity = entityType.create(Minecraft.getInstance().world);
-
-				if (entity != null && entity instanceof MobEntity) {
-					MobEntity mob = (MobEntity) entity;
-
-					if (page.magicSource() == soulCatcher.getSourceFromEntity(mob)) {
-						page.addMana(containerCopy, (int) Math.ceil(mob.getHealth()));
+						containerItem.addManaValue(containerCopy, soulCatcher.getSourceFromEntity(mob).getId(), (int) Math.ceil(mob.getHealth()));
 						this.outputslots.setInventorySlotContents(2, containerCopy);
 						this.detectAndSendChanges();
 					} else {

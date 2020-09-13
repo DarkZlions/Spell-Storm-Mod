@@ -1,10 +1,11 @@
 package ch.darklions888.SpellStorm.objects.items;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.lib.ManaContainerSize;
+import ch.darklions888.SpellStorm.lib.ManaContainerType;
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
 import ch.darklions888.SpellStorm.util.helpers.formatting.FormattingHelper;
 import net.minecraft.client.util.ITooltipFlag;
@@ -14,15 +15,18 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
-public class BaseManaContainerItem extends Item implements IMagicalContainer {
-	protected MagicSource[] sources;
-	protected ManaContainerSize size;
+public class BaseManaContainerItem extends Item implements IStoreMana, IInfusable {
+	protected List<MagicSource> sources;
+	protected ManaContainerType manaContainerType;
 
-	public BaseManaContainerItem(MagicSource[] sources, ManaContainerSize size, Properties properties) {
+	public BaseManaContainerItem(MagicSource[] sources, ManaContainerType size, Properties properties) {
 		super(properties);
 
-		this.sources = sources;
-		this.size = size;
+		this.sources = new ArrayList<>();
+		for (MagicSource m : sources) {
+			this.sources.add(m);
+		}
+		this.manaContainerType = size;
 	}
 
 	@Override
@@ -33,7 +37,7 @@ public class BaseManaContainerItem extends Item implements IMagicalContainer {
 		for (MagicSource source : sources) {
 			tooltip.add(new StringTextComponent(FormattingHelper.GetSourceColor(source)
 					+ FormattingHelper.GetFontFormat(source) + source.getSourceName().getString() + "\u00A7r" + " Mana: "
-					+ String.valueOf(getManaValue(stack, source.sourceId) + "/" + String.valueOf(getContainerSize()))));
+					+ String.valueOf(getManaValue(stack, source.getId()) + "/" + String.valueOf(getManaContainer().size))));
 		}
 
 		super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -51,17 +55,7 @@ public class BaseManaContainerItem extends Item implements IMagicalContainer {
 
 	@Override
 	public void addManaValue(ItemStack stack, String key, int manaAmount) {
-		setManaValue(stack, key, Math.min(getManaValue(stack, key) + manaAmount, size.size));
-	}
-
-	@Override
-	public int getContainerSize() {
-		return size.size;
-	}
-
-	@Override
-	public MagicSource[] getMagigSource() {
-		return sources;
+		setManaValue(stack, key, Math.min(getManaValue(stack, key) + manaAmount, manaContainerType.size));
 	}
 
 	@Override
@@ -73,6 +67,16 @@ public class BaseManaContainerItem extends Item implements IMagicalContainer {
 		}
 
 		return false;
+	}
+
+	@Override
+	public ManaContainerType getManaContainer() {
+		return this.manaContainerType;
+	}
+
+	@Override
+	public List<MagicSource> getMagigSourceList() {
+		return this.sources;
 	}
 
 }

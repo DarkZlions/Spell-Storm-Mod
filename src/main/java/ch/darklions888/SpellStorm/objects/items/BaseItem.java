@@ -6,7 +6,6 @@ import javax.annotation.Nullable;
 
 import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.lib.ManaContainerSize;
 import ch.darklions888.SpellStorm.lib.ManaPower;
 import ch.darklions888.SpellStorm.util.helpers.formatting.FormattingHelper;
 import net.minecraft.client.util.ITooltipFlag;
@@ -27,13 +26,8 @@ public class BaseItem extends Item implements IHasMagic
 	protected MagicSource source;
 	protected TextFormatting format;
 	
-	public BaseItem(
-			MagicSource source,
-			ManaPower mana,
-			@Nullable TextFormatting format,
-			@Nullable boolean hasEffect, 
-			Item.Properties properties)
-	{
+	public BaseItem(MagicSource source, ManaPower mana, @Nullable TextFormatting format, @Nullable boolean hasEffect,
+			Item.Properties properties) {
 		super(properties);
 		this.effect = hasEffect;
 		this.manapower = mana;
@@ -75,12 +69,6 @@ public class BaseItem extends Item implements IHasMagic
 	@Override
 	public MagicSource getMagicSource() {
 		return this.source;
-	}
-
-	@Nullable
-	@Override
-	public ManaContainerSize getManaContainer() {
-		return null;
 	}
 
 	@Override
