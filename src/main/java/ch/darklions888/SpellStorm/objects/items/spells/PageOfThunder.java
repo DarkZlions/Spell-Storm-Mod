@@ -55,7 +55,7 @@ public class PageOfThunder extends AbstractPageItem
 							serverworld.addEntity(bolt);
 							
 							if (!playerIn.isCreative()) this.consumMana(stack, defaultManaSource);
-							this.setCooldown(playerIn, 20, this, bookIn.getItem());
+							this.setCooldown(playerIn, 20, stack, bookIn);
 						}
 					}
 				
