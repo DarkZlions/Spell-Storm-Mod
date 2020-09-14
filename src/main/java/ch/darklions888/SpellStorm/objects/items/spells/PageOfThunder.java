@@ -4,7 +4,6 @@ import java.util.List;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerType;
-import ch.darklions888.SpellStorm.lib.ManaPower;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -22,7 +21,7 @@ public class PageOfThunder extends AbstractPageItem
 {
 	
 	public PageOfThunder(Properties properties) {
-		super(ManaContainerType.SMALL, MagicSource.LIGHTMAGIC, ManaPower.HIGH, 2, TextFormatting.GOLD, true, properties);
+		super(ManaContainerType.SMALL, MagicSource.LIGHTMAGIC, 2, TextFormatting.GOLD, true, properties);
 	}
 
 	@Override
@@ -55,7 +54,8 @@ public class PageOfThunder extends AbstractPageItem
 							bolt.setPosition(e.getPosX(), e.getPosY(), e.getPosZ());						
 							serverworld.addEntity(bolt);
 							
-							if (!playerIn.isCreative()) this.addManaValue(stack, this.defaultManaSource.getId(), -this.manaConsumption);
+							if (!playerIn.isCreative()) this.consumMana(stack, defaultManaSource);
+							this.setCooldown(playerIn, 20, this, bookIn.getItem());
 						}
 					}
 				

@@ -2,7 +2,6 @@ package ch.darklions888.SpellStorm.objects.items.spells;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerType;
-import ch.darklions888.SpellStorm.lib.ManaPower;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.DragonFireballEntity;
 import net.minecraft.item.ItemStack;
@@ -19,7 +18,7 @@ public class PageOfDragonBall extends AbstractPageItem {
 
 
 	public PageOfDragonBall(Properties properties) {
-		super(ManaContainerType.SMALL, MagicSource.UNKNOWNMAGIC, ManaPower.VERYHIGH, 2, TextFormatting.DARK_PURPLE, true, properties);
+		super(ManaContainerType.SMALL, MagicSource.UNKNOWNMAGIC, 2, TextFormatting.DARK_PURPLE, true, properties);
 	}
 
 	@Override
@@ -59,7 +58,7 @@ public class PageOfDragonBall extends AbstractPageItem {
 				serverWorld.addEntity(ball);
 
 				if (!playerIn.isCreative())
-					this.addManaValue(stackIn, this.defaultManaSource.getId(), -this.manaConsumption);
+					this.consumMana(stackIn, defaultManaSource);
 				return ActionResult.resultSuccess(stackIn);
 			} else {
 				return ActionResult.resultPass(stackIn);
