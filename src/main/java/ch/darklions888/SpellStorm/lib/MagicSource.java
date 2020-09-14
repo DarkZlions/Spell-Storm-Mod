@@ -26,4 +26,18 @@ public enum MagicSource {
 	public static TranslationTextComponent getSourceName(MagicSource sourceIn) {
 		return prefix("magic_source_name_" + sourceIn.sourceId);
 	}
+	
+	public static int getMagicSourceColour(MagicSource sourceIn) {
+		switch (sourceIn) {
+		
+		case DARKMAGIC: 
+			return 0x8A0000;
+		case LIGHTMAGIC:
+			return 0xFFBB600;
+		case UNKNOWNMAGIC:
+			return 0x1E1E1E;
+		default:
+			return 0xFFFFFF;
+		}
+	}
 }
