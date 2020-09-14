@@ -21,6 +21,10 @@ public interface IStoreMana {
 		setManaValue(stack, key, getManaValue(stack, key) + manaAmount);
 	}
 	
+	default MagicSource getDefaultSource() {
+		return this.getMagigSourceList().get(0) != null ? this.getMagigSourceList().get(0) : MagicSource.NEUTRALMAGIC;
+	}
+	
 	ManaContainerType getManaContainer();
 
 	public List<MagicSource> getMagigSourceList();
