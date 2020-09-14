@@ -4,8 +4,6 @@ import java.util.List;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerType;
-import ch.darklions888.SpellStorm.lib.ManaPower;
-import ch.darklions888.SpellStorm.objects.items.BookOfSpellsItem;
 import ch.darklions888.SpellStorm.util.helpers.mathhelpers.MathHelpers;
 import ch.darklions888.SpellStorm.util.helpers.mathhelpers.Vec3;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,7 +21,7 @@ import net.minecraft.world.server.ServerWorld;
 public class PageOfFallingRocks extends AbstractPageItem {
 
 	public PageOfFallingRocks(Properties properties) {
-		super(ManaContainerType.SMALL, MagicSource.UNKNOWNMAGIC, ManaPower.VERYHIGH, 30, TextFormatting.BLACK, true, properties);
+		super(ManaContainerType.SMALL, MagicSource.UNKNOWNMAGIC, 30, TextFormatting.BLACK, true, properties);
 	}
 
 	@Override
@@ -59,15 +57,11 @@ public class PageOfFallingRocks extends AbstractPageItem {
 				worldIn.addEntity(entity);
 
 				if (!playerIn.isCreative())
-					this.addManaValue(stack, this.defaultManaSource.getId(), -this.manaConsumption);
+					this.consumMana(stack, defaultManaSource);
 				
 				int cooldDownTick = 25;
 				
-				if (bookIn != null && bookIn.getItem() instanceof BookOfSpellsItem) {
-					playerIn.getCooldownTracker().setCooldown(bookIn.getItem(), cooldDownTick);
-				} else {
-					playerIn.getCooldownTracker().setCooldown(this, cooldDownTick);
-				}
+				this.setCooldown(playerIn, cooldDownTick, stack, bookIn);
 
 				return ActionResult.resultSuccess(stack);
 			} else {
