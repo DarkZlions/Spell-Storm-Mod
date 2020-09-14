@@ -2,7 +2,7 @@ package ch.darklions888.SpellStorm.objects.items.spells;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerType;
-import ch.darklions888.SpellStorm.lib.ManaPower;
+import ch.darklions888.SpellStorm.util.helpers.mathhelpers.MathHelpers;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -12,19 +12,43 @@ import net.minecraft.world.World;
 
 public class PageOfHealing extends AbstractPageItem {
 
-	public PageOfHealing(ManaContainerType size, MagicSource source, ManaPower mana, int manaConsumption, TextFormatting format, boolean hasEffect, Properties properties) {
-		super(size, source, mana, manaConsumption, format, hasEffect, properties);
+	private float healAmount = 10;
+	private int coolDownTicks = 60;
+	
+	public PageOfHealing(Properties properties) {
+		super(ManaContainerType.MEDIUM, MagicSource.LIGHTMAGIC, 15, TextFormatting.RED, true, properties);
 	}
 
+	
 	@Override
 	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stackIn, ItemStack bookIn) {
 		
-		return null;
+		ItemStack stack = playerIn.getHeldItem(handIn);
+		
+		if (worldIn.isRemote()) {
+			return ActionResult.resultPass(stack);
+		} else {
+			if (this.canCast(stack)) {
+				
+				if (playerIn.getHealth() < playerIn.getMaxHealth()) {
+					
+					playerIn.setHealth((float) MathHelpers.Clamp(playerIn.getHealth() + this.healAmount, 0, playerIn.getMaxHealth()));
+					
+					this.setCooldown(playerIn, coolDownTicks, stack, bookIn);
+
+						
+					this.consumMana(stack, this.defaultManaSource);
+					return ActionResult.resultSuccess(stack);
+				} else {
+					return ActionResult.resultPass(stack);
+				}
+			}
+			return ActionResult.resultPass(stack);
+		}
 	}
 
 	@Override
 	public int getInkColor() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 0xFF2B2B;
 	}
 }
