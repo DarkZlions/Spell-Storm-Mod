@@ -1,0 +1,9 @@
+{
+	"parent": "item/handheld",
+	"textures":
+	{
+		"layer0": "spellstorm:items/mana_sword_core",
+		"layer1": "spellstorm:items/mana_sword_top",
+		"layer2": "spellstorm:items/mana_sword_base"
+	}
+}
