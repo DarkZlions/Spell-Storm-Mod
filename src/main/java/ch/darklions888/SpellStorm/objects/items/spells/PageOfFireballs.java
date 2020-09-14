@@ -2,7 +2,6 @@ package ch.darklions888.SpellStorm.objects.items.spells;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerType;
-import ch.darklions888.SpellStorm.lib.ManaPower;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.SmallFireballEntity;
 import net.minecraft.item.ItemStack;
@@ -18,7 +17,7 @@ import net.minecraft.world.server.ServerWorld;
 public class PageOfFireballs extends AbstractPageItem {
 
 	public PageOfFireballs(Properties properties) {
-		super(ManaContainerType.MEDIUM, MagicSource.NEUTRALMAGIC, ManaPower.LOW, 1, TextFormatting.GOLD, true, properties);
+		super(ManaContainerType.MEDIUM, MagicSource.NEUTRALMAGIC, 1, TextFormatting.GOLD, true, properties);
 	}
 
 	@Override
@@ -57,7 +56,7 @@ public class PageOfFireballs extends AbstractPageItem {
 					worldIn.addEntity(entity);
 				}
 				if (!playerIn.isCreative())
-					this.addManaValue(stack, this.defaultManaSource.getId(), -this.manaConsumption);
+					this.consumMana(stack, defaultManaSource);
 
 				return ActionResult.resultSuccess(stack);
 			} else {
