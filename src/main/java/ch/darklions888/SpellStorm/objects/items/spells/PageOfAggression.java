@@ -4,7 +4,6 @@ import java.util.List;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerType;
-import ch.darklions888.SpellStorm.lib.ManaPower;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
@@ -23,7 +22,7 @@ public class PageOfAggression extends AbstractPageItem {
 	private static final String MOB_TAG = "spellstrom_aggressive_mob_tag";
 
 	public PageOfAggression(Properties properties) {
-		super(ManaContainerType.MEDIUM, MagicSource.DARKMAGIC, ManaPower.MEDIUM, 1, TextFormatting.DARK_RED, true, properties);
+		super(ManaContainerType.MEDIUM, MagicSource.DARKMAGIC, 1, TextFormatting.DARK_RED, true, properties);
 	}
 
 	@Override
@@ -74,7 +73,7 @@ public class PageOfAggression extends AbstractPageItem {
 						}
 						*/
 						if (!playerIn.isCreative())
-							this.addManaValue(stackIn, this.defaultManaSource.getId(), -this.manaConsumption);
+							this.consumMana(stackIn, this.defaultManaSource);
 					}
 					
 					//serverWorld.playSound(null, x, y, z, SoundEvents.ENTITY_ENDER_EYE_DEATH, SoundCategory.PLAYERS, 1.0f, 1.0f);
