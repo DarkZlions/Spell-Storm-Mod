@@ -6,7 +6,6 @@ import java.util.List;
 import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerType;
-import ch.darklions888.SpellStorm.lib.ManaPower;
 import ch.darklions888.SpellStorm.objects.items.IInfusable;
 import ch.darklions888.SpellStorm.objects.items.IMagicalPageItem;
 import ch.darklions888.SpellStorm.util.helpers.formatting.FormattingHelper;
@@ -32,7 +31,7 @@ public abstract class AbstractPageItem extends Item implements IMagicalPageItem,
 	protected final TextFormatting format;
 	protected final boolean hasEffect;
 	
-	public AbstractPageItem(ManaContainerType size, MagicSource source, ManaPower mana, int manaConsumption, TextFormatting format, boolean hasEffect, Properties properties)
+	public AbstractPageItem(ManaContainerType size, MagicSource source, int manaConsumption, TextFormatting format, boolean hasEffect, Properties properties)
 	{
 		super(properties);
 		this.containingManaSize = size.size;
@@ -45,6 +44,14 @@ public abstract class AbstractPageItem extends Item implements IMagicalPageItem,
 		this.hasEffect = hasEffect;
 	}
 	
+	protected boolean canCast(ItemStack stackIn) {
+		return this.getManaValue(stackIn, this.defaultManaSource.getId()) >= this.manaConsumption;
+	}
+	
+	protected void consumMana(ItemStack stackIn, MagicSource sourceIn) {
+		this.addManaValue(stackIn, sourceIn.getId(), -this.manaConsumption);
+	}
+	
 	@Override
 	public boolean hasEffect(ItemStack stack) {
 		return hasEffect;
@@ -53,6 +60,11 @@ public abstract class AbstractPageItem extends Item implements IMagicalPageItem,
 	@Override
 	public int getItemStackLimit(ItemStack stack) {
 		return stack.getItem() instanceof IMagicalPageItem ? 1 : super.getItemStackLimit(stack);
+	}
+	
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+		return this.getAbilities(worldIn, playerIn, handIn, playerIn.getHeldItem(handIn), null);
 	}
 	
 	@Override
@@ -80,6 +92,13 @@ public abstract class AbstractPageItem extends Item implements IMagicalPageItem,
 		{
 			TranslationTextComponent translationText = new TranslationTextComponent(this.getTranslationKey(stack));
 			return new TranslationTextComponent(format + translationText.getString() + "  [" + String.valueOf(this.getManaValue(stack, this.defaultManaSource.getId())) + "/" + this.containingManaSize + "]");
+		}
+	}
+	
+	protected void setCooldown(PlayerEntity playerIn, int coolDownTicks, Item ... itemIn) {
+		for (Item i : itemIn) {
+			if (itemIn != null)
+				playerIn.getCooldownTracker().setCooldown(i, coolDownTicks);
 		}
 	}
 	
