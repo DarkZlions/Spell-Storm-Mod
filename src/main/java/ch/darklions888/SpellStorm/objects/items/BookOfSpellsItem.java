@@ -33,11 +33,17 @@ public class BookOfSpellsItem extends AbstractContainerItem {
 
 	public BookOfSpellsItem(Item.Properties properties) {
 		super(properties, 6);
-		MinecraftForge.EVENT_BUS.addListener(this::onLeftClick);
+		MinecraftForge.EVENT_BUS.addListener(this::onLeftClickEmpty);
+		MinecraftForge.EVENT_BUS.addListener(this::onLeftClickBlock);
 	}
 
-	private void onLeftClick(PlayerInteractEvent.LeftClickEmpty event) {
+	private void onLeftClickEmpty(PlayerInteractEvent.LeftClickEmpty event) {
 		PacketHandler.sendToServer(new PacketRotateBookSlot(true));
+	}
+	
+	private void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
+		if (event.getPlayer().isSneaking())
+			PacketHandler.sendToServer(new PacketRotateBookSlot(true));
 	}
 
 	@Override
