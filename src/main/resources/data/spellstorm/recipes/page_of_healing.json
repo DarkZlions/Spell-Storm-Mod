@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PCP",
+    "C#C",
+    "PIP"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:ghast_tear"
+    },
+    "P": {
+      "item": "spellstorm:magical_paper"
+    },
+	"C":{
+		"item": "spellstorm:crystal"
+	}, 
+	"I": {
+		"item": "spellstorm:magical_ink_neutral"
+	}
+  },
+  "result": {
+    "item": "spellstorm:page_of_healing"
+  }
+}
