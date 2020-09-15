@@ -44,8 +44,8 @@ public abstract class AbstractPageItem extends Item implements IMagicalPageItem,
 		this.hasEffect = hasEffect;
 	}
 	
-	protected boolean canCast(ItemStack stackIn) {
-		return this.getManaValue(stackIn, this.defaultManaSource.getId()) >= this.manaConsumption;
+	protected boolean canCast(ItemStack stackIn, PlayerEntity playerIn) {
+		return this.getManaValue(stackIn, this.defaultManaSource.getId()) >= this.manaConsumption || playerIn.isCreative();
 	}
 	
 	protected void consumMana(ItemStack stackIn, MagicSource sourceIn) {
