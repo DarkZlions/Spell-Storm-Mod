@@ -18,6 +18,7 @@ import ch.darklions888.SpellStorm.objects.items.SoulCatcherItem;
 import ch.darklions888.SpellStorm.objects.items.spells.PageOfAggression;
 import ch.darklions888.SpellStorm.objects.items.spells.PageOfDragonBall;
 import ch.darklions888.SpellStorm.objects.items.spells.PageOfFallingRocks;
+import ch.darklions888.SpellStorm.objects.items.spells.PageOfFangs;
 import ch.darklions888.SpellStorm.objects.items.spells.PageOfFireballs;
 import ch.darklions888.SpellStorm.objects.items.spells.PageOfHealing;
 import ch.darklions888.SpellStorm.objects.items.spells.PageOfMining;
@@ -52,6 +53,7 @@ public class ItemInit {
 	public static final RegistryObject<Item> PAGE_OF_DRAGONBALL = REGISTER_ITEMS.register("page_of_dragonball", () -> new PageOfDragonBall(new Item.Properties().group(TAB).maxStackSize(1)));
 	public static final RegistryObject<Item> PAGE_OF_MINING = REGISTER_ITEMS.register("page_of_mining", () -> new PageOfMining(new Item.Properties().group(TAB).maxStackSize(1)));
 	public static final RegistryObject<Item> PAGE_OF_HEALING = REGISTER_ITEMS.register("page_of_healing", () -> new PageOfHealing(new Item.Properties().group(TAB)));
+	public static final RegistryObject<Item> PAGE_OF_FANGS = REGISTER_ITEMS.register("page_of_fangs", () -> new PageOfFangs(new Item.Properties().group(TAB)));
 	
 	//Other magic items
 	public static final RegistryObject<Item> SOUL_CATCHER = REGISTER_ITEMS.register("soul_catcher", () -> new SoulCatcherItem(new Item.Properties().group(TAB).maxStackSize(1)));
@@ -63,6 +65,7 @@ public class ItemInit {
 	public static final RegistryObject<Item> MAGICAL_INK_DARK = REGISTER_ITEMS.register("magical_ink_dark", () -> new MagicalInkItem(MagicSource.DARKMAGIC, new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> MAGICAL_INK_LIGHT = REGISTER_ITEMS.register("magical_ink_light", () -> new MagicalInkItem(MagicSource.LIGHTMAGIC, new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> MAGICAL_INK_NEUTRAL = REGISTER_ITEMS.register("magical_ink_neutral", () -> new MagicalInkItem(MagicSource.NEUTRALMAGIC, new Item.Properties().group(TAB)));
+	public static final RegistryObject<Item> FANGS = REGISTER_ITEMS.register("fangs", () -> new BaseItem(MagicSource.DARKMAGIC, ManaPower.HIGH, null, false, new Item.Properties().group(TAB)));
 	
 	// ManaInfused Gear
 	public static final RegistryObject<Item> MANA_INFUSED_INGOT = REGISTER_ITEMS.register("mana_infused_ingot", () -> new BaseItem(MagicSource.NEUTRALMAGIC, ManaPower.MEDIUM, null, true, new Item.Properties().group(TAB).maxStackSize(16)));
