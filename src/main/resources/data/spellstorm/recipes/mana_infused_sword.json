@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "B",
+    "M",
+    "S"
+  ],
+  "key": {
+    "B": {
+      "item": "spellstorm:blue_crystals"
+    },
+    "M": {
+      "item": "spellstorm:mana_infused_ingot"
+    },
+	"S":{
+	"item": "minecraft:stick"
+	}
+  },
+  "result": {
+    "item": "spellstorm:mana_infused_sword"
+  }
+}
