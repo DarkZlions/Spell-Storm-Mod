@@ -28,7 +28,7 @@ public class PageOfHealing extends AbstractPageItem {
 		if (worldIn.isRemote()) {
 			return ActionResult.resultPass(stack);
 		} else {
-			if (this.canCast(stack)) {
+			if (this.canCast(stack, playerIn)) {
 				
 				if (playerIn.getHealth() < playerIn.getMaxHealth()) {
 					
