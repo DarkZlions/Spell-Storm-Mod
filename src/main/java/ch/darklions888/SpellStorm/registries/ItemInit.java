@@ -10,6 +10,7 @@ import ch.darklions888.SpellStorm.objects.items.BaseItem;
 import ch.darklions888.SpellStorm.objects.items.BlueCrystalItem;
 import ch.darklions888.SpellStorm.objects.items.BookOfMana;
 import ch.darklions888.SpellStorm.objects.items.BookOfSpellsItem;
+import ch.darklions888.SpellStorm.objects.items.ChargedCreeperPiecesItem;
 import ch.darklions888.SpellStorm.objects.items.CorruptedCrystalShardItem;
 import ch.darklions888.SpellStorm.objects.items.CrystalShardItem;
 import ch.darklions888.SpellStorm.objects.items.Foods;
@@ -66,6 +67,7 @@ public class ItemInit {
 	public static final RegistryObject<Item> MAGICAL_INK_LIGHT = REGISTER_ITEMS.register("magical_ink_light", () -> new MagicalInkItem(MagicSource.LIGHTMAGIC, new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> MAGICAL_INK_NEUTRAL = REGISTER_ITEMS.register("magical_ink_neutral", () -> new MagicalInkItem(MagicSource.NEUTRALMAGIC, new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> FANGS = REGISTER_ITEMS.register("fangs", () -> new BaseItem(MagicSource.DARKMAGIC, ManaPower.HIGH, null, false, new Item.Properties().group(TAB)));
+	public static final RegistryObject<Item> CHARGED_CREEPER_PIECES = REGISTER_ITEMS.register("charged_creeper_pieces", () -> new ChargedCreeperPiecesItem(new Item.Properties().group(TAB)));
 	
 	// ManaInfused Gear
 	public static final RegistryObject<Item> MANA_INFUSED_INGOT = REGISTER_ITEMS.register("mana_infused_ingot", () -> new BaseItem(MagicSource.NEUTRALMAGIC, ManaPower.MEDIUM, null, true, new Item.Properties().group(TAB).maxStackSize(16)));
