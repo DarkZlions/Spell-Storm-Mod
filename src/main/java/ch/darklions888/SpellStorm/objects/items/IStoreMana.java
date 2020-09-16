@@ -6,6 +6,7 @@ import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerType;
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.MathHelper;
 
 public interface IStoreMana {
 	
@@ -18,7 +19,7 @@ public interface IStoreMana {
 	}
 
 	default void addManaValue(ItemStack stack, String key, int manaAmount) {
-		setManaValue(stack, key, getManaValue(stack, key) + manaAmount);
+		setManaValue(stack, key, MathHelper.clamp(getManaValue(stack, key) + manaAmount, 0, this.getManaContainer().size));
 	}
 	
 	default MagicSource getDefaultSource() {
