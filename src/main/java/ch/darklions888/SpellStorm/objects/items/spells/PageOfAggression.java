@@ -4,6 +4,7 @@ import java.util.List;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerType;
+import ch.darklions888.SpellStorm.lib.config.MagicalPagesConfig;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
@@ -22,7 +23,7 @@ public class PageOfAggression extends AbstractPageItem {
 	private static final String MOB_TAG = "spellstrom_aggressive_mob_tag";
 
 	public PageOfAggression(Properties properties) {
-		super(ManaContainerType.MEDIUM, MagicSource.DARKMAGIC, 1, TextFormatting.DARK_RED, true, properties);
+		super(ManaContainerType.MEDIUM, MagicSource.DARKMAGIC, MagicalPagesConfig.manaConsumption_pageOfAggression.get(), TextFormatting.DARK_RED, true, properties);
 	}
 
 	@Override
@@ -50,7 +51,6 @@ public class PageOfAggression extends AbstractPageItem {
 				entityList = serverWorld.getEntitiesWithinAABB(MobEntity.class,	new AxisAlignedBB(x + 7, y + 5, z + 7, x - 7, y - 2, z - 7));
 				
 				for (MobEntity e : entityList) {
-					System.out.println(e.getAttributeManager().hasAttributeInstance(Attributes.ATTACK_DAMAGE));
 					if (!e.getTags().contains(MOB_TAG) && e.getAttributeManager().hasAttributeInstance(Attributes.ATTACK_DAMAGE)) {
 
 						for (int i = 0; i < 4; i++) {
