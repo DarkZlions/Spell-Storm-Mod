@@ -1,9 +1,12 @@
 package ch.darklions888.SpellStorm.objects.items;
 
 import java.util.List;
+import java.util.Random;
 
 import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.lib.MagicSource;
+import ch.darklions888.SpellStorm.lib.ManaPower;
+import ch.darklions888.SpellStorm.registries.ItemInit;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,8 +16,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
-public class MagicalInkItem extends Item {
-	//public static final Map<CompoundNBT, AbstractPageItem> PAGE_MAP = new HashMap<>();
+public class MagicalInkItem extends Item implements IInfusable {
 	private final MagicSource magicSource;
 	
 	public MagicalInkItem(MagicSource sourceIn, Properties properties) {
@@ -22,6 +24,7 @@ public class MagicalInkItem extends Item {
 		magicSource = sourceIn;
 	}
 
+	@Override
 	public MagicSource getMagicSource() {
 		return this.magicSource;
 	}
@@ -54,57 +57,53 @@ public class MagicalInkItem extends Item {
 			tooltip.add(stc);
 		}
 	}
-/*
-	@Override
-	public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-		
-		if (this.isInGroup(group)) {
-			for (Item item : ForgeRegistries.ITEMS) {
-				if (item instanceof AbstractPageItem) {
-					items.add(addInkToItemStack(new ItemStack(this), (AbstractPageItem)item));
-				}
-			}
-		}
-	}
 
-	public static int getColor(ItemStack stackIn) {
-		if (stackIn != null) {
-			if (PAGE_MAP.containsKey(stackIn.getTag())) {
+	@Override
+	public ItemStack getOutputItemStack(ItemStack infusableStack, ItemStack hasMana) {
+		if (infusableStack != null && infusableStack.getItem() instanceof MagicalInkItem && hasMana != null) {
+			if (hasMana.getItem() instanceof IHasMagic) {
+
+				MagicSource manaSource = ((IHasMagic)hasMana.getItem()).getMagicSource();
 				
-				AbstractPageItem pageItem = PAGE_MAP.get(stackIn.getTag());				
-				return pageItem.getInkColor();
+				return getStackForSource(manaSource, infusableStack);
+			} else if (hasMana.getItem() instanceof IStoreMana) {
+				
+				List<MagicSource> sourceList = ((IStoreMana)hasMana.getItem()).getMagigSourceList();
+				
+				for (MagicSource ms : sourceList) {
+					if (((IStoreMana)hasMana.getItem()).getManaValue(hasMana, ms.getKey()) <= 0) {
+						sourceList.remove(ms);
+					}
+				}
+				
+				Random rand = new Random();
+				
+				return getStackForSource(sourceList.get(rand.nextInt(sourceList.size())), infusableStack);
+			} else {
+				return infusableStack;
 			}
+		} else {
+			return infusableStack;
 		}
-		
-		
-		return 0xFF0000;	// return on default a white color in hex
+	}
+	
+	private static ItemStack getStackForSource(MagicSource sourceIn, ItemStack stackIn) {
+		switch (sourceIn) {
+		case DARKMAGIC:
+			return new ItemStack(ItemInit.MAGICAL_INK_DARK.get());
+		case LIGHTMAGIC:
+			return new ItemStack(ItemInit.MAGICAL_INK_LIGHT.get());
+		case UNKNOWNMAGIC:
+			return new ItemStack(ItemInit.MAGICAL_INK_UNKNOWN.get());
+		case NEUTRALMAGIC:
+			return new ItemStack(ItemInit.MAGICAL_INK_NEUTRAL.get());
+		default:
+			return stackIn;
+		}
 	}
 
-	private static ItemStack addInkToItemStack(ItemStack itemIn, AbstractPageItem pageIn) {
-		ResourceLocation resourceLocation = ForgeRegistries.ITEMS.getKey(pageIn);
-		itemIn.getOrCreateTag().putString("ink", resourceLocation.toString());
-		CompoundNBT nbt = itemIn.getTag();
-		PAGE_MAP.put(nbt, pageIn);
-		
-		return itemIn;
-	}
-	
 	@Override
-	public ITextComponent getDisplayName(ItemStack stack) {
-		TranslationTextComponent text = new TranslationTextComponent(this.getTranslationKey(stack));
-		TranslationTextComponent text1 = null;
-		if (PAGE_MAP.containsKey(stack.getTag())) {
-			AbstractPageItem pageItem = PAGE_MAP.get(stack.getTag());
-			
-			text1 = new TranslationTextComponent(pageItem.getTranslationKey());
-		}
-		
-		return text1 != null ? new StringTextComponent(text.getString() + "[" + "]") : text;
+	public int getInfusionCost() {
+		return ManaPower.MEDIUM.mana;
 	}
-	
-	@Override
-	public boolean hasEffect(ItemStack stack) {
-		return PAGE_MAP.containsKey(stack.getTag());
-	}
-	*/
 }

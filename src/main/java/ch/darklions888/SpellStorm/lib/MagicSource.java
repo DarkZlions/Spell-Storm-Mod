@@ -19,6 +19,14 @@ public enum MagicSource {
 		return this.sourceId;
 	}
 	
+	public String getKey() {
+		return this.getId();
+	}
+	
+	public String getSourceId() {
+		return this.getId();
+	}
+	
 	public TranslationTextComponent getSourceName() {
 		return prefix("magic_source_name_" + this.sourceId);
 	}

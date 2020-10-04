@@ -4,7 +4,6 @@ import java.util.List;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerType;
-import ch.darklions888.SpellStorm.lib.config.MagicalPagesConfig;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
@@ -23,7 +22,7 @@ public class PageOfAggression extends AbstractPageItem {
 	private static final String MOB_TAG = "spellstrom_aggressive_mob_tag";
 
 	public PageOfAggression(Properties properties) {
-		super(ManaContainerType.MEDIUM, MagicSource.DARKMAGIC, MagicalPagesConfig.manaConsumption_pageOfAggression.get(), TextFormatting.DARK_RED, true, properties);
+		super(ManaContainerType.MEDIUM, MagicSource.DARKMAGIC, 1, TextFormatting.DARK_RED, true, properties);
 	}
 
 	@Override

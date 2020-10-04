@@ -6,8 +6,8 @@ import java.util.List;
 import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerType;
-import ch.darklions888.SpellStorm.objects.items.IInfusable;
 import ch.darklions888.SpellStorm.objects.items.IMagicalPageItem;
+import ch.darklions888.SpellStorm.objects.items.IStoreMana;
 import ch.darklions888.SpellStorm.util.helpers.formatting.FormattingHelper;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,13 +21,13 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
-public abstract class AbstractPageItem extends Item implements IMagicalPageItem, IInfusable
+public abstract class AbstractPageItem extends Item implements IMagicalPageItem, IStoreMana
 {
 	protected MagicSource defaultManaSource;
 	protected final List<MagicSource> magicSourceList;
 	protected final int containingManaSize;
 	protected final ManaContainerType manaContainer;
-	protected final int manaConsumption;
+	protected int manaConsumption;
 	protected final TextFormatting format;
 	protected final boolean hasEffect;
 	
@@ -49,7 +49,7 @@ public abstract class AbstractPageItem extends Item implements IMagicalPageItem,
 	}
 	
 	protected void consumMana(ItemStack stackIn, MagicSource sourceIn) {
-		this.addManaValue(stackIn, sourceIn.getId(), -this.manaConsumption);
+		this.addManaValue(stackIn, sourceIn.getId(), -manaConsumption);
 	}
 	
 	@Override

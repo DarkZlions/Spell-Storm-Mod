@@ -35,7 +35,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class ItemInit {
 	private static final ItemGroup TAB = SpellStormItemGroup.INSTANCE;
-	
 	public static final DeferredRegister<Item> REGISTER_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Lib.MOD_ID);
 
 	//item
@@ -55,7 +54,7 @@ public class ItemInit {
 	public static final RegistryObject<Item> PAGE_OF_MINING = REGISTER_ITEMS.register("page_of_mining", () -> new PageOfMining(new Item.Properties().group(TAB).maxStackSize(1)));
 	public static final RegistryObject<Item> PAGE_OF_HEALING = REGISTER_ITEMS.register("page_of_healing", () -> new PageOfHealing(new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> PAGE_OF_FANGS = REGISTER_ITEMS.register("page_of_fangs", () -> new PageOfFangs(new Item.Properties().group(TAB)));
-	
+		
 	//Other magic items
 	public static final RegistryObject<Item> SOUL_CATCHER = REGISTER_ITEMS.register("soul_catcher", () -> new SoulCatcherItem(new Item.Properties().group(TAB).maxStackSize(1)));
 	public static final RegistryObject<Item> BOOK_OF_MANA = REGISTER_ITEMS.register("book_of_mana", () -> new BookOfMana(new MagicSource[] { MagicSource.LIGHTMAGIC, MagicSource.DARKMAGIC, MagicSource.NEUTRALMAGIC, MagicSource.UNKNOWNMAGIC }, ManaContainerType.GIGANTIC, new Item.Properties().group(TAB).maxStackSize(1), false)); 
@@ -83,5 +82,5 @@ public class ItemInit {
 	public static final RegistryObject<Item> MAGICAL_TREE_SAPLING = REGISTER_ITEMS.register("magical_tree_sapling", () -> new BaseBlockItem(MagicSource.NEUTRALMAGIC, ManaPower.VERYLOW, null, false, BlockInit.MAGICAL_TREE_SAPLING.get(), new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> CORRUPTED_CRYSTAL_ORE_BLOCK = REGISTER_ITEMS.register("corrupted_crystal_ore", () -> new BaseBlockItem(MagicSource.UNKNOWNMAGIC, ManaPower.VERYHIGH, TextFormatting.BLACK, false, BlockInit.CORRUPTED_CRYSTAL_ORE.get(), new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> MAGICAL_FORGE_BLOCK = REGISTER_ITEMS.register("magical_forge", () -> new BaseBlockItem(MagicSource.NEUTRALMAGIC, ManaPower.HIGH, null, false, BlockInit.MAGICAL_FORGE.get(), new Item.Properties().group(TAB)));
-
+	
 }

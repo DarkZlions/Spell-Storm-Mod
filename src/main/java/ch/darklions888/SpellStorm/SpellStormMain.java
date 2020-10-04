@@ -37,16 +37,10 @@ public class SpellStormMain {
 
 	public SpellStormMain() {
 		final IEventBus Bus = FMLJavaModLoadingContext.get().getModEventBus();
-
+		
 		Bus.addListener(this::CommonSetup);
 		Bus.addListener(this::ClientSetup);
-		
-		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ConfigHandler.SERVER_CONFIG);
-		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigHandler.CLIENT_CONFIG);
-		
-		ConfigHandler.loadConfig(ConfigHandler.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve(Lib.MOD_ID + "-client.toml").toString());
-		ConfigHandler.loadConfig(ConfigHandler.SERVER_CONFIG, FMLPaths.CONFIGDIR.get().resolve(Lib.MOD_ID + "-server.toml").toString());
-		
+				
 		BlockInit.REGISTER_BLOCKS.register(Bus);
 		SoundInit.REGISTER_SOUNDS.register(Bus);
 		ItemInit.REGISTER_ITEMS.register(Bus);
@@ -55,7 +49,15 @@ public class SpellStormMain {
 		EntityInit.REGISTER_ENTITY.register(Bus);
 		RecipeSerializerInit.RECIPE_SERIALIZER.register(Bus);
 		TileEntityTypesInit.TILE_ENTITY_TYPES.register(Bus);
-
+		
+		/*
+		ConfigHandler.init(ConfigHandler.SERVER_BUILDER, ConfigHandler.CLIENT_BUILDER);
+		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ConfigHandler.SERVER_CONFIG);
+		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigHandler.CLIENT_CONFIG);
+		
+		ConfigHandler.loadConfig(ConfigHandler.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve(Lib.MOD_ID + "-client.toml").toString());
+		ConfigHandler.loadConfig(ConfigHandler.SERVER_CONFIG, FMLPaths.CONFIGDIR.get().resolve(Lib.MOD_ID + "-server.toml").toString());
+		*/
 		SpellStormMain.INSTANCE = this;
 		MinecraftForge.EVENT_BUS.register(this);
 		

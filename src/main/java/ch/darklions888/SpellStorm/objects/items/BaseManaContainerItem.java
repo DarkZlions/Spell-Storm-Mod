@@ -15,7 +15,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
-public class BaseManaContainerItem extends Item implements IStoreMana, IInfusable {
+public class BaseManaContainerItem extends Item implements IStoreMana {
 	protected List<MagicSource> sources;
 	protected ManaContainerType manaContainerType;
 
@@ -78,5 +78,4 @@ public class BaseManaContainerItem extends Item implements IStoreMana, IInfusabl
 	public List<MagicSource> getMagigSourceList() {
 		return this.sources;
 	}
-
 }

@@ -4,10 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.objects.items.IHasMagic;
 import ch.darklions888.SpellStorm.objects.items.IInfusable;
 import ch.darklions888.SpellStorm.objects.items.IStoreMana;
+import ch.darklions888.SpellStorm.objects.items.MagicalInkItem;
 import ch.darklions888.SpellStorm.registries.BlockInit;
 import ch.darklions888.SpellStorm.registries.ContainerTypesInit;
 import net.minecraft.entity.player.PlayerEntity;
@@ -41,7 +44,7 @@ public class ManaInfuserContainer extends Container {
 		this.worldPosCallable = worldPosCallableIn;
 		this.addSlot(new Slot(this.inputSlots, 0, 58, 51) {
 			public boolean isItemValid(ItemStack stack) {
-				if (stack.getItem() instanceof IInfusable) {
+				if (stack.getItem() instanceof IStoreMana || stack.getItem() instanceof IInfusable) {
 					return true;
 				} else {
 					return false;
@@ -75,17 +78,17 @@ public class ManaInfuserContainer extends Container {
 					ManaInfuserContainer.this.inputSlots.setInventorySlotContents(1, ItemStack.EMPTY);
 				} else {
 					ItemStack storeManaStack = ManaInfuserContainer.this.inputSlots.getStackInSlot(1);
-					ItemStack infusableStack = ManaInfuserContainer.this.inputSlots.getStackInSlot(0);
+					ItemStack chargeableStack = ManaInfuserContainer.this.inputSlots.getStackInSlot(0);
 					
-					if (storeManaStack.getItem() instanceof IHasMagic) {
+					if (storeManaStack.getItem() instanceof IHasMagic && chargeableStack.getItem() instanceof IStoreMana) {
 						int slotCount = storeManaStack.getCount();
 
 						storeManaStack.setCount(slotCount - itemCost);
 						ManaInfuserContainer.this.inputSlots.setInventorySlotContents(1, storeManaStack);
 
 						ManaInfuserContainer.this.inputSlots.setInventorySlotContents(0, ItemStack.EMPTY);
-					} else if (storeManaStack.getItem() instanceof IInfusable && infusableStack.getItem() instanceof IStoreMana) {
-						IInfusable container = (IInfusable) storeManaStack.getItem();
+					} else if (storeManaStack.getItem() instanceof IStoreMana && chargeableStack.getItem() instanceof IStoreMana) {
+						IStoreMana container = (IStoreMana) storeManaStack.getItem();
 						IStoreMana storeMana = (IStoreMana) ManaInfuserContainer.this.inputSlots.getStackInSlot(0).getItem();
 
 						for (MagicSource ms : storeMana.getMagigSourceList()) {
@@ -94,25 +97,27 @@ public class ManaInfuserContainer extends Container {
 						}
 
 						ManaInfuserContainer.this.inputSlots.setInventorySlotContents(1, storeManaStack);
-
 						ManaInfuserContainer.this.inputSlots.setInventorySlotContents(0, ItemStack.EMPTY);
 						
-					} /*else if (input2.getItem() instanceof MagicalInkItem && input.getItem() instanceof IHasMagic) {
+					} else if (storeManaStack.getItem() instanceof IStoreMana && chargeableStack.getItem() instanceof IInfusable) {
+						IInfusable infusableItem = (IInfusable) chargeableStack.getItem();
+						IStoreMana storeMana = (IStoreMana) storeManaStack.getItem();
 						
-						int slotCount = input.getCount();
-						input.setCount(slotCount -itemCost);
+						if (storeMana.hasMagicSource(infusableItem.getMagicSource())) {
+							storeMana.addManaValue(storeManaStack, infusableItem.getMagicSource().getKey(), -manaCost.get(infusableItem.getMagicSource()));
+						}
+						
+						ManaInfuserContainer.this.inputSlots.setInventorySlotContents(1, storeManaStack);
 						ManaInfuserContainer.this.inputSlots.setInventorySlotContents(0, ItemStack.EMPTY);
 						
-					} else if (input.getItem() instanceof IMagicalContainer && stack.getItem() instanceof MagicalInkItem) {
-						IMagicalContainer container = (IMagicalContainer) input.getItem();
-						MagicalInkItem ink = (MagicalInkItem) stack.getItem();
+					} else if (storeManaStack.getItem() instanceof IHasMagic && chargeableStack.getItem() instanceof IInfusable) {
+						int slotCount = storeManaStack.getCount();
 
-						container.addManaValue(input, ink.getMagicSource().sourceId, -manaCost);
-
-						ManaInfuserContainer.this.inputSlots.setInventorySlotContents(1, input);
+						storeManaStack.setCount(slotCount - itemCost);
+						ManaInfuserContainer.this.inputSlots.setInventorySlotContents(1, storeManaStack);
 
 						ManaInfuserContainer.this.inputSlots.setInventorySlotContents(0, ItemStack.EMPTY);
-					} */
+					}
 				}
 
 				itemCost = 0;
@@ -150,42 +155,45 @@ public class ManaInfuserContainer extends Container {
 		try {
 			if (manaCost == null) manaCost = new HashMap<>();
 			this.manaCost.clear();
-			ItemStack infusableStack = this.inputSlots.getStackInSlot(0);
+			ItemStack chargeableStack = this.inputSlots.getStackInSlot(0);
 			ItemStack storeManaStack = this.inputSlots.getStackInSlot(1);
 			
-			if (!(infusableStack.getItem() instanceof IInfusable) || !(storeManaStack.getItem() instanceof IStoreMana)) {
+			if (!(chargeableStack.getItem() instanceof IStoreMana) || !(storeManaStack.getItem() instanceof IStoreMana)) {
 				this.outputSlots.setInventorySlotContents(2, ItemStack.EMPTY);
 				this.detectAndSendChanges();
-			} else if (!(infusableStack.getItem() instanceof IInfusable) || !(storeManaStack.getItem() instanceof IHasMagic)) {
+			} else if (!(chargeableStack.getItem() instanceof IStoreMana) || !(storeManaStack.getItem() instanceof IHasMagic)) {
+				this.outputSlots.setInventorySlotContents(2, ItemStack.EMPTY);
+				this.detectAndSendChanges();
+			} else if (!(chargeableStack.getItem() instanceof IInfusable) || !(storeManaStack.getItem() instanceof IHasMagic)) {
 				this.outputSlots.setInventorySlotContents(2, ItemStack.EMPTY);
 				this.detectAndSendChanges();
 			}
 			
-			if (infusableStack.getItem() instanceof IInfusable && storeManaStack.getItem() instanceof IStoreMana) {
-				IInfusable infusableItem = (IInfusable) infusableStack.getItem();
+			if (chargeableStack.getItem() instanceof IStoreMana && storeManaStack.getItem() instanceof IStoreMana) {
+				IStoreMana infusableItem = (IStoreMana) chargeableStack.getItem();
 				IStoreMana storeManaItem = (IStoreMana) storeManaStack.getItem();
 				
-				if (!infusableItem.canInfuse(infusableStack, storeManaStack)) {
+				if (!infusableItem.canInfuse(chargeableStack, storeManaStack)) {
 					this.outputSlots.setInventorySlotContents(2, ItemStack.EMPTY);
 					this.detectAndSendChanges();
 				}
 				
 				List<MagicSource> storeManaSourceList = storeManaItem.getMagigSourceList();
-				ItemStack infusableStackCopy = infusableStack.copy();
+				ItemStack infusableStackCopy = chargeableStack.copy();
 				for (MagicSource magicSource : storeManaSourceList) {
 					
 					if (infusableItem.hasMagicSource(magicSource)) {
 						int storeManaValue = storeManaItem.getManaValue(storeManaStack, magicSource.getId());
-						int infusableManaValue = infusableItem.getManaValue(infusableStack, magicSource.getId());
+						int infusableManaValue = infusableItem.getManaValue(chargeableStack, magicSource.getId());
 						int fillAmount = infusableItem.getManaContainer().size - infusableManaValue;
 						if (storeManaValue >= fillAmount) {
 
-							((IInfusable)infusableStackCopy.getItem()).addManaValue(infusableStackCopy, magicSource.getId(), fillAmount);
+							((IStoreMana)infusableStackCopy.getItem()).addManaValue(infusableStackCopy, magicSource.getId(), fillAmount);
 							
 							this.manaCost.put(magicSource, new Integer(fillAmount));
 						}
 						else {
-							((IInfusable)infusableStackCopy.getItem()).addManaValue(infusableStackCopy, magicSource.getId(), storeManaValue);
+							((IStoreMana)infusableStackCopy.getItem()).addManaValue(infusableStackCopy, magicSource.getId(), storeManaValue);
 							this.manaCost.put(magicSource, new Integer(storeManaItem.getManaValue(storeManaStack, magicSource.getId())));
 						}
 					}
@@ -193,30 +201,87 @@ public class ManaInfuserContainer extends Container {
 				this.outputSlots.setInventorySlotContents(2, infusableStackCopy);
 				this.detectAndSendChanges();
 				
-			} else if (infusableStack.getItem() instanceof IInfusable && storeManaStack.getItem() instanceof IHasMagic) {
-				IInfusable infusableItem = (IInfusable) infusableStack.getItem();
+			} else if (chargeableStack.getItem() instanceof IStoreMana && storeManaStack.getItem() instanceof IHasMagic) {
+				IStoreMana infusableItem = (IStoreMana) chargeableStack.getItem();
 				IHasMagic storeManaItem = (IHasMagic) storeManaStack.getItem();
 				MagicSource storeManaSource = storeManaItem.getMagicSource();
 				
 				if (infusableItem.hasMagicSource(storeManaSource)) {
-					int infusableManaValue = infusableItem.getManaValue(infusableStack, storeManaSource.getId());
+					int infusableManaValue = infusableItem.getManaValue(chargeableStack, storeManaSource.getId());
 					int containerSize = infusableItem.getManaContainer().size;
 					int fillAmount = containerSize - infusableManaValue;
 					int decrAmount = fillAmount / storeManaItem.getManaPower().mana;
 					
 					if (decrAmount <= storeManaStack.getCount()) {
-						ItemStack infusableStackCopy = infusableStack.copy();
-						((IInfusable)infusableStackCopy.getItem()).addManaValue(infusableStackCopy, storeManaSource.getId(), storeManaItem.getManaPower().mana * decrAmount);
+						ItemStack infusableStackCopy = chargeableStack.copy();
+						((IStoreMana)infusableStackCopy.getItem()).addManaValue(infusableStackCopy, storeManaSource.getId(), storeManaItem.getManaPower().mana * decrAmount);
 						this.itemCost = decrAmount;
 						this.outputSlots.setInventorySlotContents(2, infusableStackCopy);
 						this.detectAndSendChanges();
 					} else {
-						ItemStack infusableStackCopy = infusableStack.copy();
-						((IInfusable)infusableStackCopy.getItem()).addManaValue(infusableStackCopy, storeManaSource.getId(), storeManaItem.getManaPower().mana * storeManaStack.getCount());
+						ItemStack infusableStackCopy = chargeableStack.copy();
+						((IStoreMana)infusableStackCopy.getItem()).addManaValue(infusableStackCopy, storeManaSource.getId(), storeManaItem.getManaPower().mana * storeManaStack.getCount());
 						this.itemCost = storeManaStack.getCount();
 						this.outputSlots.setInventorySlotContents(2, infusableStackCopy);
 						this.detectAndSendChanges();
 					}
+				}
+			} else if (chargeableStack.getItem() instanceof IInfusable && storeManaStack.getItem() != null && !storeManaStack.isEmpty()) {
+				IInfusable infusableItem = (IInfusable) chargeableStack.getItem();
+				
+				if (storeManaStack.getItem() instanceof IStoreMana) {
+					IStoreMana storeManaItem = (IStoreMana) storeManaStack.getItem();
+					List<MagicSource> sourceList = storeManaItem.getMagigSourceList();
+					
+					int numberOfEmptySources = 0;
+					for (MagicSource ms : sourceList) {
+						if (storeManaItem.getManaValue(storeManaStack, ms.getKey()) <= 0) {
+							numberOfEmptySources++;
+						}
+					}
+					
+					if (numberOfEmptySources == sourceList.size()) {
+						this.outputSlots.setInventorySlotContents(2, ItemStack.EMPTY);
+						this.detectAndSendChanges();
+					}
+					
+					ItemStack outputStack = infusableItem.getOutputItemStack(chargeableStack, storeManaStack);
+					
+					if (outputStack == chargeableStack) {
+						this.outputSlots.setInventorySlotContents(2, ItemStack.EMPTY);
+						this.detectAndSendChanges();
+					}
+					
+					int manaValueFromSource = storeManaItem.getManaValue(storeManaStack, ((IInfusable)outputStack.getItem()).getMagicSource().getId());
+					
+					if (infusableItem.getInfusionCost() <= manaValueFromSource) {
+						this.manaCost.put(infusableItem.getMagicSource(), manaValueFromSource);
+						this.outputSlots.setInventorySlotContents(2, outputStack.copy());
+						this.detectAndSendChanges();
+						
+					} else {
+						this.outputSlots.setInventorySlotContents(2, ItemStack.EMPTY);
+						this.detectAndSendChanges();
+					}
+					
+				} else if (storeManaStack.getItem() instanceof IHasMagic) {
+					IHasMagic magicItem = (IHasMagic) storeManaStack.getItem();
+					int infusionCost = infusableItem.getInfusionCost();
+					int decrAmount = (infusionCost / magicItem.getManaPower().mana);
+					decrAmount = decrAmount < 1 ? 1 : decrAmount;
+					
+					LogManager.getLogger().debug(decrAmount);
+					
+					if (decrAmount <= storeManaStack.getCount()) {
+						this.itemCost = decrAmount;
+						this.outputSlots.setInventorySlotContents(2, infusableItem.getOutputItemStack(chargeableStack, storeManaStack).copy());
+						this.detectAndSendChanges();
+					} else {
+						this.itemCost = storeManaStack.getCount();
+						this.outputSlots.setInventorySlotContents(2, infusableItem.getOutputItemStack(chargeableStack, storeManaStack).copy());
+						this.detectAndSendChanges();
+					}
+					
 				}
 			}
 		} catch (Exception e) {
