@@ -17,14 +17,25 @@
 	"item.spellstorm.magical_paper": "Magisches Papier",
 	"item.spellstorm.page_of_dragonball": "Die Seite des Drachenballs",
 	"item.spellstorm.page_of_mining": "Die Seite des Grabens",
-	"item.spellstorm.magical_ink": "Magical Ink",
+	"item.spellstorm.magical_ink": "Magische Tinte",
+	"item.spellstorm.magical_ink_dark": "Dunkle Magische Tinte",
+	"item.spellstorm.magical_ink_unknown": "UNBEKANNTE MAGISCHE TINTE",
+	"item.spellstorm.magical_ink_light": "Helle Magische Tinte",
+	"item.spellstorm.magical_ink_neutral": "Neutrale Magische Tinte",
+	"item.spellstorm.blue_crystals": "Blauer Kristall",
+	"item.spellstorm.mana_infused_sword": "Mana Angereichtes Schwert",
+	"item.spellstorm.mana_infused_ingot": "Mana Angereichtes Barren",
+	"item.spellstorm.page_of_healing": "Die Seite der Heilung",
+	"item.spellstorm.page_of_fangs": "Die Seite der Fänge",
+	"item.spellstorm.fangs": "Fangzähne",
+	"item.spellstorm.charged_creeper_pieces": "Aufgeladene Creeper Stücke",
 
 	"block.spellstorm.crystal_ore": "Kristall Erz",
 	"block.spellstorm.corrupted_crystal_ore": "Korrupierter Kristall Erz",
 	"block.spellstorm.magical_wood_log": "Magischer Baumstamm",
 	"block.spellstorm.magical_wood_plank": "Magische Holzbretter",
 	"block.spellstorm.magical_leaves": "Magische Blätter",
-	"block.spellstorm.manainfuser": "Mana Einfliesser",
+	"block.spellstorm.manainfuser": "Mana Anreicherer",
 	"block.spellstorm.magical_tree_sapling" : "Magischer Setzling",
 	"block.spellstorm.soul_extractor": "Seelen Extraktor",
 	"block.spellstorm.magical_forge": "Magische Schmiede",
@@ -37,11 +48,13 @@
 
 	"advancement.spellstorm:root.title": "Den Kristall Führer gefolgt.",
 	"advancement.spellstorm:root.description": "Ist das der Anfang einer Reise?",
+	"advancement.spellstorm:hmm_crystals.title": "Jawohl, Magie!",
+	"advancement.spellstorm:hmm_crystals.description": "Blaue Kristalle gekocht.",
 
 	"spellstormmisc.mana": "Mana",
 	"spellstormmisc.mana_power": "Mana Stärke",
 	"spellstormmisc.mana_source": "Mana Quelle",
-	"spellstormmisc.mana_left": "Mana uebrig",
+	"spellstormmisc.mana_left": "Mana übrig",
 	"spellstormmisc.soulcatcher_contains": "Der Seelenfänger enthält",
 	"spellstormmisc.soulcatcher_is_empty": "Der Seelenfänger ist LEER",
 	"spellstormmisc.description_mana_container": "Dieses magische Item kann Mana aufbewahren.",
@@ -59,6 +72,7 @@
 	"spellstormmisc.magic_source_name_neutral": "Neutrale",
 	"spellstormmisc.magic_source_name_light": "Helle",
 	"spellstormmisc.magic_source_name_dark": "Dunkle",
-	"spellstormmisc.magic_source_name_unknown": "UNBEKANNTE"
+	"spellstormmisc.magic_source_name_unknown": "UNBEKANNTE",
+	"spellstormmisc.description_magical_ink_0": "Die Tinte wird genutzt, um magische Seiten zu schreiben."
 
 }

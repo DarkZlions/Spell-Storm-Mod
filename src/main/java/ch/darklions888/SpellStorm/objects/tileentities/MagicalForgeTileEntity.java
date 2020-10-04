@@ -195,7 +195,7 @@ public class MagicalForgeTileEntity extends LockableTileEntity implements ISided
 			ItemStack fuelStack = this.items.get(2);
 			if (this.isWorking() || !fuelStack.isEmpty() && !this.items.get(0).isEmpty()) {
 				
-				IRecipe<? extends IRecipe<IInventory>> irecipe = (IRecipe<? extends IRecipe<IInventory>>) this.world.getRecipeManager().getRecipe((IRecipeType<MagicalForgeRecipe>)this.recipeType, this, this.world).orElse(null); 
+				IRecipe<? extends IInventory> irecipe = (IRecipe<? extends IInventory>) this.world.getRecipeManager().getRecipe((IRecipeType<MagicalForgeRecipe>)this.recipeType, this, this.world).orElse(null); 
 				if (!this.isWorking() && this.canMerg(irecipe)) {
 					this.workTime = MagicalForgeTileEntity.getBurnTimes(fuelStack);
 					this.recipesUsed = this.workTime;
