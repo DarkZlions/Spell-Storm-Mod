@@ -10,7 +10,6 @@ import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.objects.items.IHasMagic;
 import ch.darklions888.SpellStorm.objects.items.IInfusable;
 import ch.darklions888.SpellStorm.objects.items.IStoreMana;
-import ch.darklions888.SpellStorm.objects.items.MagicalInkItem;
 import ch.darklions888.SpellStorm.registries.BlockInit;
 import ch.darklions888.SpellStorm.registries.ContainerTypesInit;
 import net.minecraft.entity.player.PlayerEntity;
