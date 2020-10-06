@@ -27,14 +27,30 @@ public class BaseBlockItem extends BlockItem implements IHasMagic {
 	protected MagicSource source;
 	protected ManaPower manapower;
 	protected TextFormatting format;
+	private final int burnTime;
+	
 
-	public BaseBlockItem(MagicSource source, ManaPower mana, @Nullable TextFormatting format,
-			@Nullable boolean hasEffect, Block block, Item.Properties properties) {
+	public BaseBlockItem(MagicSource source, ManaPower mana, @Nullable TextFormatting format, @Nullable boolean hasEffect, Block block, int burnTime, Item.Properties properties) {
 		super(block, properties);
 		this.effect = hasEffect;
 		this.source = source;
 		this.manapower = mana;
 		this.format = format;
+		this.burnTime = burnTime;
+	}
+	
+	public BaseBlockItem(MagicSource source, ManaPower mana, @Nullable TextFormatting format, @Nullable boolean hasEffect, Block block, Item.Properties properties) {
+		super(block, properties);
+		this.effect = hasEffect;
+		this.source = source;
+		this.manapower = mana;
+		this.format = format;
+		this.burnTime = 0;
+	}
+	
+	@Override
+	public int getBurnTime(ItemStack itemStack) {
+		return this.burnTime == 0 ? super.getBurnTime(itemStack) : this.burnTime;
 	}
 
 	@Override

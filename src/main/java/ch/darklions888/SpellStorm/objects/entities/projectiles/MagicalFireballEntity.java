@@ -11,13 +11,17 @@ import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.projectile.DamagingProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.IPacket;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.ForgeEventFactory;
@@ -88,7 +92,18 @@ public class MagicalFireballEntity extends DamagingProjectileEntity implements I
 	@Override
 	protected void onImpact(RayTraceResult result) {
 		super.onImpact(result);
-		if (!this.world.isRemote) {
+		if (!this.world.isRemote) {				
+			for (int i = 0; i < 3; i++) {
+				((ServerWorld)this.getEntityWorld()).spawnParticle(ParticleTypes.LAVA, this.getPosXRandom(0.6d), this.getPosYEye(), this.getPosZRandom(0.6d), 1,
+						this.getLookVec().x, this.getLookVec().y, this.getLookVec().z, 1.0d);
+			}
+			
+			double x = this.getPosX();
+			double y = this.getPosY();
+			double z = this.getPosZ();	
+			
+			((ServerWorld)this.getEntityWorld()).playSound(null, x, y, z, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+		
 			this.remove();
 		}
 
