@@ -34,6 +34,10 @@ public class MagicalFireballEntity extends DamagingProjectileEntity implements I
 	public MagicalFireballEntity(World worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
 		super(EntityInit.MAGICAL_FIREBALL.get(), shooter, accelX, accelY, accelZ, worldIn);
 	}
+	
+	public MagicalFireballEntity(World worldIn, LivingEntity shooter) {
+		super(EntityInit.MAGICAL_FIREBALL.get(), shooter, 0, 0, 0, worldIn);
+	}
 
 	public MagicalFireballEntity(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
 		super(EntityInit.MAGICAL_FIREBALL.get(), x, y, z, accelX, accelY, accelZ, worldIn);
