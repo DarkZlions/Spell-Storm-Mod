@@ -7,7 +7,7 @@ import net.minecraft.item.IItemTier;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.LazyValue;
 
-public enum ItemTier implements IItemTier {
+public enum ItemTierCollection implements IItemTier {
 	MANA_INFUSED_TIER(800, 8.5f, 2.5f, 3, 23, () -> {
 		return Ingredient.fromItems(ItemInit.MANA_INFUSED_INGOT.get());
 		});
@@ -19,7 +19,7 @@ public enum ItemTier implements IItemTier {
 	private final int enchantability;
 	private final LazyValue<Ingredient> repairMaterial;
 	
-	ItemTier(int maxUsesIn, float efficiencyIn, float attackDamageIn, int harvestLevelIn, int enchantabilityIn, Supplier<Ingredient> repairMaterialIn) {
+	ItemTierCollection(int maxUsesIn, float efficiencyIn, float attackDamageIn, int harvestLevelIn, int enchantabilityIn, Supplier<Ingredient> repairMaterialIn) {
 		this.maxUses = maxUsesIn;
 		this.efficiency = efficiencyIn;
 		this.attackDamage = attackDamageIn;

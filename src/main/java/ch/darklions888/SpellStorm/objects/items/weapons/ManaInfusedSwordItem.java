@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 public class ManaInfusedSwordItem extends BaseSwordItem implements IStoreMana {
 
 	public ManaInfusedSwordItem(MagicSource sourceIn, ManaPower powerIn, ManaContainerType containerIn, Properties builderIn) {
-		super(ItemTier.MANA_INFUSED_TIER, 3, -2.2F, MagicSource.NEUTRALMAGIC, powerIn, containerIn, builderIn);
+		super(ItemTierCollection.MANA_INFUSED_TIER, 3, -2.2F, MagicSource.NEUTRALMAGIC, powerIn, containerIn, builderIn);
 	}
 
 	@Override
