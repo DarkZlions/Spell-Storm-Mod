@@ -19,7 +19,11 @@ public class EntityLootTablesRegistry {
 	@SubscribeEvent
 	public static void onLootTableLoadEvent(LootTableLoadEvent event) {	
         if (event.getName().equals(new ResourceLocation("minecraft", "entities/evoker"))) {
-            event.getTable().addPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(ItemInit.FANGS.get()).acceptFunction(SetCount.builder(RandomValueRange.of(0.0f, 1.0f)).acceptCondition(KilledByPlayer.builder()))).build());;
+            event.getTable().addPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(ItemInit.FANGS.get()).acceptFunction(SetCount.builder(RandomValueRange.of(0.0f, 1.0f)).acceptCondition(KilledByPlayer.builder()))).build());
+        }
+        
+        if (event.getName().equals(new ResourceLocation("minecraft", "entities/blaze"))) {
+            event.getTable().addPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(ItemInit.MAGICAL_FIREBALL.get()).acceptFunction(SetCount.builder(RandomValueRange.of(-4.0f, 1.0f)).acceptCondition(KilledByPlayer.builder()))).build());
         }
 	}
 }
