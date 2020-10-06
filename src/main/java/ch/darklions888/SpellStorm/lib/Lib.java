@@ -20,6 +20,10 @@ public class Lib {
 		
 		// Blocks
 		
+		// Entities
+		public static final String MAGICAL_FIREBALL_ENTITY_STR = "magical_fireball_entity";
+		public static final ResourceLocation MAGICAL_FIREBALL_ENTITY_RS = prefix(MAGICAL_FIREBALL_ENTITY_STR);
+		
 		// Sound
 		public static final ResourceLocation ETERNAL_SCREAMING_SOUND = prefix("eternal_screaming");
 		public static final ResourceLocation HAUNTED_SOULS_SOUND = prefix("haunted_souls");
