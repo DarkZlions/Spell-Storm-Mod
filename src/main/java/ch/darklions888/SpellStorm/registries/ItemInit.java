@@ -14,6 +14,7 @@ import ch.darklions888.SpellStorm.objects.items.ChargedCreeperPiecesItem;
 import ch.darklions888.SpellStorm.objects.items.CorruptedCrystalShardItem;
 import ch.darklions888.SpellStorm.objects.items.CrystalShardItem;
 import ch.darklions888.SpellStorm.objects.items.Foods;
+import ch.darklions888.SpellStorm.objects.items.MagicalFireballItem;
 import ch.darklions888.SpellStorm.objects.items.MagicalInkItem;
 import ch.darklions888.SpellStorm.objects.items.SoulCatcherItem;
 import ch.darklions888.SpellStorm.objects.items.spells.PageOfAggression;
@@ -67,6 +68,7 @@ public class ItemInit {
 	public static final RegistryObject<Item> MAGICAL_INK_NEUTRAL = REGISTER_ITEMS.register("magical_ink_neutral", () -> new MagicalInkItem(MagicSource.NEUTRALMAGIC, new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> FANGS = REGISTER_ITEMS.register("fangs", () -> new BaseItem(MagicSource.DARKMAGIC, ManaPower.HIGH, null, false, new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> CHARGED_CREEPER_PIECES = REGISTER_ITEMS.register("charged_creeper_pieces", () -> new ChargedCreeperPiecesItem(new Item.Properties().group(TAB)));
+	public static final RegistryObject<Item> MAGICAL_FIREBALL = REGISTER_ITEMS.register("magical_fireball", () -> new MagicalFireballItem(new Item.Properties().group(TAB)));
 	
 	// ManaInfused Gear
 	public static final RegistryObject<Item> MANA_INFUSED_INGOT = REGISTER_ITEMS.register("mana_infused_ingot", () -> new BaseItem(MagicSource.NEUTRALMAGIC, ManaPower.MEDIUM, null, true, new Item.Properties().group(TAB).maxStackSize(16)));
@@ -82,5 +84,4 @@ public class ItemInit {
 	public static final RegistryObject<Item> MAGICAL_TREE_SAPLING = REGISTER_ITEMS.register("magical_tree_sapling", () -> new BaseBlockItem(MagicSource.NEUTRALMAGIC, ManaPower.VERYLOW, null, false, BlockInit.MAGICAL_TREE_SAPLING.get(), new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> CORRUPTED_CRYSTAL_ORE_BLOCK = REGISTER_ITEMS.register("corrupted_crystal_ore", () -> new BaseBlockItem(MagicSource.UNKNOWNMAGIC, ManaPower.VERYHIGH, TextFormatting.BLACK, false, BlockInit.CORRUPTED_CRYSTAL_ORE.get(), new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> MAGICAL_FORGE_BLOCK = REGISTER_ITEMS.register("magical_forge", () -> new BaseBlockItem(MagicSource.NEUTRALMAGIC, ManaPower.HIGH, null, false, BlockInit.MAGICAL_FORGE.get(), new Item.Properties().group(TAB)));
-	
 }
