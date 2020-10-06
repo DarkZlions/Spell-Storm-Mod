@@ -97,7 +97,7 @@ public abstract class AbstractPageItem extends Item implements IMagicalPageItem,
 	
 	protected void setCooldown(PlayerEntity playerIn, int coolDownTicks, ItemStack ... itemIn) {
 		for (ItemStack i : itemIn) {
-			if (itemIn != null)
+			if (i != null)
 				playerIn.getCooldownTracker().setCooldown(i.getItem(), coolDownTicks);
 		}
 	}
