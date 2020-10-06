@@ -39,7 +39,7 @@ public class MagicalLeavesBlock extends LeavesBlock {
 		BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
 		
 		for (Direction direction : Direction.values()) {
-			blockpos$mutable.func_239622_a_(pos, direction);
+			blockpos$mutable.setAndMove(pos, direction);
 			i = Math.min(i, getDistance(worldIn.getBlockState(blockpos$mutable)) + 1);
 			if (i == 1) {
 				break;

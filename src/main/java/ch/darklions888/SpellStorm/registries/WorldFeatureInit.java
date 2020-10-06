@@ -42,7 +42,7 @@ public class WorldFeatureInit {
 
 	private static void registerOreConfig(int veinCount, int veinSize, int minY, int maxY, Block ore, RuleTest targetBlock) {
 		if (ore.getRegistryName() != null) {
-			Registry.register(WorldGenRegistries.field_243653_e, ore.getRegistryName(), Feature.ORE
+			Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, ore.getRegistryName(), Feature.ORE
 					.withConfiguration(new OreFeatureConfig(targetBlock,
 							ore.getDefaultState(), veinSize))
 					.withPlacement(Placement.field_242907_l.configure(new TopSolidRangeConfig(minY, minY, maxY)))
@@ -51,27 +51,27 @@ public class WorldFeatureInit {
 	}
 
 	private static void addOreToGenerateOverWorld(Block ore) {
-		for (Map.Entry<RegistryKey<Biome>, Biome> biome : WorldGenRegistries.field_243657_i.getEntries()) {
+		for (Map.Entry<RegistryKey<Biome>, Biome> biome : WorldGenRegistries.BIOME.getEntries()) {
 			
 			if (!biome.getValue().getCategory().equals(Biome.Category.NETHER) && !biome.getValue().getCategory().equals(Biome.Category.THEEND)) {
 				
-				addFeatureToBiome(biome.getValue(), GenerationStage.Decoration.UNDERGROUND_ORES, WorldGenRegistries.field_243653_e.getOrDefault(ore.getRegistryName()));
+				addFeatureToBiome(biome.getValue(), GenerationStage.Decoration.UNDERGROUND_ORES, WorldGenRegistries.CONFIGURED_FEATURE.getOrDefault(ore.getRegistryName()));
 			}
 		}
 	}
 	
 	private static void addOreToGenerateEnd(Block ore) {
-		for (Map.Entry<RegistryKey<Biome>, Biome> biome : WorldGenRegistries.field_243657_i.getEntries()) {
+		for (Map.Entry<RegistryKey<Biome>, Biome> biome : WorldGenRegistries.BIOME.getEntries()) {
 			if (!biome.getKey().equals(Biomes.THE_END))
-				addFeatureToBiome(biome.getValue(), GenerationStage.Decoration.UNDERGROUND_ORES, WorldGenRegistries.field_243653_e.getOrDefault(ore.getRegistryName()));
+				addFeatureToBiome(biome.getValue(), GenerationStage.Decoration.UNDERGROUND_ORES, WorldGenRegistries.CONFIGURED_FEATURE.getOrDefault(ore.getRegistryName()));
 		}
 	}
 	
 	@SuppressWarnings("unchecked")
 	private static void addMagicalTree() {
-		for (Map.Entry<RegistryKey<Biome>, Biome> biome : WorldGenRegistries.field_243657_i.getEntries()) {
+		for (Map.Entry<RegistryKey<Biome>, Biome> biome : WorldGenRegistries.BIOME.getEntries()) {
 			if (!biome.getValue().getCategory().equals(Biome.Category.NETHER) && !biome.getValue().getCategory().equals(Biome.Category.THEEND)) {
-				ConfiguredFeature<BaseTreeFeatureConfig, ?> treeFeature = (ConfiguredFeature<BaseTreeFeatureConfig, ?>) WorldGenRegistries.field_243653_e.getOrDefault(MagicalTree.getRegistryNameWithPlacement());
+				ConfiguredFeature<BaseTreeFeatureConfig, ?> treeFeature = (ConfiguredFeature<BaseTreeFeatureConfig, ?>) WorldGenRegistries.CONFIGURED_FEATURE.getOrDefault(MagicalTree.getRegistryNameWithPlacement());
 				addFeatureToBiome(biome.getValue(), GenerationStage.Decoration.VEGETAL_DECORATION, treeFeature);
 			}
 		}
@@ -79,8 +79,7 @@ public class WorldFeatureInit {
 
 	public static void addFeatureToBiome(Biome biome, GenerationStage.Decoration decoration,
 			ConfiguredFeature<?, ?> configuredFeature) {
-		List<List<Supplier<ConfiguredFeature<?, ?>>>> biomeFeatures = new ArrayList<>(
-				biome.func_242440_e().func_242498_c());
+		List<List<Supplier<ConfiguredFeature<?, ?>>>> biomeFeatures = new ArrayList<>(biome.getGenerationSettings().getFeatures());
 		while (biomeFeatures.size() <= decoration.ordinal()) {
 			biomeFeatures.add(Lists.newArrayList());
 		}
@@ -88,7 +87,6 @@ public class WorldFeatureInit {
 		features.add(() -> configuredFeature);
 		biomeFeatures.set(decoration.ordinal(), features);
 
-		ObfuscationReflectionHelper.setPrivateValue(BiomeGenerationSettings.class, biome.func_242440_e(), biomeFeatures,
-				"field_242484_f");
+		ObfuscationReflectionHelper.setPrivateValue(BiomeGenerationSettings.class, biome.getGenerationSettings(), biomeFeatures, "features");
 	}
 }
