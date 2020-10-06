@@ -2,8 +2,8 @@ package ch.darklions888.SpellStorm.objects.items.spells;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerType;
+import ch.darklions888.SpellStorm.objects.entities.projectiles.MagicalFireballEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.SmallFireballEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ActionResult;
@@ -45,16 +45,15 @@ public class PageOfFireballs extends AbstractPageItem {
 				}
 
 				
-				double accel = 1.5d; // Bonus acceleration for more momentum or something like this
+				double accel = .1d; // Bonus acceleration for more momentum or something like this
 
-				for (int i = 0; i < 3; i++) {
-					SmallFireballEntity entity = new SmallFireballEntity(worldIn,
-							x + playerIn.getLookVec().x, playerIn.getPosY() + 1.2d,
-							z + playerIn.getLookVec().z, playerIn.getLookVec().x * accel,
-							playerIn.getLookVec().y * accel, playerIn.getLookVec().z * accel);
 
-					worldIn.addEntity(entity);
-				}
+				MagicalFireballEntity entity = new MagicalFireballEntity(worldIn, x + playerIn.getLookVec().x,
+						playerIn.getPosY() + 1.2d, z + playerIn.getLookVec().z, playerIn.getLookVec().x * accel,
+						playerIn.getLookVec().y * accel, playerIn.getLookVec().z * accel);
+
+				worldIn.addEntity(entity);
+				
 				if (!playerIn.isCreative())
 					this.consumMana(stack, defaultManaSource);
 
