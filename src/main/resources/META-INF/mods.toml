@@ -4,7 +4,7 @@ license="All rights reserved"
 
 [[mods]]
 modId="spellstorm"
-version="1.05"
+version="${file.jarVersion}"
 displayName="Spell Storm"
 logoFile="logo.png"
 credits="Credits for my ego!"
@@ -21,6 +21,6 @@ This mod add new magical items and other stuffs.
 [[dependencies.minecraft]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.2]"
+    versionRange="[1.16]"
     ordering="NONE"
     side="BOTH"
