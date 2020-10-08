@@ -40,6 +40,7 @@
 	"block.spellstorm.magical_tree_sapling" : "Magical Sapling",
 	"block.spellstorm.soul_extractor": "Soul Extractor",
 	"block.spellstorm.magical_forge": "Magical Forge",
+	"block.spellstorm.gateway": "Magical Gateway",
 
 	"container.mana_infuser": "ManaInfuser",
 	"container.soul_extractor": "Soul Extractor",
@@ -55,13 +56,13 @@
 	"spellstormmisc.mana": "Mana",
 	"spellstormmisc.mana_power": "Mana Power",
 	"spellstormmisc.mana_source": "Mana Source",
-	"spellstormmisc.mana_left": "Mana Left",
+	"spellstormmisc.mana_left": " Mana Left",
 	"spellstormmisc.soulcatcher_contains": "The Soulcatcher contains",
 	"spellstormmisc.soulcatcher_is_empty": "The Soulcatcher is EMPTY",
 	"spellstormmisc.description_soulcatcher_has_mob": "This mob has ",
 	"spellstormmisc.description_mana_container": "This magical item can store mana.",
 	"spellstormmisc.description_book_of_spells_0": "Shift & Right-click to open the book.",
-	"spellstormmisc.description_book_of_spells_1": " ",	
+	"spellstormmisc.description_book_of_spells_1": " ",
 	"spellstormmisc.description_book_of_spells_2": "Left Click to cycle through the slot.",
 	"spellstormmisc.description_book_of_spells_3": "Selected Slot is empty",
 	"spellstormmisc.description_book_of_spells_4": "is selected.",
@@ -75,6 +76,7 @@
 	"spellstormmisc.magic_source_name_light": "Light",
 	"spellstormmisc.magic_source_name_dark": "Dark",
 	"spellstormmisc.magic_source_name_unknown": "UNKNOWN",
-	"spellstormmisc.description_magical_ink_0": "The ink is used to write spells."
+	"spellstormmisc.description_magical_ink_0": "The ink is used to write spells.",
+	"spellstormmisc.description_mana_consumption": "Mana Consumption: "
 
 }

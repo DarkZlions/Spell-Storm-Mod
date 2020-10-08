@@ -40,6 +40,7 @@
 	"block.spellstorm.magical_tree_sapling" : "Magischer Setzling",
 	"block.spellstorm.soul_extractor": "Seelen Extraktor",
 	"block.spellstorm.magical_forge": "Magische Schmiede",
+	"block.spellstorm.gateway": "Magischer Transitportal",
 
 	"container.mana_infuser": "Mana Einfliesser",
 	"container.soul_extractor": "Seelen Extraktor",
@@ -55,12 +56,12 @@
 	"spellstormmisc.mana": "Mana",
 	"spellstormmisc.mana_power": "Mana Stärke",
 	"spellstormmisc.mana_source": "Mana Quelle",
-	"spellstormmisc.mana_left": "Mana übrig",
+	"spellstormmisc.mana_left": " Mana übrig",
 	"spellstormmisc.soulcatcher_contains": "Der Seelenfänger enthält",
 	"spellstormmisc.soulcatcher_is_empty": "Der Seelenfänger ist LEER",
 	"spellstormmisc.description_mana_container": "Dieses magische Item kann Mana aufbewahren.",
 	"spellstormmisc.description_book_of_spells_0": "Shift & Rechts-Klick um es zu öffnen.",
-	"spellstormmisc.description_book_of_spells_1": " ",	
+	"spellstormmisc.description_book_of_spells_1": " ",
 	"spellstormmisc.description_book_of_spells_2": "Links Klick um es durchzugehen.",
 	"spellstormmisc.description_book_of_spells_3": "Der Ausgewählte Slot ist leer.",
 	"spellstormmisc.description_book_of_spells_4": "ist ausgewählt.",
@@ -74,6 +75,7 @@
 	"spellstormmisc.magic_source_name_light": "Helle",
 	"spellstormmisc.magic_source_name_dark": "Dunkle",
 	"spellstormmisc.magic_source_name_unknown": "UNBEKANNTE",
-	"spellstormmisc.description_magical_ink_0": "Die Tinte wird genutzt, um magische Seiten zu schreiben."
+	"spellstormmisc.description_magical_ink_0": "Die Tinte wird genutzt, um magische Seiten zu schreiben.",
+	"spellstormmisc.description_mana_consumption": "Mana Verbrauch: "
 
 }
