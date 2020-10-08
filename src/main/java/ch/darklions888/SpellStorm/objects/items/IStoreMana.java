@@ -22,10 +22,6 @@ public interface IStoreMana {
 		setManaValue(stack, key, MathHelper.clamp(getManaValue(stack, key) + manaAmount, 0, this.getManaContainer().size));
 	}
 	
-	default MagicSource getDefaultSource() {
-		return this.getMagigSourceList().get(0) != null ? this.getMagigSourceList().get(0) : MagicSource.NEUTRALMAGIC;
-	}
-	
 	default boolean canInfuse(ItemStack infusableStack, ItemStack storeManaStack) {
 		if (!(infusableStack.getItem() instanceof IStoreMana)
 				|| !(storeManaStack.getItem() instanceof IStoreMana)) {
@@ -42,9 +38,20 @@ public interface IStoreMana {
 		return true;
 	}
 	
+	/*
+	 *  TODO: Rework the magicsources
+	 */
+	default List<MagicSource> getMagicSources(ItemStack stackIn) {
+		return null;
+	}
+	
+	default void setMagicSources(ItemStack stackIn, List<MagicSource> sourceList) {
+		
+	}
+	
 	ManaContainerType getManaContainer();
 
 	public List<MagicSource> getMagigSourceList();
-
+	
 	public boolean hasMagicSource(MagicSource sourceIn);
 }
