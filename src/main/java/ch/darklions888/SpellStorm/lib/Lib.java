@@ -1,7 +1,12 @@
 package ch.darklions888.SpellStorm.lib;
 
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.IntegerProperty;
+import java.util.function.Predicate;
+
+import ch.darklions888.SpellStorm.registries.BlockInit;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.HorizontalBlock;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 
@@ -29,11 +34,12 @@ public class Lib {
 		public static final ResourceLocation HAUNTED_SOULS_SOUND = prefix("haunted_souls");
 		public static final ResourceLocation MAGICAL_FURNACE_CRACKLES_SOUND = prefix("magical_furnace_crackles");
 		
-		// Texture for gui
+		// Texturelocations
 		public static final ResourceLocation BOOK_OF_SPELLS_SCREEN_BACKGROUND_TEXUTRE = prefix("textures/gui/container/bookofspells_container.png");
 		public static final ResourceLocation MANA_INFUSER_SCREEN_BACKGROUND_TEXTURE = prefix("textures/gui/container/manainfuser_container.png");
 		public static final ResourceLocation SOUL_EXTRACTOR_SCREEN_BACKGROUND_TEXTURE = prefix("textures/gui/container/soulextractor_container.png");
 		public static final ResourceLocation MAGICAL_FORGE_SCREEN_BACKGROUND_TEXTURE = prefix("textures/gui/container/magical_forge_container.png");
+		public static final ResourceLocation GATEWAY_TEXTURE = prefix("textures/entities/gateway.png");
 	
 		// Networking
 		public static final ResourceLocation NETWORK_CHANNEL = prefix("channel");
@@ -73,11 +79,52 @@ public class Lib {
 		public static final TranslationTextComponent DESC_KEY_SHIFT = prefix("description_key_shift");
 		public static final TranslationTextComponent DEFAULT_NAME_MAGICAL_FORGE = new TranslationTextComponent("block.spellstorm.magical_forge");
 		public static final TranslationTextComponent DESC_MAGICAL_INK = prefix("description_magical_ink_0");
+		public static final TranslationTextComponent DESC_MANA_CONSUMPTION = prefix("description_mana_consumption");
 	}
 	
-	public static final class BlockStateProperties {
+	public static final class BlockStatePredicates {
+		public static final Predicate<BlockState> FACING_NORTH = (state) -> {
+			if (!state.hasProperty(HorizontalBlock.HORIZONTAL_FACING)) return false;		
+			return state != null && state.get(HorizontalBlock.HORIZONTAL_FACING) == Direction.NORTH;
+		};
 		
-		public static final BooleanProperty ON = BooleanProperty.create("on");
-		public static final IntegerProperty LAVA_LEVEL = IntegerProperty.create("lava_level", 0, 4);
+		public static final Predicate<BlockState> FACING_SOUTH = (state) -> {
+			if (!state.hasProperty(HorizontalBlock.HORIZONTAL_FACING)) return false;	
+			return state != null && state.get(HorizontalBlock.HORIZONTAL_FACING) == Direction.SOUTH;
+		};
+		
+		public static final Predicate<BlockState> FACING_EAST = (state) -> {
+			if (!state.hasProperty(HorizontalBlock.HORIZONTAL_FACING)) return false;		
+			return state != null && state.get(HorizontalBlock.HORIZONTAL_FACING) == Direction.EAST;
+		};
+		
+		public static final Predicate<BlockState> FACING_WEST = (state) -> {
+			if (!state.hasProperty(HorizontalBlock.HORIZONTAL_FACING)) return false;		
+			return state != null && state.get(HorizontalBlock.HORIZONTAL_FACING) == Direction.WEST;
+		};
+		
+		public static final Predicate<BlockState> GATEWAY_PATTERN_STAIRS_NORTH = (state) -> {
+			return state != null && FACING_NORTH.test(state) && state.isIn(Blocks.PURPUR_STAIRS);
+		};
+		
+		public static final Predicate<BlockState> GATEWAY_PATTERN_STAIRS_SOUTH = (state) -> {
+			return state != null && FACING_SOUTH.test(state) && state.isIn(Blocks.PURPUR_STAIRS);
+		};
+		
+		public static final Predicate<BlockState> GATEWAY_PATTERN_STAIRS_EAST = (state) -> {
+			return state != null && FACING_EAST.test(state) && state.isIn(Blocks.PURPUR_STAIRS);
+		};
+		
+		public static final Predicate<BlockState> GATEWAY_PATTERN_STAIRS_WEST = (state) -> {
+			return state != null && FACING_WEST.test(state) && state.isIn(Blocks.PURPUR_STAIRS);
+		};
+		
+		public static final Predicate<BlockState> GATEWAY_PATTERN_CORE = (state) -> {
+			return state != null && state.isIn(BlockInit.GATEWAY.get());
+		};
+		
+		public static final Predicate<BlockState> GATEWAY_PATTERN_PILLAR = (state) -> {
+			return state != null && state.isIn(Blocks.PURPUR_PILLAR);
+		};
 	}
 }
