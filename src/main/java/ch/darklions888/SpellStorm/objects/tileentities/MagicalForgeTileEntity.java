@@ -12,7 +12,7 @@ import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.objects.blocks.MagicalForgeBlock;
 import ch.darklions888.SpellStorm.objects.containers.MagicalForgeContainer;
 import ch.darklions888.SpellStorm.registries.RecipeSerializerInit;
-import ch.darklions888.SpellStorm.registries.TileEntityTypesInit;
+import ch.darklions888.SpellStorm.registries.TileEntityInit;
 import it.unimi.dsi.fastutil.objects.Object2IntMap.Entry;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.block.BlockState;
@@ -97,7 +97,7 @@ public class MagicalForgeTileEntity extends LockableTileEntity implements ISided
 	private final IRecipeType<? extends IRecipe<IInventory>> recipeType = RecipeSerializerInit.MAGICAL_FORGE_TYPE;
 
 	public MagicalForgeTileEntity() {
-		super(TileEntityTypesInit.MAGICAL_FORGE_TILEENTITY.get());
+		super(TileEntityInit.MAGICAL_FORGE_TILEENTITY.get());
 	}
 	
 	public List<IRecipe<?>> getIRecipeList(World world, Vector3d vec3) {
