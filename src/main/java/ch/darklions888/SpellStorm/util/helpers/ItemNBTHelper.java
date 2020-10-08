@@ -6,71 +6,71 @@ import net.minecraft.nbt.INBT;
 
 public class ItemNBTHelper 
 {
-	public static void set(ItemStack stack, String tag, INBT nbt)
+	public static void set(ItemStack stack, String key, INBT nbt)
 	{
-		stack.getOrCreateTag().put(tag, nbt);
+		stack.getOrCreateTag().put(key, nbt);
 	}
 	
-	public static void setInt(ItemStack stack, String tag, int i)
+	public static void setInt(ItemStack stack, String key, int i)
 	{
-		stack.getOrCreateTag().putInt(tag, i);
+		stack.getOrCreateTag().putInt(key, i);
 	}
 	
-	public static void setFloat(ItemStack stack, String tag, float f)
+	public static void setFloat(ItemStack stack, String key, float f)
 	{
-		stack.getOrCreateTag().putFloat(tag, f);
+		stack.getOrCreateTag().putFloat(key, f);
 	}
 	
-	public static void setBoolean(ItemStack stack, String tag, boolean b)
+	public static void setBoolean(ItemStack stack, String key, boolean b)
 	{
-		stack.getOrCreateTag().putBoolean(tag, b);
+		stack.getOrCreateTag().putBoolean(key, b);
 	}
 	
-	public static void setString(ItemStack stack, String tag, String s)
+	public static void setString(ItemStack stack, String key, String s)
 	{
-		stack.getOrCreateTag().putString(tag, s);
+		stack.getOrCreateTag().putString(key, s);
 	}
 	
-	public static void setCompound(ItemStack stack, String tag, CompoundNBT cNBT)
+	public static void setCompound(ItemStack stack, String key, CompoundNBT cNBT)
 	{
-		if(!tag.equalsIgnoreCase("ench"))
+		if(!key.equalsIgnoreCase("ench"))
 		{
-			stack.getOrCreateTag().put(tag, cNBT);
+			stack.getOrCreateTag().put(key, cNBT);
 		}
 	}
 	
-	public static void removeEntry(ItemStack stack, String tag)
+	public static void removeEntry(ItemStack stack, String key)
 	{
-		stack.getOrCreateTag().remove(tag);
+		stack.getOrCreateTag().remove(key);
 	}
 	
-	public static INBT get(ItemStack stack, String tag)
+	public static INBT get(ItemStack stack, String key)
 	{ 
-		return ifExist(stack, tag) ? stack.getOrCreateTag().get(tag) : null;
+		return ifExist(stack, key) ? stack.getOrCreateTag().get(key) : null;
 	}
 	
-	public static int getInt(ItemStack stack, String tag, int i)
+	public static int getInt(ItemStack stack, String key, int i)
 	{
-		return ifExist(stack, tag) ? stack.getOrCreateTag().getInt(tag) : i;
+		return ifExist(stack, key) ? stack.getOrCreateTag().getInt(key) : i;
 	}
 	
-	public static boolean getBoolean(ItemStack stack, String tag, boolean b)
+	public static boolean getBoolean(ItemStack stack, String key, boolean b)
 	{
-		return ifExist(stack, tag) ? stack.getOrCreateTag().getBoolean(tag) : b;
+		return ifExist(stack, key) ? stack.getOrCreateTag().getBoolean(key) : b;
 	}
 	
-	public static String getString(ItemStack stack, String tag, String s)
+	public static String getString(ItemStack stack, String key, String s)
 	{
-		return ifExist(stack, tag) ? stack.getOrCreateTag().getString(tag) : s;
+		return ifExist(stack, key) ? stack.getOrCreateTag().getString(key) : s;
 	}
 	
-	public static CompoundNBT getCompound(ItemStack stack, String tag, boolean b)
+	public static CompoundNBT getCompound(ItemStack stack, String key, boolean b)
 	{
-		return ifExist(stack, tag) ? stack.getOrCreateTag().getCompound(tag) : b ? null : new CompoundNBT();
+		return ifExist(stack, key) ? stack.getOrCreateTag().getCompound(key) : b ? null : new CompoundNBT();
 	}
 	
-	public static boolean ifExist(ItemStack stack, String tag)
+	public static boolean ifExist(ItemStack stack, String key)
 	{
-		return !stack.isEmpty() && stack.getOrCreateTag().contains(tag);
+		return !stack.isEmpty() && stack.getOrCreateTag().contains(key);
 	}
 }
