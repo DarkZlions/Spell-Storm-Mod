@@ -12,7 +12,7 @@ import ch.darklions888.SpellStorm.registries.ItemInit;
 import ch.darklions888.SpellStorm.registries.ParticlesInit;
 import ch.darklions888.SpellStorm.registries.RecipeSerializerInit;
 import ch.darklions888.SpellStorm.registries.SoundInit;
-import ch.darklions888.SpellStorm.registries.TileEntityTypesInit;
+import ch.darklions888.SpellStorm.registries.TileEntityInit;
 import ch.darklions888.SpellStorm.registries.WorldFeatureInit;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -44,7 +44,7 @@ public class SpellStormMain {
 		ParticlesInit.REGISTER_PARTICLES.register(Bus);
 		EntityInit.REGISTER_ENTITY.register(Bus);
 		RecipeSerializerInit.RECIPE_SERIALIZER.register(Bus);
-		TileEntityTypesInit.TILE_ENTITY_TYPES.register(Bus);
+		TileEntityInit.TILE_ENTITY_TYPES.register(Bus);
 		
 		/*
 		ConfigHandler.init(ConfigHandler.SERVER_BUILDER, ConfigHandler.CLIENT_BUILDER);
