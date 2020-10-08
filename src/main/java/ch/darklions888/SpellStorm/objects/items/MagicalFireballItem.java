@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 public class MagicalFireballItem extends BaseItem {
 
 	public MagicalFireballItem(Properties properties) {
-		super(((PageOfFireballs)ItemInit.PAGE_OF_FIREBALLS.get()).getDefaultSource(), ManaPower.MEDIUM, null, false, properties);
+		super(((PageOfFireballs)ItemInit.PAGE_OF_FIREBALLS.get()).getMagigSourceList().get(0), ManaPower.MEDIUM, null, false, properties);
 	}
 
 	@Override
