@@ -4,10 +4,9 @@ import java.util.Random;
 import java.util.stream.Stream;
 
 import ch.darklions888.SpellStorm.lib.Lib;
-import ch.darklions888.SpellStorm.objects.items.CorruptedEnderEyeItem;
-import ch.darklions888.SpellStorm.objects.items.IWarpItem;
-import ch.darklions888.SpellStorm.objects.tileentities.GateWayTileEntity;
+import ch.darklions888.SpellStorm.objects.tileentities.GateWayCoreTileEntity;
 import ch.darklions888.SpellStorm.registries.BlockInit;
+import ch.darklions888.SpellStorm.registries.ItemInit;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -25,35 +24,45 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.CachedBlockInfo;
 import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class GateWayBlock extends ContainerBlock {
+public class GateWayCoreBlock extends ContainerBlock {
 
 	public static final BooleanProperty ACTIVATED = BooleanProperty.create("activated");
 	private static final VoxelShape SHAPE = Stream.of(
-			Block.makeCuboidShape(0, 0, 0, 16, 4, 16),
-			Block.makeCuboidShape(0, 12, 0, 16, 16, 16),
+			Block.makeCuboidShape(4, 0, 0, 12, 4, 4),
+			Block.makeCuboidShape(4, 0, 12, 12, 4, 16),
+			Block.makeCuboidShape(12, 0, 4, 16, 4, 12),
+			Block.makeCuboidShape(0, 0, 4, 4, 4, 12),
+			Block.makeCuboidShape(0, 12, 4, 4, 16, 12),
+			Block.makeCuboidShape(12, 12, 4, 16, 16, 12),
+			Block.makeCuboidShape(4, 12, 0, 12, 16, 4),
+			Block.makeCuboidShape(4, 12, 12, 12, 16, 16),
 			Block.makeCuboidShape(0, 4, 0, 4, 12, 4),
+			Block.makeCuboidShape(0, 4, 12, 4, 12, 16),
 			Block.makeCuboidShape(12, 4, 0, 16, 12, 4),
 			Block.makeCuboidShape(12, 4, 12, 16, 12, 16),
-			Block.makeCuboidShape(0, 4, 12, 4, 12, 16)
+			Block.makeCuboidShape(0, 0, 0, 4, 4, 4),
+			Block.makeCuboidShape(0, 0, 12, 4, 4, 16),
+			Block.makeCuboidShape(12, 0, 12, 16, 4, 16),
+			Block.makeCuboidShape(12, 0, 0, 16, 4, 4),
+			Block.makeCuboidShape(12, 12, 0, 16, 16, 4),
+			Block.makeCuboidShape(0, 12, 0, 4, 16, 4),
+			Block.makeCuboidShape(0, 12, 12, 4, 16, 16),
+			Block.makeCuboidShape(12, 12, 12, 16, 16, 16)
 			).reduce((v1, v2) -> {return VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR);}).get();
 	private BlockPattern gatewayPattern;
 	
-	public GateWayBlock(Properties builder) {
+	public GateWayCoreBlock(Properties builder) {
 		super(builder);
 	    this.setDefaultState(this.stateContainer.getBaseState().with(ACTIVATED, Boolean.valueOf(false)));
 	}
@@ -65,7 +74,7 @@ public class GateWayBlock extends ContainerBlock {
 
 	@Override
 	public TileEntity createNewTileEntity(IBlockReader worldIn) {
-		return new GateWayTileEntity();
+		return new GateWayCoreTileEntity();
 	}
 	
 	@Override
@@ -80,15 +89,22 @@ public class GateWayBlock extends ContainerBlock {
 	
 	@Override
 	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-		return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
+		ItemStack stack = player.getHeldItem(handIn);
+		if (!worldIn.isRemote() && stack.getItem() == ItemInit.END_GATEWAY_FRAGMENT.get() && state.hasProperty(ACTIVATED)) {
+			boolean checkStructure = this.checkStructure(worldIn, pos);
+			
+			if (checkStructure && !state.get(ACTIVATED).booleanValue()) {
+				worldIn.setBlockState(pos, worldIn.getBlockState(pos).with(GateWayCoreBlock.ACTIVATED, Boolean.valueOf(checkStructure)));
+				if (!player.isCreative()) stack.shrink(1);		
+				return ActionResultType.SUCCESS;
+			} else
+				return ActionResultType.PASS;
+		} else {
+			return ActionResultType.PASS;
+		}
 	}
 	
-	@Override
-	public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
-		this.checkStructure(worldIn, pos);
-	}
-	
-	private void checkStructure(World worldIn, BlockPos pos) {
+	public boolean checkStructure(World worldIn, BlockPos pos) {
 		int zOffset = 1;
 		BlockPattern.PatternHelper pHelper = this.getGateWayPattern().match(worldIn, new BlockPos(pos.getX(), pos.getY(), pos.getZ() - zOffset));
 		boolean activated = false;
@@ -96,19 +112,19 @@ public class GateWayBlock extends ContainerBlock {
 		if (pHelper != null) {
 			BlockState blockState = worldIn.getBlockState(pos);
 			
-			if (blockState.isIn(BlockInit.GATEWAY.get()) && blockState.hasProperty(GateWayBlock.ACTIVATED)) {
+			if (blockState.isIn(BlockInit.GATEWAY_CORE.get()) && blockState.hasProperty(GateWayCoreBlock.ACTIVATED)) {
 				activated = true;
 
 			}
 		} else {
 			BlockState blockState = worldIn.getBlockState(pos);
 			
-			if (blockState.isIn(BlockInit.GATEWAY.get()) && blockState.hasProperty(GateWayBlock.ACTIVATED)) {
+			if (blockState.isIn(BlockInit.GATEWAY_CORE.get()) && blockState.hasProperty(GateWayCoreBlock.ACTIVATED)) {
 				activated = false;
 			}
 		}
 		
-		worldIn.setBlockState(pos, worldIn.getBlockState(pos).with(GateWayBlock.ACTIVATED, Boolean.valueOf(activated)));
+		return activated;
 	}
 	
 	private BlockPattern getGateWayPattern() {
@@ -134,7 +150,7 @@ public class GateWayBlock extends ContainerBlock {
 	@OnlyIn(Dist.CLIENT)
 	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
 		TileEntity tileentity = worldIn.getTileEntity(pos);
-		if (tileentity instanceof GateWayTileEntity && stateIn.get(ACTIVATED) == true) {
+		if (tileentity instanceof GateWayCoreTileEntity && stateIn.get(ACTIVATED) == true) {
 			int i = 6;
 
 			for (int j = 0; j < i; ++j) {
