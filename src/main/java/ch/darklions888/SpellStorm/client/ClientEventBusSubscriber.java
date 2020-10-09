@@ -4,7 +4,7 @@ import ch.darklions888.SpellStorm.client.gui.BookOfSpellsScreen;
 import ch.darklions888.SpellStorm.client.gui.MagicalForgeScreen;
 import ch.darklions888.SpellStorm.client.gui.ManaInfuserScreen;
 import ch.darklions888.SpellStorm.client.gui.SoulExtractorScreen;
-import ch.darklions888.SpellStorm.client.renderer.GateWayTileEntityRenderer;
+import ch.darklions888.SpellStorm.client.renderer.tileentity.GateWayCoreTileEntityRenderer;
 import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.registries.BlockInit;
 import ch.darklions888.SpellStorm.registries.ContainerTypesInit;
@@ -55,6 +55,6 @@ public class ClientEventBusSubscriber {
 	}
 	
 	private static void registerTileEntityRenderer() {
-		ClientRegistry.bindTileEntityRenderer(TileEntityInit.GATEWAY_TILEENTITY.get(), GateWayTileEntityRenderer::new);
+		ClientRegistry.bindTileEntityRenderer(TileEntityInit.GATEWAY_CORE_TILEENTTIY.get(), GateWayCoreTileEntityRenderer::new);
 	}
 }
