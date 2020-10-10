@@ -1,0 +1,45 @@
+{
+	"credit": "To myself for fixing the weird models",
+	"parent": "builtin/entity",
+	"gui_light": "front",
+	"textures": {
+		"particle": "minecraft:environment/end_sky"
+	},
+	"display": {
+	        "gui": {
+            "rotation": [ 30, 45, 0 ],
+            "translation": [ 12.1, 3.33, 4.44 ],
+            "scale": [ 1.1, 1.1, 1.1 ]
+        },
+        "fixed": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 7, 4, 6],
+            "scale":[ 1, 1, 1 ]
+        },
+        "ground": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 4, 3, 4 ],
+            "scale": [ 0.5, 0.5, 0.5 ]
+        },
+        "thirdperson_righthand": {
+            "rotation": [ 45, 45, 0 ],
+            "translation": [ 5.5, 4, 2 ],
+            "scale": [ 0.5, 0.5, 0.5 ]
+        },
+        "thirdperson_lefthand": {
+            "rotation": [ 45, 45, 0 ],
+            "translation": [ 0, 0, 5 ],
+            "scale": [ 0.5, 0.5, 0.5 ]
+        },
+		"firstperson_righthand": {
+			"rotation": [0, 45, 0],
+			"translation": [3.8, 4.5, 3],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 225, 0],
+			"translation": [-3, 4.5, -2],
+			"scale": [0.5, 0.5, 0.5]
+		}
+	}
+}
