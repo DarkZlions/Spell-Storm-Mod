@@ -120,7 +120,7 @@ public class Lib {
 		};
 		
 		public static final Predicate<BlockState> GATEWAY_PATTERN_CORE = (state) -> {
-			return state != null && state.isIn(BlockInit.GATEWAY.get());
+			return state != null && state.isIn(BlockInit.GATEWAY_CORE.get());
 		};
 		
 		public static final Predicate<BlockState> GATEWAY_PATTERN_PILLAR = (state) -> {
