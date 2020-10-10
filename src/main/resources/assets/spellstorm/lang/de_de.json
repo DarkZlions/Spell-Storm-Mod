@@ -30,6 +30,8 @@
 	"item.spellstorm.fangs": "Fangzähne",
 	"item.spellstorm.charged_creeper_pieces": "Aufgeladene Creeper Stücke",
 	"item.spellstorm.magical_fireball": "Magischer Feuerball",
+	"item.spellstorm.end_gateway_fragment": "Transitportal Fragment",
+	"item.spellstorm.corrupted_endereye": "Korrupiertes Auge des Enders",
 
 	"block.spellstorm.crystal_ore": "Kristall Erz",
 	"block.spellstorm.corrupted_crystal_ore": "Korrupierter Kristall Erz",
@@ -40,7 +42,7 @@
 	"block.spellstorm.magical_tree_sapling" : "Magischer Setzling",
 	"block.spellstorm.soul_extractor": "Seelen Extraktor",
 	"block.spellstorm.magical_forge": "Magische Schmiede",
-	"block.spellstorm.gateway": "Magischer Transitportal",
+	"block.spellstorm.gateway_core": "Magischer Transitportal Kernstück",
 
 	"container.mana_infuser": "Mana Einfliesser",
 	"container.soul_extractor": "Seelen Extraktor",

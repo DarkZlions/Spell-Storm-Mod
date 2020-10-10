@@ -30,6 +30,8 @@
 	"item.spellstorm.fangs": "Fangs",
 	"item.spellstorm.charged_creeper_pieces": "Charged Creeper Pieces",
 	"item.spellstorm.magical_fireball": "Magical Fireball",
+	"item.spellstorm.end_gateway_fragment": "Gateway Fragment",
+	"item.spellstorm.corrupted_endereye": "Corrupted Eye Of Ender",
 
 	"block.spellstorm.crystal_ore": "Crystal Ore",
 	"block.spellstorm.corrupted_crystal_ore": "Corrupted Crystal Ore",
@@ -40,7 +42,7 @@
 	"block.spellstorm.magical_tree_sapling" : "Magical Sapling",
 	"block.spellstorm.soul_extractor": "Soul Extractor",
 	"block.spellstorm.magical_forge": "Magical Forge",
-	"block.spellstorm.gateway": "Magical Gateway",
+	"block.spellstorm.gateway_core": "Magical Gateway Core",
 
 	"container.mana_infuser": "ManaInfuser",
 	"container.soul_extractor": "Soul Extractor",
