@@ -1,0 +1,32 @@
+{
+	"parent": "spellstorm:recipes/root",
+	"rewards": {
+		"recipes": [
+			"spellstorm:mana_infused_sword"
+		]
+	},
+	"criteria": {
+		"has_criteria_0": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "spellstorm:mana_infused_ingot"
+					}
+				]
+			}
+		},
+		"has_the_recipe": {
+			"trigger": "minecraft:recipe_unlocked",
+			"conditions": {
+				"recipe": "spellstorm:mana_infused_sword"
+			}
+		}
+	},
+	"requirements": [
+		[
+			"has_criteria_0",
+			"has_the_recipe"
+		]
+	]
+}
