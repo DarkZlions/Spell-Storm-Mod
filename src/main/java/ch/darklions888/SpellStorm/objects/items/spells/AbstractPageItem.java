@@ -15,6 +15,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -75,8 +76,13 @@ public abstract class AbstractPageItem extends Item implements IMagicalPageItem,
 	
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) 
 	{
-		tooltip.add(new StringTextComponent(String.valueOf(this.getManaValue(stack, this.defaultManaSource.getId())) + "/" + this.containingManaSize + " ").append(Lib.TextComponents.MANA_LEFT));
 		String sourceName = this.defaultManaSource.getSourceName().getString();
+		IFormattableTextComponent manaCText = new StringTextComponent(String.valueOf(this.manaConsumption)).mergeStyle(TextFormatting.LIGHT_PURPLE);
+		IFormattableTextComponent manaValue = new StringTextComponent(String.valueOf(this.getManaValue(stack, this.defaultManaSource.getId()))).mergeStyle(TextFormatting.LIGHT_PURPLE);
+		IFormattableTextComponent containerSize = new StringTextComponent(String.valueOf(this.containingManaSize)).mergeStyle(TextFormatting.LIGHT_PURPLE);
+		
+		tooltip.add(new StringTextComponent("").append(manaValue).append(new StringTextComponent("/")).append(containerSize).append(new StringTextComponent(Lib.TextComponents.MANA_LEFT.getString()).mergeStyle(TextFormatting.RESET)));
+		tooltip.add(new StringTextComponent(Lib.TextComponents.DESC_MANA_CONSUMPTION.getString()).append(manaCText));
 		tooltip.add(new StringTextComponent(FormattingHelper.GetSourceColor(this.defaultManaSource) + FormattingHelper.GetFontFormat(this.defaultManaSource) + sourceName + "\u00A7r" + " ").append(Lib.TextComponents.MANA_SOURCE));
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 	}
