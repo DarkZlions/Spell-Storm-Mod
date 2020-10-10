@@ -1,0 +1,43 @@
+{
+	"parent": "spellstorm:recipes/root",
+	"rewards": {
+		"recipes": [
+			"spellstorm:gateway_core"
+		]
+	},
+	"criteria": {
+		"has_criteria_0": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "minecraft:purpur_block"
+					}
+				]
+			}
+		},
+		"has_criteria_1": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "minecraft:purpur_pillar"
+					}
+				]
+			}
+		},
+		"has_the_recipe": {
+			"trigger": "minecraft:recipe_unlocked",
+			"conditions": {
+				"recipe": "spellstorm:gateway_core"
+			}
+		}
+	},
+	"requirements": [
+		[
+			"has_criteria_0",
+			"has_criteria_1",
+			"has_the_recipe"
+		]
+	]
+}

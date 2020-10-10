@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MPM",
+    "P P",
+    "MPM"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:purpur_pillar"
+    },
+	"M":{
+	"item": "minecraft:purpur_block"
+	}
+  },
+  "result": {
+    "item": "spellstorm:gateway_core"
+  }
+}
