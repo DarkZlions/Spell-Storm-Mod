@@ -44,7 +44,7 @@ public class SpellStormMain {
 		ParticlesInit.REGISTER_PARTICLES.register(Bus);
 		EntityInit.REGISTER_ENTITY.register(Bus);
 		RecipeSerializerInit.RECIPE_SERIALIZER.register(Bus);
-		TileEntityInit.TILE_ENTITY_TYPES.register(Bus);
+		TileEntityInit.REGISTER_TILEENTITIES.register(Bus);
 		
 		/*
 		ConfigHandler.init(ConfigHandler.SERVER_BUILDER, ConfigHandler.CLIENT_BUILDER);
