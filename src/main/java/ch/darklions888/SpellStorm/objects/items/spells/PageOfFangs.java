@@ -33,7 +33,7 @@ public class PageOfFangs extends AbstractPageItem {
 		} else {
 			
 			if (this.canCast(stackIn, playerIn)) {
-				List<LivingEntity> entityList = worldIn.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(playerIn.getPosX() - 10, playerIn.getPosY() - 10, playerIn.getPosZ() - 10, playerIn.getPosX() + 10, playerIn.getPosY() + 10, playerIn.getPosZ() + 10));
+				List<LivingEntity> entityList = worldIn.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(playerIn.getPosX() - 10, playerIn.getPosY() - 1, playerIn.getPosZ() - 10, playerIn.getPosX() + 10, playerIn.getPosY() + 3, playerIn.getPosZ() + 10));
 				
 				if (entityList.size() > 1) {
 					
