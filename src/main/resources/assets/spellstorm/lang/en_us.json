@@ -44,6 +44,8 @@
 	"block.spellstorm.magical_forge": "Magical Forge",
 	"block.spellstorm.gateway_core": "Magical Gateway Core",
 
+	"effect.spellstorm.disintergrated": "Disintergrated",
+
 	"container.mana_infuser": "ManaInfuser",
 	"container.soul_extractor": "Soul Extractor",
 	"container.book_of_spells": "Book Of Spells",
@@ -79,6 +81,11 @@
 	"spellstormmisc.magic_source_name_dark": "Dark",
 	"spellstormmisc.magic_source_name_unknown": "UNKNOWN",
 	"spellstormmisc.description_magical_ink_0": "The ink is used to write spells.",
-	"spellstormmisc.description_mana_consumption": "Mana Consumption: "
+	"spellstormmisc.description_mana_consumption": "Mana Consumption: ",
+	"spellstormmisc.description_corrupted_eye_not_activated": "The Gateway Core is not activated.",
+	"spellstormmisc.description_corrupted_eye_is_destroyed": "The Gatewy Core has been destroyed.",
+	"spellstormmisc.description_corrupted_eye_is_unbound": "The Corrupted Eye Of Ender is unbound",
+	"spellstormmisc.description_corrupted_eye_is_bound": "The Corrupted Eye Of Ender is bound to: ",
+	"spellstormmisc.description_corrupted_eye_in_dim": "The Position is in the Dimension: "
 
 }

@@ -44,6 +44,8 @@
 	"block.spellstorm.magical_forge": "Magische Schmiede",
 	"block.spellstorm.gateway_core": "Magischer Transitportal Kernstück",
 
+	"effect.spellstorm.disintergrated": "Zerfallen",
+
 	"container.mana_infuser": "Mana Einfliesser",
 	"container.soul_extractor": "Seelen Extraktor",
 	"container.book_of_spells": "Buch des Zaubers",
@@ -78,6 +80,10 @@
 	"spellstormmisc.magic_source_name_dark": "Dunkle",
 	"spellstormmisc.magic_source_name_unknown": "UNBEKANNTE",
 	"spellstormmisc.description_magical_ink_0": "Die Tinte wird genutzt, um magische Seiten zu schreiben.",
-	"spellstormmisc.description_mana_consumption": "Mana Verbrauch: "
+	"spellstormmisc.description_mana_consumption": "Mana Verbrauch: ",
+	"spellstormmisc.description_corrupted_eye_not_activated": "Das Transitportal Kernstück ist nicht aktiviert.",
+	"spellstormmisc.description_corrupted_eye_is_destroyed": "Das Transitportal Kernstück wurde zerstört.",
+	"spellstormmisc.description_corrupted_eye_is_unbound": "Das Korrupierte Auge des Enders ist ungebunden.",
+	"spellstormmisc.description_corrupted_eye_is_bound": "Das Korrupierte Auge des Enders is gebunden zu: "
 
 }

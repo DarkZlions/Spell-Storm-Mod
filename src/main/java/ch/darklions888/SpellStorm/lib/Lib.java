@@ -80,6 +80,12 @@ public class Lib {
 		public static final TranslationTextComponent DEFAULT_NAME_MAGICAL_FORGE = new TranslationTextComponent("block.spellstorm.magical_forge");
 		public static final TranslationTextComponent DESC_MAGICAL_INK = prefix("description_magical_ink_0");
 		public static final TranslationTextComponent DESC_MANA_CONSUMPTION = prefix("description_mana_consumption");
+		public static final TranslationTextComponent DESC_CORRUPTED_EYE_NOT_ACTIVATED = prefix("description_corrupted_eye_not_activated");
+		public static final TranslationTextComponent DESC_CORRUPTED_EYE_IS_DESTROYED = prefix("description_corrupted_eye_is_destroyed");
+		public static final TranslationTextComponent DESC_CORRUPTED_EYE_IS_UNBOUND = prefix("description_corrupted_eye_is_unbound");
+		public static final TranslationTextComponent DESC_CORRUPTED_EYE_IS_BOUND = prefix("description_corrupted_eye_is_bound");
+		public static final TranslationTextComponent DESC_CORRUPTED_EYE_IN_DIM = prefix("description_corrupted_eye_in_dim");
+		
 	}
 	
 	public static final class BlockStatePredicates {

@@ -2,6 +2,8 @@ package ch.darklions888.SpellStorm.objects.items;
 
 import java.util.function.Function;
 
+import org.apache.logging.log4j.LogManager;
+
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -26,7 +28,7 @@ public interface IWarpItem {
 			"tele_key_loc_n",
 	};
 	
-	public static void setTeleportDestination(ItemStack stackIn, BlockPos pos, PlayerEntity playerIn) {
+	default void setTeleportDestination(ItemStack stackIn, BlockPos pos, PlayerEntity playerIn) {
 		ResourceLocation dimensionKeyLocation = playerIn.getEntityWorld().getDimensionKey().getLocation();
 		
 		ItemNBTHelper.setInt(stackIn, T_KEYS[0], pos.getX());
@@ -36,7 +38,7 @@ public interface IWarpItem {
 		ItemNBTHelper.setString(stackIn, T_KEYS[4], dimensionKeyLocation.getNamespace());		
 	}
 	
-	static BlockPos getTeleportDestination(ItemStack stackIn) {
+	default BlockPos getTeleportDestination(ItemStack stackIn) {
 		int x = ItemNBTHelper.getInt(stackIn, T_KEYS[0], Integer.MIN_VALUE);
 		int y = ItemNBTHelper.getInt(stackIn, T_KEYS[1], Integer.MIN_VALUE);
 		int z = ItemNBTHelper.getInt(stackIn, T_KEYS[2], Integer.MIN_VALUE);
@@ -45,7 +47,7 @@ public interface IWarpItem {
 		return x == Integer.MIN_VALUE && y == Integer.MIN_VALUE && z == Integer.MIN_VALUE ? null : new BlockPos(x, y, z);
 	}
 	
-	static RegistryKey<World> getDestinationWorld(ItemStack stackIn) {
+	default RegistryKey<World> getDestinationWorld(ItemStack stackIn) {
 		String dimensionKeyLocationPath = ItemNBTHelper.getString(stackIn, T_KEYS[3], "");
 		String dimensionKeyLocationNamespace = ItemNBTHelper.getString(stackIn, T_KEYS[4], "");
 		
@@ -56,7 +58,7 @@ public interface IWarpItem {
 		return world; 
 	}
 	
-	static boolean teleportPlayer(ItemStack stackIn, ServerPlayerEntity playerIn) {
+	default boolean teleportPlayer(ItemStack stackIn, ServerPlayerEntity playerIn) {
 		return teleportPlayer(stackIn, playerIn, new ITeleporter()
 	        {
 				BlockPos pos = playerIn.getPosition();
@@ -64,14 +66,13 @@ public interface IWarpItem {
 	            public Entity placeEntity(Entity entity, ServerWorld currentWorld, ServerWorld destWorld, float yaw, Function<Boolean, Entity> repositionEntity)
 	            {
 	                Entity repositionedEntity = repositionEntity.apply(false);
-	                repositionedEntity.setPortal(getTeleportDestination(stackIn));
 	                repositionedEntity.setPositionAndUpdate(pos.getX(), pos.getY(), pos.getZ());
 	                return repositionedEntity;
 	            }
 	        });
 	}
 	
-	static boolean teleportPlayer(ItemStack stackIn, ServerPlayerEntity playerIn, ITeleporter teleporter) {
+	default boolean teleportPlayer(ItemStack stackIn, ServerPlayerEntity playerIn, ITeleporter teleporter) {
 		BlockPos pos = getTeleportDestination(stackIn);
 		RegistryKey<World> registryWorld = getDestinationWorld(stackIn);
 		ServerWorld sworld = playerIn.getServer().getWorld(registryWorld);
@@ -81,18 +82,22 @@ public interface IWarpItem {
 		}
 		
 		if (sworld != playerIn.getEntityWorld()) {
+            playerIn.setPortal(pos);
 			playerIn.changeDimension(sworld, teleporter);
 		}
 		
-		boolean changePos = true;
 		boolean changeDim = ForgeHooks.onTravelToDimension(playerIn, registryWorld);
-		changePos = playerIn.attemptTeleport(pos.getX() + .5, pos.getY(), pos.getZ() + .5, true);
-
-		return changeDim && changePos;
+		LogManager.getLogger().debug(pos);
+		playerIn.setPositionAndUpdate(pos.getX() + .5, pos.getY(), pos.getZ() + .5);
+		if (changeDim) {
+			playerIn.fallDistance = 0;
+		}
+		
+		return changeDim;
 	}
 	
 	@SuppressWarnings("deprecation")
-	public static boolean canTeleport(ServerPlayerEntity playerIn, ServerWorld destinationWorld, BlockPos destinationPosition, boolean changeState) {
+	default boolean canTeleport(ServerPlayerEntity playerIn, ServerWorld destinationWorld, BlockPos destinationPosition, boolean changeState) {
 		      boolean flag = false;
 		      World world = destinationWorld;
 		      if (world.isBlockLoaded(destinationPosition)) {

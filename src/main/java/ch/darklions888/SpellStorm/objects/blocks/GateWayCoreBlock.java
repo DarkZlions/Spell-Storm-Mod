@@ -95,7 +95,7 @@ public class GateWayCoreBlock extends ContainerBlock {
 			
 			if (checkStructure && !state.get(ACTIVATED).booleanValue()) {
 				worldIn.setBlockState(pos, worldIn.getBlockState(pos).with(GateWayCoreBlock.ACTIVATED, Boolean.valueOf(checkStructure)));
-				if (!player.isCreative()) stack.shrink(1);		
+				if (!player.isCreative()) stack.shrink(1);
 				return ActionResultType.SUCCESS;
 			} else
 				return ActionResultType.PASS;

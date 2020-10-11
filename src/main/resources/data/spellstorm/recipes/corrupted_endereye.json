@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " P ",
+    "P#P",
+    " P "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:ender_eye"
+    },
+    "P": {
+      "item": "spellstorm:corrupted_crystal"
+    }
+  },
+  "result": {
+    "item": "spellstorm:corrupted_endereye"
+  }
+}

@@ -34,6 +34,11 @@ public class BlockInit  {
 	public static final RegistryObject<Block> MAGICAL_LEAVES = REGISTER_BLOCKS.register("magical_leaves", () -> new MagicalLeavesBlock(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).tickRandomly().sound(SoundType.PLANT).notSolid()));
 	public static final RegistryObject<Block> MAGICAL_TREE_SAPLING = REGISTER_BLOCKS.register("magical_tree_sapling", () -> new MagicalTreeSaplingBlock(() -> new MagicalTree(), Block.Properties.from(Blocks.OAK_SAPLING)));
 	public static final RegistryObject<Block> MAGICAL_FORGE = REGISTER_BLOCKS.register("magical_forge", () -> new MagicalForgeBlock(Block.Properties.create(Material.ANVIL, DyeColor.BLACK).setRequiresTool().hardnessAndResistance(3.0f, 6.0f).harvestLevel(2).harvestTool(ToolType.PICKAXE).sound(SoundType.STONE)));
-	public static final RegistryObject<Block> GATEWAY_CORE = REGISTER_BLOCKS.register("gateway_core", () -> new GateWayCoreBlock(Block.Properties.create(Material.PORTAL, DyeColor.BLACK).setRequiresTool().hardnessAndResistance(12.0f, 24.0f).harvestLevel(5).harvestTool(ToolType.PICKAXE).setLightLevel((state) -> {return 15;})));
+	public static final RegistryObject<Block> GATEWAY_CORE = REGISTER_BLOCKS.register("gateway_core", () -> new GateWayCoreBlock(Block.Properties.create(Material.PORTAL, DyeColor.BLACK).setRequiresTool().hardnessAndResistance(12.0f, 24.0f).harvestLevel(5).harvestTool(ToolType.PICKAXE).setLightLevel((state) -> {
+		if (state.hasProperty(GateWayCoreBlock.ACTIVATED)) 
+			if (state.get(GateWayCoreBlock.ACTIVATED))
+				return 15;
+		return 0;
+		})));
 
 }

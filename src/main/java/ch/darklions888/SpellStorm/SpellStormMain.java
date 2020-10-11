@@ -7,6 +7,7 @@ import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.network.PacketHandler;
 import ch.darklions888.SpellStorm.registries.BlockInit;
 import ch.darklions888.SpellStorm.registries.ContainerTypesInit;
+import ch.darklions888.SpellStorm.registries.EffectInit;
 import ch.darklions888.SpellStorm.registries.EntityInit;
 import ch.darklions888.SpellStorm.registries.ItemInit;
 import ch.darklions888.SpellStorm.registries.ParticlesInit;
@@ -42,9 +43,10 @@ public class SpellStormMain {
 		ItemInit.REGISTER_ITEMS.register(Bus);
 		ContainerTypesInit.REGISTER_CONTAINERS.register(Bus);
 		ParticlesInit.REGISTER_PARTICLES.register(Bus);
-		EntityInit.REGISTER_ENTITY.register(Bus);
+		EntityInit.REGISTER_ENTITIES.register(Bus);
 		RecipeSerializerInit.RECIPE_SERIALIZER.register(Bus);
 		TileEntityInit.REGISTER_TILEENTITIES.register(Bus);
+		EffectInit.REGISTER_EFFECTS.register(Bus);
 		
 		/*
 		ConfigHandler.init(ConfigHandler.SERVER_BUILDER, ConfigHandler.CLIENT_BUILDER);
