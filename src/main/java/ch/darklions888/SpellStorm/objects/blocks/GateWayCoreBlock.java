@@ -15,8 +15,11 @@ import net.minecraft.block.ContainerBlock;
 import net.minecraft.block.pattern.BlockMatcher;
 import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.block.pattern.BlockPatternBuilder;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer.Builder;
@@ -30,7 +33,9 @@ import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.text.Color;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -90,18 +95,53 @@ public class GateWayCoreBlock extends ContainerBlock {
 	@Override
 	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
 		ItemStack stack = player.getHeldItem(handIn);
-		if (!worldIn.isRemote() && stack.getItem() == ItemInit.END_GATEWAY_FRAGMENT.get() && state.hasProperty(ACTIVATED)) {
-			boolean checkStructure = this.checkStructure(worldIn, pos);
+		GateWayCoreTileEntity gatewayTile = null;
+		
+		if (!worldIn.isRemote()) {
+			boolean isActivated = false;
 			
-			if (checkStructure && !state.get(ACTIVATED).booleanValue()) {
-				worldIn.setBlockState(pos, worldIn.getBlockState(pos).with(GateWayCoreBlock.ACTIVATED, Boolean.valueOf(checkStructure)));
+			if (state.hasProperty(ACTIVATED) && state.getBlock() instanceof GateWayCoreBlock) {
+				
+				gatewayTile = (GateWayCoreTileEntity) worldIn.getTileEntity(pos);
+				
+				if (state.get(ACTIVATED).booleanValue()) {
+					isActivated = true;
+				}
+			} else {
+				return ActionResultType.PASS;
+			}
+			
+			if (stack.getItem() == ItemInit.END_GATEWAY_FRAGMENT.get()) {
+				boolean checkStructure = this.checkStructure(worldIn, pos);
+				
+				if (checkStructure && !isActivated) {
+					worldIn.setBlockState(pos, worldIn.getBlockState(pos).with(ACTIVATED, Boolean.valueOf(checkStructure)));
+					if (!player.isCreative()) stack.shrink(1);
+					return ActionResultType.SUCCESS;
+				}
+			} else if (stack.getItem() == Items.PAPER && isActivated){
+				
+				// TODO: Linking gateways
+				linkGateway();
+				
+			} else if (stack.getItem() == Items.NAME_TAG && stack.hasDisplayName()) {
+
+				gatewayTile.setName(stack.getDisplayName());
 				if (!player.isCreative()) stack.shrink(1);
 				return ActionResultType.SUCCESS;
-			} else
-				return ActionResultType.PASS;
-		} else {
-			return ActionResultType.PASS;
-		}
+				
+			} else if (stack.getItem() instanceof DyeItem) {
+				
+				gatewayTile.setNameColor(Color.fromInt(((DyeItem)stack.getItem()).getDyeColor().getTextColor()));
+				if (!player.isCreative()) stack.shrink(1);
+				return ActionResultType.SUCCESS;
+			}
+		}		
+		return ActionResultType.PASS;
+	}
+	
+	private void linkGateway() {
+		
 	}
 	
 	public boolean checkStructure(World worldIn, BlockPos pos) {
@@ -145,6 +185,18 @@ public class GateWayCoreBlock extends ContainerBlock {
 		}
 		
 		return 	this.gatewayPattern;
+	}
+
+	@Override
+	public void onPlayerDestroy(IWorld worldIn, BlockPos pos, BlockState state) {
+		super.onPlayerDestroy(worldIn, pos, state);
+
+		if (state.hasProperty(ACTIVATED) && state.getBlock() instanceof GateWayCoreBlock) {
+
+			if (state.get(ACTIVATED).booleanValue()) {
+				worldIn.addEntity(new ItemEntity((World) worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ItemInit.END_GATEWAY_FRAGMENT.get())));
+			}
+		}
 	}
 
 	@OnlyIn(Dist.CLIENT)
