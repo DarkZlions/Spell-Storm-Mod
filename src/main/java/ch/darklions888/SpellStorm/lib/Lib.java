@@ -2,6 +2,9 @@ package ch.darklions888.SpellStorm.lib;
 
 import java.util.function.Predicate;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import ch.darklions888.SpellStorm.registries.BlockInit;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -13,6 +16,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 public class Lib {
 	
 	public static final String MOD_ID = "spellstorm";
+	public static final Logger LOGGER = LogManager.getLogger();
 	
 	public static final class RegistryNames {
 		public static ResourceLocation prefix(String key) {
@@ -85,7 +89,7 @@ public class Lib {
 		public static final TranslationTextComponent DESC_CORRUPTED_EYE_IS_UNBOUND = prefix("description_corrupted_eye_is_unbound");
 		public static final TranslationTextComponent DESC_CORRUPTED_EYE_IS_BOUND = prefix("description_corrupted_eye_is_bound");
 		public static final TranslationTextComponent DESC_CORRUPTED_EYE_IN_DIM = prefix("description_corrupted_eye_in_dim");
-		
+		public static final TranslationTextComponent DEFAULT_GATEWAY_NAME = new TranslationTextComponent("block.spellstorm.gateway_core");
 	}
 	
 	public static final class BlockStatePredicates {
