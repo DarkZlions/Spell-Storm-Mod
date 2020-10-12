@@ -36,7 +36,7 @@ public class PageOfMining extends AbstractPageItem {
 		
 		if(worldIn.isRemote) {
 			return ActionResult.resultPass(stackIn);
-		}else {
+		} else {
 			
 			if(playerIn.isCreative() || this.getManaValue(stackIn, this.defaultManaSource.getId()) >= this.manaConsumption) {
 				
@@ -62,19 +62,14 @@ public class PageOfMining extends AbstractPageItem {
 									
 						if (!playerIn.isCreative())
 							this.consumMana(stackIn, defaultManaSource);
-					} else {
-						return ActionResult.resultPass(stackIn);
+						
+						return ActionResult.resultSuccess(stackIn);
 					}
-				} else {
-					return ActionResult.resultPass(stackIn);
 				}
-				return ActionResult.resultSuccess(stackIn);
-			}else {
-				return ActionResult.resultPass(stackIn);
 			}
-
 		}
 		
+		return ActionResult.resultPass(stackIn);
 	}
 
 	@Override
