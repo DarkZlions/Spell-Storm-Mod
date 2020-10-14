@@ -14,12 +14,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -27,7 +27,6 @@ import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext.FluidMode;
-import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -60,16 +59,17 @@ public class CorruptedEnderEyeItem extends Item implements IWarpItem {
 	
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {		
-		PlayerEntity playerIn;
-		if (entityLiving instanceof PlayerEntity) {
-			playerIn = (PlayerEntity) entityLiving;
-		} else {
-			return;
-		}
 		
 		int time = this.getUseDuration(stack) - timeLeft;
 		
 		if (!worldIn.isRemote() && time >= 10) {		
+			
+			ServerPlayerEntity playerIn;
+			if (entityLiving != null && entityLiving instanceof ServerPlayerEntity) {
+				playerIn = (ServerPlayerEntity) entityLiving;
+			} else {
+				return;
+			}
 			
 			BlockRayTraceResult result = (BlockRayTraceResult) RayTraceHelper.CustomrayTrace(worldIn, playerIn, FluidMode.NONE, 6d);
 			BlockState gatewayState = worldIn.getBlockState(result.getPos());
@@ -168,11 +168,28 @@ public class CorruptedEnderEyeItem extends Item implements IWarpItem {
 		if (!worldIn.isRemote()) {
 			
 			if (this.isBound(stack)) {
+				
 				BlockPos pos = this.getGateWayPos(stack);
-				TileEntity tile = worldIn.getServer().getWorld(this.getDestinationWorld(stack)).getTileEntity(pos);
+				MinecraftServer server = worldIn.getServer();
+				RegistryKey<World> worldKey = this.getDestinationWorld(stack);
+				
+				if (server == null || worldKey == null || server == null) return;
+				
+				World world = server.getWorld(worldKey);
+				
+				if (world == null) return;
+				
+				TileEntity tile = null;
+				
+				try {
+					tile = world.getTileEntity(pos);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
 				CompoundNBT nbt = new CompoundNBT();	
 				
-				if (tile instanceof GateWayCoreTileEntity) {
+				if (tile != null || tile instanceof GateWayCoreTileEntity) {
 					
 					ITextComponent name = ((GateWayCoreTileEntity)tile).getName();
 					

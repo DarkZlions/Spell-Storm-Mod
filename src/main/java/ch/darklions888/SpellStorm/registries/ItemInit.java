@@ -1,6 +1,6 @@
 package ch.darklions888.SpellStorm.registries;
 
-import ch.darklions888.SpellStorm.client.renderer.tileentity.ISTER;
+import ch.darklions888.SpellStorm.SpellStormMain;
 import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerType;
@@ -41,7 +41,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class ItemInit {
 	private static final ItemGroup TAB = SpellStormItemGroup.INSTANCE;
 	public static final DeferredRegister<Item> REGISTER_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Lib.MOD_ID);
-
+	
 	//item
 	public static final RegistryObject<Item> CRYSTAL = REGISTER_ITEMS.register("crystal", () -> new CrystalShardItem(MagicSource.NEUTRALMAGIC, ManaPower.LOW, null, true, new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> CRYTSAL_PIECES = REGISTER_ITEMS.register("crystal_pieces", () -> new BaseItem(MagicSource.NEUTRALMAGIC, ManaPower.VERYLOW, null, true, new Item.Properties().group(TAB)));
@@ -74,7 +74,7 @@ public class ItemInit {
 	public static final RegistryObject<Item> CHARGED_CREEPER_PIECES = REGISTER_ITEMS.register("charged_creeper_pieces", () -> new ChargedCreeperPiecesItem(new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> MAGICAL_FIREBALL = REGISTER_ITEMS.register("magical_fireball", () -> new MagicalFireballItem(new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> CORRUPTED_ENDEREYE = REGISTER_ITEMS.register("corrupted_endereye", () -> new CorruptedEnderEyeItem(new Item.Properties().group(TAB).maxStackSize(1)));
-	public static final RegistryObject<Item> END_GATEWAY_FRAGMENT = REGISTER_ITEMS.register("end_gateway_fragment", () -> new EndGatewayFragmentItem(new Item.Properties().setISTER(() -> () -> ISTER.INSTANCE).group(TAB)));
+	public static final RegistryObject<Item> END_GATEWAY_FRAGMENT = REGISTER_ITEMS.register("end_gateway_fragment", () -> new EndGatewayFragmentItem(SpellStormMain.proxy.propertiesWithRenderer(new Item.Properties()).group(TAB)));
 	
 	// ManaInfused Gear
 	public static final RegistryObject<Item> MANA_INFUSED_INGOT = REGISTER_ITEMS.register("mana_infused_ingot", () -> new BaseItem(MagicSource.NEUTRALMAGIC, ManaPower.MEDIUM, null, true, new Item.Properties().group(TAB).maxStackSize(16)));

@@ -5,7 +5,6 @@ import ch.darklions888.SpellStorm.objects.items.IStoreMana;
 import ch.darklions888.SpellStorm.objects.items.SoulCatcherItem;
 import ch.darklions888.SpellStorm.registries.BlockInit;
 import ch.darklions888.SpellStorm.registries.ContainerTypesInit;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
@@ -28,13 +27,14 @@ public class SoulExtractorContainer extends Container {
 			SoulExtractorContainer.this.onCraftMatrixChanged(this);
 		}
 	};
+	private final PlayerInventory playerInventory;
 
 	private final IWorldPosCallable posCal;
 
-	public SoulExtractorContainer(ContainerType<?> type, int id, PlayerInventory inventoryIn,
-			IWorldPosCallable posCalIn) {
+	public SoulExtractorContainer(ContainerType<?> type, int id, PlayerInventory inventoryIn, IWorldPosCallable posCalIn) {
 		super(type, id);
 		this.posCal = posCalIn;
+		this.playerInventory = inventoryIn;
 
 		this.addSlot(new Slot(this.inputslots, 0, 48, 49) {
 
@@ -111,7 +111,7 @@ public class SoulExtractorContainer extends Container {
 				EntityType<?> entityType = soulCatcher.getEntity(catchStack);
 
 				if (entityType != null) {
-					Entity entity = entityType.create(Minecraft.getInstance().world);
+					Entity entity = entityType.create(this.playerInventory.player.getEntityWorld());
 
 					MobEntity mob = (MobEntity) entity;
 

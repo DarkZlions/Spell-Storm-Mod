@@ -3,21 +3,25 @@ package ch.darklions888.SpellStorm;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import ch.darklions888.SpellStorm.client.proxy.ClientProxy;
 import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.network.PacketHandler;
 import ch.darklions888.SpellStorm.registries.BlockInit;
 import ch.darklions888.SpellStorm.registries.ContainerTypesInit;
 import ch.darklions888.SpellStorm.registries.EffectInit;
 import ch.darklions888.SpellStorm.registries.EntityInit;
+import ch.darklions888.SpellStorm.registries.IProxy;
 import ch.darklions888.SpellStorm.registries.ItemInit;
 import ch.darklions888.SpellStorm.registries.ParticlesInit;
 import ch.darklions888.SpellStorm.registries.RecipeSerializerInit;
 import ch.darklions888.SpellStorm.registries.SoundInit;
 import ch.darklions888.SpellStorm.registries.TileEntityInit;
 import ch.darklions888.SpellStorm.registries.WorldFeatureInit;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -31,8 +35,13 @@ public class SpellStormMain {
 
 	public static final Logger LOGGER = LogManager.getLogger();
 	public static SpellStormMain INSTANCE;
+	public static IProxy proxy = new IProxy() {};
 
+	@SuppressWarnings("deprecation")
 	public SpellStormMain() {
+		
+		DistExecutor.callWhenOn(Dist.CLIENT, () -> () -> proxy = new ClientProxy());
+		
 		final IEventBus Bus = FMLJavaModLoadingContext.get().getModEventBus();
 		
 		Bus.addListener(this::CommonSetup);
