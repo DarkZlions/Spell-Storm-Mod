@@ -16,7 +16,6 @@ import ch.darklions888.SpellStorm.registries.TileEntityInit;
 import it.unimi.dsi.fastutil.objects.Object2IntMap.Entry;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
@@ -106,28 +105,27 @@ public class MagicalForgeTileEntity extends LockableTileEntity implements ISided
 		for (Entry<ResourceLocation> entry : this.recipes.object2IntEntrySet()) {
 			world.getRecipeManager().getRecipe(entry.getKey()).ifPresent((recipe) -> {
 				list.add(recipe);
-				spawnXpOrb(world, vec3, entry.getIntValue(),
-						((MagicalForgeRecipe) recipe).getExperience());
+				//spawnXpOrb(world, vec3, entry.getIntValue(), ((MagicalForgeRecipe) recipe).getExperience());
 			});
 		}
 
 		return list;
 	}
 
-	private static void spawnXpOrb(World world, Vector3d vec3, int entryValue, float experienceValue) {
-		int i = MathHelper.floor((float) entryValue * experienceValue);
-		float f = MathHelper.frac((float) entryValue * experienceValue);
-		if (f != 0.0F && Math.random() < (double) f) {
-			++i;
-		}
-
-		while (i > 0) {
-			int j = ExperienceOrbEntity.getXPSplit(i);
-			i -= j;
-			world.addEntity(new ExperienceOrbEntity(world, vec3.x, vec3.y, vec3.z, j));
-		}
-
-	}
+//	private static void spawnXpOrb(World world, Vector3d vec3, int entryValue, float experienceValue) {
+//		int i = MathHelper.floor((float) entryValue * experienceValue);
+//		float f = MathHelper.frac((float) entryValue * experienceValue);
+//		if (f != 0.0F && Math.random() < (double) f) {
+//			++i;
+//		}
+//
+//		while (i > 0) {
+//			int j = ExperienceOrbEntity.getXPSplit(i);
+//			i -= j;
+//			world.addEntity(new ExperienceOrbEntity(world, vec3.x, vec3.y, vec3.z, j));
+//		}
+//
+//	}
 	
 	public static int getBurnTimes(ItemStack stack) {
 		return ForgeHooks.getBurnTime(stack);

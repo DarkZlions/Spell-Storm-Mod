@@ -1,5 +1,5 @@
 {
-	"type": "spellstorm:magical_forge_merging",
+	"type": "spellstorm:magicalmerging",
 	"ingredient": [
 		{
 			"item": "spellstorm:crystal"
@@ -11,7 +11,5 @@
 	"result": {
 		"item": "spellstorm:mana_infused_ingot"
 	},
-	"experience": 1.0,
-	"mergingTime": 700,
-	"group": "ingot"
+	"mergingtime": 700
 }

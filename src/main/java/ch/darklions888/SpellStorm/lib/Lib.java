@@ -49,7 +49,7 @@ public class Lib {
 		public static final ResourceLocation NETWORK_CHANNEL = prefix("channel");
 		
 		// Recipe
-		public static final String MAGICAL_FORGE_RECIPE_ID = "magical_forge_merging";
+		public static final String MAGICAL_FORGE_RECIPE_ID = "magicalmerging";
 		public static final ResourceLocation MAGICAL_FORGE_RECIPE_RESOURCELOCATION = prefix(MAGICAL_FORGE_RECIPE_ID);
 	}
 	

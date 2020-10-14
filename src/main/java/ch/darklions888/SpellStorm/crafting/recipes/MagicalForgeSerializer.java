@@ -14,37 +14,33 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class MagicalForgeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<MagicalForgeRecipe>{
 
-	
+	/*
+	 * Serialize the variables always in the right order 
+	 */
 	
 	@Override
 	public MagicalForgeRecipe read(ResourceLocation recipeId, JsonObject json) {
-		ItemStack result = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "result"), true);
-	    JsonElement jsonelement = (JsonElement)(JSONUtils.isJsonArray(json, "ingredient") ? JSONUtils.getJsonArray(json, "ingredient") : JSONUtils.getJsonObject(json, "ingredient"));
-	    Ingredient ingredient = Ingredient.deserialize(jsonelement);
-		float experience = JSONUtils.getFloat(json, "experience");
-		int cookTime = JSONUtils.getInt(json, "mergingTime");
-		String group = JSONUtils.getString(json, "group", "");
+	    JsonElement ingredientJson = (JsonElement)(JSONUtils.isJsonArray(json, "ingredient") ? JSONUtils.getJsonArray(json, "ingredient") : JSONUtils.getJsonObject(json, "ingredient"));
+	    Ingredient ingredient = Ingredient.deserialize(ingredientJson);
+	    ItemStack result = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "result"), true);
+		int cookTime = JSONUtils.getInt(json, "mergingtime");
 		
-		return new MagicalForgeRecipe(recipeId, group, ingredient, result, experience, cookTime);
+		return new MagicalForgeRecipe(recipeId, ingredient, result, cookTime);
 	}
 
 	@Override
 	public MagicalForgeRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
-		ItemStack result = buffer.readItemStack();
 		Ingredient ingredient = Ingredient.read(buffer);
-		float experience = buffer.readFloat();
-		int cookTime = buffer.readInt();
-		String group = buffer.readString();
+		ItemStack result = buffer.readItemStack();	
+		int cookTime = buffer.readVarInt(); // readVarInt not readInt you stupid idiot
 		
-		return new MagicalForgeRecipe(recipeId, group, ingredient, result, experience, cookTime);
+		return new MagicalForgeRecipe(recipeId, ingredient, result, cookTime);
 	}
 
 	@Override
 	public void write(PacketBuffer buffer, MagicalForgeRecipe recipe) {
-		buffer.writeString(recipe.group);
-		recipe.ingredient.write(buffer);
-		buffer.writeItemStack(recipe.result);
-		buffer.writeFloat(recipe.experience);
+		recipe.getIngredients().get(0).write(buffer);
+		buffer.writeItemStack(recipe.result, false);
 		buffer.writeVarInt(recipe.mergingTime);
 	}
 

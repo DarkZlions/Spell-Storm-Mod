@@ -19,18 +19,14 @@ public class MagicalForgeRecipe implements IRecipe<IInventory> {
 	
 	public static final ResourceLocation KEY = Lib.RegistryNames.MAGICAL_FORGE_RECIPE_RESOURCELOCATION;
 	protected final ResourceLocation id;
-	protected final String group;
 	protected final Ingredient ingredient;
 	protected final ItemStack result;
-	protected final float experience;
 	protected final int mergingTime;
 
-	public MagicalForgeRecipe(ResourceLocation idIn, String groupIn, Ingredient ingredientIn, ItemStack resultIn, float experienceIn, int mergingTime) {
+	public MagicalForgeRecipe(ResourceLocation idIn, Ingredient ingredientIn, ItemStack resultIn, int mergingTime) {
 		 this.id = idIn;
-		 this.group = groupIn;
 		 this.ingredient = ingredientIn;
 		 this.result = resultIn;
-		 this.experience = experienceIn;
 		 this.mergingTime = mergingTime;
 	}
 	
@@ -60,16 +56,8 @@ public class MagicalForgeRecipe implements IRecipe<IInventory> {
 		return RecipeSerializerInit.MAGICAL_FORGE_SERIALIZER.get();
 	}
 	
-	public String getGroup() {
-		return this.group;
-	}
-	
 	public int getMergingTime() {
 		return this.mergingTime;
-	}
-	
-	public float getExperience() {
-		return this.experience;
 	}
 	
 	@Override
