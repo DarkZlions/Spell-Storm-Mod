@@ -14,12 +14,11 @@ import net.minecraft.util.text.Color;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
 public class GateWayCoreTileEntity extends TileEntity implements ITickableTileEntity, INameable {
 	private ITextComponent customName;
-	private Color nameColor = Color.fromInt(TextFormatting.WHITE.getColor().intValue());
+	private int nameColor = 0xFFFFFF;
 	
 	public GateWayCoreTileEntity(TileEntityType<?> tileEntityTypeIn) {
 		super(tileEntityTypeIn);
@@ -69,7 +68,7 @@ public class GateWayCoreTileEntity extends TileEntity implements ITickableTileEn
 		
 		if (this.customName == null) return this.customName;
 		
-		ITextComponent newName = new StringTextComponent(this.customName.getString()).mergeStyle(Style.EMPTY.setColor(this.nameColor));
+		ITextComponent newName = new StringTextComponent(this.customName.getString()).mergeStyle(Style.EMPTY.setColor(Color.fromInt(this.nameColor)));
 		return newName;
 	}
 	
@@ -79,10 +78,10 @@ public class GateWayCoreTileEntity extends TileEntity implements ITickableTileEn
 	}
 	
 	public Color getColor() {
-		return this.nameColor;
+		return Color.fromInt(this.nameColor);
 	}
 	
-	public void setNameColor(Color nameColor) {
+	public void setNameColor(int nameColor) {
 		this.nameColor = nameColor;
 		this.markDirty();
 	}
@@ -96,7 +95,7 @@ public class GateWayCoreTileEntity extends TileEntity implements ITickableTileEn
 	@Override
 	public SUpdateTileEntityPacket getUpdatePacket() {
 		CompoundNBT nbt = new CompoundNBT();
-		nbt = this.write(nbt);
+		this.write(nbt);
 
 		return new SUpdateTileEntityPacket(this.pos, 42, nbt);
 	}
@@ -104,7 +103,7 @@ public class GateWayCoreTileEntity extends TileEntity implements ITickableTileEn
 	@Override
 	public CompoundNBT getUpdateTag() {
 		CompoundNBT nbt = new CompoundNBT();
-		nbt = this.write(nbt);
+		this.write(nbt);
 
 		return nbt;
 	}
@@ -122,7 +121,7 @@ public class GateWayCoreTileEntity extends TileEntity implements ITickableTileEn
 		}
 		
 		if (nbt.contains("nameColor")) {
-			this.nameColor = Color.fromInt(nbt.getInt("nameColor"));
+			this.nameColor = nbt.getInt("nameColor");
 		}
 	}
 
@@ -133,7 +132,7 @@ public class GateWayCoreTileEntity extends TileEntity implements ITickableTileEn
 			nbt.putString("CustomName", ITextComponent.Serializer.toJson(this.customName));
 		}
 		
-		nbt.putInt("nameColor", this.nameColor.getColor());
+		nbt.putInt("nameColor", this.nameColor);
 		
 		return nbt;
 	}

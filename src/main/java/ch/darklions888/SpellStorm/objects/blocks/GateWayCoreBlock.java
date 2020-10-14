@@ -33,7 +33,6 @@ import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.text.Color;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -132,7 +131,7 @@ public class GateWayCoreBlock extends ContainerBlock {
 				
 			} else if (stack.getItem() instanceof DyeItem) {
 				
-				gatewayTile.setNameColor(Color.fromInt(((DyeItem)stack.getItem()).getDyeColor().getTextColor()));
+				gatewayTile.setNameColor((((DyeItem)stack.getItem()).getDyeColor().getTextColor()));
 				if (!player.isCreative()) stack.shrink(1);
 				return ActionResultType.SUCCESS;
 			}
