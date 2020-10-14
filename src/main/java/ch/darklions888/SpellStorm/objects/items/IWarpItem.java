@@ -2,8 +2,6 @@ package ch.darklions888.SpellStorm.objects.items;
 
 import java.util.function.Function;
 
-import org.apache.logging.log4j.LogManager;
-
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
 import ch.darklions888.SpellStorm.util.helpers.warp.TeleportHelper;
 import net.minecraft.block.BlockState;
@@ -13,6 +11,8 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
@@ -70,12 +70,6 @@ public interface IWarpItem {
 	                repositionedEntity.setPositionAndUpdate(pos.getX(), pos.getY(), pos.getZ());
 	                return repositionedEntity;
 	            }
-//	            
-//	            @Override
-//	            public boolean isVanilla() {
-//	            	// If it returns false, it will cause a NullPointerException, don't ask me...
-//	            	return true;
-//	            }
 	        });
 	}
 	
@@ -94,10 +88,17 @@ public interface IWarpItem {
 		}
 		
 		boolean changeDim = ForgeHooks.onTravelToDimension(playerIn, registryWorld);
-		LogManager.getLogger().debug(pos);
 		playerIn.setPositionAndUpdate(pos.getX() + .5, pos.getY(), pos.getZ() + .5);
-		if (changeDim) {
-			playerIn.fallDistance = 0;
+		sworld.setEntityState(playerIn, (byte)46);
+		
+		double x = playerIn.getPosX();
+		double y = playerIn.getPosY();
+		double z = playerIn.getPosZ();
+		
+		sworld.playSound(null, x, y, z, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.AMBIENT, 0.5f, 0.0f);
+		
+		if (playerIn.fallDistance >= 10.0f) {
+			playerIn.fallDistance = 8.0f;
 		}
 		
 		return changeDim;
