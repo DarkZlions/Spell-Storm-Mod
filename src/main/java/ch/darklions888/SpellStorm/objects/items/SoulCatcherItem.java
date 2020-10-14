@@ -29,6 +29,8 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class SoulCatcherItem extends Item {
 
@@ -43,45 +45,42 @@ public class SoulCatcherItem extends Item {
 	@Override
 	public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
 
-		try {
-			if (target instanceof MobEntity && getEntity(stack) == null) {
-				World world = playerIn.getEntityWorld();
+		if (target instanceof MobEntity && getEntity(stack) == null) {
+			World world = playerIn.getEntityWorld();
 
-				if (!world.isRemote) {
-					ServerWorld serverWorld = (ServerWorld) world;
-					double x = playerIn.getPosX();
-					double y = playerIn.getPosY();
-					double z = playerIn.getPosZ();
-					
-					serverWorld.playSound(null, x, y, z, SoundInit.ETERNAL_SCREAMING.get(), SoundCategory.PLAYERS,
-							0.2f, 1.0f);
-					
-					for (int i = 0; i < 15; i++) {
-						serverWorld.spawnParticle(ParticlesInit.SOULS_PARTICLE.get(), target.getPosXRandom(.5d),
-								target.getPosYRandom(), target.getPosZRandom(.5d), 2, 0.0d, .5d, 0.0d, 1.0d);
-					}			
-					
-					setEntityId(stack, target.getEntityId());
-					storeEntity(playerIn.getHeldItem(hand), target.getType());
-					serverWorld.removeEntity(target);
+			if (!world.isRemote()) {
+				ServerWorld serverWorld = (ServerWorld) world;
+				double x = playerIn.getPosX();
+				double y = playerIn.getPosY();
+				double z = playerIn.getPosZ();
+
+				serverWorld.playSound(null, x, y, z, SoundInit.ETERNAL_SCREAMING.get(), SoundCategory.PLAYERS, 0.2f,
+						1.0f);
+
+				for (int i = 0; i < 15; i++) {
+					serverWorld.spawnParticle(ParticlesInit.SOULS_PARTICLE.get(), target.getPosXRandom(.5d),
+							target.getPosYRandom(), target.getPosZRandom(.5d), 2, 0.0d, .5d, 0.0d, 1.0d);
 				}
 
-				return ActionResultType.SUCCESS;
+				setEntityId(stack, target.getEntityId());
+				storeEntity(playerIn.getHeldItem(hand), target.getType());
+				serverWorld.removeEntity(target);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+
+			return ActionResultType.SUCCESS;
 		}
+
 		return ActionResultType.FAIL;
 	}
 
-	@SuppressWarnings("resource")
+	@OnlyIn(Dist.CLIENT)
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 		Entity entity = getEntity(stack) != null ? getEntity(stack).create(Minecraft.getInstance().world) : null;
 		
 		if (entity != null && entity instanceof MobEntity) {		
 			tooltip.add(new StringTextComponent(" ")); // Create a space between tooltip and display name
 			
-			MagicSource source = getSourceFromEntity(getEntity(stack).create(Minecraft.getInstance().world));			
+			MagicSource source = getSourceFromEntity(getEntity(stack).create(worldIn));			
 			String sourceName = source.getSourceName().getString();
 			MobEntity mob = (MobEntity) entity;
 			
@@ -99,6 +98,7 @@ public class SoulCatcherItem extends Item {
 		}	
 	}
 	
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public ITextComponent getDisplayName(ItemStack stack) {
 		TranslationTextComponent name = new TranslationTextComponent(this.getTranslationKey(stack));
@@ -149,6 +149,7 @@ public class SoulCatcherItem extends Item {
 		}
 	}
 
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public boolean hasEffect(ItemStack stack) {
 		if (getEntity(stack) != null) {
