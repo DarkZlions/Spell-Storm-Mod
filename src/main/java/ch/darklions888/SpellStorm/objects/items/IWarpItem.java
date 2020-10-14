@@ -5,6 +5,7 @@ import java.util.function.Function;
 import org.apache.logging.log4j.LogManager;
 
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
+import ch.darklions888.SpellStorm.util.helpers.warp.TeleportHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -69,6 +70,12 @@ public interface IWarpItem {
 	                repositionedEntity.setPositionAndUpdate(pos.getX(), pos.getY(), pos.getZ());
 	                return repositionedEntity;
 	            }
+//	            
+//	            @Override
+//	            public boolean isVanilla() {
+//	            	// If it returns false, it will cause a NullPointerException, don't ask me...
+//	            	return true;
+//	            }
 	        });
 	}
 	
@@ -83,7 +90,7 @@ public interface IWarpItem {
 		
 		if (sworld != playerIn.getEntityWorld()) {
             playerIn.setPortal(pos);
-			playerIn.changeDimension(sworld, teleporter);
+			TeleportHelper.changeDimension(playerIn, sworld, teleporter);
 		}
 		
 		boolean changeDim = ForgeHooks.onTravelToDimension(playerIn, registryWorld);
@@ -97,34 +104,35 @@ public interface IWarpItem {
 	}
 	
 	@SuppressWarnings("deprecation")
-	default boolean canTeleport(ServerPlayerEntity playerIn, ServerWorld destinationWorld, BlockPos destinationPosition, boolean changeState) {
-		      boolean flag = false;
-		      World world = destinationWorld;
-		      if (world.isBlockLoaded(destinationPosition)) {
-		         boolean flag1 = false;
+	default boolean canTeleport(ServerPlayerEntity playerIn, ServerWorld destinationWorld, BlockPos destinationPosition,
+			boolean changeState) {
+		boolean flag = false;
+		World world = destinationWorld;
+		if (world.isBlockLoaded(destinationPosition)) {
+			boolean flag1 = false;
 
-		         while(!flag1 && destinationPosition.getY() > 0) {
-		            BlockPos blockpos1 = destinationPosition.down();
-		            BlockState blockstate = world.getBlockState(blockpos1);
-		            if (blockstate.getMaterial().blocksMovement()) {
-		               flag1 = true;
-		            } else {
-		               destinationPosition = blockpos1;
-		            }
-		         }
+			while (!flag1 && destinationPosition.getY() > 0) {
+				BlockPos blockpos1 = destinationPosition.down();
+				BlockState blockstate = world.getBlockState(blockpos1);
+				if (blockstate.getMaterial().blocksMovement()) {
+					flag1 = true;
+				} else {
+					destinationPosition = blockpos1;
+				}
+			}
 
-		         if (flag1) {
-		            if (world.hasNoCollisions(playerIn) && !world.containsAnyLiquid(playerIn.getBoundingBox())) {
-		               flag = true;
-		            }
-		         }
-		      }
+			if (flag1) {
+				if (world.hasNoCollisions(playerIn) && !world.containsAnyLiquid(playerIn.getBoundingBox())) {
+					flag = true;
+				}
+			}
+		}
 
-		      if (!flag) {
-		         return false;
-		      } else {
+		if (!flag) {
+			return false;
+		} else {
 
-		         return true;
-		      }
-		   }
+			return true;
+		}
+	}
 }
