@@ -27,8 +27,10 @@ import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext.FluidMode;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -40,6 +42,8 @@ public class CorruptedEnderEyeItem extends Item implements IWarpItem {
 	public CorruptedEnderEyeItem(Properties properties) {
 		super(properties);
 	}
+	
+	
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
@@ -242,6 +246,29 @@ public class CorruptedEnderEyeItem extends Item implements IWarpItem {
 		}
 
 		super.addInformation(stack, worldIn, tooltip, flagIn);
+	}
+	
+	@Override
+	public ITextComponent getDisplayName(ItemStack stack) {
+		ITextComponent name = super.getDisplayName(stack);
+		
+		CompoundNBT nbt = ItemNBTHelper.getCompound(stack, "gateway_nbt", false);
+		
+			if (nbt.contains("gateway_name")) {
+			ITextComponent gatewayName = ITextComponent.Serializer.getComponentFromJson(nbt.getString("gateway_name"));	
+			
+			if (!gatewayName.getString().equals("")) {
+				
+				if (gatewayName.getString().equals("DESTROYED")) {
+					((IFormattableTextComponent)gatewayName).mergeStyle(Style.EMPTY.setBold(true).setFormatting(TextFormatting.DARK_RED));
+				}
+							
+				ITextComponent newName = new StringTextComponent(name.getString()).append(new StringTextComponent("[").append(gatewayName).append(new StringTextComponent("]")));
+				return newName;
+			}
+		}
+			
+		return name;
 	}
 	
 	@Override
