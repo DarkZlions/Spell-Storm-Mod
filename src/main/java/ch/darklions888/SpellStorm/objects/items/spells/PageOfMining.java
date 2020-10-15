@@ -2,9 +2,12 @@ package ch.darklions888.SpellStorm.objects.items.spells;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.lib.ManaContainerType;
+import ch.darklions888.SpellStorm.registries.ItemInit;
 import ch.darklions888.SpellStorm.util.helpers.mathhelpers.RayTraceHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.EndGatewayBlock;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
@@ -47,6 +50,14 @@ public class PageOfMining extends AbstractPageItem {
 				if (result != null && result.getType() == RayTraceResult.Type.BLOCK) {
 					BlockPos pos = result.getPos();
 					BlockState state = serverWorld.getBlockState(pos);
+					
+					if (state.getBlock() instanceof EndGatewayBlock) {
+						boolean removed = serverWorld.removeBlock(pos, false);
+						
+						if (removed) {
+							serverWorld.addEntity(new ItemEntity(serverWorld, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ItemInit.END_GATEWAY_FRAGMENT.get())));
+						}
+					}
 					
 					if (state.getBlockHardness(serverWorld, pos)  >= 0) {
 						FluidState ifluidstate = serverWorld.getFluidState(pos);
