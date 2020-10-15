@@ -15,7 +15,6 @@ import net.minecraft.block.ContainerBlock;
 import net.minecraft.block.pattern.BlockMatcher;
 import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.block.pattern.BlockPatternBuilder;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
@@ -34,7 +33,6 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -184,18 +182,6 @@ public class GateWayCoreBlock extends ContainerBlock {
 		}
 		
 		return 	this.gatewayPattern;
-	}
-
-	@Override
-	public void onPlayerDestroy(IWorld worldIn, BlockPos pos, BlockState state) {
-		super.onPlayerDestroy(worldIn, pos, state);
-
-		if (state.hasProperty(ACTIVATED) && state.getBlock() instanceof GateWayCoreBlock) {
-
-			if (state.get(ACTIVATED).booleanValue()) {
-				worldIn.addEntity(new ItemEntity((World) worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ItemInit.END_GATEWAY_FRAGMENT.get())));
-			}
-		}
 	}
 
 	@OnlyIn(Dist.CLIENT)
