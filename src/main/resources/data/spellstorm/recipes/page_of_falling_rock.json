@@ -9,15 +9,15 @@
     "#": {
       "item": "minecraft:obsidian"
     },
+    "C": {
+      "item": "spellstorm:crystal"
+    },
     "P": {
       "item": "spellstorm:magical_paper"
     },
-	"C":{
-		"item": "spellstorm:crystal"
-	}, 
-	"I": {
-		"item": "spellstorm:magical_ink_unknown"
-	}
+    "I": {
+      "item": "spellstorm:magical_ink_unknown"
+    }
   },
   "result": {
     "item": "spellstorm:page_of_falling_rock"

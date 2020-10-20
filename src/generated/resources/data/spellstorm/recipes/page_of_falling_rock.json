@@ -7,7 +7,7 @@
   ],
   "key": {
     "#": {
-      "item": "spellstorm:fangs"
+      "item": "minecraft:bedrock"
     },
     "C": {
       "item": "spellstorm:crystal"
@@ -16,10 +16,10 @@
       "item": "spellstorm:magical_paper"
     },
     "I": {
-      "item": "spellstorm:magical_ink_dark"
+      "item": "spellstorm:magical_ink_unknown"
     }
   },
   "result": {
-    "item": "spellstorm:page_of_fangs"
+    "item": "spellstorm:page_of_falling_rock"
   }
 }

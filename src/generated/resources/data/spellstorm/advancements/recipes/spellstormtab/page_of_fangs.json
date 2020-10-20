@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "spellstorm:page_of_fireballs"
+      "spellstorm:page_of_fangs"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "spellstorm:page_of_fireballs"
+            "item": "spellstorm:page_of_fangs"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "spellstorm:page_of_fireballs"
+        "recipe": "spellstorm:page_of_fangs"
       }
     }
   },
