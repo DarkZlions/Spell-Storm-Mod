@@ -8,6 +8,8 @@
       "item": "minecraft:iron_ingot"
     }
   ],
-  "result": "spellstorm:mana_infused_ingot",
+  "result": {
+    "item": "spellstorm:mana_infused_ingot"
+  },
   "mergingtime": 400
 }

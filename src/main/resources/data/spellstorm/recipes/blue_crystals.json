@@ -8,6 +8,8 @@
       "item": "minecraft:lapis_lazuli"
     }
   ],
-  "result": "spellstorm:blue_crystals",
+  "result": {
+    "item": "spellstorm:blue_crystals"
+  },
   "mergingtime": 400
 }
