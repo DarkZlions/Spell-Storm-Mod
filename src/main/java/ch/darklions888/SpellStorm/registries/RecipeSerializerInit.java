@@ -15,9 +15,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class RecipeSerializerInit {
 	public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZER = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Lib.MOD_ID);
 
-	public static final IRecipeSerializer<MagicalForgeRecipe> MAGICAL_FORGE_RECIPE_SERIALIZER = new MagicalForgeSerializer();
 	public static final IRecipeType<MagicalForgeRecipe> MAGICAL_FORGE_TYPE = registerType(MagicalForgeRecipe.KEY);
-	public static final RegistryObject<IRecipeSerializer<?>> MAGICAL_FORGE_SERIALIZER = RECIPE_SERIALIZER.register(Lib.RegistryNames.MAGICAL_FORGE_RECIPE_ID, () -> MAGICAL_FORGE_RECIPE_SERIALIZER);
+	public static final RegistryObject<IRecipeSerializer<MagicalForgeRecipe>> MAGICAL_FORGE_SERIALIZER = RECIPE_SERIALIZER.register(Lib.RegistryNames.MAGICAL_FORGE_RECIPE_ID, () -> new MagicalForgeSerializer());
 	
 	@SuppressWarnings("unchecked")
 	private static <T extends IRecipeType<?>> T registerType(ResourceLocation recipeTypeId) {

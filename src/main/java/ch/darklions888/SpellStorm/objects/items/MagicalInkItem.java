@@ -87,18 +87,22 @@ public class MagicalInkItem extends Item implements IInfusable {
 		}
 	}
 	
-	private static ItemStack getStackForSource(MagicSource sourceIn, ItemStack stackIn) {
+	public static ItemStack getStackForSource(MagicSource sourceIn, ItemStack stackIn) {
+		return stackIn.getItem() == ItemInit.MAGICAL_INK.get() ? new ItemStack(getInkForSource(sourceIn)) : stackIn;
+	}
+	
+	public static Item getInkForSource(MagicSource sourceIn) {
 		switch (sourceIn) {
 		case DARKMAGIC:
-			return new ItemStack(ItemInit.MAGICAL_INK_DARK.get());
+			return ItemInit.MAGICAL_INK_DARK.get();
 		case LIGHTMAGIC:
-			return new ItemStack(ItemInit.MAGICAL_INK_LIGHT.get());
+			return ItemInit.MAGICAL_INK_LIGHT.get();
 		case UNKNOWNMAGIC:
-			return new ItemStack(ItemInit.MAGICAL_INK_UNKNOWN.get());
+			return ItemInit.MAGICAL_INK_UNKNOWN.get();
 		case NEUTRALMAGIC:
-			return new ItemStack(ItemInit.MAGICAL_INK_NEUTRAL.get());
+			return ItemInit.MAGICAL_INK_NEUTRAL.get();
 		default:
-			return stackIn;
+			return ItemInit.MAGICAL_INK.get();
 		}
 	}
 

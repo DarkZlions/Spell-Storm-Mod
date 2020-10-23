@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import ch.darklions888.SpellStorm.client.proxy.ClientProxy;
+import ch.darklions888.SpellStorm.data.DataGenerators;
 import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.network.PacketHandler;
 import ch.darklions888.SpellStorm.registries.BlockInit;
@@ -46,6 +47,7 @@ public class SpellStormMain {
 		
 		Bus.addListener(this::CommonSetup);
 		Bus.addListener(this::ClientSetup);
+		Bus.addListener(DataGenerators::gatherData);
 				
 		BlockInit.REGISTER_BLOCKS.register(Bus);
 		SoundInit.REGISTER_SOUNDS.register(Bus);
@@ -67,7 +69,6 @@ public class SpellStormMain {
 		*/
 		SpellStormMain.INSTANCE = this;
 		MinecraftForge.EVENT_BUS.register(this);
-		
 	}
 
 	@SubscribeEvent

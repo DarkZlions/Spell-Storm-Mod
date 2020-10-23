@@ -11,6 +11,7 @@ import ch.darklions888.SpellStorm.objects.items.BaseItem;
 import ch.darklions888.SpellStorm.objects.items.BlueCrystalItem;
 import ch.darklions888.SpellStorm.objects.items.BookOfMana;
 import ch.darklions888.SpellStorm.objects.items.BookOfSpellsItem;
+import ch.darklions888.SpellStorm.objects.items.BottledSoulsItem;
 import ch.darklions888.SpellStorm.objects.items.ChargedCreeperPiecesItem;
 import ch.darklions888.SpellStorm.objects.items.CorruptedCrystalShardItem;
 import ch.darklions888.SpellStorm.objects.items.CorruptedEnderEyeItem;
@@ -44,7 +45,7 @@ public class ItemInit {
 	
 	//item
 	public static final RegistryObject<Item> CRYSTAL = REGISTER_ITEMS.register("crystal", () -> new CrystalShardItem(MagicSource.NEUTRALMAGIC, ManaPower.LOW, null, true, new Item.Properties().group(TAB)));
-	public static final RegistryObject<Item> CRYTSAL_PIECES = REGISTER_ITEMS.register("crystal_pieces", () -> new BaseItem(MagicSource.NEUTRALMAGIC, ManaPower.VERYLOW, null, true, new Item.Properties().group(TAB)));
+	public static final RegistryObject<Item> CRYSTAL_PIECES = REGISTER_ITEMS.register("crystal_pieces", () -> new BaseItem(MagicSource.NEUTRALMAGIC, ManaPower.VERYLOW, null, true, new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> MAGICAL_PAPER = REGISTER_ITEMS.register("magical_paper", () -> new BaseItem(MagicSource.NEUTRALMAGIC, ManaPower.MEDIUM, null, true, new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> CORRUPTED_CRYSTAL = REGISTER_ITEMS.register("corrupted_crystal", () -> new CorruptedCrystalShardItem(MagicSource.UNKNOWNMAGIC,  ManaPower.HIGH,  null,  true,  new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> BLUE_CRYSTALS = REGISTER_ITEMS.register("blue_crystals", () -> new BlueCrystalItem(new Item.Properties().group(TAB).food(Foods.BLUE_CRYSTALS)));
@@ -62,6 +63,7 @@ public class ItemInit {
 		
 	//Other magic items
 	public static final RegistryObject<Item> SOUL_CATCHER = REGISTER_ITEMS.register("soul_catcher", () -> new SoulCatcherItem(new Item.Properties().group(TAB).maxStackSize(1)));
+	public static final RegistryObject<Item> BOTTLED_SOULS = REGISTER_ITEMS.register("bottled_souls", () -> new BottledSoulsItem(new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> BOOK_OF_MANA = REGISTER_ITEMS.register("book_of_mana", () -> new BookOfMana(new MagicSource[] { MagicSource.LIGHTMAGIC, MagicSource.DARKMAGIC, MagicSource.NEUTRALMAGIC, MagicSource.UNKNOWNMAGIC }, ManaContainerType.GIGANTIC, new Item.Properties().group(TAB).maxStackSize(1), false)); 
 	public static final RegistryObject<Item> BOOK_OF_MANA_CREATIVE = REGISTER_ITEMS.register("book_of_mana_creative", () -> new BookOfMana(new MagicSource[] { MagicSource.LIGHTMAGIC, MagicSource.DARKMAGIC, MagicSource.NEUTRALMAGIC, MagicSource.UNKNOWNMAGIC }, ManaContainerType.GIGANTIC, new Item.Properties().group(TAB).maxStackSize(1), true));
 	public static final RegistryObject<Item> BOOK_OF_SPELLS = REGISTER_ITEMS.register("book_of_spells", () -> new BookOfSpellsItem(new Item.Properties().group(TAB).maxStackSize(1)));
