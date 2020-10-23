@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "spellstorm:book_of_mana"
+      "spellstorm:crystal"
     ]
   },
   "criteria": {
-    "has_book": {
+    "has_crystal_pieces": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "minecraft:book"
+            "item": "spellstorm:crystal_pieces"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "spellstorm:book_of_mana"
+        "recipe": "spellstorm:crystal"
       }
     }
   },
   "requirements": [
     [
-      "has_book",
+      "has_crystal_pieces",
       "has_the_recipe"
     ]
   ]

@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "group": "magical_pages",
   "pattern": [
     "PCP",
     "C#C",

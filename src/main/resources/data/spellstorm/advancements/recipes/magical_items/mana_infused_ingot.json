@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "spellstorm:book_of_mana"
+      "spellstorm:mana_infused_ingot"
     ]
   },
   "criteria": {
-    "has_book": {
+    "has_forge": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "minecraft:book"
+            "item": "spellstorm:magical_forge"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "spellstorm:book_of_mana"
+        "recipe": "spellstorm:mana_infused_ingot"
       }
     }
   },
   "requirements": [
     [
-      "has_book",
+      "has_forge",
       "has_the_recipe"
     ]
   ]
