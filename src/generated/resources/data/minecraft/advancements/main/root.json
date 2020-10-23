@@ -1,0 +1,41 @@
+{
+  "display": {
+    "icon": {
+      "item": "spellstorm:crystal"
+    },
+    "title": {
+      "translate": "advancement.spellstorm:hmm_crystals.title"
+    },
+    "description": {
+      "translate": "advancement.spellstorm:hmm_crystals.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false,
+    "background": "minecraft:textures/blocks/magical_wood_log.png"
+  },
+  "criteria": {
+    "has_magical_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "spellstorm:crystal"
+          },
+          {
+            "item": "spellstorm:crystal_pieces"
+          },
+          {
+            "item": "spellstorm:magical_wood_log"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_magical_item"
+    ]
+  ]
+}
