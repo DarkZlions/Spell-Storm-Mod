@@ -9,22 +9,39 @@
     "description": {
       "translate": "advancement.spellstorm:root.description"
     },
-    "background": "spellstorm:textures/blocks/magical_wood_log.png",
-    "show_toast": true,
     "frame": "task",
+    "show_toast": false,
     "announce_to_chat": false,
-    "hidden": true
+    "hidden": false,
+    "background": "minecraft:textures/blocks/magical_wood_log.png"
   },
   "criteria": {
-    "crystal": {
+    "has_magical_item": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "item": "spellstorm:crystal"
+          },
+          {
+            "item": "spellstorm:crystal_pieces"
+          },
+          {
+            "item": "spellstorm:magical_wood_log"
+          },
+          {
+            "item": "spellstorm:magical_tree_sapling"
+          },
+          {
+            "item": "spellstorm:corrupted_crystal"
           }
         ]
       }
     }
-  }
+  },
+  "requirements": [
+    [
+      "has_magical_item"
+    ]
+  ]
 }

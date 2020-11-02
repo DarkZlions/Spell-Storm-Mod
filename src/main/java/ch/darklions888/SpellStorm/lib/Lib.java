@@ -9,11 +9,14 @@ import ch.darklions888.SpellStorm.registries.BlockInit;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.HorizontalBlock;
+import net.minecraft.item.Item;
+import net.minecraft.tags.ITag.INamedTag;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 
-public class Lib {
+public final class Lib {
 	
 	public static final String MOD_ID = "spellstorm";
 	public static final Logger LOGGER = LogManager.getLogger();
@@ -139,5 +142,10 @@ public class Lib {
 		public static final Predicate<BlockState> GATEWAY_PATTERN_PILLAR = (state) -> {
 			return state != null && state.isIn(Blocks.PURPUR_PILLAR);
 		};
+	}
+	
+	public static final class Tags {
+		public static final INamedTag<Item> MAGICAL_ITEMS = ItemTags.makeWrapperTag("magical_items");
+		public static final INamedTag<Item> SPELL_PAGES = ItemTags.makeWrapperTag("spell_pages");
 	}
 }

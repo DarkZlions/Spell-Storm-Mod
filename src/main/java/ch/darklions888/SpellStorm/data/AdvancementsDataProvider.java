@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import ch.darklions888.SpellStorm.advancements.MainAdvancements;
+import ch.darklions888.SpellStorm.lib.Lib;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
@@ -58,7 +59,7 @@ public class AdvancementsDataProvider implements IDataProvider {
 	}
 
 	private static Path getPath(Path pathIn, Advancement advancementIn) {
-		return pathIn.resolve("data/" + advancementIn.getId().getNamespace() + "/advancements/" + advancementIn.getId().getPath() + ".json");
+		return pathIn.resolve("data/" + Lib.MOD_ID + "/advancements/" + advancementIn.getId().getPath() + ".json");
 	}
 
 

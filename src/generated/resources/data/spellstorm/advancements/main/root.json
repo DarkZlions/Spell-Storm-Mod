@@ -4,10 +4,10 @@
       "item": "spellstorm:crystal"
     },
     "title": {
-      "translate": "advancement.spellstorm:hmm_crystals.title"
+      "translate": "advancement.spellstorm:root.title"
     },
     "description": {
-      "translate": "advancement.spellstorm:hmm_crystals.description"
+      "translate": "advancement.spellstorm:root.description"
     },
     "frame": "task",
     "show_toast": false,
@@ -28,6 +28,12 @@
           },
           {
             "item": "spellstorm:magical_wood_log"
+          },
+          {
+            "item": "spellstorm:magical_tree_sapling"
+          },
+          {
+            "item": "spellstorm:corrupted_crystal"
           }
         ]
       }
