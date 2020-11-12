@@ -5,7 +5,6 @@ import java.util.List;
 
 import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.lib.ManaContainerType;
 import ch.darklions888.SpellStorm.lib.ManaPower;
 import ch.darklions888.SpellStorm.objects.items.IStoreMana;
 import ch.darklions888.SpellStorm.util.helpers.formatting.FormattingHelper;
@@ -22,29 +21,29 @@ public class BasePickaxeItem extends PickaxeItem implements IStoreMana {
 	protected MagicSource defaultMagicSource;
 	protected List<MagicSource> magicSourceList;
 	protected ManaPower manaPower;
-	protected ManaContainerType manaContainer;
+	protected int maxMana;
 	
-	public BasePickaxeItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, MagicSource sourceIn, ManaPower powerIn, ManaContainerType containerIn, Properties builderIn) {
+	public BasePickaxeItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, MagicSource sourceIn, ManaPower powerIn, int maxMana, Properties builderIn) {
 		super(tier, attackDamageIn, attackSpeedIn, builderIn);
 		this.defaultMagicSource = sourceIn;
 		this.magicSourceList = new ArrayList<>();
 		this.magicSourceList.add(sourceIn);
 		this.manaPower = powerIn;
-		this.manaContainer = containerIn;
+		this.maxMana = maxMana;
 	}
 
 	@Override
-	public ManaContainerType getManaContainer() {
-		return this.manaContainer;
+	public int getMaxMana(ItemStack stackIn) {
+		return this.maxMana;
 	}
 
 	@Override
-	public List<MagicSource> getMagigSourceList() {
+	public List<MagicSource> getMagigSourceList(ItemStack stackIn) {
 		return this.magicSourceList;
 	}
 
 	@Override
-	public boolean hasMagicSource(MagicSource sourceIn) {
+	public boolean hasMagicSource(ItemStack stackIn, MagicSource sourceIn) {
 		return this.magicSourceList.contains(sourceIn);
 	}
 	

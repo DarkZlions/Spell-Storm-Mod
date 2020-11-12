@@ -1,7 +1,6 @@
 package ch.darklions888.SpellStorm.objects.items.weapons;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.lib.ManaContainerType;
 import ch.darklions888.SpellStorm.lib.ManaPower;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.IItemTier;
@@ -15,8 +14,8 @@ import net.minecraft.world.World;
 
 public class ManaInfusedPickaxeItem extends BasePickaxeItem {
 
-	public ManaInfusedPickaxeItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, MagicSource sourceIn, ManaPower powerIn, ManaContainerType containerIn, Properties builderIn) {
-		super(tier, attackDamageIn, attackSpeedIn, sourceIn, powerIn, containerIn, builderIn);
+	public ManaInfusedPickaxeItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, MagicSource sourceIn, ManaPower powerIn, int maxMana, Properties builderIn) {
+		super(tier, attackDamageIn, attackSpeedIn, sourceIn, powerIn, maxMana, builderIn);
 	}
 
 	@Override
