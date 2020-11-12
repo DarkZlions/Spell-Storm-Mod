@@ -35,6 +35,19 @@ public enum MagicSource {
 		return prefix("magic_source_name_" + sourceIn.sourceId);
 	}
 	
+	public static MagicSource getSourceByKey(String key) {
+		switch (key) {
+		case "dark": 
+			return DARKMAGIC;
+		case "light":
+			return LIGHTMAGIC;
+		case "unknown":
+			return UNKNOWNMAGIC;
+		default:
+			return NEUTRALMAGIC;
+		}
+	}
+	
 	public static int getMagicSourceColour(MagicSource sourceIn) {
 		switch (sourceIn) {
 		
