@@ -3,7 +3,6 @@ package ch.darklions888.SpellStorm.registries;
 import ch.darklions888.SpellStorm.SpellStormMain;
 import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.lib.ManaContainerType;
 import ch.darklions888.SpellStorm.lib.ManaPower;
 import ch.darklions888.SpellStorm.objects.itemgroup.SpellStormItemGroup;
 import ch.darklions888.SpellStorm.objects.items.BaseBlockItem;
@@ -64,8 +63,8 @@ public class ItemInit {
 	//Other magic items
 	public static final RegistryObject<Item> SOUL_CATCHER = REGISTER_ITEMS.register("soul_catcher", () -> new SoulCatcherItem(new Item.Properties().group(TAB).maxStackSize(1)));
 	public static final RegistryObject<Item> BOTTLED_SOULS = REGISTER_ITEMS.register("bottled_souls", () -> new BottledSoulsItem(new Item.Properties().group(TAB)));
-	public static final RegistryObject<Item> BOOK_OF_MANA = REGISTER_ITEMS.register("book_of_mana", () -> new BookOfMana(new MagicSource[] { MagicSource.LIGHTMAGIC, MagicSource.DARKMAGIC, MagicSource.NEUTRALMAGIC, MagicSource.UNKNOWNMAGIC }, ManaContainerType.GIGANTIC, new Item.Properties().group(TAB).maxStackSize(1), false)); 
-	public static final RegistryObject<Item> BOOK_OF_MANA_CREATIVE = REGISTER_ITEMS.register("book_of_mana_creative", () -> new BookOfMana(new MagicSource[] { MagicSource.LIGHTMAGIC, MagicSource.DARKMAGIC, MagicSource.NEUTRALMAGIC, MagicSource.UNKNOWNMAGIC }, ManaContainerType.GIGANTIC, new Item.Properties().group(TAB).maxStackSize(1), true));
+	public static final RegistryObject<Item> BOOK_OF_MANA = REGISTER_ITEMS.register("book_of_mana", () -> new BookOfMana(new MagicSource[] { MagicSource.LIGHTMAGIC, MagicSource.DARKMAGIC, MagicSource.NEUTRALMAGIC, MagicSource.UNKNOWNMAGIC }, 9999, new Item.Properties().group(TAB).maxStackSize(1), false)); 
+	public static final RegistryObject<Item> BOOK_OF_MANA_CREATIVE = REGISTER_ITEMS.register("book_of_mana_creative", () -> new BookOfMana(new MagicSource[] { MagicSource.LIGHTMAGIC, MagicSource.DARKMAGIC, MagicSource.NEUTRALMAGIC, MagicSource.UNKNOWNMAGIC }, 9999, new Item.Properties().group(TAB).maxStackSize(1), true));
 	public static final RegistryObject<Item> BOOK_OF_SPELLS = REGISTER_ITEMS.register("book_of_spells", () -> new BookOfSpellsItem(new Item.Properties().group(TAB).maxStackSize(1)));
 	public static final RegistryObject<Item> MAGICAL_INK = REGISTER_ITEMS.register("magical_ink", () -> new MagicalInkItem(null, new Item.Properties().group(TAB)));
 	public static final RegistryObject<Item> MAGICAL_INK_UNKNOWN = REGISTER_ITEMS.register("magical_ink_unknown", ()-> new MagicalInkItem(MagicSource.UNKNOWNMAGIC, new Item.Properties().group(TAB)));
@@ -80,7 +79,7 @@ public class ItemInit {
 	
 	// ManaInfused Gear
 	public static final RegistryObject<Item> MANA_INFUSED_INGOT = REGISTER_ITEMS.register("mana_infused_ingot", () -> new BaseItem(MagicSource.NEUTRALMAGIC, ManaPower.MEDIUM, null, true, new Item.Properties().group(TAB).maxStackSize(16)));
-	public static final RegistryObject<Item> MANA_INFUSED_SWORD = REGISTER_ITEMS.register("mana_infused_sword",  () -> new ManaInfusedSwordItem(MagicSource.NEUTRALMAGIC, ManaPower.HIGH, ManaContainerType.MEDIUM, new Item.Properties().group(TAB).maxStackSize(1)));
+	public static final RegistryObject<Item> MANA_INFUSED_SWORD = REGISTER_ITEMS.register("mana_infused_sword",  () -> new ManaInfusedSwordItem(MagicSource.NEUTRALMAGIC, ManaPower.HIGH, 120, new Item.Properties().group(TAB).maxStackSize(1)));
 	
 	//BlockItem
 	public static final RegistryObject<Item> CRYSTAL_ORE_BLOCK = REGISTER_ITEMS.register("crystal_ore", () -> new BaseBlockItem(MagicSource.NEUTRALMAGIC, ManaPower.MEDIUM, TextFormatting.LIGHT_PURPLE, false, BlockInit.CRYSTAL_ORE.get(), new Item.Properties().group(TAB)));
