@@ -22,7 +22,7 @@ public class ItemColorHandler {
 		}, ItemInit.MAGICAL_INK_UNKNOWN.get());
 		
 		colorsIn.register((itemStack, color) -> {
-			return color == 0 ? itemStack.getItem() instanceof BaseSwordItem ? MagicSource.getMagicSourceColour(((BaseSwordItem)itemStack.getItem()).getMagigSourceList().get(0)) : 0xFFFFF : -1;
+			return color == 0 ? itemStack.getItem() instanceof BaseSwordItem ? MagicSource.getMagicSourceColour(((BaseSwordItem)itemStack.getItem()).getMagigSourceList(null).get(0)) : 0xFFFFF : -1;
 		}, ItemInit.MANA_INFUSED_SWORD.get());
 		
 		return colorsIn;
