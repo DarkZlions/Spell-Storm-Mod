@@ -1,7 +1,6 @@
 package ch.darklions888.SpellStorm.objects.items.weapons;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.lib.ManaContainerType;
 import ch.darklions888.SpellStorm.lib.ManaPower;
 import ch.darklions888.SpellStorm.objects.items.IStoreMana;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,8 +14,8 @@ import net.minecraft.world.World;
 
 public class ManaInfusedSwordItem extends BaseSwordItem implements IStoreMana {
 
-	public ManaInfusedSwordItem(MagicSource sourceIn, ManaPower powerIn, ManaContainerType containerIn, Properties builderIn) {
-		super(ItemTierCollection.MANA_INFUSED_TIER, 3, -2.2F, MagicSource.NEUTRALMAGIC, powerIn, containerIn, builderIn);
+	public ManaInfusedSwordItem(MagicSource sourceIn, ManaPower powerIn, int maxMana, Properties builderIn) {
+		super(ItemTierCollection.MANA_INFUSED_TIER, 3, -2.2F, MagicSource.NEUTRALMAGIC, powerIn, maxMana, builderIn);
 	}
 
 	@Override
