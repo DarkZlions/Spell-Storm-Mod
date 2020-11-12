@@ -7,6 +7,7 @@ import net.minecraft.tags.BlockTags;
 
 public class BlockTagProvider extends BlockTagsProvider {
 
+	@SuppressWarnings("deprecation")
 	public BlockTagProvider(DataGenerator generatorIn) {
 		super(generatorIn);
 	}
