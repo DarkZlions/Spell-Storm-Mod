@@ -48,7 +48,7 @@ public class PageOfFireballs extends AbstractPageItem {
 				double accel = .1d; // Bonus acceleration for more momentum or something like this
 
 
-				MagicalFireballEntity entity = new MagicalFireballEntity(worldIn, x + playerIn.getLookVec().x,
+				MagicalFireballEntity entity = new MagicalFireballEntity(worldIn,playerIn, x + playerIn.getLookVec().x,
 						playerIn.getPosY() + 1.2d, z + playerIn.getLookVec().z, playerIn.getLookVec().x * accel,
 						playerIn.getLookVec().y * accel, playerIn.getLookVec().z * accel);
 
