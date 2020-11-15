@@ -229,7 +229,7 @@ public class RecipeDataProvider extends RecipeProvider {
 			.key('#', coreItem)
 			.key('C', ItemInit.CRYSTAL.get())
 			.key('P', ItemInit.MAGICAL_PAPER.get())
-			.key('I', MagicalInkItem.getInkForSource(((AbstractPageItem) pageIn).getMagigSourceList(null).get(0)))
+			.key('I', MagicalInkItem.getInkForSource(((AbstractPageItem) pageIn).getMagicSourceList(null).get(0)))
 			.patternLine("PCP")
 			.patternLine("C#C")
 			.patternLine("PIP")
