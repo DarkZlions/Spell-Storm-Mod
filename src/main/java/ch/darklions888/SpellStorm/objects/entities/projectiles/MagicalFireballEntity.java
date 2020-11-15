@@ -38,12 +38,10 @@ public class MagicalFireballEntity extends DamagingProjectileEntity implements I
 
 	public MagicalFireballEntity(World worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
 		super(EntityInit.MAGICAL_FIREBALL.get(), shooter, accelX, accelY, accelZ, worldIn);
-		this.shooter = shooter;
 	}
 	
 	public MagicalFireballEntity(World worldIn, LivingEntity shooter) {
 		super(EntityInit.MAGICAL_FIREBALL.get(), shooter, 0, 0, 0, worldIn);
-		this.shooter = shooter;
 	}
 
 	public MagicalFireballEntity(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
@@ -52,15 +50,12 @@ public class MagicalFireballEntity extends DamagingProjectileEntity implements I
 	
 	public MagicalFireballEntity(World worldIn, LivingEntity shooter, double x, double y, double z, double accelX, double accelY, double accelZ) {
 		super(EntityInit.MAGICAL_FIREBALL.get(), x, y, z, accelX, accelY, accelZ, worldIn);
-		this.shooter = shooter;
 	}
 
 	@Override
 	public ItemStack getItem() {
 		return new ItemStack(ItemInit.MAGICAL_FIREBALL.get());
 	}
-	
-	LivingEntity shooter = null;
 	
 	@Override
 	protected void onEntityHit(EntityRayTraceResult result) {
@@ -75,11 +70,12 @@ public class MagicalFireballEntity extends DamagingProjectileEntity implements I
 			int fireTimer = entity.getFireTimer();
 			entity.setFire(7);
 			boolean canAttack = false;
-			if (this.shooter != null) {
-				if (this.shooter instanceof PlayerEntity)
-					entity.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity)this.shooter), damageValue);
-				else
-					entity.attackEntityFrom(DamageSource.causeMobDamage(this.shooter), damageValue);
+			Entity shooter = this.func_234616_v_();
+			if (shooter != null) {
+				if (shooter instanceof PlayerEntity)
+					entity.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity)shooter), damageValue);
+				else if (shooter instanceof LivingEntity)
+					entity.attackEntityFrom(DamageSource.causeMobDamage((LivingEntity) shooter), damageValue);
 			}
 			else	
 				canAttack= entity.attackEntityFrom(DamageSource.MAGIC, damageValue);
