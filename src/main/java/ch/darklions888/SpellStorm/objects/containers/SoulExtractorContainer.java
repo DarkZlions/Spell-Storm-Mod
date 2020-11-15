@@ -1,13 +1,12 @@
 package ch.darklions888.SpellStorm.objects.containers;
 
-import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.objects.items.IStoreMana;
+import ch.darklions888.SpellStorm.objects.items.IHasSoul;
 import ch.darklions888.SpellStorm.objects.items.SoulCatcherItem;
 import ch.darklions888.SpellStorm.registries.BlockInit;
 import ch.darklions888.SpellStorm.registries.ContainerTypesInit;
+import ch.darklions888.SpellStorm.registries.ItemInit;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftResultInventory;
@@ -17,6 +16,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.IWorldPosCallable;
 
 public class SoulExtractorContainer extends Container {
@@ -46,7 +46,7 @@ public class SoulExtractorContainer extends Container {
 		this.addSlot(new Slot(this.inputslots, 1, 48, 13) {
 
 			public boolean isItemValid(ItemStack stackIn) {
-				return stackIn.getItem() instanceof IStoreMana;
+				return true;
 			}
 		});
 
@@ -61,14 +61,14 @@ public class SoulExtractorContainer extends Container {
 			}
 
 			public ItemStack onTake(PlayerEntity playerIn, ItemStack stackIn) {
-				SoulExtractorContainer.this.inputslots.setInventorySlotContents(1, ItemStack.EMPTY);
+				SoulExtractorContainer.this.inputslots.getStackInSlot(1).shrink(1);;
 
 				ItemStack catcher = SoulExtractorContainer.this.inputslots.getStackInSlot(0);
 
 				if (catcher.getItem() instanceof SoulCatcherItem) {
 					SoulCatcherItem soulItem = (SoulCatcherItem) catcher.getItem();
 
-					soulItem.clearEntity(catcher);
+					soulItem.clearSoul(catcher);
 				}
 
 				return stackIn;
@@ -95,43 +95,33 @@ public class SoulExtractorContainer extends Container {
 		super.onCraftMatrixChanged(inventoryIn);
 	}
 
-	@SuppressWarnings("resource")
 	private void updateOutput() {
-		try {
-			ItemStack catchStack = this.inputslots.getStackInSlot(0);
-			ItemStack containerStack = this.inputslots.getStackInSlot(1);
+		ItemStack catchStack = this.inputslots.getStackInSlot(0);
+		ItemStack bottleStack = this.inputslots.getStackInSlot(1);
+		
+		if (catchStack.getItem() instanceof SoulCatcherItem && bottleStack.getItem() == Items.GLASS_BOTTLE) {
+			
+			SoulCatcherItem soulCatcher = (SoulCatcherItem) catchStack.getItem();
+			
+			EntityType<?> entityType = soulCatcher.getEntityType(catchStack);
+			
+			if (entityType != null) {
+				Entity entity = entityType.create(this.playerInventory.player.getEntityWorld());
 
-			if (catchStack.getItem() instanceof SoulCatcherItem
-					&& containerStack.getItem() instanceof IStoreMana) {
-				ItemStack containerCopy = containerStack.copy();
-
-				SoulCatcherItem soulCatcher = (SoulCatcherItem) catchStack.getItem();
-				IStoreMana containerItem = (IStoreMana) containerStack.getItem();
-
-				EntityType<?> entityType = soulCatcher.getEntity(catchStack);
-
-				if (entityType != null) {
-					Entity entity = entityType.create(this.playerInventory.player.getEntityWorld());
-
-					MobEntity mob = (MobEntity) entity;
-
-					MagicSource mobSource = soulCatcher.getSourceFromEntity(mob);
-					if (containerItem.hasMagicSource(mobSource)) {
-						containerItem.addManaValue(containerCopy, soulCatcher.getSourceFromEntity(mob).getId(), (int) Math.ceil(mob.getHealth()));
-						this.outputslots.setInventorySlotContents(2, containerCopy);
-						this.detectAndSendChanges();
-					} else {
-						this.outputslots.setInventorySlotContents(2, ItemStack.EMPTY);
-					}
+					ItemStack soulBottle = new ItemStack(ItemInit.BOTTLED_SOULS.get());
+					((IHasSoul)soulBottle.getItem()).setSoulAndId(soulBottle, entity);
+					this.outputslots.setInventorySlotContents(2, soulBottle);
+					this.detectAndSendChanges();
+					return;
+					
 				} else {
 					this.outputslots.setInventorySlotContents(2, ItemStack.EMPTY);
 				}
 			} else {
 				this.outputslots.setInventorySlotContents(2, ItemStack.EMPTY);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
+		
+		this.detectAndSendChanges();
 	}
 
 	@Override
