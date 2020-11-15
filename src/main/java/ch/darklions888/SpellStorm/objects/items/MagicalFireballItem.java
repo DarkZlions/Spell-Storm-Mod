@@ -29,7 +29,7 @@ public class MagicalFireballItem extends BaseItem {
 			double z = playerIn.getPosZ();
 			double accel = 0.1d;
 			
-			MagicalFireballEntity entity = new MagicalFireballEntity(worldIn, x + playerIn.getLookVec().x, playerIn.getPosY() + 1.2d, z + playerIn.getLookVec().z, playerIn.getLookVec().x * accel, playerIn.getLookVec().y * accel, playerIn.getLookVec().z * accel);
+			MagicalFireballEntity entity = new MagicalFireballEntity(worldIn,playerIn, x + playerIn.getLookVec().x, playerIn.getPosY() + 1.2d, z + playerIn.getLookVec().z, playerIn.getLookVec().x * accel, playerIn.getLookVec().y * accel, playerIn.getLookVec().z * accel);
 			worldIn.addEntity(entity);
 			
 			playerIn.getCooldownTracker().setCooldown(stack.getItem(), 10);

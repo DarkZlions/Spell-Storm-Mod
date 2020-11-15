@@ -8,6 +8,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.DamagingProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.IPacket;
@@ -37,20 +38,29 @@ public class MagicalFireballEntity extends DamagingProjectileEntity implements I
 
 	public MagicalFireballEntity(World worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
 		super(EntityInit.MAGICAL_FIREBALL.get(), shooter, accelX, accelY, accelZ, worldIn);
+		this.shooter = shooter;
 	}
 	
 	public MagicalFireballEntity(World worldIn, LivingEntity shooter) {
 		super(EntityInit.MAGICAL_FIREBALL.get(), shooter, 0, 0, 0, worldIn);
+		this.shooter = shooter;
 	}
 
 	public MagicalFireballEntity(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
 		super(EntityInit.MAGICAL_FIREBALL.get(), x, y, z, accelX, accelY, accelZ, worldIn);
+	}
+	
+	public MagicalFireballEntity(World worldIn, LivingEntity shooter, double x, double y, double z, double accelX, double accelY, double accelZ) {
+		super(EntityInit.MAGICAL_FIREBALL.get(), x, y, z, accelX, accelY, accelZ, worldIn);
+		this.shooter = shooter;
 	}
 
 	@Override
 	public ItemStack getItem() {
 		return new ItemStack(ItemInit.MAGICAL_FIREBALL.get());
 	}
+	
+	LivingEntity shooter = null;
 	
 	@Override
 	protected void onEntityHit(EntityRayTraceResult result) {
@@ -64,7 +74,15 @@ public class MagicalFireballEntity extends DamagingProjectileEntity implements I
 			Entity projectileE = this.func_234616_v_();
 			int fireTimer = entity.getFireTimer();
 			entity.setFire(7);
-			boolean canAttack = entity.attackEntityFrom(DamageSource.MAGIC, damageValue);
+			boolean canAttack = false;
+			if (this.shooter != null) {
+				if (this.shooter instanceof PlayerEntity)
+					entity.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity)this.shooter), damageValue);
+				else
+					entity.attackEntityFrom(DamageSource.causeMobDamage(this.shooter), damageValue);
+			}
+			else	
+				canAttack= entity.attackEntityFrom(DamageSource.MAGIC, damageValue);
 			
 			if (!canAttack) {
 				entity.forceFireTicks(fireTimer);
