@@ -1,5 +1,6 @@
 package ch.darklions888.SpellStorm.objects.entities.projectiles;
 
+import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.registries.EntityInit;
 import ch.darklions888.SpellStorm.registries.ItemInit;
 import net.minecraft.block.AbstractFireBlock;
@@ -38,10 +39,12 @@ public class MagicalFireballEntity extends DamagingProjectileEntity implements I
 
 	public MagicalFireballEntity(World worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
 		super(EntityInit.MAGICAL_FIREBALL.get(), shooter, accelX, accelY, accelZ, worldIn);
+		this.setShooter(shooter);
 	}
 	
 	public MagicalFireballEntity(World worldIn, LivingEntity shooter) {
 		super(EntityInit.MAGICAL_FIREBALL.get(), shooter, 0, 0, 0, worldIn);
+		this.setShooter(shooter);
 	}
 
 	public MagicalFireballEntity(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
@@ -50,6 +53,7 @@ public class MagicalFireballEntity extends DamagingProjectileEntity implements I
 	
 	public MagicalFireballEntity(World worldIn, LivingEntity shooter, double x, double y, double z, double accelX, double accelY, double accelZ) {
 		super(EntityInit.MAGICAL_FIREBALL.get(), x, y, z, accelX, accelY, accelZ, worldIn);
+		this.setShooter(shooter);
 	}
 
 	@Override
@@ -71,6 +75,7 @@ public class MagicalFireballEntity extends DamagingProjectileEntity implements I
 			entity.setFire(7);
 			boolean canAttack = false;
 			Entity shooter = this.func_234616_v_();
+			Lib.LOGGER.debug(shooter);
 			if (shooter != null) {
 				if (shooter instanceof PlayerEntity)
 					entity.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity)shooter), damageValue);
