@@ -5,7 +5,6 @@ import java.util.List;
 
 import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.lib.ManaContainerType;
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
 import ch.darklions888.SpellStorm.util.helpers.formatting.FormattingHelper;
 import net.minecraft.client.util.ITooltipFlag;
@@ -17,9 +16,9 @@ import net.minecraft.world.World;
 
 public class BaseManaContainerItem extends Item implements IStoreMana {
 	protected List<MagicSource> sources;
-	protected ManaContainerType manaContainerType;
+	protected int manaContainerType;
 
-	public BaseManaContainerItem(MagicSource[] sources, ManaContainerType size, Properties properties) {
+	public BaseManaContainerItem(MagicSource[] sources, int size, Properties properties) {
 		super(properties);
 
 		this.sources = new ArrayList<>();
@@ -37,7 +36,7 @@ public class BaseManaContainerItem extends Item implements IStoreMana {
 		for (MagicSource source : sources) {
 			tooltip.add(new StringTextComponent(FormattingHelper.GetSourceColor(source)
 					+ FormattingHelper.GetFontFormat(source) + source.getSourceName().getString() + "\u00A7r" + " Mana: "
-					+ String.valueOf(getManaValue(stack, source.getId()) + "/" + String.valueOf(getManaContainer().size))));
+					+ String.valueOf(getManaValue(stack, source.getId()) + "/" + String.valueOf(getMaxMana(stack)))));
 		}
 
 		super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -55,11 +54,11 @@ public class BaseManaContainerItem extends Item implements IStoreMana {
 
 	@Override
 	public void addManaValue(ItemStack stack, String key, int manaAmount) {
-		setManaValue(stack, key, Math.min(getManaValue(stack, key) + manaAmount, manaContainerType.size));
+		setManaValue(stack, key, Math.min(getManaValue(stack, key) + manaAmount, manaContainerType));
 	}
 
 	@Override
-	public boolean hasMagicSource(MagicSource sourceIn) {
+	public boolean hasMagicSource(ItemStack stackIn, MagicSource sourceIn) {
 		for (MagicSource source : sources) {
 			if (source == sourceIn) {
 				return true;
@@ -70,12 +69,12 @@ public class BaseManaContainerItem extends Item implements IStoreMana {
 	}
 
 	@Override
-	public ManaContainerType getManaContainer() {
+	public int getMaxMana(ItemStack stackIn) {
 		return this.manaContainerType;
 	}
 
 	@Override
-	public List<MagicSource> getMagigSourceList() {
+	public List<MagicSource> getMagicSourceList(ItemStack stackIn) {
 		return this.sources;
 	}
 }

@@ -4,7 +4,6 @@ import java.util.List;
 
 import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.lib.ManaContainerType;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
@@ -17,7 +16,7 @@ public class BookOfMana extends BaseManaContainerItem
 {
 	private final boolean isCreative;
 	
-	public BookOfMana(MagicSource[] sources, ManaContainerType size, Properties properties, boolean isCreative) 
+	public BookOfMana(MagicSource[] sources, int size, Properties properties, boolean isCreative) 
 	{
 		super(sources, size, properties);
 		
@@ -30,7 +29,7 @@ public class BookOfMana extends BaseManaContainerItem
 		
 		if (isCreative) {
 			for (MagicSource m : this.sources) {
-				this.setManaValue(stack, m.getId(), this.getManaContainer().size);
+				this.setManaValue(stack, m.getId(), this.getMaxMana(stack));
 			}
 		}
 	}

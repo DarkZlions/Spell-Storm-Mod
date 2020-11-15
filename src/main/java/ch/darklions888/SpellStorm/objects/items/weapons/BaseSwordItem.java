@@ -38,7 +38,7 @@ public class BaseSwordItem extends SwordItem implements IStoreMana {
 	}
 
 	@Override
-	public List<MagicSource> getMagigSourceList(ItemStack stackIn) {
+	public List<MagicSource> getMagicSourceList(ItemStack stackIn) {
 		return this.magicSourceList;
 	}
 

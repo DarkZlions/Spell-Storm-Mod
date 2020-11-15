@@ -63,12 +63,12 @@ public class MagicalInkItem extends Item implements IInfusable {
 		if (infusableStack != null && infusableStack.getItem() instanceof MagicalInkItem && hasMana != null) {
 			if (hasMana.getItem() instanceof IHasMagic) {
 
-				MagicSource manaSource = ((IHasMagic)hasMana.getItem()).getMagicSource();
+				MagicSource manaSource = ((IHasMagic)hasMana.getItem()).getMagicSource(hasMana);
 				
 				return getStackForSource(manaSource, infusableStack);
 			} else if (hasMana.getItem() instanceof IStoreMana) {
 				
-				List<MagicSource> sourceList = ((IStoreMana)hasMana.getItem()).getMagigSourceList();
+				List<MagicSource> sourceList = ((IStoreMana)hasMana.getItem()).getMagicSourceList(hasMana);
 				
 				for (MagicSource ms : sourceList) {
 					if (((IStoreMana)hasMana.getItem()).getManaValue(hasMana, ms.getKey()) <= 0) {

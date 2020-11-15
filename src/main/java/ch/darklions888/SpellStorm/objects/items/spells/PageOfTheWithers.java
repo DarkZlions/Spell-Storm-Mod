@@ -1,7 +1,6 @@
 package ch.darklions888.SpellStorm.objects.items.spells;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.lib.ManaContainerType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.WitherSkullEntity;
 import net.minecraft.item.ItemStack;
@@ -16,7 +15,7 @@ import net.minecraft.world.server.ServerWorld;
 public class PageOfTheWithers extends AbstractPageItem {
 
 	public PageOfTheWithers(Properties properties) {
-		super(ManaContainerType.GIANT, MagicSource.DARKMAGIC, 1, TextFormatting.DARK_RED, true, properties);
+		super(300, MagicSource.DARKMAGIC, 1, TextFormatting.DARK_RED, true, properties);
 	}
 
 	@Override

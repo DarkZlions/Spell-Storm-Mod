@@ -80,12 +80,12 @@ public class BaseBlockItem extends BlockItem implements IHasMagic {
 	}
 
 	@Override
-	public MagicSource getMagicSource() {
+	public MagicSource getMagicSource(ItemStack stackIn) {
 		return this.source;
 	}
 
 	@Override
-	public ManaPower getManaPower() {
+	public ManaPower getManaPower(ItemStack stackIn) {
 		return this.manapower;
 	}
 }

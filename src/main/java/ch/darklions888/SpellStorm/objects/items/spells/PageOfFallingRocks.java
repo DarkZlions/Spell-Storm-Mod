@@ -3,7 +3,6 @@ package ch.darklions888.SpellStorm.objects.items.spells;
 import java.util.List;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.lib.ManaContainerType;
 import ch.darklions888.SpellStorm.util.helpers.mathhelpers.MathHelpers;
 import ch.darklions888.SpellStorm.util.helpers.mathhelpers.Vec3;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,7 +20,7 @@ import net.minecraft.world.server.ServerWorld;
 public class PageOfFallingRocks extends AbstractPageItem {
 
 	public PageOfFallingRocks(Properties properties) {
-		super(ManaContainerType.SMALL, MagicSource.UNKNOWNMAGIC, 30, TextFormatting.BLACK, true, properties);
+		super(120, MagicSource.UNKNOWNMAGIC, 30, TextFormatting.BLACK, true, properties);
 	}
 
 	@Override

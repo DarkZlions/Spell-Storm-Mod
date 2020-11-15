@@ -5,7 +5,6 @@ import java.util.List;
 
 import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.lib.ManaContainerType;
 import ch.darklions888.SpellStorm.objects.items.IMagicalPageItem;
 import ch.darklions888.SpellStorm.objects.items.IStoreMana;
 import ch.darklions888.SpellStorm.util.helpers.formatting.FormattingHelper;
@@ -27,16 +26,16 @@ public abstract class AbstractPageItem extends Item implements IMagicalPageItem,
 	protected MagicSource defaultManaSource;
 	protected final List<MagicSource> magicSourceList;
 	protected final int containingManaSize;
-	protected final ManaContainerType manaContainer;
+	protected final int maxMana;
 	protected int manaConsumption;
 	protected final TextFormatting format;
 	protected final boolean hasEffect;
 	
-	public AbstractPageItem(ManaContainerType size, MagicSource source, int manaConsumption, TextFormatting format, boolean hasEffect, Properties properties)
+	public AbstractPageItem(int size, MagicSource source, int manaConsumption, TextFormatting format, boolean hasEffect, Properties properties)
 	{
 		super(properties);
-		this.containingManaSize = size.size;
-		this.manaContainer = size;
+		this.containingManaSize = size;
+		this.maxMana = size;
 		this.defaultManaSource = source;
 		this.manaConsumption = manaConsumption;
 		this.magicSourceList = new ArrayList<>();
@@ -109,16 +108,17 @@ public abstract class AbstractPageItem extends Item implements IMagicalPageItem,
 	}
 	
 	@Override
-	public ManaContainerType getManaContainer() {
-		return this.manaContainer;
+	public int getMaxMana(ItemStack stackIn) {
+		return this.maxMana;
 	}
 
 	@Override
-	public List<MagicSource> getMagigSourceList() {
+	public List<MagicSource> getMagicSourceList(ItemStack stackIn) {
 		return this.magicSourceList;
 	}
 
-	public boolean hasMagicSource(MagicSource sourceIn) {
+	@Override
+	public boolean hasMagicSource(ItemStack stackIn, MagicSource sourceIn) {
 		return this.magicSourceList.contains(sourceIn);
 	}
 }

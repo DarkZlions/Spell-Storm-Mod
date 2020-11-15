@@ -1,7 +1,6 @@
 package ch.darklions888.SpellStorm.objects.items.spells;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.lib.ManaContainerType;
 import ch.darklions888.SpellStorm.util.helpers.mathhelpers.MathHelpers;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -16,7 +15,7 @@ public class PageOfHealing extends AbstractPageItem {
 	private int coolDownTicks = 60;
 	
 	public PageOfHealing(Properties properties) {
-		super(ManaContainerType.MEDIUM, MagicSource.LIGHTMAGIC, 15, TextFormatting.RED, true, properties);
+		super(150, MagicSource.LIGHTMAGIC, 15, TextFormatting.RED, true, properties);
 	}
 
 	

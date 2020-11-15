@@ -1,9 +1,9 @@
 package ch.darklions888.SpellStorm.objects.items;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.lib.ManaContainerType;
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
@@ -19,7 +19,7 @@ public interface IStoreMana {
 	}
 
 	default void addManaValue(ItemStack stack, String key, int manaAmount) {
-		setManaValue(stack, key, MathHelper.clamp(getManaValue(stack, key) + manaAmount, 0, this.getManaContainer().size));
+		setManaValue(stack, key, MathHelper.clamp(getManaValue(stack, key) + manaAmount, 0, this.getMaxMana(stack)));
 	}
 	
 	default boolean canInfuse(ItemStack infusableStack, ItemStack storeManaStack) {
@@ -42,16 +42,16 @@ public interface IStoreMana {
 	 *  TODO: Rework the magicsources
 	 */
 	default List<MagicSource> getMagicSources(ItemStack stackIn) {
-		return null;
+		return new ArrayList<MagicSource>();
 	}
 	
 	default void setMagicSources(ItemStack stackIn, List<MagicSource> sourceList) {
 		
 	}
 	
-	ManaContainerType getManaContainer();
+	int getMaxMana(ItemStack stackIn);
 
-	public List<MagicSource> getMagigSourceList();
+	public List<MagicSource> getMagicSourceList(ItemStack stackIn);
 	
-	public boolean hasMagicSource(MagicSource sourceIn);
+	public boolean hasMagicSource(ItemStack stackIn, MagicSource sourceIn);
 }

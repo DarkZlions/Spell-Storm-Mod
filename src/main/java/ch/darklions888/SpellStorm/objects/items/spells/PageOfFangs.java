@@ -3,7 +3,6 @@ package ch.darklions888.SpellStorm.objects.items.spells;
 import java.util.List;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.lib.ManaContainerType;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,7 +21,7 @@ import net.minecraft.world.World;
 public class PageOfFangs extends AbstractPageItem {
 
 	public PageOfFangs(Properties properties) {
-		super(ManaContainerType.GIANT, MagicSource.DARKMAGIC, 4, TextFormatting.DARK_GRAY, true, properties);
+		super(400, MagicSource.DARKMAGIC, 4, TextFormatting.DARK_GRAY, true, properties);
 	}
 
 	@Override

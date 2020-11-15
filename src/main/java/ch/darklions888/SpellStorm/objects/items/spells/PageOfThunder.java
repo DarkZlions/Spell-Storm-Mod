@@ -3,7 +3,6 @@ package ch.darklions888.SpellStorm.objects.items.spells;
 import java.util.List;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.lib.ManaContainerType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -21,7 +20,7 @@ public class PageOfThunder extends AbstractPageItem
 {
 	
 	public PageOfThunder(Properties properties) {
-		super(ManaContainerType.SMALL, MagicSource.LIGHTMAGIC, 2, TextFormatting.GOLD, true, properties);
+		super(240, MagicSource.LIGHTMAGIC, 2, TextFormatting.GOLD, true, properties);
 	}
 
 	@Override

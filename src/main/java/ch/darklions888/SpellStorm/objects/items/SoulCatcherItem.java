@@ -6,7 +6,6 @@ import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.registries.ParticlesInit;
 import ch.darklions888.SpellStorm.registries.SoundInit;
-import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
 import ch.darklions888.SpellStorm.util.helpers.formatting.FormattingHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
@@ -32,11 +31,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class SoulCatcherItem extends Item {
-
-	private static final String TAG = "catchedmob_soulcatcher";
-	private static final String EMPTY = "empty";
-	private static final String ID = "soulcathcer_id";
+public class SoulCatcherItem extends Item implements IHasSoul {
 
 	public SoulCatcherItem(Properties properties) {
 		super(properties);
@@ -45,7 +40,7 @@ public class SoulCatcherItem extends Item {
 	@Override
 	public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
 
-		if (target instanceof MobEntity && getEntity(stack) == null) {
+		if (target instanceof MobEntity && getEntityType(stack) == null) {
 			World world = playerIn.getEntityWorld();
 
 			if (!world.isRemote()) {
@@ -62,8 +57,9 @@ public class SoulCatcherItem extends Item {
 							target.getPosYRandom(), target.getPosZRandom(.5d), 2, 0.0d, .5d, 0.0d, 1.0d);
 				}
 
-				setEntityId(stack, target.getEntityId());
-				storeEntity(playerIn.getHeldItem(hand), target.getType());
+				this.setSoulAndId(playerIn.getHeldItem(hand), target);
+//				setEntityId(stack, target.getEntityId());
+//				storeEntity(playerIn.getHeldItem(hand), target.getType());
 				serverWorld.removeEntity(target);
 			}
 
@@ -75,12 +71,12 @@ public class SoulCatcherItem extends Item {
 
 	@OnlyIn(Dist.CLIENT)
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		Entity entity = getEntity(stack) != null ? getEntity(stack).create(Minecraft.getInstance().world) : null;
+		Entity entity = getEntityType(stack) != null ? getEntityType(stack).create(Minecraft.getInstance().world) : null;
 		
 		if (entity != null && entity instanceof MobEntity) {		
 			tooltip.add(new StringTextComponent(" ")); // Create a space between tooltip and display name
 			
-			MagicSource source = getSourceFromEntity(getEntity(stack).create(worldIn));			
+			MagicSource source = getSourceFromEntity(getEntityType(stack).create(worldIn));			
 			String sourceName = source.getSourceName().getString();
 			MobEntity mob = (MobEntity) entity;
 			
@@ -89,7 +85,7 @@ public class SoulCatcherItem extends Item {
 			String text2 = new String(FormattingHelper.GetSourceColor(source) + FormattingHelper.GetFontFormat(source) + sourceName);
 			String value = String.valueOf((int) Math.ceil(mob.getHealth()));
 			
-			tooltip.add(text.append(new StringTextComponent(": " + "\u00A7l" + getEntity(stack).getName().getString())));
+			tooltip.add(text.append(new StringTextComponent(": " + "\u00A7l" + getEntityType(stack).getName().getString())));
 			tooltip.add(text1.appendString(value + " " + text2).appendString(" " + Lib.TextComponents.MANA.getString()));
 		} else {
 			tooltip.add(new StringTextComponent(" "));
@@ -102,57 +98,19 @@ public class SoulCatcherItem extends Item {
 	@Override
 	public ITextComponent getDisplayName(ItemStack stack) {
 		TranslationTextComponent name = new TranslationTextComponent(this.getTranslationKey(stack));
-		EntityType<?> entity = this.getEntity(stack);
+		EntityType<?> entity = this.getEntityType(stack);
 		if (entity != null) {
-			return new TranslationTextComponent(name.getString() + "[" + this.getEntity(stack).getName().getString() + "]");	
+			return new TranslationTextComponent(name.getString() + "[" + this.getEntityType(stack).getName().getString() + "]");	
 		} else {
 			return name;
 		}
 	
 	}
-	
-	public MagicSource getSourceFromEntity(Entity entityIn) {
-		if (entityIn instanceof MonsterEntity && !(entityIn instanceof EndermanEntity) || entityIn instanceof SlimeEntity && !(entityIn instanceof EndermanEntity)) {
-			return MagicSource.DARKMAGIC;
-		} else if (entityIn instanceof AnimalEntity) {
-			return MagicSource.LIGHTMAGIC;
-		} else if (entityIn instanceof EndermanEntity) {
-			return MagicSource.UNKNOWNMAGIC;
-		} else {
-			return MagicSource.NEUTRALMAGIC;
-		}
-	}
-
-	private void storeEntity(ItemStack stack, EntityType<?> entity) {
-		ItemNBTHelper.setString(stack, TAG, EntityType.getKey(entity).toString());
-	}
-
-	private void setEntityId(ItemStack stack, int id) {
-		ItemNBTHelper.setInt(stack, ID, id);
-	}
-
-	public int getEntityId(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, ID, 0);
-	}
-
-	public void clearEntity(ItemStack stackIn) {
-		ItemNBTHelper.setString(stackIn, TAG, EMPTY);
-	}
-
-	public EntityType<?> getEntity(ItemStack stack) {
-		String key = ItemNBTHelper.getString(stack, TAG, EMPTY);
-
-		if (!(key.equals(EMPTY))) {
-			return EntityType.byKey(key).get();
-		} else {
-			return null;
-		}
-	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public boolean hasEffect(ItemStack stack) {
-		if (getEntity(stack) != null) {
+		if (getEntityType(stack) != null) {
 			return true;
 		} else {
 			return false;

@@ -1,7 +1,6 @@
 package ch.darklions888.SpellStorm.objects.items.spells;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
-import ch.darklions888.SpellStorm.lib.ManaContainerType;
 import ch.darklions888.SpellStorm.registries.ItemInit;
 import ch.darklions888.SpellStorm.util.helpers.mathhelpers.RayTraceHelper;
 import net.minecraft.block.Block;
@@ -26,7 +25,7 @@ public class PageOfMining extends AbstractPageItem {
 
 
 	public PageOfMining(Properties properties) {
-		super(ManaContainerType.BIG, MagicSource.NEUTRALMAGIC, 1, TextFormatting.DARK_GRAY, true, properties);
+		super(1500, MagicSource.NEUTRALMAGIC, 1, TextFormatting.DARK_GRAY, true, properties);
 	}
 
 	@Override
