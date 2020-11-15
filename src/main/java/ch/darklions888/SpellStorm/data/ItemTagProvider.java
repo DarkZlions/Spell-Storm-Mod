@@ -22,7 +22,7 @@ public class ItemTagProvider extends ItemTagsProvider{
 		this.copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
 		this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
 		
-		this.getOrCreateBuilder(Lib.Tags.SPELL_PAGES).add(ItemInit.PAGE_OF_AGGRESSION.get(),
+		this.getOrCreateBuilder(Lib.Tags.SPELL_PAGES_ITEMS).add(ItemInit.PAGE_OF_AGGRESSION.get(),
 				ItemInit.PAGE_OF_DRAGONBALL.get(), ItemInit.PAGE_OF_FALLING_ROCK.get(), ItemInit.PAGE_OF_FANGS.get(),
 				ItemInit.PAGE_OF_FIREBALLS.get(), ItemInit.PAGE_OF_HEALING.get(), ItemInit.PAGE_OF_MINING.get(),
 				ItemInit.PAGE_OF_THE_WITHER_SKULL.get(), ItemInit.PAGE_OF_THUNDER.get());

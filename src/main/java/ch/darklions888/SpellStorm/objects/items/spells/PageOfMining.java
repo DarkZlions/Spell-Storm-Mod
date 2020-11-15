@@ -1,5 +1,6 @@
 package ch.darklions888.SpellStorm.objects.items.spells;
 
+import ch.darklions888.SpellStorm.lib.Lib.Tags;
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.registries.ItemInit;
 import ch.darklions888.SpellStorm.util.helpers.mathhelpers.RayTraceHelper;
@@ -60,12 +61,11 @@ public class PageOfMining extends AbstractPageItem {
 					
 					if (state.getBlockHardness(serverWorld, pos)  >= 0) {
 						FluidState ifluidstate = serverWorld.getFluidState(pos);
-						
-						if (playerIn.isSneaking())
-							Block.spawnDrops(state.getBlockState(), worldIn, playerIn.getPosition());
-						else 
-							Block.spawnDrops(state.getBlockState(), worldIn, pos);
+					
+						if (!(state.getBlock().getTags().contains(Tags.DUPE_GLITCH_BLOCKS.getName())))
+							Block.spawnDrops(state, worldIn, pos, null, playerIn, stackIn);
 							
+						state.getBlock().onBlockHarvested(worldIn, pos, state, playerIn);
 						serverWorld.setBlockState(pos, ifluidstate.getBlockState(), 3);
 						
 						serverWorld.spawnParticle(ParticleTypes.DRAGON_BREATH, pos.getX(), pos.getY(), pos.getZ(), 3, 0, 0, 0, 1f);

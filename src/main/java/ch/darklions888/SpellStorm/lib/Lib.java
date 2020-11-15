@@ -6,11 +6,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import ch.darklions888.SpellStorm.registries.BlockInit;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.HorizontalBlock;
 import net.minecraft.item.Item;
 import net.minecraft.tags.ITag.INamedTag;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -146,6 +148,7 @@ public final class Lib {
 	
 	public static final class Tags {
 		public static final INamedTag<Item> MAGICAL_ITEMS = ItemTags.makeWrapperTag("magical_items");
-		public static final INamedTag<Item> SPELL_PAGES = ItemTags.makeWrapperTag("spell_pages");
+		public static final INamedTag<Item> SPELL_PAGES_ITEMS = ItemTags.makeWrapperTag("spell_pages");
+		public static final INamedTag<Block> DUPE_GLITCH_BLOCKS = BlockTags.makeWrapperTag("dupe_blocks");
 	}
 }
