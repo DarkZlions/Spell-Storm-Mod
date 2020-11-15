@@ -14,8 +14,10 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
 public class BottledSoulsItem extends Item implements IStoreMana, IHasSoul {
@@ -46,9 +48,11 @@ public class BottledSoulsItem extends Item implements IStoreMana, IHasSoul {
 			StringTextComponent text1 = new StringTextComponent(String.valueOf(Lib.TextComponents.SOULCATCHER_MOB_HAS.getString()));
 			String text2 = new String(FormattingHelper.GetSourceColor(this.getSource(stack)) + FormattingHelper.GetFontFormat(this.getSource(stack)) + this.getSource(stack).getSourceName().getString());
 			String value = String.valueOf((int) Math.ceil(((MobEntity)this.getEntityType(stack).create(worldIn)).getHealth()));
+			IFormattableTextComponent manaValue = new StringTextComponent(String.valueOf(this.getManaValue(stack, this.getSource(stack).getId()))).mergeStyle(TextFormatting.LIGHT_PURPLE);
 			
 			tooltip.add(entityName);
 			tooltip.add(text1.appendString(value + " " + text2).appendString(" " + Lib.TextComponents.MANA.getString()));
+			tooltip.add(new StringTextComponent("").append(manaValue).append(new StringTextComponent("/")).appendString(value).append(new StringTextComponent(Lib.TextComponents.MANA_LEFT.getString()).mergeStyle(TextFormatting.RESET)));
 			
 		} else {
 			
@@ -101,5 +105,15 @@ public class BottledSoulsItem extends Item implements IStoreMana, IHasSoul {
 	public boolean hasMagicSource(ItemStack stackIn, MagicSource sourceIn) {
 		Lib.LOGGER.debug(this.getMagicSourceList(stackIn).contains(sourceIn));
 		return this.getMagicSourceList(stackIn).contains(sourceIn);
+	}
+	
+	@Override
+	public boolean canChangeToEmpty(ItemStack stackIn) {
+		return stackIn.getItem() == this && this.getManaValue(stackIn, this.getSource(stackIn).getId()) <= 0;
+	}
+	
+	@Override
+	public ItemStack getChangedEmptyItem(ItemStack stackIn) {
+		return new ItemStack(Items.GLASS_BOTTLE);
 	}
 }

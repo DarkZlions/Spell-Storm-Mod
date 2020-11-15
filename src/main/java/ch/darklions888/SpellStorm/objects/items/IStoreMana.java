@@ -38,15 +38,23 @@ public interface IStoreMana {
 		return true;
 	}
 	
+	default boolean canChangeToEmpty(ItemStack stackIn) {
+		return false;
+	}
+	
+	default ItemStack getChangedEmptyItem(ItemStack stackIn) {
+		return stackIn;
+	}
+	
 	/*
-	 *  TODO: Rework the magicsources
+	 *  TODO: Rework the magicsources, store every thing in the itemstack instead in the class
 	 */
 	default List<MagicSource> getMagicSources(ItemStack stackIn) {
 		return new ArrayList<MagicSource>();
 	}
 	
 	default void setMagicSources(ItemStack stackIn, List<MagicSource> sourceList) {
-		
+		return;
 	}
 	
 	int getMaxMana(ItemStack stackIn);

@@ -91,10 +91,10 @@ public class ManaInfuserContainer extends Container {
 						ItemStack sm = ManaInfuserContainer.this.inputSlots.getStackInSlot(0);
 						IStoreMana storeMana = (IStoreMana) sm.getItem();
 
-						for (MagicSource ms : storeMana.getMagicSourceList(storeManaStack)) {
+						storeMana.getMagicSourceList(storeManaStack).forEach((ms) -> {
 							if (container.hasMagicSource(storeManaStack, ms))
 								container.addManaValue(storeManaStack, ms.getId(), -manaCost.get(ms));
-						}
+						});
 
 						ManaInfuserContainer.this.inputSlots.setInventorySlotContents(1, storeManaStack);
 						ManaInfuserContainer.this.inputSlots.setInventorySlotContents(0, ItemStack.EMPTY);
@@ -118,8 +118,21 @@ public class ManaInfuserContainer extends Container {
 
 						ManaInfuserContainer.this.inputSlots.setInventorySlotContents(0, ItemStack.EMPTY);
 					}
+					
+					if (chargeableStack.getItem() instanceof IStoreMana) {
+						IStoreMana storeItem = (IStoreMana) chargeableStack.getItem();
+						if (storeItem.canChangeToEmpty(chargeableStack)) {
+							ManaInfuserContainer.this.inputSlots.setInventorySlotContents(1, storeItem.getChangedEmptyItem(chargeableStack));
+						}
+					}
+					if (storeManaStack.getItem() instanceof IStoreMana) {
+						IStoreMana storeItem = (IStoreMana) storeManaStack.getItem();
+						if (storeItem.canChangeToEmpty(storeManaStack)) {
+							ManaInfuserContainer.this.inputSlots.setInventorySlotContents(1, storeItem.getChangedEmptyItem(storeManaStack));
+						}
+					}
 				}
-
+				
 				itemCost = 0;
 				ManaInfuserContainer.this.outputSlots.setInventorySlotContents(2, ItemStack.EMPTY);
 				return stack;
