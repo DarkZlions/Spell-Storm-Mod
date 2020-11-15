@@ -43,8 +43,11 @@ public enum MagicSource {
 			return LIGHTMAGIC;
 		case "unknown":
 			return UNKNOWNMAGIC;
-		default:
+		case "neutral":
 			return NEUTRALMAGIC;
+			
+		default:
+			return null;
 		}
 	}
 	
@@ -60,5 +63,10 @@ public enum MagicSource {
 		default:
 			return 0xFFFFFF;
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return this.sourceId;
 	}
 }
