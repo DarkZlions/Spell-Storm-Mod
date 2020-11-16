@@ -1,7 +1,5 @@
 package ch.darklions888.SpellStorm.objects.items;
 
-import java.util.List;
-
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.util.helpers.ItemNBTHelper;
 import net.minecraft.entity.Entity;

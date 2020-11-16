@@ -4,6 +4,7 @@ import static ch.darklions888.SpellStorm.lib.Lib.RegistryNames.*;
 
 import java.util.Random;
 
+import ch.darklions888.SpellStorm.lib.config.ConfigHandler;
 import ch.darklions888.SpellStorm.registries.BlockInit;
 import net.minecraft.block.trees.Tree;
 import net.minecraft.util.ResourceLocation;
@@ -27,9 +28,30 @@ public class MagicalTree extends Tree {
 	private static final ResourceLocation REGISTRY_NAME_NP = MAGICAL_TREE_REGISTRY_NAME_NP;
 	private static final ResourceLocation REGISTRY_NAME_WP = MAGICAL_TREE_REGISTRY_NAME_WP;
 	
-	public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> MAGIC_TREE_CONFIG_NO_PLACEMENT =  register(REGISTRY_NAME_NP, Feature.TREE.withConfiguration((new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(BlockInit.MAGICAL_WOOD_LOG.get().getDefaultState()), new SimpleBlockStateProvider(BlockInit.MAGICAL_LEAVES.get().getDefaultState()), new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3), new StraightTrunkPlacer(4, 2, 0), new TwoLayerFeature(1, 0, 1))).build()));
-	
-	public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> MAGIC_TREE_CONFIG_WITH_PLACEMENT =  (ConfiguredFeature<BaseTreeFeatureConfig, ?>) registerPlacement(REGISTRY_NAME_WP, Feature.TREE.withConfiguration((new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(BlockInit.MAGICAL_WOOD_LOG.get().getDefaultState()),new SimpleBlockStateProvider(BlockInit.MAGICAL_LEAVES.get().getDefaultState()),new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3),new StraightTrunkPlacer(4, 2, 0), new TwoLayerFeature(1, 0, 1))).build()).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(Placement.field_242902_f.configure(new AtSurfaceWithExtraConfig(0, 0.01f, 1))));
+	public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> MAGIC_TREE_CONFIG_NO_PLACEMENT = register(
+			REGISTRY_NAME_NP,
+			Feature.TREE.withConfiguration((new BaseTreeFeatureConfig.Builder(
+					new SimpleBlockStateProvider(BlockInit.MAGICAL_WOOD_LOG.get().getDefaultState()),
+					new SimpleBlockStateProvider(BlockInit.MAGICAL_LEAVES.get().getDefaultState()),
+					new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3),
+					new StraightTrunkPlacer(4, 2, 0), new TwoLayerFeature(1, 0, 1))).build()));
+
+	public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> MAGIC_TREE_CONFIG_WITH_PLACEMENT = (ConfiguredFeature<BaseTreeFeatureConfig, ?>) registerPlacement(
+			REGISTRY_NAME_WP,
+			Feature.TREE
+					.withConfiguration((new BaseTreeFeatureConfig.Builder(
+							new SimpleBlockStateProvider(BlockInit.MAGICAL_WOOD_LOG.get().getDefaultState()),
+							new SimpleBlockStateProvider(BlockInit.MAGICAL_LEAVES.get().getDefaultState()),
+							new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3),
+							new StraightTrunkPlacer(4, 2, 0), 
+							new TwoLayerFeature(1, 0, 1)))
+					.build())
+					.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
+					.withPlacement(Placement.field_242902_f
+							.configure(new AtSurfaceWithExtraConfig(
+									ConfigHandler.COMMON.magicalTreeGen_count.get(),
+									ConfigHandler.COMMON.magicalTreeGen_extraChance.get().floatValue(),
+									ConfigHandler.COMMON.magicalTreeGen_extraCount.get()))));
 
 	@Override
 	protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getTreeFeature(Random randomIn, boolean b) {

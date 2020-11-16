@@ -3,6 +3,7 @@ package ch.darklions888.SpellStorm.objects.items.spells;
 import java.util.List;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
+import ch.darklions888.SpellStorm.lib.config.ConfigHandler;
 import ch.darklions888.SpellStorm.util.helpers.mathhelpers.MathHelpers;
 import ch.darklions888.SpellStorm.util.helpers.mathhelpers.Vec3;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,7 +21,8 @@ import net.minecraft.world.server.ServerWorld;
 public class PageOfFallingRocks extends AbstractPageItem {
 
 	public PageOfFallingRocks(Properties properties) {
-		super(120, MagicSource.UNKNOWNMAGIC, 30, TextFormatting.BLACK, true, properties);
+		super(ConfigHandler.COMMON.pageOfFallingRocks_maxMana.get(), MagicSource.UNKNOWNMAGIC, ConfigHandler.COMMON.pageOfFallingRocks_manaConsumption.get(), TextFormatting.BLACK, true, properties);
+		this.coolDownTick = ConfigHandler.COMMON.pageOfFallingRocks_coolDownDuration.get();
 	}
 
 	@Override
@@ -31,6 +33,7 @@ public class PageOfFallingRocks extends AbstractPageItem {
 	@Override
 	public ActionResult<ItemStack> getAbilities(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack stack, ItemStack bookIn) {
 		if (worldIn.isRemote) {
+			
 			return ActionResult.resultPass(stack);
 		} else {
 			double x = playerIn.getPosX();
@@ -51,16 +54,14 @@ public class PageOfFallingRocks extends AbstractPageItem {
 				entity.accelerationX = 0;
 				entity.accelerationY = -0.15d;
 				entity.accelerationZ = 0;
-				entity.explosionPower = 8;
+				entity.explosionPower = ConfigHandler.COMMON.pageOfFallingRocks_explosionPower.get();
 
 				worldIn.addEntity(entity);
 
 				if (!playerIn.isCreative())
 					this.consumMana(stack, defaultManaSource);
 				
-				int cooldDownTick = 25;
-				
-				this.setCooldown(playerIn, cooldDownTick, stack, bookIn);
+				this.setCooldown(playerIn, stack, bookIn);
 
 				return ActionResult.resultSuccess(stack);
 			} else {

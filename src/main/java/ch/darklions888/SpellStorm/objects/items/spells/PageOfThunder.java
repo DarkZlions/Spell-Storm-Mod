@@ -3,6 +3,7 @@ package ch.darklions888.SpellStorm.objects.items.spells;
 import java.util.List;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
+import ch.darklions888.SpellStorm.lib.config.ConfigHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -20,7 +21,8 @@ public class PageOfThunder extends AbstractPageItem
 {
 	
 	public PageOfThunder(Properties properties) {
-		super(240, MagicSource.LIGHTMAGIC, 2, TextFormatting.GOLD, true, properties);
+		super(ConfigHandler.COMMON.pageOfThunder_maxMana.get(), MagicSource.LIGHTMAGIC, ConfigHandler.COMMON.pageOfThunder_manaConsumption.get(), TextFormatting.GOLD, true, properties);
+		this.maxRange = ConfigHandler.COMMON.pageOfThunder_maxRange.get();
 	}
 
 	@Override
@@ -38,9 +40,12 @@ public class PageOfThunder extends AbstractPageItem
 		} else {
 			
 			if (playerIn.isCreative() || this.getManaValue(stack, this.defaultManaSource.getId()) >= this.manaConsumption) {
+				
+				int r = this.maxRange;
+				
 				List<LivingEntity> entityList = worldIn.getEntitiesWithinAABB(LivingEntity.class,
-						new AxisAlignedBB(playerIn.getPosX() - 10, playerIn.getPosY() - 10, playerIn.getPosZ() - 10,
-								playerIn.getPosX() + 10, playerIn.getPosY() + 10, playerIn.getPosZ() + 10));
+						new AxisAlignedBB(playerIn.getPosX() - r, playerIn.getPosY() - r, playerIn.getPosZ() - r,
+								playerIn.getPosX() + r, playerIn.getPosY() + r, playerIn.getPosZ() + r));
 
 				ServerWorld serverworld = (ServerWorld) worldIn;
 				

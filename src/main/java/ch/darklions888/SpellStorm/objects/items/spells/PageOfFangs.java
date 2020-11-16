@@ -3,6 +3,7 @@ package ch.darklions888.SpellStorm.objects.items.spells;
 import java.util.List;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
+import ch.darklions888.SpellStorm.lib.config.ConfigHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,7 +22,9 @@ import net.minecraft.world.World;
 public class PageOfFangs extends AbstractPageItem {
 
 	public PageOfFangs(Properties properties) {
-		super(400, MagicSource.DARKMAGIC, 4, TextFormatting.DARK_GRAY, true, properties);
+		super(ConfigHandler.COMMON.pageOfAggression_maxMana.get(), MagicSource.DARKMAGIC, ConfigHandler.COMMON.pageOfAggression_manaConsumption.get(), TextFormatting.DARK_GRAY, true, properties);
+		this.coolDownTick = ConfigHandler.COMMON.pageOfFangs_coolDownDuration.get();
+		this.maxRange = ConfigHandler.COMMON.pageOfFangs_maxRange.get();
 	}
 
 	@Override
@@ -32,7 +35,8 @@ public class PageOfFangs extends AbstractPageItem {
 		} else {
 			
 			if (this.canCast(stackIn, playerIn)) {
-				List<LivingEntity> entityList = worldIn.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(playerIn.getPosX() - 10, playerIn.getPosY() - 1, playerIn.getPosZ() - 10, playerIn.getPosX() + 10, playerIn.getPosY() + 3, playerIn.getPosZ() + 10));
+				int r = this.maxRange;
+				List<LivingEntity> entityList = worldIn.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(playerIn.getPosX() - r, playerIn.getPosY() - 1, playerIn.getPosZ() - r, playerIn.getPosX() + r, playerIn.getPosY() + 2, playerIn.getPosZ() + r));
 				
 				if (entityList.size() > 1) {
 					
@@ -42,7 +46,7 @@ public class PageOfFangs extends AbstractPageItem {
 					}
 					if (!playerIn.isCreative()) this.consumMana(stackIn, defaultManaSource);
 					
-					this.setCooldown(playerIn, 30, stackIn, bookIn);
+					this.setCooldown(playerIn, stackIn, bookIn);
 					return ActionResult.resultSuccess(stackIn);
 				} else {
 					return ActionResult.resultPass(stackIn);

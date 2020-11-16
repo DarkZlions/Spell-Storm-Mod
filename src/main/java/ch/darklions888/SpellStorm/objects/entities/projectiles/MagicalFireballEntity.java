@@ -1,6 +1,5 @@
 package ch.darklions888.SpellStorm.objects.entities.projectiles;
 
-import ch.darklions888.SpellStorm.lib.Lib;
 import ch.darklions888.SpellStorm.registries.EntityInit;
 import ch.darklions888.SpellStorm.registries.ItemInit;
 import net.minecraft.block.AbstractFireBlock;
@@ -32,6 +31,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 @OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
 public class MagicalFireballEntity extends DamagingProjectileEntity implements IRendersAsItem {
 	
+	private float damageValue = 8.0f;
 	
 	public MagicalFireballEntity(EntityType<? extends MagicalFireballEntity> entityTypeIn, World worldIn) {
 		super(entityTypeIn, worldIn);
@@ -61,11 +61,13 @@ public class MagicalFireballEntity extends DamagingProjectileEntity implements I
 		return new ItemStack(ItemInit.MAGICAL_FIREBALL.get());
 	}
 	
+	public void setDamage(float damageValue) {
+		this.damageValue = damageValue;
+	}
+	
 	@Override
 	protected void onEntityHit(EntityRayTraceResult result) {
 		super.onEntityHit(result);
-		
-		float damageValue = 8.0f;
 		
 		if (!this.world.isRemote()) {
 			Entity entity = result.getEntity();
@@ -75,7 +77,7 @@ public class MagicalFireballEntity extends DamagingProjectileEntity implements I
 			entity.setFire(7);
 			boolean canAttack = false;
 			Entity shooter = this.func_234616_v_();
-			Lib.LOGGER.debug(shooter);
+
 			if (shooter != null) {
 				if (shooter instanceof PlayerEntity)
 					entity.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity)shooter), damageValue);

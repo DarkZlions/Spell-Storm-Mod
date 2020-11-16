@@ -1,6 +1,7 @@
 package ch.darklions888.SpellStorm.objects.items.spells;
 
 import ch.darklions888.SpellStorm.lib.Lib.Tags;
+import ch.darklions888.SpellStorm.lib.config.ConfigHandler;
 import ch.darklions888.SpellStorm.lib.MagicSource;
 import ch.darklions888.SpellStorm.registries.ItemInit;
 import ch.darklions888.SpellStorm.util.helpers.mathhelpers.RayTraceHelper;
@@ -24,9 +25,11 @@ import net.minecraft.world.server.ServerWorld;
 
 public class PageOfMining extends AbstractPageItem {
 
-
+	private double miningRange = 10.0d;
+	
 	public PageOfMining(Properties properties) {
-		super(1500, MagicSource.NEUTRALMAGIC, 1, TextFormatting.DARK_GRAY, true, properties);
+		super(ConfigHandler.COMMON.pageOfMining_maxMana.get(), MagicSource.NEUTRALMAGIC, ConfigHandler.COMMON.pageOfMining_manaConsumption.get(), TextFormatting.DARK_GRAY, true, properties);
+		this.miningRange = ConfigHandler.COMMON.pageOfMining_miningRange.get();
 	}
 
 	@Override
@@ -45,7 +48,7 @@ public class PageOfMining extends AbstractPageItem {
 				
 				ServerWorld serverWorld = (ServerWorld) worldIn;
 				
-				BlockRayTraceResult  result = (BlockRayTraceResult)RayTraceHelper.CustomrayTrace(worldIn, playerIn, FluidMode.NONE, 10d);
+				BlockRayTraceResult  result = (BlockRayTraceResult)RayTraceHelper.CustomrayTrace(worldIn, playerIn, FluidMode.NONE, this.miningRange);
 				
 				if (result != null && result.getType() == RayTraceResult.Type.BLOCK) {
 					BlockPos pos = result.getPos();

@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 
 import com.google.common.collect.Lists;
 
+import ch.darklions888.SpellStorm.lib.config.ConfigHandler;
 import ch.darklions888.SpellStorm.world.gen.biome.trees.MagicalTree;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -29,9 +30,20 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 @SuppressWarnings({ "unchecked", "deprecation" })
 public class WorldFeatureInit {
+	
+	private static final int crystalOre_veinCount = ConfigHandler.COMMON.crystalOre_veinCount.get();
+	private static final int crystalOre_veinSize = ConfigHandler.COMMON.crystalOre_veinSize.get();
+	private static final int crystalOre_minY = ConfigHandler.COMMON.crystalOre_minY.get();
+	private static final int crystalOre_maxY = ConfigHandler.COMMON.crystalOre_maxY.get();
+	
+	private static final int corruptedCrystalOre_veinCount = ConfigHandler.COMMON.corruptedCrystalOre_veinCount.get();
+	private static final int corruptedCrystalOre_veinSize = ConfigHandler.COMMON.corruptedCrystalOre_veinSize.get();
+	private static final int corruptedCrystalOre_minY = ConfigHandler.COMMON.corruptedCrystalOre_minY.get();
+	private static final int corruptedCrystalOre_maxY = ConfigHandler.COMMON.corruptedCrystalOre_maxY.get();
+	
 	public static void init() {
-		registerOreConfig(1, 5, 2, 15, BlockInit.CRYSTAL_ORE.get(), OreFeatureConfig.FillerBlockType.field_241882_a);
-		registerOreConfig(2, 4, 5, 35, BlockInit.CORRUPTED_CRYSTAL_ORE.get(), new BlockMatchRuleTest(Blocks.END_STONE));
+		registerOreConfig(crystalOre_veinCount, crystalOre_veinSize, crystalOre_minY, crystalOre_maxY, BlockInit.CRYSTAL_ORE.get(), OreFeatureConfig.FillerBlockType.field_241882_a);
+		registerOreConfig(corruptedCrystalOre_veinCount, corruptedCrystalOre_veinSize, corruptedCrystalOre_minY, corruptedCrystalOre_maxY, BlockInit.CORRUPTED_CRYSTAL_ORE.get(), new BlockMatchRuleTest(Blocks.END_STONE));
 	}
 	
 	public static void setup() {
@@ -78,8 +90,7 @@ public class WorldFeatureInit {
 		}
 	}
 
-	public static void addFeatureToBiome(Biome biome, GenerationStage.Decoration decoration,
-			ConfiguredFeature<?, ?> configuredFeature) {
+	public static void addFeatureToBiome(Biome biome, GenerationStage.Decoration decoration, ConfiguredFeature<?, ?> configuredFeature) {
 		List<List<Supplier<ConfiguredFeature<?, ?>>>> biomeFeatures = new ArrayList<>(biome.getGenerationSettings().getFeatures());
 		while (biomeFeatures.size() <= decoration.ordinal()) {
 			biomeFeatures.add(Lists.newArrayList());

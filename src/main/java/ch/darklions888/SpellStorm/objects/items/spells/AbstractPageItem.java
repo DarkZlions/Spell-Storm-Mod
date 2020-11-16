@@ -30,6 +30,8 @@ public abstract class AbstractPageItem extends Item implements IMagicalPageItem,
 	protected int manaConsumption;
 	protected final TextFormatting format;
 	protected final boolean hasEffect;
+	protected int coolDownTick = 0;
+	protected int maxRange = 0;
 	
 	public AbstractPageItem(int size, MagicSource source, int manaConsumption, TextFormatting format, boolean hasEffect, Properties properties)
 	{
@@ -105,6 +107,10 @@ public abstract class AbstractPageItem extends Item implements IMagicalPageItem,
 			if (i != null)
 				playerIn.getCooldownTracker().setCooldown(i.getItem(), coolDownTicks);
 		}
+	}
+	
+	protected void setCooldown(PlayerEntity playerIn, ItemStack ... itemIn) {
+		this.setCooldown(playerIn, this.coolDownTick, itemIn);
 	}
 	
 	@Override

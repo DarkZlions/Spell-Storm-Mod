@@ -1,6 +1,7 @@
 package ch.darklions888.SpellStorm.objects.items.spells;
 
 import ch.darklions888.SpellStorm.lib.MagicSource;
+import ch.darklions888.SpellStorm.lib.config.ConfigHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.DragonFireballEntity;
 import net.minecraft.item.ItemStack;
@@ -17,7 +18,7 @@ public class PageOfDragonBall extends AbstractPageItem {
 
 
 	public PageOfDragonBall(Properties properties) {
-		super(120, MagicSource.UNKNOWNMAGIC, 2, TextFormatting.DARK_PURPLE, true, properties);
+		super(ConfigHandler.COMMON.pageOfDragonBall_maxMana.get(), MagicSource.UNKNOWNMAGIC, ConfigHandler.COMMON.pageOfDragonBall_manaConsumption.get(), TextFormatting.DARK_PURPLE, true, properties);
 	}
 
 	@Override
