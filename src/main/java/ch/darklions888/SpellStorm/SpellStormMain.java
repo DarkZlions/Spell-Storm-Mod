@@ -3,9 +3,11 @@ package ch.darklions888.SpellStorm;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import ch.darklions888.SpellStorm.client.ClientSideSetup;
 import ch.darklions888.SpellStorm.client.proxy.ClientProxy;
 import ch.darklions888.SpellStorm.data.DataGenerators;
 import ch.darklions888.SpellStorm.lib.Lib;
+import ch.darklions888.SpellStorm.lib.config.ConfigHandler;
 import ch.darklions888.SpellStorm.network.PacketHandler;
 import ch.darklions888.SpellStorm.registries.BlockInit;
 import ch.darklions888.SpellStorm.registries.ContainerTypesInit;
@@ -23,12 +25,15 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLPaths;
 
 @Mod(Lib.MOD_ID)
 @Mod.EventBusSubscriber(modid = Lib.MOD_ID, bus = Bus.MOD)
@@ -48,6 +53,8 @@ public class SpellStormMain {
 		Bus.addListener(this::CommonSetup);
 		Bus.addListener(this::ClientSetup);
 		Bus.addListener(DataGenerators::gatherData);
+		
+		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHandler.COMMON_SPEC);
 				
 		BlockInit.REGISTER_BLOCKS.register(Bus);
 		SoundInit.REGISTER_SOUNDS.register(Bus);
@@ -59,14 +66,8 @@ public class SpellStormMain {
 		TileEntityInit.REGISTER_TILEENTITIES.register(Bus);
 		EffectInit.REGISTER_EFFECTS.register(Bus);
 		
-		/*
-		ConfigHandler.init(ConfigHandler.SERVER_BUILDER, ConfigHandler.CLIENT_BUILDER);
-		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ConfigHandler.SERVER_CONFIG);
-		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigHandler.CLIENT_CONFIG);
+		ConfigHandler.loadConfig(ConfigHandler.COMMON_SPEC, FMLPaths.CONFIGDIR.get().resolve("spellstorm-common.toml").toString());
 		
-		ConfigHandler.loadConfig(ConfigHandler.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve(Lib.MOD_ID + "-client.toml").toString());
-		ConfigHandler.loadConfig(ConfigHandler.SERVER_CONFIG, FMLPaths.CONFIGDIR.get().resolve(Lib.MOD_ID + "-server.toml").toString());
-		*/
 		SpellStormMain.INSTANCE = this;
 		MinecraftForge.EVENT_BUS.register(this);
 	}
@@ -80,6 +81,7 @@ public class SpellStormMain {
 
 	@SubscribeEvent
 	public void ClientSetup(FMLClientSetupEvent event) {
+		ClientSideSetup.clientSetup(event);
 	}
 
 	@SubscribeEvent
