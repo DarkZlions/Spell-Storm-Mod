@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.IPacket;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.IndirectEntityDamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -79,10 +80,7 @@ public class MagicalFireballEntity extends DamagingProjectileEntity implements I
 			Entity shooter = this.func_234616_v_();
 
 			if (shooter != null) {
-				if (shooter instanceof PlayerEntity)
-					entity.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity)shooter), damageValue);
-				else if (shooter instanceof LivingEntity)
-					entity.attackEntityFrom(DamageSource.causeMobDamage((LivingEntity) shooter), damageValue);
+				entity.attackEntityFrom((new IndirectEntityDamageSource("fireball", entity, shooter)).setProjectile(), damageValue);
 			}
 			else	
 				canAttack= entity.attackEntityFrom(DamageSource.MAGIC, damageValue);
