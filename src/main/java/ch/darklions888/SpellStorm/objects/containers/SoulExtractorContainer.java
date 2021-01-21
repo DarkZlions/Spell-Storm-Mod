@@ -1,10 +1,12 @@
 package ch.darklions888.SpellStorm.objects.containers;
 
+import ch.darklions888.SpellStorm.SpellStormMain;
 import ch.darklions888.SpellStorm.objects.items.IHasSoul;
 import ch.darklions888.SpellStorm.objects.items.SoulCatcherItem;
 import ch.darklions888.SpellStorm.registries.BlockInit;
 import ch.darklions888.SpellStorm.registries.ContainerTypesInit;
 import ch.darklions888.SpellStorm.registries.ItemInit;
+import jdk.internal.org.jline.utils.Log;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -46,7 +48,7 @@ public class SoulExtractorContainer extends Container {
 		this.addSlot(new Slot(this.inputslots, 1, 48, 13) {
 
 			public boolean isItemValid(ItemStack stackIn) {
-				return true;
+				return stackIn.getItem() == Items.GLASS_BOTTLE;
 			}
 		});
 
