@@ -46,7 +46,7 @@ public class SoulExtractorContainer extends Container {
 		this.addSlot(new Slot(this.inputslots, 1, 48, 13) {
 
 			public boolean isItemValid(ItemStack stackIn) {
-				return true;
+				return stackIn.getItem() == Items.GLASS_BOTTLE;
 			}
 		});
 
